@@ -4,6 +4,7 @@ const colors = require('colors');
 
 const dbData = require('./db');
 const mongo = require('../../utils/mongo');
+const { hash } = require('../../utils/encryption');
 const mongoDB = mongo(path.resolve(__dirname, '../../models'));
 
 // 1. 脚本开始
@@ -37,7 +38,10 @@ const initUser = async () => {
   console.log(colors.green(`\n----- 开始初始化 ${model} -----\n`));
   try {
     const roles = await mongoDB.Role.find({ name: { $in: data.map(v => v.role) } });
-    data.forEach( item => (item.role = roles.find(v => v.name === item.role).id));
+    data.forEach( item => {
+      item.password = hash({ data: item.password });
+      item.role = roles.find(v => v.name === item.role).id;
+    });
     await mongoDB[model].remove({});
     await mongoDB[model].insertMany(data);
     console.log(colors.green(`\n----- 初始化数据完成 ${model} -----\n`));

@@ -4,6 +4,9 @@ const colors = require('colors');
 const config = require('../../config/system');
 const start = colors.red(`[*${moment().format('YYYY-MM-DDD:HH:mm:ss')}*]`);
 
+// 操作名称_黑名单操作: operationName 存在于列表中的请求将不会打印
+const OPERATION_NAME_BACL_LIST = ['IntrospectionQuery'];
+
 /**
  * 打印字符图案
  */
@@ -56,7 +59,7 @@ printResponseData = (ctx) => {
 
 module.exports = async (ctx, next) => {
   await next();
-  if (ctx.request.url !== config.graphql.path){
+  if (!OPERATION_NAME_BACL_LIST.includes(ctx.request.body.operationName)){
     printStart();
     printRequestData(ctx);
     printResponseData(ctx);
