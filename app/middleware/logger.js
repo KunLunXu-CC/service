@@ -25,7 +25,6 @@ const printStart = () => {
  * @param {Object} ctx 上下文
  */
 const printRequestData = (ctx) => {
-  if (ctx.request.url === config.graphql.path) {return false;}
   const body = ctx.request.body;
   let queryDoc = body.query || '';
   body.query && delete body.query;
@@ -44,7 +43,6 @@ const printRequestData = (ctx) => {
  */
 
 printResponseData = (ctx) => {
-  if (ctx.request.url === config.graphql.path) {return false;}
   let body = {};
   try {
     body = _.isString(ctx.body) ? JSON.parse(ctx.body) : ctx.body;
@@ -57,9 +55,10 @@ printResponseData = (ctx) => {
 }
 
 module.exports = async (ctx, next) => {
-
   await next();
-  printStart();
-  printRequestData(ctx);
-  printResponseData(ctx);
+  if (ctx.request.url !== config.graphql.path){
+    printStart();
+    printRequestData(ctx);
+    printResponseData(ctx);
+  }
 }
