@@ -3,9 +3,6 @@ const { RESCODE } = require('../../../config/conts');
 const { defaultUser } = require('../../../config/system');
 const { hash, decryptRsa, signJwt, verifyJwt } = require('../../../utils/encryption');
 
-// 在响应请求头中 token 的键值
-const TOKEN_HEADER_KEY = 'cache-token';
-
 /**
  * 获取用户信息
  * @param {String} account    账号
@@ -15,8 +12,7 @@ const TOKEN_HEADER_KEY = 'cache-token';
  */
 const getUserInfo = async ({ account, password, ctx }) => {
   const userServer = ctx.db.mongo.User;
-  const token = ctx.request.header[TOKEN_HEADER_KEY];
-
+  const token = ctx.request.header.authorization;
   if (!!account && !!password){
     // 1. 进行账号密码验证
     const decryptPassword = hash({ data: decryptRsa(password) });
@@ -51,7 +47,7 @@ const sendCertificate = ({ user, ctx }) => {
     role: user.role,
     account: user.account,
   });
-  ctx.set(TOKEN_HEADER_KEY, token);
+  ctx.set('Authorization', token);
 };
 
 /**

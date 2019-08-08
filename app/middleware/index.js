@@ -2,9 +2,11 @@
 const bodyParser = require('koa-bodyparser');
 const staticServe = require('koa-static');
 const logger = require('./logger');
+const cross = require('./cross');
 const path = require('path');
-
 module.exports = (app) => {
+  // 跨域设置
+  app.use(cross);
   // 日志
   app.use(logger);
   // 解析 body
