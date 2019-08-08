@@ -1,4 +1,5 @@
 const { BOOLEAN } = require('../../config/conts');
+const { defaultUser } = require('../../config/system');
 
 module.exports = {
   Role: [
@@ -20,9 +21,9 @@ module.exports = {
   User: [
     {
       name: '游客',
-      account: 'tourist',
       password: '111111',
       role: 'tourist',
+      account: defaultUser,
     },
     {
       name: '管理员',

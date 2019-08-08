@@ -1,41 +1,83 @@
 const _ = require('lodash');
-
 const { RESCODE } = require('../../../config/conts');
-const { hash, decryptRsa } = require('../../../utils/encryption');
+const { defaultUser } = require('../../../config/system');
+const { hash, decryptRsa, signJwt, verifyJwt } = require('../../../utils/encryption');
+
+// 在响应请求头中 token 的键值
+const TOKEN_HEADER_KEY = 'cache-token';
 
 /**
- * 用户登录
+ * 获取用户信息
+ * @param {String} account    账号
+ * @param {String} password   密码
+ * @param {Object} ctx        koa 上下文
+ * @returns {Object}          返回用户登录状态(用户信息 || null)
+ */
+const getUserInfo = async ({ account, password, ctx }) => {
+  const userServer = ctx.db.mongo.User;
+  const token = ctx.request.header[TOKEN_HEADER_KEY];
+
+  if (!!account && !!password){
+    // 1. 进行账号密码验证
+    const decryptPassword = hash({ data: decryptRsa(password) });
+    return await userServer.findOne({ password: decryptPassword, account});
+  } else if (token){
+    // 2. 进行 token 验证
+    const payload = await verifyJwt(token) || {};
+    return await userServer.findOne({ _id: payload.id });
+  }
+};
+
+/**
+ * 设置状态 ctx.state = {user, role};
+ * @param {Object} user             当前用户 
+ * @param {Object} ctx              koa 上下文
+ */
+const setState = async ({ user, ctx }) => {
+  const roleServer = ctx.db.mongo.Role;
+  user.role && (ctx.state.role = await roleServer.findOne({ _id: user.role }));
+  ctx.state.user = user;
+};
+
+/**
+ * 发送证书: 添加 token 至响应头
+ * @param {Object} user             当前用户 
+ * @param {Object} ctx              koa 上下文
+ */
+const sendCertificate = ({ user, ctx }) => {
+  const token = signJwt({
+    id: user.id,
+    name: user.name,
+    role: user.role,
+    account: user.account,
+  });
+  ctx.set(TOKEN_HEADER_KEY, token);
+};
+
+/**
+ * 用户登录入口
  * @param {String} account    账号
  * @param {String} password   密码
  * @param {Object} ctx        koa 上下文
  */
 module.exports = async ({ account, password, ctx }) => {
   const userServer = ctx.db.mongo.User;
-  const roleServer = ctx.db.mongo.Role;
-  const data = { user: {}, rescode: RESCODE.FAIL, message: '登录失败' };
-
-  // 1. 判断是否输入账号、密码： 有则进行账号密码验证
-  if (!!account && !!password){
-    const decryptPassword = decryptRsa(password);
-    if (!!decryptPassword){
-      const conds = { account, password: hash({ data: decryptPassword })};
-      data.user = await userServer.findOne(conds) || {};
-    };
-  }
-
-  // 2. 判断用户是否带有 token: 有则进行 token 验证
-  
-  // 3. 是否获取到当前用户信息: 成功则挂载用户信息到 ctx.state、并设置登录状态
-  if(!_.isEmpty(data.user)){
-    data.message = '登录失败';
+  const data = {
+    user: null,
+    message: '登录成功!',
+    rescode: RESCODE.SUCCESS,
+  };
+  // 1. 获取当前用户数据
+  data.user = await getUserInfo({ account, password, ctx });
+  // 2. 更新 data
+  if (!data.user){
     data.rescode = RESCODE.FAIL;
-    ctx.state.user = data.user;
+    data.user = await userServer.findOne({ account: defaultUser });
+    data.message = '账号密码错误或者身份凭证过期, 将以游客身份进行登录!';
   }
-
-  // 4. 判断用户是否绑定角色: 有则查询对应角色应挂载到 ctx.state
-  if (!_.isEmpty(data.user) && data.user.role){
-    ctx.state.role = await roleServer.findOne({ _id: data.user.role });
-  }
-
+  // 3. 设置状态 ctx.state.user ctx.state.role
+  await setState({ user: data.user, ctx });
+  // 4. 发送证书
+  sendCertificate({ user: data.user, ctx });
   return data;
 };

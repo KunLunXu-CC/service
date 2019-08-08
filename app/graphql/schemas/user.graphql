@@ -30,8 +30,8 @@ extend type Mutation {
   ): UserList
 
   login (
-    account: String!
-    password: String!
+    account: String
+    password: String
   ): Login
 
 }

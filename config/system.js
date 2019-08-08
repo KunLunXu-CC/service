@@ -10,7 +10,8 @@ const setting = {
       port: 27017,                    // 端口号
       host: '127.0.0.1',              // 主机
       database: 'blog',               // 数据库名
-    }
+    },
+    defaultUser: 'tourist',           // 默认用户(游客)账号
   },
   production: {}
 }
