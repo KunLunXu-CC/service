@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const gulp = require('gulp');
 const path = require('path');
 const colors = require('colors');
@@ -50,9 +51,33 @@ const initUser = async () => {
   }
 };
 
+// 5. 初始化标签
+const initTag = async () => {
+  const model = 'Tag';
+  const data = dbData[model];
+  // 递归方法
+  const recursion = async (list, parent) => {
+    for( const value of list ){
+      const { children, ...rest } = value;
+      const result = await mongoDB[model].insertMany({ ...rest, parent });
+      _.isArray(children) && children.length > 0 
+      ? await recursion(children, result[0].id)
+      : null
+    }
+  };
+  try {
+    await mongoDB[model].remove({}); 
+    await recursion(data);
+    console.log(colors.green(`\n----- 初始化数据完成 ${model} -----\n`));
+  } catch(e){
+    console.log(colors.green(`\n----- 初始化数据失败 ${model} -----\n`));
+  }
+};
+
 module.exports = gulp.series(
   start,
   initRole,
   initUser,
+  initTag,
   end,
 );
