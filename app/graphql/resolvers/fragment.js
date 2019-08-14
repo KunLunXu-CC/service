@@ -5,7 +5,7 @@ module.exports = {
     if (parents.creator){
       const data = await findOne({
         model: 'User',
-        parents: { id: parents.creator },
+        params: { id: parents.creator },
         ctx: context.ctx
       });
       return data.data;
@@ -18,7 +18,7 @@ module.exports = {
     if (parents.updater){
       const data = await findOne({
         model: 'User',
-        parents: { id: parents.updater },
+        params: { id: parents.updater },
         ctx: context.ctx
       });
       return data.data;

@@ -9,7 +9,7 @@ module.exports = {
       if (parents.parent){
         const data = await findOne({
           model: 'Tag',
-          parents: { id: parents.parent },
+          params: { id: parents.parent },
           ctx: context.ctx
         });
         return data.data;
