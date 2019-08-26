@@ -28,7 +28,7 @@ module.exports = {
         const data = await getList({
           model: 'Tag',
           ctx: context.ctx, 
-          params: { ids: parents.tags }
+          search: { ids: parents.tags }
         });
         return data.list;
       } else {
