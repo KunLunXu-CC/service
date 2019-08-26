@@ -5,15 +5,21 @@ const _ = require('lodash');
 
 /**
  * 通用删除（假删）方法
- * @param {String}  model   模型名称
- * @param {Object} ctx      koa 上下文
- * @param {Object} conds    要删除数据的查询条件
- * @param {Object} params   查询参数
- * @param {Object} page     分页信息
- * @param {Object} orderBy  排序
+ * @param {String}  model       模型名称
+ * @param {Object} ctx          koa 上下文
+ * @param {Object} conds        要删除数据的查询条件
+ * @param {Object} search       查询参数
+ * @param {Object} pagination   分页信息
+ * @param {Object} orderBy      排序
  */
-module.exports = async ({ model, ctx, conds, params, orderBy, page }) => {
-  const data = { rescode: RESCODE.SUCCESS, message: '删除成功', list: [], page: {}, stats: {}, change: []};
+module.exports = async ({ model, ctx, conds, search, orderBy, pagination }) => {
+  const data = { 
+    list: [], 
+    change: [],
+    pagination: {}, 
+    message: '删除成功', 
+    rescode: RESCODE.SUCCESS, 
+  };
   const server = ctx.db.mongo[model];
   const changeConds = getConditions(conds);
   let changeIds = [];
@@ -25,11 +31,10 @@ module.exports = async ({ model, ctx, conds, params, orderBy, page }) => {
     data.message = '删除失败';
   }
 
-  if (params){
-    const listData = await getList({ model, ctx, params, orderBy, page });
-    data.stats = listData.stats || {};
+  if (search){
+    const listData = await getList({ model, ctx, search, orderBy, pagination });
     data.list = listData.list || [];
-    data.page = listData.page || {};
+    data.pagination = listData.pagination || {};
   } 
   data.change = await server.find({_id: {$in: changeIds}});
   return data;

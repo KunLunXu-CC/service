@@ -1,14 +1,9 @@
 scalar Date
 
-scalar Page {
-  page: Int
-  pageSize: Int
-}
-
-type Stats{
-  # 统计
+scalar Pagination {
   total: Int
-  totalPage: Int
+  current: Int
+  pageSize: Int
 }
 
 input OrderBy {
@@ -18,15 +13,15 @@ input OrderBy {
 
 ## ********* 通用请求 ********
 
-type Query{
+type Query {
   options(
-    page: Page,
+    pagination: Pagination,
     model: String!, 
-    params: OptionsParams,
+    search: OptionsSearch,
   ): Options
 }
 
-type Mutation{
+type Mutation {
   # 占位符 
   _empty:String
 }
@@ -38,12 +33,11 @@ type Option {
 }
 
 type Options {
-  stats: Stats
   list: [Option]
-  page: Page
+  pagination: Pagination
 }
 
-input OptionsParams{
+input OptionsSearch {
   include: [ID!]
   name: String
   filter: [ID!]

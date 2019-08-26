@@ -4,7 +4,7 @@ const { creator, updater } = require('./fragment');
 
 module.exports = {
   Query: {
-    userList: async (parents, args, context, info) => {
+    users: async (parents, args, context, info) => {
       return await getList({ model: 'User', ...args, ctx: context.ctx });
     },
   },
@@ -32,7 +32,7 @@ module.exports = {
         const data = await findOne({ 
           model: 'Role', 
           ctx: context.ctx,
-          params: { id: parents.role }
+          search: { id: parents.role }
         });
         return data.data;
       } else {

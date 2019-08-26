@@ -3,7 +3,7 @@ const { creator, updater } = require('./fragment');
 
 module.exports = {
   Query: {
-    noteList: async (parents, args, context, info) => {
+    notes: async (parents, args, context, info) => {
       return await getList({ model: 'Note', ...args, ctx: context.ctx });
     },
   },

@@ -3,15 +3,21 @@ const getList = require('./getList');
 
 /**
  * 通用创建数据方法
- * @param {String}  model   模型名称
- * @param {Object}  ctx     koa上下文
- * @param {Array}   body    创建信息
- * @param {Object}  params  查询参数
- * @param {Object}  page    分页参数
- * @param {Object}  orderBy 排序
+ * @param {String}  model         模型名称
+ * @param {Object}  ctx           koa上下文
+ * @param {Array}   body          创建信息
+ * @param {Object}  search        查询参数
+ * @param {Object}  pagination    分页参数
+ * @param {Object}  orderBy       排序
  */
-module.exports = async ({ model, ctx, body, params, orderBy, page }) => {
-  const data = { rescode: RESCODE.SUCCESS, message: '创建成功', list: [], page: {}, stats: {}, change: []};
+module.exports = async ({ model, ctx, body, search, orderBy, pagination }) => {
+  const data = { 
+    list: [], 
+    change: [],
+    pagination: {}, 
+    message: '创建成功', 
+    rescode: RESCODE.SUCCESS, 
+  };
   const server = ctx.db.mongo[model];
   try {
     data.change = await server.insertMany(body.map(v => ({
@@ -23,11 +29,10 @@ module.exports = async ({ model, ctx, body, params, orderBy, page }) => {
     data.rescode = RESCODE.FAIL;
     data.message = '创建失败';
   }
-  if (params){
-    const listData = await getList({ model, ctx, params, orderBy, page });
-    data.stats = listData.stats || {};
+  if (search){
+    const listData = await getList({ model, ctx, search, orderBy, pagination });
     data.list = listData.list || [];
-    data.page = listData.page || {};
+    data.pagination = listData.pagination || {};
   } 
   return data;
 }

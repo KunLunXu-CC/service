@@ -1,33 +1,33 @@
 extend type Query {
-  userList(
+  users(
     orderBy: OrderBy
-    params: UserParams
-    page: Page
-  ): UserList
+    search: UserSearch
+    pagination: Pagination
+  ): users
 }
 
 extend type Mutation {
   createUsers(
-    body: [UpdateUser!]!
+    body: [UserFields!]!
     orderBy: OrderBy
-    params: UserParams
-    page: Page
-  ): UserList
+    search: UserSearch
+    pagination: Pagination
+  ): users
 
   removeUsers (
-    conds: UserParams! 
+    conds: UserSearch! 
     orderBy: OrderBy
-    params: UserParams
-    page: Page
-  ): UserList
+    search: UserSearch
+    pagination: Pagination
+  ): users
 
   updateUsers (
-    conds: UserParams!
-    body: UpdateUser!
+    conds: UserSearch!
+    body: UserFields!
     orderBy: OrderBy
-    params: UserParams
-    page: Page
-  ): UserList
+    search: UserSearch
+    pagination: Pagination
+  ): users
 
   login (
     account: String
@@ -42,13 +42,12 @@ type Login {
   message: String
 }
 
-type UserList {
+type users {
   list: [User]
-  stats: Stats
   change: [User]
   rescode: Int
   message: String
-  page: Page
+  pagination: Pagination
 }
 
 type User {
@@ -65,7 +64,7 @@ type User {
   creationTime: Date
 }
 
-input UserParams {
+input UserSearch {
   id: ID
   ids: [ID!]
   name: String
@@ -82,7 +81,7 @@ input UserParams {
   endCreationTime: Date
 }
 
-input UpdateUser {
+input UserFields {
   name: String
   account: String
   password: String

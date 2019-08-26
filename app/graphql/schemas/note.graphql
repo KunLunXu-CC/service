@@ -1,36 +1,36 @@
 extend type Query {
-  noteList(
+  notes(
     orderBy: OrderBy
-    params: NoteParams
-    page: Page
-  ): NoteList
+    search: NoteSearch
+    pagination: Pagination
+  ): Notes
 }
 
 extend type Mutation {
   createNotes(
-    body: [UpdateNote!]!
+    body: [NoteFields!]!
     orderBy: OrderBy
-    params: NoteParams
-    page: Page
-  ): NoteList
+    search: NoteSearch
+    pagination: Pagination
+  ): Notes
 
   removeNotes (
-    conds: NoteParams! 
+    conds: NoteSearch! 
     orderBy: OrderBy
-    params: NoteParams
-    page: Page
-  ): NoteList
+    search: NoteSearch
+    pagination: Pagination
+  ): Notes
 
   updateNotes (
-    conds: NoteParams!
-    body: UpdateNote!
+    conds: NoteSearch!
+    body: NoteFields!
     orderBy: OrderBy
-    params: NoteParams
-    page: Page
-  ): NoteList
+    search: NoteSearch
+    pagination: Pagination
+  ): Notes
 }
 
-input NoteParams {
+input NoteSearch {
   id: ID
   ids: [ID!]
   tag: ID
@@ -47,7 +47,7 @@ input NoteParams {
   status: [Int]
 }
 
-input UpdateNote{
+input NoteFields {
   name: String
   desc: String
   thumb: String
@@ -56,13 +56,12 @@ input UpdateNote{
 	status: Int
 }
 
-type NoteList{
+type Notes {
   list: [Note]
-  stats: Stats
   change: [Note]
   rescode: Int
   message: String
-  page: Page
+  pagination: Pagination
 }
 
 type Note {

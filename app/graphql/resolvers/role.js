@@ -3,7 +3,7 @@ const { creator, updater } = require('./fragment');
 
 module.exports = {
   Query: {
-    roleList: async (parents, args, context, info) => {
+    roles: async (parents, args, context, info) => {
       return await getList({ model: 'Role', ...args, ctx: context.ctx });
     },
   },

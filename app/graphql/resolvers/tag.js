@@ -9,7 +9,7 @@ module.exports = {
       if (parents.parent){
         const data = await findOne({
           model: 'Tag',
-          params: { id: parents.parent },
+          search: { id: parents.parent },
           ctx: context.ctx
         });
         return data.data;
@@ -20,7 +20,7 @@ module.exports = {
   },
 
   Query: {
-    tagList: async (parents, args, context, info) => {
+    tags: async (parents, args, context, info) => {
       return await getList({ model: 'Tag', ...args, ctx: context.ctx });
     },
   },

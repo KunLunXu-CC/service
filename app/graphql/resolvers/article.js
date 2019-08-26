@@ -3,7 +3,7 @@ const { creator, updater } = require('./fragment');
 
 module.exports = {
   Query: {
-    aticleList: async (parents, args, context, info) => {
+    aticles: async (parents, args, context, info) => {
       return await getList({ model: 'Article', ...args, ctx: context.ctx });
     },
   },
@@ -28,7 +28,7 @@ module.exports = {
         const data = await getList({
           model: 'Tag',
           ctx: context.ctx, 
-          params: {ids: parents.tags}
+          search: {ids: parents.tags}
         });
         return data.list;
       } else {

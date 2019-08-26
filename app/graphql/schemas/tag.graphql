@@ -1,50 +1,43 @@
 extend type Query{
-  tagList(
+  tags(
     orderBy: OrderBy
-    params: TagParams
-    page: Page
-  ): TagList
+    search: TagSearch
+    pagination: Pagination
+  ): Tags
 }
 
 extend type Mutation{
   removeTags (
-    conds: TagParams!
+    conds: TagSearch!
     orderBy: OrderBy
-    params: TagParams
-    page: Page
-  ): TagList
+    search: TagSearch
+    pagination: Pagination
+  ): Tags
 
   createTags (
-    body: [createTag!]!
+    body: [TagFields!]!
     orderBy: OrderBy
-    params: TagParams
-    page: Page
-  ): TagList
+    search: TagSearch
+    pagination: Pagination
+  ): Tags
 
   updateTags (
-    conds: TagParams!
-    body: UpdateTag!
+    conds: TagSearch!
+    body: TagFields!
     orderBy: OrderBy
-    params: TagParams
-    page: Page
-  ): TagList
+    search: TagSearch
+    pagination: Pagination
+  ): Tags
 }
 
-input UpdateTag {
+input TagFields {
   name: String
   parent: ID
   color: String
   icon: String
 }
 
-input createTag {
-  name: String!
-  parent: ID
-  color: String
-  icon: String
-}
-
-input TagParams {
+input TagSearch {
   id: ID
   ids: [ID!]
   parent: ID
@@ -60,13 +53,12 @@ input TagParams {
   status: [Int]
 }
 
-type TagList{
+type Tags{
   list: [Tag]
-  stats: Stats
   change: [Tag]
   rescode: Int
   message: String
-  page: Page
+  pagination: Pagination
 }
 
 type Tag {

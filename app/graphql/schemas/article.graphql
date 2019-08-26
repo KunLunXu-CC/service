@@ -1,35 +1,36 @@
 extend type Query {
-  aticleList(
+  aticles(
     orderBy: OrderBy
-    params: ArticleParams
-    page: Page
-  ): ArticleList
+    search: ArticleSearch
+    pagination: Pagination
+  ): Articles
 }
+
 extend type Mutation {
   createArticles(
-    body: [UpdateAticle!]!
+    body: [AticleFields!]!
     orderBy: OrderBy
-    params: ArticleParams
-    page: Page
-  ): ArticleList
+    search: ArticleSearch
+    pagination: Pagination
+  ): Articles
 
   removeArticles (
-    conds: ArticleParams! 
+    conds: ArticleSearch! 
     orderBy: OrderBy
-    params: ArticleParams
-    page: Page
-  ): ArticleList
+    search: ArticleSearch
+    pagination: Pagination
+  ): Articles
 
   updateArticles (
-    conds: ArticleParams!
-    body: UpdateAticle!
+    conds: ArticleSearch!
+    body: AticleFields!
     orderBy: OrderBy
-    params: ArticleParams
-    page: Page
-  ): ArticleList
+    search: ArticleSearch
+    pagination: Pagination
+  ): Articles
 }
 
-input ArticleParams {
+input ArticleSearch {
   id: ID
   ids: [ID!]
   tag: ID
@@ -46,7 +47,7 @@ input ArticleParams {
   status: [Int]
 }
 
-input UpdateAticle{
+input AticleFields {
   name: String
   desc: String
   thumb: String
@@ -55,13 +56,12 @@ input UpdateAticle{
 	status: Int
 }
 
-type ArticleList{
+type Articles {
   list: [Article]
-  stats: Stats
   change: [Article]
   rescode: Int
   message: String
-  page: Page
+  pagination: Pagination
 }
 
 type Article {
