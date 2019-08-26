@@ -28,8 +28,8 @@ module.exports = async ({ model, ctx, search, pagination, orderBy }) => {
   try {
     if (pagination){
       const sort = orderBy || {};
-      const skip = ( pagination.current - 1 ) * pagination.pageSize;
       const limit = pagination.pageSize;
+      const skip = ( pagination.current - 1 ) * pagination.pageSize;
       data.list = await server.find(conds).skip(skip).limit(limit).sort(sort);
     } else {
       data.list = await server.find(conds);

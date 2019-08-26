@@ -23,18 +23,18 @@ module.exports = async ({ model, ctx, conds, body, orderBy, search, pagination }
   const changeConds = getConditions(conds);
   let changeIds = [];
   try {
-    body.updateTime = Date.now();
     body.updater = null;
+    body.updateTime = Date.now();
     changeIds = (await server.find(changeConds)).map(v => v._id);
     await server.updateMany(changeConds, body, {});
   } catch (e) {
-    data.message = RESCODE.FAIL;
     data.message = '修改失败';
+    data.message = RESCODE.FAIL;
   }
   if (search){
     const listData = await getList({ model, ctx, search, pagination, orderBy });
-    data.list = listData.list || [];
     data.pagination = listData.pagination || {};
+    data.list = listData.list || [];
   }
   data.change = await server.find({_id: {$in: changeIds}});
   return data;

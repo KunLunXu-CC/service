@@ -27,14 +27,14 @@ module.exports = async ({ model, ctx, conds, search, orderBy, pagination }) => {
     changeIds = (await server.find(changeConds)).map(v => v._id);
     await server.updateMany(changeConds, { status: STATUS.DELETE });
   } catch (e) {
-    data.rescode = RESCODE.FAIL;
     data.message = '删除失败';
+    data.rescode = RESCODE.FAIL;
   }
 
   if (search){
     const listData = await getList({ model, ctx, search, orderBy, pagination });
-    data.list = listData.list || [];
     data.pagination = listData.pagination || {};
+    data.list = listData.list || [];
   } 
   data.change = await server.find({_id: {$in: changeIds}});
   return data;

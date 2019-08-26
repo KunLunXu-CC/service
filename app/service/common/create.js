@@ -26,13 +26,13 @@ module.exports = async ({ model, ctx, body, search, orderBy, pagination }) => {
       updater: null,
     })));
   } catch(e) { 
-    data.rescode = RESCODE.FAIL;
     data.message = '创建失败';
+    data.rescode = RESCODE.FAIL;
   }
   if (search){
     const listData = await getList({ model, ctx, search, orderBy, pagination });
-    data.list = listData.list || [];
     data.pagination = listData.pagination || {};
+    data.list = listData.list || [];
   } 
   return data;
 }
