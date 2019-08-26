@@ -26,7 +26,7 @@ module.exports = {
     tags: async (parents, args, context, info) => {
       if (parents.tags){
         const data = await getList({
-          mode: 'Tag',
+          model: 'Tag',
           ctx: context.ctx, 
           params: {ids: parents.tags}
         });

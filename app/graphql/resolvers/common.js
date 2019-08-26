@@ -24,11 +24,4 @@ module.exports = {
       return new Date(ast.value);
     },
   }),
-
-  // QueryList 接口
-  QueryList: {
-    __resolveType(obj, context, info){
-      return 'QueryList';
-    }
-  },
 }; 

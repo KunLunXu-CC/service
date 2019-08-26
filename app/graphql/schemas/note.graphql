@@ -5,6 +5,7 @@ extend type Query {
     page: Page
   ): NoteList
 }
+
 extend type Mutation {
   createNotes(
     body: [UpdateNote!]!
@@ -47,7 +48,7 @@ input NoteParams {
 }
 
 input UpdateNote{
-  name: String!
+  name: String
   desc: String
   thumb: String
   tags: [ID!]
@@ -71,7 +72,7 @@ type Note {
   content: String
 
   id: ID
-  name: String!
+  name: String
 	status: Int
   creator: User
   updater: User

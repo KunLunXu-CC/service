@@ -47,7 +47,7 @@ input ArticleParams {
 }
 
 input UpdateAticle{
-  name: String!
+  name: String
   desc: String
   thumb: String
   tags: [ID!]
