@@ -1,35 +1,35 @@
 extend type Query {
-  aticleList(
+  noteList(
     orderBy: OrderBy
-    params: ArticleParams
+    params: NoteParams
     page: Page
-  ): ArticleList
+  ): NoteList
 }
 extend type Mutation {
-  createArticles(
-    body: [UpdateAticle!]!
+  createNotes(
+    body: [UpdateNote!]!
     orderBy: OrderBy
-    params: ArticleParams
+    params: NoteParams
     page: Page
-  ): ArticleList
+  ): NoteList
 
-  removeArticles (
-    conds: ArticleParams! 
+  removeNotes (
+    conds: NoteParams! 
     orderBy: OrderBy
-    params: ArticleParams
+    params: NoteParams
     page: Page
-  ): ArticleList
+  ): NoteList
 
-  updateArticles (
-    conds: ArticleParams!
-    body: UpdateAticle!
+  updateNotes (
+    conds: NoteParams!
+    body: UpdateNote!
     orderBy: OrderBy
-    params: ArticleParams
+    params: NoteParams
     page: Page
-  ): ArticleList
+  ): NoteList
 }
 
-input ArticleParams {
+input NoteParams {
   id: ID
   ids: [ID!]
   tag: ID
@@ -46,7 +46,7 @@ input ArticleParams {
   status: [Int]
 }
 
-input UpdateAticle{
+input UpdateNote{
   name: String!
   desc: String
   thumb: String
@@ -55,16 +55,16 @@ input UpdateAticle{
 	status: Int
 }
 
-type ArticleList{
-  list: [Article]
+type NoteList{
+  list: [Note]
   stats: Stats
-  change: [Article]
+  change: [Note]
   rescode: Int
   message: String
   page: Page
 }
 
-type Article {
+type Note {
   desc: String
   thumb: String
   tags: [Tag!]

@@ -69,7 +69,7 @@ type TagList{
   page: Page
 }
 
-type Tag implements QueryList {
+type Tag {
   parent: Tag
   color: String
   icon: String

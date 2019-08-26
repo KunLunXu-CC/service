@@ -51,7 +51,7 @@ type UserList {
   page: Page
 }
 
-type User implements QueryList {
+type User {
   account: String
   role: Role
   sex: Int
