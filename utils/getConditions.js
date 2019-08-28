@@ -47,8 +47,14 @@ const getHandler = ({ params, conds, key, value }) => ([
   },
   // 特殊字段处理
   {
-    conds: key === 'tags',
+    conds: key === 'tag',
+    // 传入值为一个 tag， 判断 tag 是否在数据 tags 数组中
     handler: () => (conds.tags = { $elemMatch: {$eq: value} })
+  },
+  { 
+    conds: key === 'tags',
+    // 传入值为一个 tag 数组， 判断传入数据和数据 tags 数组是否存在交集
+    handler: () => (conds.tags = { $in: value})
   },
   // 按值类型进行处理
   {

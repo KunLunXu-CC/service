@@ -32,8 +32,9 @@ extend type Mutation {
 
 input ArticleSearch {
   id: ID
-  ids: [ID!]
   tag: ID
+  ids: [ID!]
+  tags: [ID!]
   creator: ID
   updater: ID
   name: String
