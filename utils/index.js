@@ -9,18 +9,23 @@ const system = require('../config/system');
  * @param {String} dir      指定目录路径
  * @param {String} suffix   指定文件后缀
  * @param {Array}  filter   要过滤的文件列表
+ * @param {Array}  handler  返回对象每个值的处理方法
  * @return {Object} { [fileName]: Object }
  */
-module.exports.requireFiles = ({ dir, suffix = 'js', filter = [] }) => {
+module.exports.requireFiles = ({ 
+  dir, 
+  filter = [], 
+  suffix = 'js', 
+  handler = (dest) => require(dest),
+}) => {
   const tree = {};
   const [dirs, files] = _.partition(fs.readdirSync(dir), p => {
     return fs.statSync(path.join(dir, p)).isDirectory();
   });
-
   files.forEach( file => {
     if (path.extname(file) === `.${suffix}` && !filter.includes(file)){
       const fileName = path.basename(file).split('.')[0];
-      tree[fileName] = require(path.join(dir, file));
+      tree[fileName] = handler(path.join(dir, file));
     }
   });
   return tree

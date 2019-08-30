@@ -1,17 +1,19 @@
 const _ = require('lodash');
 const gulp = require('gulp');
 const path = require('path');
+const dbData = require('./db');
 const colors = require('colors');
 const mongoose = require('mongoose');
-
-const dbData = require('./db');
 const mongo = require('../../utils/mongo');
 const { hash } = require('../../utils/encryption');
-const mongoDB = mongo(path.resolve(__dirname, '../../models'));
+let mongoDB = null;
 
 // 1. 脚本开始
 const start = async () => {
   console.log(colors.green('\n----- 初始化脚本执行开始 -----\n'));
+  // 连接数据库
+  mongoDB = mongo();
+
   // 1.1 删除数据库
   mongoose.connection.dropDatabase()
 };

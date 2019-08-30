@@ -1,9 +1,9 @@
+const _ = require('lodash');
+const path = require('path');
+const mongoose = require('mongoose');
 const { requireFiles } = require('.');
 const config = require('../config/system');
-const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const _ = require('lodash');
-
 /**
  * 链接数据库
  */
@@ -25,12 +25,11 @@ const connectServer = () => {
 
 /**
  * 初始化模型：
- * @param  {String} modelPath 模型路径
  * @return {Object} {模型名： 模型对象}
  */
-const initModels = (modelPath) =>{
+const initModels = () =>{
   const models = {};
-  const stree = requireFiles({dir: modelPath});
+  const stree = requireFiles({ dir: path.resolve(__dirname, '../models') });
   _.forIn(stree, (value, fileName) => {
     if (value.type === 'MongoDB'){
       models[fileName] = mongoose.model(fileName, new Schema(value.fields))
@@ -39,11 +38,8 @@ const initModels = (modelPath) =>{
   return models;
 }
 
-/**
- * 初始化数据
- * @param  {String} modelPath 模型路径
- */
-module.exports = (modelPath) => {
+// 导出方法
+module.exports = () => {
   connectServer();
-  return initModels(modelPath);
+  return initModels();
 }
