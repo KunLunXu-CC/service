@@ -7,8 +7,9 @@ exports.type = 'MongoDB';
 
 exports.fields = {
   name: {
+    unique: true,
 		title: '标题',
-		required: true,
+    required: true,
 		type: String,
   },
   desc: {

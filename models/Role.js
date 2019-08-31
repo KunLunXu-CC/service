@@ -7,7 +7,8 @@ exports.title = '角色';
 exports.type = 'MongoDB';
 
 exports.fields = {
-	name: {
+  name: {
+    unique: true,
 		title: '角色名',
 		required: true,
 		type: String,
@@ -19,12 +20,12 @@ exports.fields = {
   auth: {
     title: '角色权限',
 		type: [{
-      name: { 
-        title: '应用名称', 
+      name: {
+        title: '应用名称',
         type: String,
       },
-      code: { 
-        title: '应用唯一编码', 
+      code: {
+        title: '应用唯一编码',
         type: String,
       },
       readable: {
