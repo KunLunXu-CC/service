@@ -30,20 +30,26 @@ const insert = async (files) => {
       id && tagIds.push(id);
     }
     data.push({
-      desc, 
+      desc,
       content,
       name: key,
       tags: tagIds,
     });
   }
 
-  // 2. 插入或者更新数据
-  console.log('===>>> data', data);
+  // 2. 插入或更新数据
+  for(let i = 0; i < data.length; i++){
+    const note = await Note.findOne({ name: data[i].name });
+    note ? await Note.update(
+      {_id: note.id},
+      { content: `${note.content}\n${data[i].content}` }
+    ) : await Note.insertMany(data[i]);
+  }
 }
 
 module.exports = async () => {
-  const files = requireFiles({ 
-    dir: path.resolve(__dirname, '.'),  
+  const files = requireFiles({
+    dir: path.resolve(__dirname, '.'),
     suffix: 'md',
     handler: (dest) => parse(fs.readFileSync(dest, 'utf-8')),
   });
