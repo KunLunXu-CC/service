@@ -21,3 +21,4 @@ package-lock.json
 /node_modules
 
 /docker/nginx/html/*
+!/docker/nginx/html/*.md
