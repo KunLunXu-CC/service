@@ -5,6 +5,9 @@ services:
     container_name: blog-mongo
     ports:
       - 27017:27017
+    volumes:
+      - ./mongo/db:/data/db
+      - ./mongo/configdb:/data/configdb
   node:
     build: ./node
     container_name: blog-service
