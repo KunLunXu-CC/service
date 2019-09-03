@@ -3,7 +3,7 @@ services:
   mongo:
     image: mongo
     container_name: blog-mongo
-    ports:
+    expose:
       - 27017:27017
     volumes:
       - ./mongo/db:/data/db
@@ -11,7 +11,7 @@ services:
   node:
     build: ./node
     container_name: blog-service
-    ports:
+    expose:
       - 4000:4000
     links:
       - mongo
@@ -23,7 +23,7 @@ services:
       - |
         pm2 start ecosystem.config.js && pm2 log
     volumes:
-      - ../:/var/service 
+      - ../:/var/service
   web:                               
     image: nginx
     container_name: blog-web
