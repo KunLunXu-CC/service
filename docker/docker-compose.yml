@@ -3,7 +3,7 @@ services:
   mongo:
     image: mongo
     container_name: blog-mongo
-    expose:
+    ports:
       - 27017:27017
     volumes:
       - ./mongo/db:/data/db
@@ -11,7 +11,7 @@ services:
   node:
     build: ./node
     container_name: blog-service
-    expose:
+    ports:
       - 4000:4000
     links:
       - mongo
