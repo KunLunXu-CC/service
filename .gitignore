@@ -24,5 +24,6 @@ package-lock.json
 /docker/nginx/*
 
 /docker/mongo/*
+
 /docker/node/*
 !/docker/node/dockerfile
