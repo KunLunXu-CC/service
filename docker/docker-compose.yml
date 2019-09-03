@@ -1,0 +1,36 @@
+version: '2'
+services:
+  mongo:
+    image: mongo
+    container_name: blog-mongo
+    ports:
+      - 27017:27017
+  node:
+    build: ./node
+    container_name: blog-service
+    ports:
+      - 4000:4000
+    links:
+      - mongo
+    depends_on:
+      - mongo
+    command: 
+      - /bin/sh
+      - -c
+      - |
+        pm2 start ecosystem.config.js && pm2 log
+    volumes:
+      - ../../blog_service:/var/service 
+  web:                               
+    image: nginx
+    container_name: blog-web
+    ports: 
+      - 80:80
+    links:
+      - node
+    depends_on:
+      - node
+    volumes:
+      - ./nginx/html/:/usr/share/nginx/html
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/logs/:/var/log/nginx
