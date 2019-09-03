@@ -20,5 +20,5 @@ package-lock.json
 .idea
 /node_modules
 
-/docker/nginx/html/*
-!/docker/nginx/html/*.md
+/docker/nginx/html
+!/docker/nginx/logs
