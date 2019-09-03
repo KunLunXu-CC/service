@@ -23,7 +23,7 @@ services:
       - |
         pm2 start ecosystem.config.js && pm2 log
     volumes:
-      - ../../blog_service:/var/service 
+      - ../:/var/service 
   web:                               
     image: nginx
     container_name: blog-web
