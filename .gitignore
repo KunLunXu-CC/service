@@ -21,9 +21,8 @@ package-lock.json
 
 /node_modules
 
-/docker/nginx/*
-
-/docker/mongo/*
-
-/docker/node/*
-!/docker/node/dockerfile
+/docker/*
+!/docker/**/readme.md
+!/docker/**/dockerfile
+!/docker/**/nginx.conf
+!/docker/**/docker-compose.yml
