@@ -20,3 +20,9 @@ package-lock.json
 .idea
 
 /node_modules
+
+/docker/*
+!/docker/**/readme.md
+!/docker/**/dockerfile
+!/docker/**/nginx.conf
+!/docker/**/docker-compose.yml
