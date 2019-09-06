@@ -11,11 +11,15 @@ router.get('/', async (ctx, next) => {
 
 router.post('/web-hooks', async (ctx, next) => {
   console.log('\n\n\n\n\n------ web hook-------\n\n\n\n\n\n', ctx);
-  fs.writeFileSync(
-    path.resolve(__dirname, './webHookLogs.json'),
-    JSON.stringify(ctx.request, null, 2),
-    { encoding: 'utf8'},
-  );
+  try {
+    fs.writeFileSync(
+      path.resolve(__dirname, './webHookLogs.json'),
+      JSON.stringify(ctx.request, null, 2),
+      { encoding: 'utf8'}
+    );
+  }catch (e){
+    console.log('写入错误');
+  }
   ctx.body = '成功';
 });
 
