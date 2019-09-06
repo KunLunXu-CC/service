@@ -1,4 +1,5 @@
 const Router = require('koa-router');
+const fs = require('fs');
 const path = require('path');
 const router = new Router();
 
@@ -10,6 +11,11 @@ router.get('/', async (ctx, next) => {
 
 router.post('/web-hooks', async (ctx, next) => {
   console.log('\n\n\n\n\n------ web hook-----\n\n\n\n\n\n', ctx);
+  fs.writeFileSync(
+    path.resolve(__dirname, './webHookLogs.json'),
+    JSON.stringify(ctx.request, null, 2),
+    { encoding: 'utf8'},
+  );
   ctx.body = '成功';
 });
 
