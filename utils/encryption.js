@@ -21,11 +21,11 @@ module.exports.hash = ({ data, type = 'md5' }) => {
  * @param {String} data     待加密数据
  * @param {String} type     hmac 类型
  * @param {String} secret   证书
- * @param {String} toString 转换数据字符串格式类型
+ * @param {String} digest   转换数据字符串格式类型
  */
-module.exports.hmac = ({ data, secret,  type = 'sha1', toString = 'base64' }) => {
+module.exports.hmac = ({ data, secret,  type = 'sha1', digest = 'base64' }) => {
   if (!data || !secret){return false;}
-  return crypto.createHmac(type, secret).update(data).toString(toString);
+  return crypto.createHmac(type, secret).update(data).digest(digest);
 }
 
 /**
