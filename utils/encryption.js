@@ -23,7 +23,7 @@ module.exports.hash = ({ data, type = 'md5' }) => {
  * @param {String} secret   证书
  * @param {String} digest   转换数据字符串格式类型
  */
-module.exports.hmac = ({ data, secret,  type = 'sha1', digest = 'base64' }) => {
+module.exports.hmac = ({ data, secret,  type = 'sha1', digest = 'hex' }) => {
   if (!data || !secret){return false;}
   return crypto.createHmac(type, secret).update(data).digest(digest);
 }
