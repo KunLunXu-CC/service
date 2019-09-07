@@ -3,12 +3,12 @@ const path = require('path');
 const crypto = require('crypto');
 
 module.exports = async (ctx, next) => {
-  console.log('\n\n\n\n\n------ web hook -------\n\n\n\n\n\n', ctx.request.body.toString(), '\n\n\n\n');
+  console.log('\n\n\n\n\n------ web hook -------\n\n\n\n\n\n', ctx.request.toString(), '\n\n\n\n');
   fs.writeFileSync(
     path.resolve(__dirname, './webHookLogs.json'),
     `${JSON.stringify(ctx.request.body, null, 2)}\n\n
     ${JSON.stringify(ctx.request.header, null, 2)}\n\n
-    ${crypto.createHmac('sha1', 'qianyin').update(ctx.request.body.toString()).digest('hex')}`,
+    ${crypto.createHmac('sha1', 'qianyin').update(ctx.request.toString()).digest('hex')}`,
     'utf-8'
   );
   console.log('---->>> ok \n\n\n\n\n\n\n');
