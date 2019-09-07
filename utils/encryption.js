@@ -17,6 +17,18 @@ module.exports.hash = ({ data, type = 'md5' }) => {
 }
 
 /**
+ * 创建 hmac 通用方法
+ * @param {String} data     待加密数据
+ * @param {String} type     hmac 类型
+ * @param {String} secret   证书
+ * @param {String} toString 转换数据字符串格式类型
+ */
+module.exports.hmac = ({ data, secret,  type = 'sha1', toString = 'base64' }) => {
+  if (!data || !secret){return false;}
+  return crypto.createHmac(type, secret).update(data).toString(toString);
+}
+
+/**
  * ASR 秘钥生成
  */
 module.exports.createRasKey = () => {
@@ -29,7 +41,7 @@ module.exports.createRasKey = () => {
 
 /**
  * RAS 解密
- * @param {String} data 待解密数据 
+ * @param {String} data 待解密数据
  */
 module.exports.decryptRsa = (data) => {
   const privateKey = fs.readFileSync(path.resolve(__dirname, '../config/private.key'));
@@ -49,7 +61,7 @@ module.exports.decryptRsa = (data) => {
  */
 module.exports.signJwt = (payload) => {
   const privateKey = fs.readFileSync(path.resolve(__dirname, '../config/private.key'));
-  return jwt.sign(payload, privateKey, { 
+  return jwt.sign(payload, privateKey, {
     algorithm: 'RS256',
     expiresIn: '7d'
   });
@@ -57,7 +69,7 @@ module.exports.signJwt = (payload) => {
 
 /**
  * （异步）验证 json web token
- * @param {String} token    token 字符串    
+ * @param {String} token    token 字符串
  * @returns {String}        有效载荷
  */
 module.exports.verifyJwt = (token) => new Promise((resolve, reject) => {
