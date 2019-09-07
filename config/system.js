@@ -1,7 +1,7 @@
 /* 系统配置 */
 const setting = {
   /**** 开发阶段环境配置 ****/
-  development: {                      
+  development: {
     port: 4000,                       // 系统应用端口
     graphql: {                        // graphql 配置
       path: '/specialUrl',            // graphql 应用路由
@@ -13,6 +13,7 @@ const setting = {
       database: 'blog',               // 数据库名
     },
     defaultUser: 'tourist',           // 默认用户(游客)账号
+    webHookSecret: '123456',          // web-hooks 秘钥
   },
 
   /**** 生产 ****/
@@ -28,6 +29,7 @@ const setting = {
       database: 'blog',               // 数据库名
     },
     defaultUser: 'tourist',           // 默认用户(游客)账号
+    webHookSecret: '123456',          // web-hooks 秘钥
   }
 }
 module.exports = setting[(process.env.NODE_ENV || 'development')];
