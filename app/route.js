@@ -8,18 +8,7 @@ router.get('/', async (ctx, next) => {
   ctx.body = data;
 });
 
-
-router.post('/web-hooks', async (ctx, next) => {
-  console.log('\n\n\n\n\n------ web hook -----\n\n\n\n\n\n', ctx.request.body, typeof ctx.request.body);
-  fs.writeFileSync(
-    path.resolve(__dirname, './webHookLogs.json'),
-    `${JSON.stringify(ctx.request.body, null, 2)}\n\n
-    ${JSON.stringify(ctx.request.header, null, 2)}`,
-    'utf-8'
-  );
-  console.log('---->>> ok \n\n\n\n\n\n\n');
-  ctx.body = '成功';
-});
+router.post('/web-hooks', require('./service/webHooks'));
 
 module.exports = (app) => {
   app.use(router.routes()).use(router.allowedMethods());
