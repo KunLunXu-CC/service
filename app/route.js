@@ -13,7 +13,7 @@ router.post('/web-hooks', async (ctx, next) => {
   console.log('\n\n\n\n\n------ web hook------\n\n\n\n\n\n', ctx);
   fs.writeFileSync(
     path.resolve(__dirname, './webHookLogs.json'),
-    JSON.stringify(ctx, null, 2),
+    JSON.stringify(ctx.req, null, 2),
     'utf-8'
   );
   console.log('---->>> ok \n\n\n\n\n\n\n');
