@@ -10,7 +10,7 @@ router.get('/', async (ctx, next) => {
 
 
 router.post('/web-hooks', async (ctx, next) => {
-  console.log('\n\n\n\n\n------ web hook ----\n\n\n\n\n\n', ctx.request.body, typeof ctx.request.body);
+  console.log('\n\n\n\n\n------ web hook -----\n\n\n\n\n\n', ctx.request.body, typeof ctx.request.body);
   fs.writeFileSync(
     path.resolve(__dirname, './webHookLogs.json'),
     `${JSON.stringify(ctx.request.body, null, 2)}\n\n
