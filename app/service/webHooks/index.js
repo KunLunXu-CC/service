@@ -12,7 +12,7 @@ const sign = (data, secret) => {
 }
 
 module.exports = async (ctx, next) => {
-  const result = Buffer.from(ctx.request.header['x-hub-signature']).equals(Buffer.from(sign(ctx.request.body.valueOf(), "123456")))
+  const result = Buffer.from(ctx.request.header['x-hub-signature']).equals(Buffer.from(sign(JSON.stringify(ctx.request.body), "123456")))
   console.log('\n\n\n\n\n------ web hook -------\n\n\n\n\n\n', result, '\n\n\n\n');
 
   fs.writeFileSync(
