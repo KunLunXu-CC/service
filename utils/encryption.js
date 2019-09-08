@@ -3,7 +3,7 @@ const path = require('path');
 const crypto = require('crypto');
 const NodeRSA = require('node-rsa');
 const jwt = require('jsonwebtoken');
-const { privateKey } = require('../config/system');
+const { privateKey, publicKey } = require('../config/system');
 
 /**
  * 创建 hash 通用方法
@@ -72,7 +72,6 @@ module.exports.signJwt = (payload) => {
  * @returns {String}        有效载荷
  */
 module.exports.verifyJwt = (token) => new Promise((resolve, reject) => {
-  const publicKey = fs.readFileSync(path.resolve(__dirname, '../config/public.key'));
   jwt.verify(token, publicKey, (err, payload) => {
     resolve(payload);
   });
