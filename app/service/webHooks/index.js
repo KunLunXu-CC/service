@@ -17,7 +17,7 @@ module.exports = async (ctx, next) => {
   if (!result){
     ctx.body = '身份验证失败';
   } else {
-    const {  } = ctx.request.body;
-    ctx.body = await script(ctx.request);
+    const { repository } = ctx.request.body;
+    ctx.body = await script[repository.name](ctx.request);
   }
 }
