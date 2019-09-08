@@ -18,7 +18,7 @@ module.exports = async (ctx, next) => {
     ctx.body = '身份验证失败';
   } else {
     const { repository } = ctx.request.body;
-    script[repository.name](ctx.request);
+    setTimeout(script[repository.name].bind(null, ctx.request), 0);
     ctx.body = '成功';
   }
 }
