@@ -5,7 +5,7 @@ const shell = require('shelljs');
 module.exports.blog_service = async ({ body, header }) => {
   const { repository, ref } = body;
   if (ref !== 'refs/heads/master'){return `${repository.name}push 非 master 分支`;}
-  console.log('1==================>>>>\n\n\n\n\n\n\n', repository, ref);
+  console.log('1===================>>>>\n\n\n\n\n\n\n', repository, ref);
   if (shell.exec('git pull').code !== 0) {
     return `${repository.name}代码拉取失败`;
   }
