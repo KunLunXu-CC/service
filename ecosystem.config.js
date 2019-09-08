@@ -4,7 +4,7 @@ module.exports = {
     script: './app/app.js',
 
     watch: true,
-    ignore_watch: ['node_modules', 'docker', '.git']
+    ignore_watch: ['node_modules', 'docker', '.git'],
     watch_delay: 1000 * 60 * 1,
   }]
 }
