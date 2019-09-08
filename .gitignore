@@ -21,8 +21,12 @@ package-lock.json
 
 /node_modules
 
+# docker 相关
 /docker/*
 !/docker/**/readme.md
 !/docker/**/dockerfile
 !/docker/**/nginx.conf
 !/docker/**/docker-compose.yml
+
+# 系统配置相关
+config/system/production.js
