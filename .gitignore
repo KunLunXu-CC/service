@@ -20,13 +20,3 @@ package-lock.json
 .idea
 
 /node_modules
-
-# docker 相关
-# /docker/*
-# !*.md
-# !/docker/*/dockerfile
-# !/docker/nginx/conf/nginx.conf
-# !/docker/docker-compose.yml
-
-# 系统配置相关
-/config/system/production.js
