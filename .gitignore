@@ -29,4 +29,4 @@ package-lock.json
 !/docker/**/docker-compose.yml
 
 # 系统配置相关
-config/system/production.js
+/config/system/production.js
