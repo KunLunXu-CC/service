@@ -1,0 +1,81 @@
+extend type Query {
+  aticles(
+    orderBy: OrderBy
+    search: ArticleSearch
+    pagination: Pagination
+  ): Articles
+}
+
+extend type Mutation {
+  createArticles(
+    body: [AticleFields!]!
+    orderBy: OrderBy
+    search: ArticleSearch
+    pagination: Pagination
+  ): Articles
+
+  removeArticles (
+    conds: ArticleSearch! 
+    orderBy: OrderBy
+    search: ArticleSearch
+    pagination: Pagination
+  ): Articles
+
+  updateArticles (
+    conds: ArticleSearch!
+    body: AticleFields!
+    orderBy: OrderBy
+    search: ArticleSearch
+    pagination: Pagination
+  ): Articles
+}
+
+input ArticleSearch {
+  id: ID
+  tag: ID
+  ids: [ID!]
+  tags: [ID!]
+  creator: ID
+  updater: ID
+  name: String
+  desc: String
+  thumb: String
+  content: String
+  startUpdateTime: Date
+  endUpdateTime: Date
+  startCreationTime: Date
+  endCreationTime: Date
+  status: [Int]
+}
+
+input AticleFields {
+  name: String
+  desc: String
+  thumb: String
+  tags: [ID!]
+  content: String
+	status: Int
+}
+
+type Articles {
+  list: [Article]
+  change: [Article]
+  rescode: Int
+  message: String
+  pagination: Pagination
+}
+
+type Article {
+  desc: String
+  thumb: String
+  tags: [Tag!]
+  content: String
+
+  id: ID
+  name: String!
+	status: Int
+  creator: User
+  updater: User
+  updateTime: Date
+  creationTime: Date
+}

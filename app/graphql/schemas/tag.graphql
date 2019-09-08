@@ -1,0 +1,76 @@
+extend type Query{
+  tags(
+    orderBy: OrderBy
+    search: TagSearch
+    pagination: Pagination
+  ): Tags
+}
+
+extend type Mutation{
+  removeTags (
+    conds: TagSearch!
+    orderBy: OrderBy
+    search: TagSearch
+    pagination: Pagination
+  ): Tags
+
+  createTags (
+    body: [TagFields!]!
+    orderBy: OrderBy
+    search: TagSearch
+    pagination: Pagination
+  ): Tags
+
+  updateTags (
+    conds: TagSearch!
+    body: TagFields!
+    orderBy: OrderBy
+    search: TagSearch
+    pagination: Pagination
+  ): Tags
+}
+
+input TagFields {
+  name: String
+  parent: ID
+  color: String
+  icon: String
+}
+
+input TagSearch {
+  id: ID
+  ids: [ID!]
+  parent: ID
+  creator: ID
+  updater: ID
+  name: String
+  color: String
+  icon: String
+  startUpdateTime: Date
+  endUpdateTime: Date
+  startCreationTime: Date
+  endCreationTime: Date
+  status: [Int]
+}
+
+type Tags{
+  list: [Tag]
+  change: [Tag]
+  rescode: Int
+  message: String
+  pagination: Pagination
+}
+
+type Tag {
+  parent: Tag
+  color: String
+  icon: String
+
+  id: ID
+  name: String
+  status: Int
+  creator: User
+  updater: User
+  updateTime: Date
+  creationTime: Date
+}
