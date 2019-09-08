@@ -23,7 +23,7 @@ services:
       - /bin/sh
       - -c
       - |
-        pm2 start ecosystem.config.js && pm2 log
+        npm run gulp deploy && touch /var/log/permanent.txt && tail -f /var/log/permanent.txt
     volumes:
       - ../:/var/service
   web:                               
