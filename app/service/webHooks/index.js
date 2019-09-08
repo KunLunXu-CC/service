@@ -13,7 +13,7 @@ const verify = ({ header, body }) => {
 }
 
 module.exports = async (ctx, next) => {
-  const result = verify(ctx);
+  const result = verify(ctx.request);
   if (!result){
     ctx.body = '身份验证失败';
   } else {
