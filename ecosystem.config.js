@@ -3,6 +3,10 @@ module.exports = {
     name: 'app',
     script: './app/app.js',
     watch: true,
-    ignore_watch: ['node_modules', 'docker'],
+    ignore_watch: [
+      'node_modules', 
+      'docker',
+      '.git',
+    ],
   }]
 }
