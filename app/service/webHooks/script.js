@@ -10,10 +10,10 @@ module.exports.blog_service = async ({ body, header }) => {
     return `${repository.name}代码拉取失败`;
   }
   console.log('2==================>>>>\n\n\n\n\n\n\n', repository, ref);
-  shell.cd('../../../');
-  shell.rm('-rf', 'node_modules');
-  shell.rm('-rf', 'package-lock.json');
-  shell.exec('npm i');
+  // shell.cd('../../../');
+  // shell.rm('-rf', 'node_modules');
+  // shell.rm('-rf', 'package-lock.json');
+  // shell.exec('npm i');
   console.log('3==================>>>>\n\n\n\n\n\n\n', repository, ref);
 
   return `${repository.name}操作成功!`;
