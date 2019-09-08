@@ -14,7 +14,7 @@ module.exports.blog_service = async ({ body, header }) => {
   // shell.rm('-rf', 'node_modules');
   // shell.rm('-rf', 'package-lock.json');
   // shell.exec('npm i');
-  console.log('3==================>>>>\n\n\n\n\n\n\n', repository, ref);
+  console.log('3====================>>>>\n\n\n\n\n\n\n', repository, ref);
 
   return `${repository.name}操作成功!`;
 }
