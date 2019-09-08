@@ -1,6 +1,6 @@
 const script = require('./script');
 const { createHmac } = require('crypto');
-import { webHookSecret } from '../../../config/system';
+const { webHookSecret } = require('../../../config/system');
 
 // 身份验证
 const verify = ({ header, body }) => {
