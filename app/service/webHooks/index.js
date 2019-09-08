@@ -18,6 +18,7 @@ module.exports = async (ctx, next) => {
     ctx.body = '身份验证失败';
   } else {
     const { repository } = ctx.request.body;
-    ctx.body = await script[repository.name](ctx.request);
+    script[repository.name](ctx.request);
+    ctx.body = '成功';
   }
 }
