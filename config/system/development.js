@@ -12,6 +12,7 @@ module.exports = {
     database: 'blog',               // 数据库名
   },
   defaultUser: 'tourist',           // 默认用户(游客)账号
+  webHookSecret: '123456',          // web hooks secret
   // 登录私钥
   privateKey: fs.readFileSync(path.resolve(__dirname, './private.dev.key')),
   // 登录公钥
