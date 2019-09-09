@@ -16,5 +16,5 @@ module.exports = {
   // 登录私钥
   privateKey: fs.readFileSync(path.resolve(__dirname, './private.dev.key')),
   // 登录公钥
-  publicKey: fs.readFileSync(path.resolve(__dirname, './public.dev.key')),,
+  publicKey: fs.readFileSync(path.resolve(__dirname, './public.dev.key')),
 };
