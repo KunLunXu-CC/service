@@ -23,6 +23,8 @@ package-lock.json
 
 # 系统配置相关
 /config/system/production.js
+/config/system/private.pro.key
+/config/system/public.pro.key
 
 # docker
 /docker/nginx/html
