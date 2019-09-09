@@ -36,6 +36,6 @@ services:
     depends_on:
       - node
     volumes:
-      - ./nginx/html/:/usr/share/nginx/html
+      - ./nginx/html/:/usr/share/nginx/html/build
       - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/logs/:/var/log/nginx
