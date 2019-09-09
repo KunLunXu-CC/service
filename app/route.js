@@ -2,7 +2,7 @@ const Router = require('koa-router');
 const router = new Router();
 
 router.get('/', async (ctx, next) => {
-  const data = '这是一个很完美的首页';
+  const data = '这是一首页';
   ctx.body = data;
 });
 
