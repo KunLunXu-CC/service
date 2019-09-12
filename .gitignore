@@ -25,7 +25,6 @@ package-lock.json
 /config/system/production.js
 /config/system/*.pro.key
 
-# docker
-/docker/nginx/html
-/docker/nginx/logs
-/docker/mongo
+# 项目部署相关
+html
+/docker/store
