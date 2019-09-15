@@ -1,9 +1,4 @@
 version: '2'
-logging:
-  driver: "json-file"
-  options:
-    max-size: "100k"
-    max-file: "20"
 services:
   mongo:
     image: mongo
@@ -13,6 +8,11 @@ services:
     volumes:
       - ./store/mongo/db:/data/db
       - ./store/mongo/configdb:/data/configdb
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100k"
+        max-file: "20"
   node:
     build: ./
     container_name: blog-service
@@ -31,6 +31,11 @@ services:
         pm2 start ecosystem.config.js && pm2 logs
     volumes:
       - ../:/var/service
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100k"
+        max-file: "20"
   web:
     image: nginx
     container_name: blog-web
@@ -44,3 +49,8 @@ services:
       - ../html/build:/usr/share/nginx/html
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./store/nginx/logs/:/var/log/nginx
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100k"
+        max-file: "20"
