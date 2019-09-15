@@ -1,8 +1,9 @@
 version: '2'
-log_driver: "json-file"
-log_opt:
-  max-size: "100k"
-  max-file: "20"
+logging:
+  driver: "json-file"
+  options:
+    max-size: "100k"
+    max-file: "20"
 services:
   mongo:
     image: mongo
