@@ -1,4 +1,8 @@
 version: '2'
+log_driver: "json-file"
+log_opt:
+  max-size: "100k"
+  max-file: "20"
 services:
   mongo:
     image: mongo
@@ -19,17 +23,17 @@ services:
       - NODE_ENV=production
     depends_on:
       - mongo
-    command: 
+    command:
       - /bin/sh
       - -c
       - |
         pm2 start ecosystem.config.js && pm2 logs
     volumes:
       - ../:/var/service
-  web:                               
+  web:
     image: nginx
     container_name: blog-web
-    ports: 
+    ports:
       - 80:80
     links:
       - node
