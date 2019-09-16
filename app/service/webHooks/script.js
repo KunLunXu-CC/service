@@ -10,11 +10,8 @@ module.exports.blog_service = async ({ body, header }) => {
 }
 
 module.exports.blog_client = async ({ body, header }) => {
-  const dir = path.resolve(__dirname, '../../../html');
   const { repository, ref } = body;
-  shell.exec(`cd ${dir} && ls`);
-  console.log('--------->>>>>>>>>>> 分割');
-  if (shell.exec('ls && git pull && npm i && npm run build').code !== 0) {
+  if (shell.exec('cd html && ls && git pull && npm i && npm run build').code !== 0) {
     return `${repository.name}更新完成`;
   }
   return `${repository.name}操作成功!`;
