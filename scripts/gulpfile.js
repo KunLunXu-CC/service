@@ -1,7 +1,8 @@
 const gulp = require('gulp');
+const { createProKey } = require('./rsa');
 
 module.exports = {
-  ...require('./rsa'),
+  createProKey,
   initDB: require('./initDB'),
   parseNotes: require('./parseNotes'),
   default: async () => {},
