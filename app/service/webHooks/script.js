@@ -11,7 +11,7 @@ module.exports.blog_service = async ({ body, header }) => {
 
 module.exports.blog_client = async ({ body, header }) => {
   const { repository, ref } = body;
-  if (shell.exec('cd html && ls && git pull && npm i && npm run build').code !== 0) {
+  if (shell.exec('cd html && git pull && npm i && npm run build').code !== 0) {
     return `${repository.name}更新完成`;
   }
   return `${repository.name}操作成功!`;
