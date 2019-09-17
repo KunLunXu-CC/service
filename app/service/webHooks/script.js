@@ -3,27 +3,35 @@ const path = require('path');
 const colors = require('colors');
 const shell = require('shelljs');
 
-// 输入提示:
-const echo = (value) => {
-  shell.exec(`echo ${colors.yellow(value)}`);
-};
+// 处理函数
+const handler = ({ body, header, sh}) => new Promise((resolve, reject) => {
+  const { repository, ref } = body;
+  console.log(colors.yellow(`${repository.name}: push new code! ...`));
+  if (ref !== 'refs/heads/master'){
+    console.log(colors.yellow(`${repository.name}: not master!`));
+    reject('not master');
+  }
+  if (shell.exec(sh).code !== 0) {
+    console.log(colors.yellow(`${repository.name}: update success!`));
+    resolve('update success');
+  }
+  console.log(colors.yellow(`${repository.name}: update fail!`));
+  reject('update fail!');
+});
+
 
 module.exports.blog_service = async ({ body, header }) => {
-  const { repository, ref } = body;
-  echo(`${repository.name}: 提交新代码！`);
-  if (ref !== 'refs/heads/master'){return echo(`${repository.name}: 非 master 分支！`)}
-  if (shell.exec('git pull && npm i').code !== 0) {
-    return echo(`${repository.name}: 更新完成！`);
-  }
-  return echo(`${repository.name}: 更新失败！`);
+  handler({
+    body, 
+    header,
+    sh: 'git pull && npm i',
+  });
 }
 
 module.exports.blog_client = async ({ body, header }) => {
-  const { repository, ref } = body;
-  echo(`${repository.name}: 提交新代码`);
-  if (ref !== 'refs/heads/master'){ return echo(`${repository.name}: 非 master 分支！`)}
-  if (shell.exec('cd html && git pull && npm i && npm run build').code !== 0) {
-    return echo(`${repository.name}: 更新完成！`);
-  }
-  return echo(`${repository.name}: 更新失败！`);
+  handler({
+    body, 
+    header,
+    sh: 'cd html && git pull && npm i && npm run build',
+  });
 }
