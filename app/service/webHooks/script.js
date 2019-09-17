@@ -6,7 +6,7 @@ const shell = require('shelljs');
 // 处理函数
 const handler = ({ body, header, sh}) => new Promise((resolve, reject) => {
   const { repository, ref } = body;
-  console.log(colors.yellow(`${repository.name}: push new code! ...`));
+  console.log(colors.yellow(`${repository.name}: push new code!`));
   if (ref !== 'refs/heads/master'){
     console.log(colors.yellow(`${repository.name}: not master!`));
     reject('not master');
