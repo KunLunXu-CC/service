@@ -6,17 +6,18 @@ const shell = require('shelljs');
 // 处理函数
 const handler = ({ body, header, sh}) => new Promise((resolve, reject) => {
   const { repository, ref } = body;
-  console.log(colors.yellow(`${repository.name}: push new code!`));
+  console.log(`======>>>> [webhooks] ${repository.name}: push new code!`);
   if (ref !== 'refs/heads/master'){
-    console.log(colors.yellow(`${repository.name}: not master!`));
+    console.log(`======>>>> [webhooks] ${repository.name}: not master!`));
     reject('not master');
   }
   if (shell.exec(sh).code !== 0) {
-    console.log(colors.yellow(`${repository.name}: update success!`));
+    console.log(`======>>>> [webhooks] ${repository.name}: update fail!`);
+    reject('update fail');
+  } else {
+    console.log(`======>>>> [webhooks] ${repository.name}: update success!`);
     resolve('update success');
   }
-  console.log(colors.yellow(`${repository.name}: update fail!`));
-  reject('update fail!');
 });
 
 
