@@ -1,0 +1,27 @@
+extend type Mutation {
+  uploadPhotos (
+    body: UploadPhotos!
+  ): Photos
+}
+
+input UploadPhotos {
+  files: [Upload!]!
+}
+
+type Photos {
+  list: [Photo]
+  change: [Photo]
+  rescode: Int
+  message: String
+  pagination: Pagination
+}
+
+type Photo {
+  id: ID
+  name: String!
+	status: Int
+  creator: User
+  updater: User
+  updateTime: Date
+  creationTime: Date
+}
