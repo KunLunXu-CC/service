@@ -1,12 +1,6 @@
-extend type Mutation {
-  uploadPhotos (
-    body: UploadPhotos!
-  ): Photos
-}
-
-input UploadPhotos {
-  files: [Upload!]!
-}
+# extend type Mutation {
+  
+# }
 
 type Photos {
   list: [Photo]
