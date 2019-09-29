@@ -1,10 +1,9 @@
 const Router = require('koa-router');
+const koaBody = require('koa-body');
 const router = new Router();
 
-router.get('/', async (ctx, next) => {
-  const data = '这是一首页';
-  ctx.body = data;
-});
+// 路由配置
+router.get('/', async (ctx, next) => { ctx.body = '这是一首页'; });
 
 router.post('/web-hooks', require('./service/webHooks'));
 router.post('/photo/upload', require('./service/photo/upload'));

@@ -28,7 +28,7 @@ const printStart = () => {
  * @param {Object} ctx 上下文
  */
 const printRequestData = (ctx) => {
-  const body = ctx.request.body;
+  const body = _.get(ctx, 'request.body', {});
   let queryDoc = body.query || '';
   body.query && delete body.query;
   const params = JSON.stringify({
@@ -59,7 +59,8 @@ printResponseData = (ctx) => {
 
 module.exports = async (ctx, next) => {
   await next();
-  if (!OPERATION_NAME_BACL_LIST.includes(ctx.request.body.operationName)){
+  const body = _.get(ctx, 'request.body', {});  
+  if (!OPERATION_NAME_BACL_LIST.includes(body.operationName)){
     printStart();
     printRequestData(ctx);
     printResponseData(ctx);
