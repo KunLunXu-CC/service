@@ -22,8 +22,8 @@ module.exports = {
   qiniu: {
     bucket: 'qianyin-blog',                                   // 存储空间
     zone: 'Zone_z2',                                          // 存储区域(华南)
-    accessKey: '4ujbYoxafH4VrUylwdEm12XjpJbAgdp7ovVdEa5p',    // AK
-    secretKey: 'APdVQM7G6yrA3Jb3_KymCf4csPekcOmYuw4BMF3_',    // SK
+    accessKey: '4ujsdasdfH4VrUylwdEm12XjpJbAgdp7ovVdEa5p',    // AK
+    secretKey: 'APdV112asddA3Jb3_KymCf4csPekcOmYuw4BMF3_',    // SK
     cdn: 'http://qiniu.cdn.blog.qianyin925.com',              // cdn
   },
 };
