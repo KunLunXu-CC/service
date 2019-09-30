@@ -17,4 +17,13 @@ module.exports = {
   privateKey: fs.readFileSync(path.resolve(__dirname, './private.dev.key')),
   // 登录公钥
   publicKey: fs.readFileSync(path.resolve(__dirname, './public.dev.key')),
+
+  // 七牛云对象存储配置
+  qiniu: {
+    bucket: 'qianyin-blog',                                   // 存储空间
+    zone: 'Zone_z2',                                          // 存储区域(华南)
+    accessKey: '4ujbYoxafH4VrUylwdEm12XjpJbAgdp7ovVdEa5p',    // AK
+    secretKey: 'APdVQM7G6yrA3Jb3_KymCf4csPekcOmYuw4BMF3_',    // SK
+    cdn: 'http://qiniu.cdn.blog.qianyin925.com',              // cdn
+  },
 };

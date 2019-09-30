@@ -20,7 +20,6 @@
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.8.2",
     "koa-body": "^4.1.1",
-    "koa-bodyparser": "^4.2.1",
     "koa-static": "^5.0.0",
     "koa2-cors": "^2.0.6",
     "lodash": "^4.17.15",
@@ -29,6 +28,7 @@
     "node-rsa": "^1.0.6",
     "nodemailer": "^6.3.0",
     "pm2": "^3.5.1",
+    "qiniu": "^7.2.2",
     "shelljs": "^0.8.3"
   },
   "devDependencies": {
