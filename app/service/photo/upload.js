@@ -20,9 +20,10 @@ module.exports = async (ctx, next) => {
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
     console.log('七牛云文件上传 file:', file);
-    await qiniu.upload(file.path, `tem.${file.name}`).catch(err => {
+    const respBody = await qiniu.upload(file.path, `tem.${file.name}`).catch(err => {
       console.log('七牛云文件上传失败:', err);
     });
+    console.log(`--->>>>>>>>> ${file.name}文件上传结果`, respBody);
   }
   
   ctx.body = "上传完成";
