@@ -15,10 +15,14 @@ const getFiles = (ctx) => {
 
 module.exports = async (ctx, next) => {
   const files = getFiles(ctx);
-
+  console.log('\n\n\n\n\n\n\n\n\n----------------------------------->>>>>>>>>>>>>> 文件上传日志');
+  console.log('七牛云文件上传 files:', files);
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
-    await qiniu.upload(file.path, `tem.${file.name}`);
+    console.log('七牛云文件上传 file:', file);
+    await qiniu.upload(file.path, `tem.${file.name}`).catch(err => {
+      console.log('七牛云文件上传失败:', err);
+    });
   }
   
   ctx.body = "上传完成";
