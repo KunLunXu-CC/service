@@ -6,6 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development nodemon ./app/app.js",
     "commit": "git-cz",
+    "add": "git add --all && git reset -- */development.js",
     "gulp": "gulp --gulpfile ./scripts/gulpfile.js",
     "release": "standard-version"
   },

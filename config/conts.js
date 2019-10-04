@@ -1,6 +1,6 @@
 /* 常量配置 */
 
-// 性别
+// 布尔值
 module.exports.BOOLEAN = {
   TRUE: 1,
   FALSE: 0,
@@ -28,6 +28,14 @@ module.exports.RESCODE = {
 
 // 性别
 module.exports.SEX = {
-  BOY: 1,
-  GIRL: 2,
+  BOY: 1,             //男
+  GIRL: 2,            // 女
+};
+
+// 图片类型(使用场景)
+module.exports.PHOTO_TYPE = {
+  UNKNOWN: 0,         // 未知
+  ARTICLE: 1,         // 文章
+  DESKTOP: 2,         // 桌面
+  COVER: 3,           // 封面(通用)
 };
