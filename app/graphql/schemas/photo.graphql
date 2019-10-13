@@ -1,6 +1,11 @@
-# extend type Mutation {
-  
-# }
+extend type Mutation {
+   removePhotos (
+    conds: PhotoSearch!
+    orderBy: OrderBy
+    search: PhotoSearch
+    pagination: Pagination
+  ): Photos
+}
 
 type Photos {
   list: [Photo]
@@ -12,10 +17,32 @@ type Photos {
 
 type Photo {
   id: ID
-  name: String!
+  type: Int
+  url: String
+  name: String
+  sourceFileName: String
+  # payload
+
 	status: Int
   creator: User
   updater: User
   updateTime: Date
   creationTime: Date
+}
+
+input PhotoSearch {
+  id: ID
+  type: Int
+  ids: [ID!]
+  url: String
+  name: String
+  sourceFileName: String
+
+  updater: ID
+  creator: ID
+  startUpdateTime: Date
+  endUpdateTime: Date
+  startCreationTime: Date
+  endCreationTime: Date
+  status: [Int]
 }

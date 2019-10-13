@@ -8,11 +8,14 @@ module.exports = {
   },
 
   Mutation: {
-
+    removePhotos: async (parents, args, context, info) => {
+      // return await remove({ model: 'Tag', ...args, ctx: context.ctx });
+      return {};
+    },
   },
-  
+
   Photo: {
-    creator, 
+    creator,
     updater,
   }
 }
