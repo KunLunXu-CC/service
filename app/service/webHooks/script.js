@@ -21,7 +21,7 @@ const handler = ({ body, header, sh}) => new Promise((resolve, reject) => {
 });
 
 
-module.exports.blog_service = async ({ body, header }) => {
+module.exports['blog-service'] = async ({ body, header }) => {
   handler({
     body, 
     header,
@@ -29,7 +29,7 @@ module.exports.blog_service = async ({ body, header }) => {
   });
 }
 
-module.exports.blog_client = async ({ body, header }) => {
+module.exports['blog-client'] = async ({ body, header }) => {
   handler({
     body, 
     header,
