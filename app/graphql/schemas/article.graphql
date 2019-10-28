@@ -1,5 +1,5 @@
 extend type Query {
-  aticles(
+  articles(
     orderBy: OrderBy
     search: ArticleSearch
     pagination: Pagination
