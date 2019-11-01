@@ -31,11 +31,18 @@ module.exports = async ({ model, ctx, conds, search, orderBy, pagination }) => {
     data.rescode = RESCODE.FAIL;
   }
 
+  data.change = await server.find({_id: {$in: changeIds}});
+  
+  // 修改 name 值: ${name}-${id}
+  for (let item of data.change){
+    await server.updateMany({_id: item.id}, { name: `${item.name}-${item.id}` });
+  }
+
   if (search){
     const listData = await getList({ model, ctx, search, orderBy, pagination });
     data.pagination = listData.pagination || {};
     data.list = listData.list || [];
-  } 
-  data.change = await server.find({_id: {$in: changeIds}});
+  }
+
   return data;
 }
