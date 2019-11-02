@@ -12,13 +12,18 @@ const getList = require('./getList');
  * @param {Object}  orderBy       排序
  */
 module.exports = async ({ model, ctx, conds, body, orderBy, search, pagination }) => {
-  const data = { 
+  const data = {
     list: [],
     change: [],
-    pagination: {}, 
-    message: '修改成功', 
-    rescode: RESCODE.SUCCESS, 
+    pagination: {},
+    message: '修改成功',
+    rescode: RESCODE.SUCCESS,
   };
+
+  console.log('============================== 打印数据 \n\n\n\n\n\n');
+  console.log(ctx.state);
+  console.log('打印数据结束 ===================\n\n\n\n');
+
   const server = ctx.db.mongo[model];
   const changeConds = getConditions(conds);
   let changeIds = [];

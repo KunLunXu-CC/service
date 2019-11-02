@@ -69,10 +69,10 @@ module.exports.signJwt = (payload) => {
 /**
  * （异步）验证 json web token
  * @param {String} token    token 字符串
- * @returns {String}        有效载荷
+ * @returns {Object}}        有效载荷 || {}
  */
 module.exports.verifyJwt = (token) => new Promise((resolve, reject) => {
   jwt.verify(token, publicKey, (err, payload) => {
-    resolve(payload);
+    resolve(payload || {});
   });
 });
