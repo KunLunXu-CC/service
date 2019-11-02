@@ -1,6 +1,7 @@
 
 const _ = require('lodash');
 const path = require('path');
+const { create } = require('../common');
 const qiniu = require('../../../utils/qiniu');
 const { RESCODE } = require('../../../config/conts');
 
@@ -61,7 +62,7 @@ const insertData = async (ctx, list) => {
     name: v.fileName,
     url: v.url,
   }));
-  await serve.insertMany(list);
+  await create({ model: 'Photo', ctx, body: list })
 }
 
 module.exports = async (ctx, next) => {

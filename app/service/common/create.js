@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const { RESCODE } = require('../../../config/conts');
 const getList = require('./getList');
 
@@ -11,21 +12,21 @@ const getList = require('./getList');
  * @param {Object}  orderBy       排序
  */
 module.exports = async ({ model, ctx, body, search, orderBy, pagination }) => {
-  const data = { 
-    list: [], 
+  const data = {
+    list: [],
     change: [],
-    pagination: {}, 
-    message: '创建成功', 
-    rescode: RESCODE.SUCCESS, 
+    pagination: {},
+    message: '创建成功',
+    rescode: RESCODE.SUCCESS,
   };
   const server = ctx.db.mongo[model];
   try {
     data.change = await server.insertMany(body.map(v => ({
       ...v,
-      creator: null,
-      updater: null,
+      creator: _.get(ctx, 'state.user.id', null),
+      updater: _.get(ctx, 'state.user.id', null),
     })));
-  } catch(e) { 
+  } catch(e) {
     data.message = '创建失败';
     data.rescode = RESCODE.FAIL;
   }
@@ -33,6 +34,6 @@ module.exports = async ({ model, ctx, body, search, orderBy, pagination }) => {
     const listData = await getList({ model, ctx, search, orderBy, pagination });
     data.pagination = listData.pagination || {};
     data.list = listData.list || [];
-  } 
+  }
   return data;
 }

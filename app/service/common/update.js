@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const { RESCODE } = require('../../../config/conts');
 const getConditions = require('../../../utils/getConditions');
 const getList = require('./getList');
@@ -20,16 +21,12 @@ module.exports = async ({ model, ctx, conds, body, orderBy, search, pagination }
     rescode: RESCODE.SUCCESS,
   };
 
-  console.log('============================== 打印数据 \n\n\n\n\n\n');
-  console.log(ctx.state);
-  console.log('打印数据结束 ===================\n\n\n\n');
-
   const server = ctx.db.mongo[model];
   const changeConds = getConditions(conds);
   let changeIds = [];
   try {
-    body.updater = null;
     body.updateTime = Date.now();
+    body.updater = _.get(ctx, 'state.user.id', null),
     changeIds = (await server.find(changeConds)).map(v => v._id);
     await server.updateMany(changeConds, body, {});
   } catch (e) {

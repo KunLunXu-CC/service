@@ -13,26 +13,29 @@ const _ = require('lodash');
  * @param {Object} orderBy      排序
  */
 module.exports = async ({ model, ctx, conds, search, orderBy, pagination }) => {
-  const data = { 
-    list: [], 
+  const data = {
+    list: [],
     change: [],
-    pagination: {}, 
-    message: '删除成功', 
-    rescode: RESCODE.SUCCESS, 
+    pagination: {},
+    message: '删除成功',
+    rescode: RESCODE.SUCCESS,
   };
   const server = ctx.db.mongo[model];
   const changeConds = getConditions(conds);
   let changeIds = [];
   try {
     changeIds = (await server.find(changeConds)).map(v => v._id);
-    await server.updateMany(changeConds, { status: STATUS.DELETE });
+    await server.updateMany(changeConds, {
+      updater: _.get(ctx, 'state.user.id', null),
+      status: STATUS.DELETE,
+    });
   } catch (e) {
     data.message = '删除失败';
     data.rescode = RESCODE.FAIL;
   }
 
   data.change = await server.find({_id: {$in: changeIds}});
-  
+
   // 修改 name 值: ${name}-${id}
   for (let item of data.change){
     await server.updateMany({_id: item.id}, { name: `${item.name}-${item.id}` });
