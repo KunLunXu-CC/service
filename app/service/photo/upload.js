@@ -55,17 +55,18 @@ const upPhotos = async (files) => {
  * @param {Object[]} list 图片上传处理后的列表
  */
 const insertData = async (ctx, list) => {
-  const serve = ctx.db.mongo.Photo;
-  list = list.filter(v => !!v.url).map(v => ({
-    payload: "5d948f840a4ef85d737c2d5e",
-    sourceFileName: v.sourceFileName,
-    name: v.fileName,
+  const { type, payload } = ctx.request.body;
+  const body = list.filter(v => !!v.url).map(v => ({
+    type,
+    payload,
     url: v.url,
+    name: v.fileName,
+    sourceFileName: v.sourceFileName,
   }));
-  await create({ model: 'Photo', ctx, body: list })
+  await create({ model: 'Photo', ctx, body })
 }
 
-module.exports = async (ctx, next) => {
+module.exports = async (ctx) => {
   const data = {
     data: [],
     message: '上传成功',
