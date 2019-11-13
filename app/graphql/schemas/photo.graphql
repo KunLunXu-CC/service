@@ -1,7 +1,15 @@
+extend type Query {
+  photos(
+    orderBy: OrderBy
+    search: PhotoSearch
+    pagination: Pagination
+  ): Photos
+}
+
 extend type Mutation {
    removePhotos (
-    conds: PhotoSearch!
     orderBy: OrderBy
+    conds: PhotoSearch!
     search: PhotoSearch
     pagination: Pagination
   ): Photos
