@@ -36,7 +36,7 @@ const getFileName = (sourceFileName) => {
 const upPhotos = async (files) => {
   const resList = [];
   for (let file of files){
-    // 1. TODO: 校验(图片)
+    // TODO: 校验(图片)
     const { name: sourceFileName } = file;
     const itemData = { sourceFileName };
     const { respBody } = await qiniu.upload(file.path, getFileName(sourceFileName));
