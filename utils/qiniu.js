@@ -55,10 +55,26 @@ module.exports.upload = (path, fileName) => new Promise((resolve, reject) => {
 });
 
 /**
+ * 七牛云对象存储 - 文件重命名(使用的是移动命令)
+ * @param {object[]}} files      要重命名的文件以及对应要修改的文件名列表{ src, dest }
+ * @return {Boolean} 返回删除状态： 成功　true 失败 false
+ */
+module.exports.update = (files = []) => new Promise((resolve, reject) =>  {
+  const bucketManager = this.getBucketManager();
+  const deleteOperations = files.map(v => (
+    qiniu.rs.moveOp(bucket, v.src, bucket, v.dest)
+  ));
+  bucketManager.batch(deleteOperations, (err, respBody, respInfo) => {
+    resolve(!err);
+  });
+});
+
+/**
  * 七牛云对象存储 - 批量删除文件
  * @param {String} files      要删除的文件(文件名)列表
  */
 module.exports.delete = (files = []) => {
+  const bucketManager = this.getBucketManager();
   var deleteOperations = files.map(v => (
     qiniu.rs.deleteOp(bucket, 'NzQ4NTcxMjVfcDAucG5nMTU3MDAwNzUzMzAxOA==.png')
   ));

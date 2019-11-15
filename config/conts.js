@@ -39,3 +39,6 @@ module.exports.PHOTO_TYPE = {
   DESKTOP: 2,         // 桌面
   COVER: 3,           // 封面(通用)
 };
+
+// 假删名称(name)前缀
+module.exports.PREFIX_DELETED = 'DELETED_';

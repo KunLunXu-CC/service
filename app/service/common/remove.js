@@ -1,4 +1,4 @@
-const { STATUS, RESCODE } = require('../../../config/conts');
+const { STATUS, RESCODE, PREFIX_DELETED } = require('../../../config/conts');
 const getConditions = require('../../../utils/getConditions');
 const getList = require('./getList');
 const _ = require('lodash');
@@ -38,7 +38,10 @@ module.exports = async ({ model, ctx, conds, search, orderBy, pagination }) => {
 
   // 修改 name 值: ${name}-${id}
   for (let item of data.change){
-    await server.updateMany({_id: item.id}, { name: `${item.name}-${item.id}` });
+    await server.updateMany(
+      {_id: item.id},
+      { name: `${PREFIX_DELETED}${item.name}` },
+    );
   }
 
   if (search){
