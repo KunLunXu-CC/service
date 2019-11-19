@@ -15,9 +15,13 @@ const setUserInfoToState = async ({ ctx }) => {
   const payload = await verifyJwt(token);
 
   // 2. 获取用户: token 对应用户 || 默认用户
-  const user = payload.id
+  let user = payload.id
     ? await userServer.findOne({ _id: payload.id })
-    :  await userServer.findOne({ account: defaultUser });
+    : null;
+  // 2.1 如果 token 错误或者数据更新可能 id 错误找不到用户时则使用默认用户
+  user = user
+    ? user
+    : await userServer.findOne({ account: defaultUser });
 
   // 3. 设置 koa 状态: ctx.state.user ctx.state.role
   if (user && user.role){

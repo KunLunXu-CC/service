@@ -17,6 +17,11 @@ exports.fields = {
     title: '角色描述',
 		type: String,
   },
+  isAdmin: {
+    type: Number,
+    title: '是否是管理员',
+		default: BOOLEAN.FALSE,
+  },
   auth: {
     title: '角色权限',
 		type: [{
