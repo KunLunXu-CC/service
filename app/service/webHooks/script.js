@@ -23,7 +23,7 @@ const handler = ({ body, header, sh}) => new Promise((resolve, reject) => {
 
 module.exports['blog-service'] = async ({ body, header }) => {
   handler({
-    body, 
+    body,
     header,
     sh: 'git pull && npm i',
   });
@@ -31,8 +31,14 @@ module.exports['blog-service'] = async ({ body, header }) => {
 
 module.exports['blog-client'] = async ({ body, header }) => {
   handler({
-    body, 
+    body,
     header,
-    sh: 'cd html && git pull && npm i && npm run build',
+    sh: `
+      cd html && \
+      git pull && \
+      npm i && \
+      npm run build && \
+      chmod 777 . -R
+    `,
   });
 }
