@@ -1,0 +1,25 @@
+# 基础镜像: 表示在 mongo 镜像基础上进行扩展
+FROM mongo
+
+# 维护者信息: 填写维护者的信息
+MAINTAINER qianyin qianyin95@gmai.com
+
+# 镜像操作指令: 安装 cron
+RUN apt-get update && apt-get install -y cron
+
+# 创建备份文件
+RUN mkdir /data/backups
+
+# 添加文件到容器
+ADD ./crontabs /var/spool/cron/crontabs
+
+# 添加文件可执行权限
+RUN chmod +x -R /var/spool/cron/crontabs/**/*.sh
+
+# 设置挂载点
+VOLUME [/data/backups]
+
+# 容器启动后执行指令: 指定新建容器在每次运行后需要执行的命令
+# ENTRYPOINT  cron
+
+CMD sh -c "cron && mongod --bind_ip_all"

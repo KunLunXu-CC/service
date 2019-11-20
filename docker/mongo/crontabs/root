@@ -1,0 +1,3 @@
+*/1 * * * * sh $PWD/shell/s1.sh
+*/1 * * * * sh /var/spool/cron/crontabs/shell/s2.sh
+*/1 * * * * echo "hello world" >> /data/backups/自定义.md

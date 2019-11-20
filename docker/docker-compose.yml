@@ -1,20 +1,21 @@
 version: '2'
 services:
   mongo:
-    image: mongo
+    build: ./mongo/
     container_name: blog-mongo
     expose:
       - 27017
     volumes:
       - ./store/mongo/db:/data/db
       - ./store/mongo/configdb:/data/configdb
+      - ./store/mongo/backups:/data/backups
     logging:
       driver: "json-file"
       options:
         max-size: "100k"
         max-file: "20"
   node:
-    build: ./
+    build: ./node/
     container_name: blog-service
     ports:
       - 4000:4000
@@ -47,7 +48,7 @@ services:
       - node
     volumes:
       - ../html/build:/usr/share/nginx/html
-      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./store/nginx/logs/:/var/log/nginx
     logging:
       driver: "json-file"
