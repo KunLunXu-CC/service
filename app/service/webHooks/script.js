@@ -27,7 +27,7 @@ module.exports['blog-service'] = async ({ body, header }) => {
     header,
     sh: `
       git checkout . && \
-      git clean -xdf && \
+      git clean -df && \
       git pull && \
       npm i && \
       chmod 777 . -R
@@ -42,7 +42,7 @@ module.exports['blog-client'] = async ({ body, header }) => {
     sh: `
       cd html && \
       git checkout . && \
-      git clean -xdf && \
+      git clean -df && \
       git pull && \
       npm i && \
       npm run build && \
