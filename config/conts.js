@@ -42,3 +42,5 @@ module.exports.PHOTO_TYPE = {
 
 // 假删名称(name)前缀
 module.exports.PREFIX_DELETED = 'DELETED_';
+
+// 测试后期删除
