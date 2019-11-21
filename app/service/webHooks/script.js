@@ -42,6 +42,7 @@ module.exports['blog-client'] = async ({ body, header }) => {
     sh: `
       cd html && \
       git checkout . && \
+      git clean -xdf && \
       git pull && \
       npm i && \
       npm run build && \
