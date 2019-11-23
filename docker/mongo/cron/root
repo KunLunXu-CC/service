@@ -1,0 +1,2 @@
+# 每天凌晨 2 点定时备份数据
+* 2 * * * sh /var/spool/cron/crontabs/shell/backup.sh

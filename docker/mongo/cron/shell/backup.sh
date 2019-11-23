@@ -1,7 +1,7 @@
 # #!/bin/sh
 
 # 参数配置
-LIFE_DAYS=60                          # 存活时长, 备份存储时长
+LIFE_DAYS=7                          # 存活时长, 备份存储时长
 BACKUP_DIR=/data/backups              # 备份路径
 DB_NAME=blog                          # 数据库名
 DATE=`date +%Y_%m_%d_%H_%M_%S`        # 获取当前系统时间

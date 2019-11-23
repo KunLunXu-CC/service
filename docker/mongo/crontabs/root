@@ -1,2 +1,0 @@
-# 每周六6点执行一次脚本(每天凌晨2点执行脚本是: 0 2 * * *)
-0 6 * * 6 sh /var/spool/cron/crontabs/shell/backup.sh
