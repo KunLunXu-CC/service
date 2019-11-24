@@ -37,7 +37,7 @@ module.exports.PHOTO_TYPE = {
   UNKNOWN: 0,         // 未知
   ARTICLE: 1,         // 文章
   DESKTOP: 2,         // 桌面
-  COVER: 3,           // 封面(通用)
+  THUMB: 3,           // 缩略图(通用)
 };
 
 // 假删名称(name)前缀
