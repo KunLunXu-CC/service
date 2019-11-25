@@ -40,8 +40,8 @@ type Photo {
 
 input PhotoSearch {
   id: ID
-  type: Int
   ids: [ID!]
+  type: [Int]
   url: String
   name: String
   sourceFileName: String
