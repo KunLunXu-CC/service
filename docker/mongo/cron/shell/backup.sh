@@ -4,7 +4,7 @@
 LIFE_DAYS=7                          # 存活时长, 备份存储时长
 BACKUP_DIR=/data/backups              # 备份路径
 DB_NAME=blog                          # 数据库名
-DATE=`date +%Y_%m_%d_%H_%M_%S`        # 获取当前系统时间
+DATE=`date +%Y_%m_%d_%H_%M`           # 获取当前系统时间
 FILE_NAME="mongod_bak_$DATE.tar.gz"   # 最终备份出来的压缩包文件名
 
 # 1. 备份
