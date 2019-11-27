@@ -12,10 +12,10 @@ const system = require('../config/system');
  * @param {Array}  handler  返回对象每个值的处理方法
  * @return {Object} { [fileName]: Object }
  */
-module.exports.requireFiles = ({ 
-  dir, 
-  filter = [], 
-  suffix = 'js', 
+module.exports.requireFiles = ({
+  dir,
+  filter = [],
+  suffix = 'js',
   handler = (dest) => require(dest),
 }) => {
   const tree = {};
@@ -40,4 +40,20 @@ module.exports.createHash = ({ data, type = 'md5' }) => {
   const hash = crypto.createHash(type);
   hash.update(data);
   return hash.digest('hex');
+}
+
+// TODO: 获取所有文件路径, 方法整理
+function readFileList(dir, filesList = []) {
+  const files = fs.readdirSync(dir);
+  console.log(files);
+  files.forEach((item, index) => {
+      var fullPath = path.join(dir, item);
+      const stat = fs.statSync(fullPath);
+      if (stat.isDirectory()) {
+          readFileList(path.join(dir, item), filesList);  //递归读取文件
+      } else {
+          filesList.push(fullPath);
+      }
+  });
+  return filesList;
 }
