@@ -11,28 +11,28 @@ const _ = require('lodash');
  * @param {Object}  orderBy       排序
  */
 module.exports = async ({ model, ctx, search, pagination, orderBy }) => {
-  const data = { 
-    list: [], 
-    change: [], 
-    pagination: {},  
-    message: '请求成功', 
-    rescode: RESCODE.SUCCESS, 
+  const data = {
+    list: [],
+    change: [],
+    pagination: {},
+    message: '请求成功',
+    rescode: RESCODE.SUCCESS,
   };
   const server = ctx.db.mongo[model];
   const conds = getConditions(search);
-  data.pagination = { 
-    ...pagination,  
-    total: await server.find(conds).count() 
+  data.pagination = {
+    ...pagination,
+    total: await server.find(conds).count()
   };
 
   try {
+    const sort = orderBy || {};
     if (pagination){
-      const sort = orderBy || {};
       const limit = pagination.pageSize;
       const skip = ( pagination.current - 1 ) * pagination.pageSize;
       data.list = await server.find(conds).skip(skip).limit(limit).sort(sort);
     } else {
-      data.list = await server.find(conds);
+      data.list = await server.find(conds).sort(sort);
     }
   } catch (e) {
     data.rescode = RESCODE.FAIL;
