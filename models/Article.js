@@ -28,6 +28,11 @@ exports.fields = {
     title: '内容',
 		type: String,
   },
+  views: {
+    default: [],
+    title: '阅读量',
+    type: [String],
+  },
 	status: {
 		title: '状态',
 		default: STATUS.ENABLE,

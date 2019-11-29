@@ -15,7 +15,7 @@ extend type Mutation {
   ): Articles
 
   removeArticles (
-    conds: ArticleSearch! 
+    conds: ArticleSearch!
     orderBy: OrderBy
     search: ArticleSearch
     pagination: Pagination
@@ -67,8 +67,9 @@ type Articles {
 
 type Article {
   desc: String
-  thumb: String
   tags: [Tag!]
+  thumb: String
+  views: [String]
   content: String
 
   id: ID
