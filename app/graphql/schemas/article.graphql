@@ -69,8 +69,9 @@ type Article {
   desc: String
   tags: [Tag!]
   thumb: String
-  views: [String]
+  viewCount: Int
   content: String
+  viewHistory: [String]
 
   id: ID
   name: String!

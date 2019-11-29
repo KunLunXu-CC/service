@@ -28,10 +28,15 @@ exports.fields = {
     title: '内容',
 		type: String,
   },
-  views: {
+  viewCount: {
+    default: 0,
+    type: Number,
+    title: '阅读统计',
+  },
+  viewHistory: {
     default: [],
-    title: '阅读量',
     type: [String],
+    title: '阅读记录',
   },
 	status: {
 		title: '状态',

@@ -9,6 +9,8 @@ scalar Pagination {
 input OrderBy {
   updateTime: Int
   creationTime: Int
+  # 阅读量
+  viewCount: Int
 }
 
 ## ********* 通用请求 ********
@@ -16,13 +18,13 @@ input OrderBy {
 type Query {
   options(
     pagination: Pagination,
-    model: String!, 
+    model: String!,
     search: OptionsSearch,
   ): Options
 }
 
 type Mutation {
-  # 占位符 
+  # 占位符
   _empty:String
 }
 
