@@ -19,7 +19,6 @@ module.exports = {
         { code: 'album', readable: BOOLEAN.TRUE, writable:BOOLEAN.TRUE },
         { code: 'editor', readable: BOOLEAN.TRUE, writable:BOOLEAN.TRUE },
         { code: 'article', readable: BOOLEAN.TRUE, writable:BOOLEAN.TRUE },
-        { code: 'note', readable: BOOLEAN.TRUE, writable:BOOLEAN.TRUE },
       ],
     }
   ],
