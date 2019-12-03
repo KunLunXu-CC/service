@@ -26,7 +26,8 @@ module.exports['blog-service'] = async ({ body, header }) => {
     body,
     header,
     sh: `
-      git checkout . && \
+      git fetch --all  && \
+      git reset --hard origin/master  && \
       git clean -df && \
       git pull && \
       npm i && \
@@ -41,7 +42,8 @@ module.exports['blog-client'] = async ({ body, header }) => {
     header,
     sh: `
       cd html && \
-      git checkout . && \
+      git fetch --all  && \
+      git reset --hard origin/master  && \
       git clean -df && \
       git pull && \
       npm i && \
