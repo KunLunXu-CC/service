@@ -5,6 +5,6 @@ module.exports = {
 
     watch: true,
     ignore_watch: ['node_modules', 'docker', 'html', '.git'],
-    watch_delay: 1000 * 60 * 1,
+    watch_delay: 1000 * 60 * 5,
   }]
 }
