@@ -4,18 +4,19 @@ const path = require('path');
 const system = require('../../config/system');
 const { requireFiles } = require('../../utils');
 
-const { 
+const {
   gql,
-  ApolloServer, 
+  ApolloServer,
 } = require('apollo-server-koa');
 
 /**
  * 获取结构器并进行合并
  */
 function getResolves(){
-  const dir = path.resolve(__dirname, './resolvers');
-  const filter = ['fragment.js'];
-  const resolves = requireFiles({ dir, filter });
+  const resolves = requireFiles({
+    dir: path.resolve(__dirname, './resolvers'),
+    filter: [path.resolve(__dirname, './resolvers/fragment.js')],
+  });
   const mergeResolves = _.merge(..._.values(resolves));
   return mergeResolves;
 }
@@ -24,19 +25,12 @@ function getResolves(){
  * 获取 typeDefs 并进行合并
  */
 function getTypeDefs(){
-  let typeDefs = '';
-  const pathUrl = path.resolve(__dirname, './schemas');
-
-  const [dirs, files] = _.partition(fs.readdirSync(pathUrl), p => {
-    return fs.statSync(path.join(pathUrl, p)).isDirectory();
+  const resolves = requireFiles({
+    extname: '.graphql',
+    dir: path.resolve(__dirname, './schemas'),
+    handler: file => fs.readFileSync(file, 'utf8'),
   });
-
-  files.forEach( file => {
-    if (path.extname(file) === '.graphql'){
-      typeDefs += fs.readFileSync(path.join(pathUrl, file), 'utf8');
-    }
-  });
-  return typeDefs;
+  return _.values(resolves).join('');
 }
 
 /**

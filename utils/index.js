@@ -2,30 +2,52 @@ const fs = require('fs');
 const _ = require('lodash');
 const path = require('path');
 const crypto = require('crypto');
-const system = require('../config/system');
+
+/**
+ * 读取文件夹下所有文件并返回文件列表
+ * @param {String} dir 指定目录路径
+ */
+module.exports.readFileList = (dir, filesList = []) =>{
+  let files = [];
+  try {
+    files = fs.readdirSync(dir);
+  } catch (e) {}
+  files.forEach((item, index) => {
+    const fullPath = path.join(dir, item);
+    const stat = fs.statSync(fullPath);
+    if (stat.isDirectory()) {
+      readFileList(path.join(dir, item), filesList);
+    } else {
+      filesList.push(fullPath);
+    }
+  });
+  return filesList;
+}
 
 /**
  * 加载指定目录路径下的所有指定后缀文件
- * @param {String} dir      指定目录路径
- * @param {String} suffix   指定文件后缀
- * @param {Array}  filter   要过滤的文件列表
- * @param {Array}  handler  返回对象每个值的处理方法
+ * @param {String} dir                  指定目录路径
+ * @param {String} suffix               指定文件后缀
+ * @param {Array || Function}  filter   要过滤的文件路径列表或过滤方法
+ * @param {Array}  handler              返回对象每个值的处理方法
  * @return {Object} { [fileName]: Object }
  */
 module.exports.requireFiles = ({
   dir,
   filter = [],
-  suffix = 'js',
-  handler = (dest) => require(dest),
+  extname = '.js',
+  handler = dest => require(dest),
 }) => {
   const tree = {};
-  const [dirs, files] = _.partition(fs.readdirSync(dir), p => {
-    return fs.statSync(path.join(dir, p)).isDirectory();
-  });
-  files.forEach( file => {
-    if (path.extname(file) === `.${suffix}` && !filter.includes(file)){
+  const files = this.readFileList(dir);
+  files.forEach(file => {
+    // 是否过滤掉该文件
+    const isFilter = _.isArray(filter)
+      ? filter.includes(file)
+      : filter(file);
+    if (path.extname(file) === extname && !isFilter){
       const fileName = path.basename(file).split('.')[0];
-      tree[fileName] = handler(path.join(dir, file));
+      tree[fileName] = handler(file);
     }
   });
   return tree
@@ -40,20 +62,4 @@ module.exports.createHash = ({ data, type = 'md5' }) => {
   const hash = crypto.createHash(type);
   hash.update(data);
   return hash.digest('hex');
-}
-
-// TODO: 获取所有文件路径, 方法整理
-function readFileList(dir, filesList = []) {
-  const files = fs.readdirSync(dir);
-  console.log(files);
-  files.forEach((item, index) => {
-      var fullPath = path.join(dir, item);
-      const stat = fs.statSync(fullPath);
-      if (stat.isDirectory()) {
-          readFileList(path.join(dir, item), filesList);  //递归读取文件
-      } else {
-          filesList.push(fullPath);
-      }
-  });
-  return filesList;
 }
