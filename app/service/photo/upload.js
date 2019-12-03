@@ -3,6 +3,7 @@ const _ = require('lodash');
 const path = require('path');
 const { create } = require('../common');
 const qiniu = require('../../../utils/qiniu');
+const tinify = require('../../../utils/tinify');
 const { RESCODE } = require('../../../config/conts');
 
 /**
@@ -25,7 +26,8 @@ const getFileName = (sourceFileName) => {
   const extname = path.extname(sourceFileName);
   const unique = `${sourceFileName}${new Date().getTime()}`;
   const name = Buffer.from(unique).toString('base64');
-  return `${name}${extname}`
+  const env = process.env.NODE_ENV === 'development' ? 'dev' : 'pro';
+  return `${env}.${name}${extname}`
 }
 
 /**
@@ -36,10 +38,22 @@ const getFileName = (sourceFileName) => {
 const upPhotos = async (files) => {
   const resList = [];
   for (let file of files){
-    // TODO: 校验(图片)
-    const { name: sourceFileName } = file;
+    // TODO: 1. 校验(图片)
+    const { name: sourceFileName, path: filePath } = file;
     const itemData = { sourceFileName };
-    const { respBody } = await qiniu.upload(file.path, getFileName(sourceFileName));
+
+    // 2. 压缩图片
+    const fileBuffer = await tinify({
+      path: filePath
+    });
+
+    // 3. 上传文件至七牛云
+    const { respBody } = await qiniu.upload({
+      fileBuffer,
+      fileName: getFileName(sourceFileName),
+    });
+
+    // 4. 数据处理
     const { error, key: fileName, url } = respBody || {};
     fileName && (itemData.fileName = fileName);
     error && (itemData.error = error);
