@@ -28,7 +28,12 @@ module.exports = {
     zone: 'Zone_z2',                                          // 存储区域(华南)
     accessKey: '********************12XjpJbAgdp7ovVdEa5p',    // AK
     secretKey: '********************Cf4csPekcOmYuw4BMF3_',    // SK
-    cdn: 'http://qiniu.cdn.blog.qianyin925.com',              // cdn
+    cdn: 'http://q************************.com',              // cdn
+  },
+
+  // tinify 图片压缩配置
+  tinify: {
+    apiKey: 'yTH4cL******************0ttq',
   },
 
   // SMTP 邮件服务配置
