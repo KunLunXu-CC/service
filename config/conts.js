@@ -38,6 +38,7 @@ module.exports.PHOTO_TYPE = {
   ARTICLE: 1,         // 文章
   DESKTOP: 2,         // 桌面
   THUMB: 3,           // 缩略图(通用)
+  AVATAR: 4,          // 头像
 };
 
 // 假删名称(name)前缀

@@ -23,7 +23,15 @@ exports.fields = {
 		title: '密码',
 		required: true,
 		type: String,
-	},
+  },
+  avatar: {
+    title: '头像',
+		type: String,
+  },
+  motto: {
+    title: '座右铭(个签)',
+		type: String,
+  },
 	role: {
 		title: '角色',
 		require: true,
