@@ -12,13 +12,13 @@ sudo docker cp blog-mongo:/tmp/mongo-bak/blog /tmp/mongo-bak
 sudo docker rm -f $(sudo docker ps -a -q)
 
 ## 2. 删除 sudo dockerfile 创建的镜像
-sudo docker rmi -f sudo docker_node sudo docker_mongo
+sudo docker rmi -f docker_node docker_mongo
 
 ## 3. 删除当前 store
-rm -rf ~/blog/sudo docker/store
+sudo rm -rf ~/blog/docker/store
 
 # 重新运行容器
-cd ~/blog/docker/ && sudo docker-compose up -d
+sudo cd ~/blog/docker/ && sudo docker-compose up -d
 
 # 导入数据
 ## 1. 拷贝备份文件到容器内: mongo-bak 是个文件夹(tar包不懂信不信未测试))
@@ -31,4 +31,4 @@ sudo docker exec blog-mongo sh -c 'mongorestore -d blog --drop /tmp/mongo-bak'
 sudo docker exec blog-mongo sh -c 'rm -rf /tmp/mongo-bak'
 
 ## 4. 删除本地备份文件
-rm -rf /tmp/mongo-bak
+sudo rm -rf /tmp/mongo-bak
