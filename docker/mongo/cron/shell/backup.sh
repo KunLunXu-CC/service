@@ -10,8 +10,8 @@ FILE_NAME="mongod_bak_$DATE.tar.gz"   # 最终备份出来的压缩包文件名
 # 1. 备份
 mongodump -d $DB_NAME -o $BACKUP_DIR
 
-# 2. 压缩
-tar -zcvf $BACKUP_DIR/$FILE_NAME $BACKUP_DIR/$DB_NAME
+# 2. 打包
+tar -zcvf $FILE_NAME $BACKUP_DIR/$DB_NAME
 
 # 3. 删除
 rm -rf $BACKUP_DIR/$DB_NAME
