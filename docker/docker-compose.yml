@@ -3,6 +3,8 @@ services:
   mongo:
     build: ./mongo/
     container_name: blog-mongo
+    environment:
+      - TZ=Asia/Shanghai
     expose:
       - 27017
     volumes:
@@ -23,6 +25,7 @@ services:
       - mongo
     environment:
       - NODE_ENV=production
+      - TZ=Asia/Shanghai
     depends_on:
       - mongo
     command:
@@ -40,6 +43,8 @@ services:
   web:
     image: nginx
     container_name: blog-web
+    environment:
+      - TZ=Asia/Shanghai
     ports:
       - 80:80
     links:
