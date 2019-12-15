@@ -14,7 +14,7 @@ mongodump -d $DB_NAME -o $BACKUP_DIR
 cd $BACKUP_DIR
 
 # 3. 打包
-tar -zcvf $FILE_NAME $BACKUP_DIR/$DB_NAME
+tar -zcvf $BACKUP_DIR/$FILE_NAME ./$DB_NAME/*
 
 # 4. 删除
 rm -rf $BACKUP_DIR/$DB_NAME
