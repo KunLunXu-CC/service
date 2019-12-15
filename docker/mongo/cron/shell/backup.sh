@@ -10,11 +10,14 @@ FILE_NAME="mongod_bak_$DATE.tar.gz"   # 最终备份出来的压缩包文件名
 # 1. 备份
 mongodump -d $DB_NAME -o $BACKUP_DIR
 
-# 2. 打包
+# 2. 进入备份目录
+cd $BACKUP_DIR
+
+# 3. 打包
 tar -zcvf $FILE_NAME $BACKUP_DIR/$DB_NAME
 
-# 3. 删除
+# 4. 删除
 rm -rf $BACKUP_DIR/$DB_NAME
 
-# 4. 找到指定天数前的备份并删除
+# 5. 找到指定天数前的备份并删除
 find $BACKUP_DIR/ -mtime +$LIFE_DAYS -delete
