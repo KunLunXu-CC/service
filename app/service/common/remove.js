@@ -40,7 +40,7 @@ module.exports = async ({ model, ctx, conds, search, orderBy, pagination }) => {
   for (let item of data.change){
     await server.updateMany(
       {_id: item.id},
-      { name: `${PREFIX_DELETED}${item.name}` },
+      { name: `${PREFIX_DELETED}${item.id}_${item.name}` },
     );
   }
 

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { STATUS } = require('../config/conts');
+const { ARTICLE_STATUS } = require('../config/conts');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 exports.title = '文章';
@@ -40,8 +40,8 @@ exports.fields = {
   },
 	status: {
 		title: '状态',
-		default: STATUS.ENABLE,
 		type: Number,
+		default: ARTICLE_STATUS.SAVE, // 默认状态为 保存(未发布)
 	},
   creator: {
 		title: '创建人',

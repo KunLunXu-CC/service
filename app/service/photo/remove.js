@@ -15,12 +15,12 @@ module.exports = async ({ data, ctx }) => {
   // 1. 修改对象存储上的文件名
   await updatePhotos(data.map(v => ({
     src: v.name,
-    dest: `${PREFIX_DELETED}${v.name}`,
+    dest: `${PREFIX_DELETED}${v.id}_${v.name}`,
   })));
 
   // 2. 修改本地存储数据 url
   for (let item of data) {
-    const url = `${cdn}/${PREFIX_DELETED}${item.name}`;
+    const url = `${cdn}/${PREFIX_DELETED}${item.id}_${item.name}`;
     await server.updateMany({ _id: item.id }, { url });
   }
 }
