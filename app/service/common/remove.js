@@ -5,7 +5,7 @@ const _ = require('lodash');
 
 /**
  * 通用删除（假删）方法
- * @param {String}  model       模型名称
+ * @param {String} model       模型名称
  * @param {Object} ctx          koa 上下文
  * @param {Object} conds        要删除数据的查询条件
  * @param {Object} search       查询参数
