@@ -6,18 +6,18 @@ module.exports.BOOLEAN = {
   FALSE: 0,
 };
 
-// 模型基本状态 (0: 禁用， 1： 启用， -11： 删除)
+// 模型基本状态 (0: 禁用， 1： 启用， -11： 删除) 基本状态预留 0 - 10
 module.exports.STATUS = {
   DISABLE: 0,     // 禁用
   ENABLE: 1,      // 启用
   DELETE: -11,    // 删除
 }
 
-// 文章状态： 基础状态 + 保存 + 发布
+// 文章状态： 基础状态 + 保存 + 发布, 补充状态从 10 起
 module.exports.ARTICLE_STATUS = {
   ...this.STATUS,   // 基础状态
-  SAVE: 6,          // 保存(未发布)
-  RELEASE: 9,       // 发布(已发布)
+  SAVE: 10,          // 保存(未发布)
+  RELEASE: 11,       // 发布(已发布)
 };
 
 // 响应状态 (1: 成功, 0: 失败)

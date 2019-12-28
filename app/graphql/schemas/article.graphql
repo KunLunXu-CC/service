@@ -28,6 +28,22 @@ extend type Mutation {
     search: ArticleSearch
     pagination: Pagination
   ): Articles
+
+  # 发布文章
+  releaseArticle(
+    conds: ArticleSearch!
+    orderBy: OrderBy
+    search: ArticleSearch
+    pagination: Pagination
+  ): Articles
+
+  # 撤销(取消发布)文章
+  revokeArticle(
+    conds: ArticleSearch!
+    orderBy: OrderBy
+    search: ArticleSearch
+    pagination: Pagination
+  ): Articles
 }
 
 input ArticleSearch {
@@ -54,7 +70,6 @@ input AticleFields {
   thumb: String
   tags: [ID!]
   content: String
-	status: Int
 }
 
 type Articles {

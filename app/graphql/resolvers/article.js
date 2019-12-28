@@ -1,5 +1,7 @@
-const {getList, create, remove, update } = require('../../service/common');
 const removeBypayload = require('../../service/photo/removeBypayload');
+
+const { getList, create, remove, update } = require('../../service/common');
+const { ARTICLE_STATUS } = require('../../../config/conts');
 const { creator, updater } = require('./fragment');
 
 module.exports = {
@@ -23,6 +25,24 @@ module.exports = {
     },
     updateArticles: async (parents, args, context, info) => {
       return await update({ model: 'Article', ...args, ctx: context.ctx });
+    },
+    // 发布
+    releaseArticle: async (parents, args, context, info) => {
+      return await update({
+        ...args,
+        model: 'Article',
+        ctx: context.ctx,
+        body: { status: ARTICLE_STATUS.RELEASE },
+      });
+    },
+    // 撤销
+    revokeArticle: async (parents, args, context, info) => {
+      return await update({
+        ...args,
+        model: 'Article',
+        ctx: context.ctx,
+        body: { status: ARTICLE_STATUS.SAVE },
+      });
     },
   },
 
