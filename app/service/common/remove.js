@@ -1,4 +1,4 @@
-const { STATUS, RESCODE, PREFIX_DELETED } = require('../../../config/conts');
+const { STATUS, RESCODE, PREFIX_DELETED } = require('../../../config/consts');
 const getConditions = require('../../../utils/getConditions');
 const getList = require('./getList');
 const _ = require('lodash');

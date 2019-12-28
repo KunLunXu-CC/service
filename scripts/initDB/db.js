@@ -1,4 +1,4 @@
-const { BOOLEAN } = require('../../config/conts');
+const { BOOLEAN } = require('../../config/consts');
 const { defaultUser } = require('../../config/system');
 
 module.exports = {

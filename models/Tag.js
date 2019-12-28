@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { STATUS } = require('../config/conts');
+const { STATUS } = require('../config/consts');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 // const Mixed = mongoose.Schema.Types.Mixed;
 

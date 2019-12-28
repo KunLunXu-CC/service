@@ -1,4 +1,4 @@
-const { RESCODE } = require('../../../config/conts');
+const { RESCODE } = require('../../../config/consts');
 const getConditions = require('../../../utils/getConditions');
 
 /**
@@ -8,10 +8,10 @@ const getConditions = require('../../../utils/getConditions');
  * @param {Object}  search  查询参数
  */
 module.exports = async ({ model, ctx, search }) => {
-  const data = { 
+  const data = {
     data: {},
-    rescode: RESCODE.SUCCESS, 
-    message: '创建成功', 
+    rescode: RESCODE.SUCCESS,
+    message: '创建成功',
   };
   const server = ctx.db.mongo[model];
   const conds = getConditions(search);

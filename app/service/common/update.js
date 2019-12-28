@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const { RESCODE } = require('../../../config/conts');
+const { RESCODE } = require('../../../config/consts');
 const getConditions = require('../../../utils/getConditions');
 const getList = require('./getList');
 /**

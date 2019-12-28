@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const { RESCODE } = require('../../../config/conts');
+const { RESCODE } = require('../../../config/consts');
 const { hash, decryptRsa, signJwt } = require('../../../utils/encryption');
 
 /**

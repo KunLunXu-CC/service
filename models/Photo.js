@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { STATUS, PHOTO_TYPE } = require('../config/conts');
+const { STATUS, PHOTO_TYPE } = require('../config/consts');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 exports.title = '照片';

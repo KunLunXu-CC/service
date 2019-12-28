@@ -4,7 +4,7 @@ const path = require('path');
 const { create } = require('../common');
 const qiniu = require('../../../utils/qiniu');
 const tinify = require('../../../utils/tinify');
-const { RESCODE } = require('../../../config/conts');
+const { RESCODE } = require('../../../config/consts');
 
 /**
  * 获取上传文件列表

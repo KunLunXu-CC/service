@@ -1,7 +1,7 @@
 const removeBypayload = require('../../service/photo/removeBypayload');
 
 const { getList, create, remove, update } = require('../../service/common');
-const { ARTICLE_STATUS } = require('../../../config/conts');
+const { ARTICLE_STATUS } = require('../../../config/consts');
 const { creator, updater } = require('./fragment');
 
 module.exports = {

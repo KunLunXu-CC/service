@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { ARTICLE_STATUS } = require('../config/conts');
+const { ARTICLE_STATUS } = require('../config/consts');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 exports.title = '文章';

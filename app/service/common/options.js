@@ -1,4 +1,4 @@
-const { STATUS } = require('../../../config/conts');
+const { STATUS } = require('../../../config/consts');
 
 /**
  * 通用获取下拉项 options 方法
@@ -17,7 +17,7 @@ module.exports = async ({ ctx, model, pagination = {}, search = {} }) => {
 
   // 查询参数处理
   const limit = (pagination.current || 1) * (pagination.pageSize || defautPageSize) - include.length;
-  const conds = { 
+  const conds = {
     name: { $regex: name },
     status: {$ne: STATUS.DELETE},
   };

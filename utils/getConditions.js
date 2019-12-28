@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const { STATUS } = require('../config/conts');
+const { STATUS } = require('../config/consts');
 
 
 /**
@@ -26,22 +26,22 @@ const getHandler = ({ params, conds, key, value }) => ([
   {
     conds: key === 'id',
     handler: () => (conds._id = value)
-  }, 
+  },
   {
     conds: key === 'ids',
     handler: () => (conds._id = { $in: value})
-  }, 
+  },
   {
     conds: key === 'status',
     handler: () => (conds.status = _.isArray(value) ? { $in: value} : value)
-  }, 
+  },
   {
     conds: ['startUpdateTime', 'endUpdateTime'].includes(key),
     handler: () => {
       if (conds.updateTime){return false;}
       conds.updateTime = getTimeConds(params.startUpdateTime, params.endUpdateTime);
     }
-  }, 
+  },
   {
     conds: ['startCreationTime', 'endCreationTime'].includes(key),
     handler: () => {
@@ -55,7 +55,7 @@ const getHandler = ({ params, conds, key, value }) => ([
     // 传入值为一个 tag， 判断 tag 是否在数据 tags 数组中
     handler: () => (conds.tags = { $elemMatch: {$eq: value} }),
   },
-  { 
+  {
     conds: key === 'tags',
     // 传入值为一个 tag 数组， 判断传入数据和数据 tags 数组是否存在交集
     handler: () => (conds.tags = { $in: value}),
@@ -64,7 +64,7 @@ const getHandler = ({ params, conds, key, value }) => ([
   {
     conds: _.isNumber(value) || _.isBoolean(value),
     handler: () => (conds[key] = value),
-  }, 
+  },
   {
     conds: _.isString(value),
     handler: () => (conds[key] = {$regex: value}),
@@ -76,7 +76,7 @@ const getHandler = ({ params, conds, key, value }) => ([
 
 /**
  * 获取查询条件
- * @param {Object} params 查询参数  
+ * @param {Object} params 查询参数
  */
 module.exports = ( params = {} ) => {
   const conds = { status: {$ne: STATUS.DELETE} };
