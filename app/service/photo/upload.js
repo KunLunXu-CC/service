@@ -20,7 +20,7 @@ const getFiles = (ctx) => {
 /**
  * 处理文件名(要存入数据库的文件名)
  * @param {String} sourceFileName 上传文件的源文件名
- * @param {String}
+ * @param {String} 返回上传文件文件名: {当前环境}.{原文件名+时间戳的 base64 }.{文件后缀}
  */
 const getFileName = (sourceFileName) => {
   const extname = path.extname(sourceFileName);

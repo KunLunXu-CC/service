@@ -87,16 +87,42 @@ module.exports.update = (files = []) => new Promise((resolve, reject) =>  {
 });
 
 /**
+ * 获取对象存储文件列表
+ * @param {Number} options.limit 查询多少条, 不传则查询全部数据
+ * @param {String} options.prefix 查询文件名前缀, 默认为空
+ * @param {String} options.marker 上一次列举返回的位置标记，作为本次列举的起点信息
+ * @returns {Promise} resolve({ items, marker })
+ *  - items: 查询到的所有数据
+ *  - marker: 当前查询位置标记, 如果该字段不存在则表示没有更多数据
+ */
+module.exports.getList = (options) => new Promise((resolve, reject) => {
+  const bucketManager = getBucketManager();
+  bucketManager.listPrefix(bucket, options, (err, respBody, respInfo) => {
+    if (err) {
+      reject(err);
+    } else if (respInfo.statusCode == 200) {
+      resolve(respBody);
+    } else {
+      reject(respInfo);
+    }
+  });
+});
+
+/**
  * 七牛云对象存储 - 批量删除文件
  * @param {String} files      要删除的文件(文件名)列表
  */
-module.exports.delete = (files = []) => {
+module.exports.delete = (files = []) => new Promise((resolve, reject) => {
   const bucketManager = getBucketManager();
-  var deleteOperations = files.map(v => (
-    qiniu.rs.deleteOp(bucket, 'NzQ4NTcxMjVfcDAucG5nMTU3MDAwNzUzMzAxOA==.png')
-  ));
+  const deleteOperations = files.map(v => qiniu.rs.deleteOp(bucket, v));
 
-  bucketManager.batch(deleteOperations, function(err, respBody, respInfo) {
-    console.log('============>>');
+  bucketManager.batch(deleteOperations, (err, respBody, respInfo) => {
+    if (err) {
+      reject(err);
+    } else if (respInfo.statusCode == 200) {
+      resolve(respBody);
+    } else {
+      reject(respInfo);
+    }
   });
-}
+});
