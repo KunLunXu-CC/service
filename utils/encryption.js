@@ -3,7 +3,6 @@ const path = require('path');
 const crypto = require('crypto');
 const NodeRSA = require('node-rsa');
 const jwt = require('jsonwebtoken');
-const { privateKey, publicKey } = require('../config/system');
 
 /**
  * 创建 hash 通用方法
@@ -45,6 +44,7 @@ module.exports.createRasKey = () => {
  * @param {String} data 待解密数据
  */
 module.exports.decryptRsa = (data) => {
+  const { privateKey } = require('../config/system');
   const nodeRSA = new NodeRSA(privateKey);
   nodeRSA.setOptions({ encryptionScheme: 'pkcs1' });
   try {
@@ -60,6 +60,7 @@ module.exports.decryptRsa = (data) => {
  * @returns {String}         json web token
  */
 module.exports.signJwt = (payload) => {
+  const { privateKey } = require('../config/system');
   return jwt.sign(payload, privateKey, {
     algorithm: 'RS256',
     expiresIn: '7d'

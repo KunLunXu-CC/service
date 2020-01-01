@@ -3,7 +3,7 @@ const path = require('path');
 const { createRasKey } = require('../../utils/encryption');
 
 module.exports.createProKey = async () => {
-  const { private, public } = createRasKey();;
+  const { private, public } = createRasKey();
   fs.writeFileSync(
     path.resolve(__dirname, '../../config/system/private.pro.key'),
     private,
