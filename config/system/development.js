@@ -18,9 +18,18 @@ module.exports = {
   webHookSecret: '******',          // web hooks secret
 
   // 登录私钥
-  privateKey: fs.readFileSync(path.resolve(__dirname, './private.dev.key')),
+  privateKey: fs.readFileSync(
+    path.resolve(__dirname, `./private.${
+      process.env.NODE_ENV === 'development' ? 'dev' : 'pro'
+    }.key`)
+  ),
+
   // 登录公钥
-  publicKey: fs.readFileSync(path.resolve(__dirname, './public.dev.key')),
+  publicKey: fs.readFileSync(
+    path.resolve(__dirname, `./public.${
+      process.env.NODE_ENV === 'development' ? 'dev' : 'pro'
+    }.key`)
+  ),
 
   // 七牛云对象存储配置
   qiniu: {

@@ -6,15 +6,15 @@ module.exports = {
     {
       name : 'tourist',
       desc : '游客',
-      isAdmin:  BOOLEAN.FALSE,
+      isRoot:  BOOLEAN.FALSE,
       auth : [
-        { code: 'article', readable: BOOLEAN.TRUE, writable:BOOLEAN.TRUE },
+        { code: 'article', readable: BOOLEAN.TRUE, writable: BOOLEAN.TRUE },
       ],
     },
     {
       name : 'admin',
       desc : '管理员',
-      isAdmin:  BOOLEAN.TRUE,
+      isRoot:  BOOLEAN.TRUE,
       auth : [
         { code: 'album', readable: BOOLEAN.TRUE, writable:BOOLEAN.TRUE },
         { code: 'editor', readable: BOOLEAN.TRUE, writable:BOOLEAN.TRUE },
@@ -25,9 +25,9 @@ module.exports = {
   User: [
     {
       name: '游客',
-      password: '111111',
       role: 'tourist',
       account: defaultUser,
+      password: '123456',
     },
     {
       name: '管理员',
@@ -44,27 +44,32 @@ module.exports = {
       children: [
         {
           name: 'JS',
-          color: 'JS',
+          color: 'red',
           icon: 'icon-js',
         },
         {
+          name: 'HTML',
+          color: 'red',
+          icon: 'icon-html',
+        },
+        {
           name: 'CSS',
-          color: 'CSS',
+          color: 'red',
           icon: 'icon-CSS-',
         },
         {
           name: 'Less',
-          color: 'Less',
+          color: 'red',
           icon: 'icon-less',
         },
         {
           name: 'Sass',
-          color: 'Sass',
+          color: 'red',
           icon: 'icon-sass',
         },
         {
           name: 'React',
-          color: 'React',
+          color: 'red',
           icon: 'icon-react',
         }
       ]
@@ -76,27 +81,27 @@ module.exports = {
       children: [
         {
           name: 'Git',
-          color: 'Git',
+          color: 'red',
           icon: 'icon-git',
         },
         {
           name: 'Webpack',
-          color: 'Webpack',
+          color: 'red',
           icon: 'icon-webpack',
         },
         {
           name: 'Gulp',
-          color: 'Gulp',
+          color: 'red',
           icon: 'icon-gulp',
         },
         {
           name: 'Docker',
-          color: 'Docker',
+          color: 'red',
           icon: 'icon-docker',
         },
         {
           name: 'Jinkens',
-          color: 'Jinkens',
+          color: 'red',
           icon: 'icon-jenkins',
         },
       ]
@@ -108,12 +113,12 @@ module.exports = {
       children: [
         {
           name: 'Node',
-          color: 'Node',
+          color: 'red',
           icon: 'icon-js1',
         },
         {
           name: 'Koa',
-          color: 'Koa',
+          color: 'red',
           icon: 'icon-js1',
         }
       ]
@@ -125,12 +130,12 @@ module.exports = {
       children: [
         {
           name: 'Shell',
-          color: 'Shell',
+          color: 'red',
           icon: 'icon-fileshell',
         },
         {
           name: 'Cli',
-          color: 'Cli',
+          color: 'red',
           icon: 'icon-fileshell',
         }
       ]
