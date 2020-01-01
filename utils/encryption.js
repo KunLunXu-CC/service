@@ -3,7 +3,7 @@ const path = require('path');
 const crypto = require('crypto');
 const NodeRSA = require('node-rsa');
 const jwt = require('jsonwebtoken');
-const { privateKey } = require('../config/system');
+const { privateKey, publicKey } = require('../config/system');
 
 /**
  * 创建 hash 通用方法
