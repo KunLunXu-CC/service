@@ -1,6 +1,28 @@
 const fs = require('fs');
 const path = require('path');
+
+let publicKey = '';
+let privateKey = '';
+
+// 加载秘钥
+try {
+  publicKey = fs.readFileSync(
+    path.resolve(
+      __dirname,
+      `./public.${process.env.NODE_ENV === 'development' ? 'dev' : 'pro'}.key`
+    )
+  );
+  privateKey = fs.readFileSync(
+    path.resolve(
+      __dirname,
+      `./private.${process.env.NODE_ENV === 'development' ? 'dev' : 'pro'}.key`
+    )
+  );
+} catch (e) {}
+
 module.exports = {
+  publicKey,                        // 公钥
+  privateKey,                       // 私钥
   port: 4000,                       // 系统应用端口
 
   graphql: {                        // graphql 配置
@@ -16,20 +38,6 @@ module.exports = {
 
   defaultUser: 'tourist',           // 默认用户(游客)账号
   webHookSecret: '******',          // web hooks secret
-
-  // 登录私钥
-  privateKey: fs.readFileSync(
-    path.resolve(__dirname, `./private.${
-      process.env.NODE_ENV === 'development' ? 'dev' : 'pro'
-    }.key`)
-  ),
-
-  // 登录公钥
-  publicKey: fs.readFileSync(
-    path.resolve(__dirname, `./public.${
-      process.env.NODE_ENV === 'development' ? 'dev' : 'pro'
-    }.key`)
-  ),
 
   // 七牛云对象存储配置
   qiniu: {
