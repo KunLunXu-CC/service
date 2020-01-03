@@ -60,6 +60,7 @@ printResponseData = (ctx) => {
 
 module.exports = async (ctx, next) => {
   await next();
+  ctx.status = 200;
   const body = _.get(ctx, 'request.body', {});
   if (!OPERATION_NAME_BACL_LIST.includes(body.operationName)){
     printStart();

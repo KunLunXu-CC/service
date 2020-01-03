@@ -6,15 +6,16 @@ const path = require('path');
 const setUser = require('./setUser');
 const logger = require('./logger');
 const cross = require('./cross');
+
 module.exports = (app) => {
+  // 日志
+  app.use(logger);
+
   // 跨域设置
   app.use(cross);
 
   // 设置用户信息(到 state)
   app.use(setUser);
-
-  // 日志
-  app.use(logger);
 
   // koa body 解析, 支持文件上传解析
   app.use(koaBody({ multipart: true }));
