@@ -1,5 +1,5 @@
 /**
- * 权限、用户身份认证
+ * 用户身份校验、api 校验
  */
 const _ = require('lodash');
 const { defaultUser } = require('../../config/system');
@@ -38,9 +38,8 @@ const setUserInfoToState = async ({ ctx }) => {
   console.groupEnd();
 };
 
-// 身份校验
+// 用户身份校验、api 校验
 module.exports = async (ctx, next) => {
   await setUserInfoToState({ ctx });
-  // TODO: 权限控制
   await next();
 }

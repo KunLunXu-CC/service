@@ -3,11 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const system = require('../../config/system');
 const { requireFiles } = require('../../utils');
-
-const {
-  gql,
-  ApolloServer,
-} = require('apollo-server-koa');
+const { gql, ApolloServer } = require('apollo-server-koa');
 
 /**
  * 获取结构器并进行合并
