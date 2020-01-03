@@ -34,7 +34,7 @@ const getTypeDefs = () => {
   });
 
   return gql(`
-    ${_.values(directiveTypeDefs).map(v => `\n${v.typeDefs}\n`).join('')}
+    ${_.values(directiveTypeDefs).map(v => `\n${v.typeDefs || ''}\n`).join('')}
     ${_.values(typeDefs).join('')}
   `);
 }
@@ -61,7 +61,10 @@ const getSchemaDirectives = () => {
 
   _.forIn(
     requireFiles({ dir: path.resolve(__dirname, './directives') }),
-    (value, key) => { directives[key] = value.directive }
+    (value, key) => {
+      if (!value.directive){return false;}
+      directives[key] = value.directive;
+    }
   )
 
   return directives;

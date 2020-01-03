@@ -7,7 +7,7 @@ const _ = require('lodash');
 const { findOne } = require('../../service/common');
 const { SchemaDirectiveVisitor } = require('graphql-tools') ;
 
-class Directive extends SchemaDirectiveVisitor {
+class UserDirective extends SchemaDirectiveVisitor {
   visitFieldDefinition(field) {
     field.resolve = async (parents, args, context, info) => {
       // 使用修饰器时传入的 key, 表示用户字段所在的 key
@@ -27,6 +27,6 @@ class Directive extends SchemaDirectiveVisitor {
 }
 
 module.exports = {
-  directive: Directive,
+  directive: UserDirective,
   typeDefs: 'directive @user(key: String) on FIELD_DEFINITION',
 }
