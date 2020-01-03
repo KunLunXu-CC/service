@@ -1,3 +1,6 @@
+/**
+ * 权限、用户身份认证
+ */
 const _ = require('lodash');
 const { defaultUser } = require('../../config/system');
 const { verifyJwt } = require('../../utils/encryption');

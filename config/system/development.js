@@ -23,7 +23,10 @@ try {
 module.exports = {
   publicKey,                        // 公钥
   privateKey,                       // 私钥
+
   port: 4000,                       // 系统应用端口
+
+  corsOrigin: '*',                 // 跨域, 设置 Access-Control-Allow-Origin, http://www.qianyin925.com
 
   graphql: {                        // graphql 配置
     path: '/graphql',               // graphql 应用路由
@@ -41,26 +44,26 @@ module.exports = {
 
   // 七牛云对象存储配置
   qiniu: {
-    bucket: 'qianyin-blog',                                   // 存储空间
-    zone: 'Zone_z2',                                          // 存储区域(华南)
-    accessKey: '********************12XjpJbAgdp7ovVdEa5p',    // AK
-    secretKey: '********************Cf4csPekcOmYuw4BMF3_',    // SK
-    cdn: 'http://q************************.com',              // cdn
+    bucket: '************',                                   // 存储空间
+    zone: '*******',                                          // 存储区域(华南)
+    accessKey: '****************************************',    // AK
+    secretKey: '****************************************',    // SK
+    cdn: '************************************',              // cdn
   },
 
   // tinify 图片压缩配置
   tinify: {
-    apiKey: 'yTH4cL******************0ttq',
+    apiKey: '****************************',
   },
 
   // SMTP 邮件服务配置
   smtp: {
-    host: "smtp.***.com",           // 邮件服务地址
+    host: "************",           // 邮件服务地址
     secure: true,                   // 是否使用 TLS / STARTTLS的安全电子邮件传递, 将使用 465 端口
     auth: {
-      user: '***********@***.com',  // 用户
+      user: '*******************',  // 用户
       pass: '****************',     // 授权密码
     },
-    notice: '*********@qq.com',     // 收件人(站内消息通知)
+    notice: '*****************',    // 收件人(站内消息通知)
   },
 };

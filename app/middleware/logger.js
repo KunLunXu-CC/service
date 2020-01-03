@@ -1,3 +1,6 @@
+/**
+ * logger 日志截取、打印或者后期对日志进行监控
+ */
 const _ = require('lodash');
 const moment = require('moment');
 const colors = require('colors');
@@ -21,7 +24,7 @@ const printStart = () => {
     "  ----------------------- 日志打印 ------------------------"
   ];
   console.log(`\n${charPattern.join('\n').cyan}\n`);
-} 
+}
 
 /**
  * 打印请求参数
@@ -44,7 +47,6 @@ const printRequestData = (ctx) => {
  * 打印响应参数
  * @param {Object} ctx 上下文
  */
-
 printResponseData = (ctx) => {
   let body = {};
   try {
@@ -59,7 +61,7 @@ printResponseData = (ctx) => {
 
 module.exports = async (ctx, next) => {
   await next();
-  const body = _.get(ctx, 'request.body', {});  
+  const body = _.get(ctx, 'request.body', {});
   if (!OPERATION_NAME_BACL_LIST.includes(body.operationName)){
     printStart();
     printRequestData(ctx);
