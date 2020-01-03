@@ -6,7 +6,7 @@ const { defaultUser } = require('../../config/system');
 const { verifyJwt } = require('../../utils/encryption');
 
 /**
- * 设置用户信息(包括角色信息)到 koa.state: 用户信息为 token 对应用户或者默认用户
+ * 设置用户信息(到koa.state)
  * @param {Object} ctx        koa 上下文
  */
 const setUserInfoToState = async ({ ctx }) => {
