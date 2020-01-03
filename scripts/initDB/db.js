@@ -1,4 +1,4 @@
-const { BOOLEAN } = require('../../config/consts');
+const { BOOLEAN, ROLE_TYPE } = require('../../config/consts');
 const { defaultUser } = require('../../config/system');
 
 module.exports = {
@@ -6,7 +6,7 @@ module.exports = {
     {
       name : 'tourist',
       desc : '游客',
-      isRoot:  BOOLEAN.FALSE,
+      type: ROLE_TYPE.TOURIST,
       auth : [
         { code: 'article', readable: BOOLEAN.TRUE, writable: BOOLEAN.TRUE },
       ],
@@ -14,7 +14,7 @@ module.exports = {
     {
       name : 'admin',
       desc : '管理员',
-      isRoot:  BOOLEAN.TRUE,
+      type: ROLE_TYPE.ADMIN,
       auth : [
         { code: 'album', readable: BOOLEAN.TRUE, writable:BOOLEAN.TRUE },
         { code: 'editor', readable: BOOLEAN.TRUE, writable:BOOLEAN.TRUE },

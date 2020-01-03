@@ -13,14 +13,14 @@ exports.fields = {
 		required: true,
 		type: String,
   },
+  type: {
+    type: Number,
+    required: true,
+    title: '角色类型',
+  },
   desc: {
     title: '角色描述',
 		type: String,
-  },
-  isRoot: {
-    type: Number,
-    title: '是否是最高权限者',
-		default: BOOLEAN.FALSE,
   },
   auth: {
     title: '角色权限',

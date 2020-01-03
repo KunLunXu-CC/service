@@ -43,3 +43,9 @@ module.exports.PHOTO_TYPE = {
 
 // 假删名称(name)前缀
 module.exports.PREFIX_DELETED = 'DELETED_';
+
+// 角色类型
+module.exports.ROLE_TYPE = {
+  ADMIN: 1,        // 管理员
+  TOURIST: 2,      // 游客
+};
