@@ -15,7 +15,7 @@ extend type Mutation {
   ): users
 
   removeUsers (
-    conds: UserSearch! 
+    conds: UserSearch!
     orderBy: OrderBy
     search: UserSearch
     pagination: Pagination
@@ -37,7 +37,7 @@ extend type Mutation {
 }
 
 type Login {
-  user: User,
+  user: User
   rescode: Int
   message: String
 }
@@ -58,8 +58,8 @@ type User {
   id: ID
   name: String
   status: Int
-  creator: User
-  updater: User
+  creator: User @user(key: "creator")
+  updater: User @user(key: "updater")
   updateTime: Date
   creationTime: Date
 }

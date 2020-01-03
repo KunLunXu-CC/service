@@ -1,10 +1,7 @@
 const { findOne, getList, create, remove, update } = require('../../service/common');
-const { creator, updater } = require('./fragment');
 
 module.exports = {
   Tag: {
-    creator, 
-    updater,
     parent: async (parents, args, context, info) => {
       if (parents.parent){
         const data = await findOne({
@@ -13,8 +10,8 @@ module.exports = {
           ctx: context.ctx
         });
         return data.data;
-      } else { 
-        return {}; 
+      } else {
+        return {};
       }
     },
   },

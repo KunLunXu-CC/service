@@ -32,8 +32,8 @@ type Photo {
   # payload
 
 	status: Int
-  creator: User
-  updater: User
+  creator: User @user(key: "creator")
+  updater: User @user(key: "updater")
   updateTime: Date
   creationTime: Date
 }

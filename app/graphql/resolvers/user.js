@@ -1,6 +1,5 @@
 const { getList, create, remove, update, findOne  } = require('../../service/common');
 const { login } = require('../../service/user');
-const { creator, updater } = require('./fragment');
 
 module.exports = {
   Query: {
@@ -13,7 +12,7 @@ module.exports = {
     createUsers: async (parents, args, context, info) => {
       return await create({ model: 'User', ...args, ctx: context.ctx });
     },
-    removeUsers: async (parents, args, context, info) => { 
+    removeUsers: async (parents, args, context, info) => {
       return await remove({ model: 'User', ...args, ctx: context.ctx });
     },
     updateUsers: async (parents, args, context, info) => {
@@ -25,12 +24,10 @@ module.exports = {
   },
 
   User: {
-    creator, 
-    updater,
     role: async (parents, args, context, info) => {
       if (parents.role){
-        const data = await findOne({ 
-          model: 'Role', 
+        const data = await findOne({
+          model: 'Role',
           ctx: context.ctx,
           search: { id: parents.role }
         });

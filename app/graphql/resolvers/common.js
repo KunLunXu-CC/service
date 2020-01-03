@@ -24,4 +24,4 @@ module.exports = {
       return new Date(ast.value);
     },
   }),
-}; 
+};

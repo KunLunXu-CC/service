@@ -1,5 +1,4 @@
 const fs = require('fs');
-const { creator, updater } = require('./fragment');
 const { getList, create, remove, update } = require('../../service/common');
 
 module.exports = {
@@ -13,10 +12,5 @@ module.exports = {
     removePhotos: async (parents, args, context, info) => {
       return await remove({ model: 'Photo', ...args, ctx: context.ctx });
     },
-  },
-
-  Photo: {
-    creator,
-    updater,
   }
 }

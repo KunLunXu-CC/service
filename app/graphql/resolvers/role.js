@@ -1,5 +1,4 @@
 const { getList, create, remove, update, findOne  } = require('../../service/common');
-const { creator, updater } = require('./fragment');
 
 module.exports = {
   Query: {
@@ -19,6 +18,4 @@ module.exports = {
       return await update({ model: 'Role', ...args, ctx: context.ctx });
     },
   },
-
-  Role: { creator, updater }
 }

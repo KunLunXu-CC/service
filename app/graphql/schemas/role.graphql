@@ -1,6 +1,6 @@
 extend type Query {
   roles(
-    orderBy: OrderBy 
+    orderBy: OrderBy
     search: RoleSearch
     pagination: Pagination
   ): Roles
@@ -48,12 +48,12 @@ scalar Auth {
 type Role {
   desc: String
   auth: [Auth]
-  
+
   id: ID
   name: String
   status: Int
-  creator: User
-  updater: User
+  creator: User @user(key: "creator")
+  updater: User @user(key: "updater")
   updateTime: Date
   creationTime: Date
 }

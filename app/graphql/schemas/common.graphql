@@ -25,7 +25,7 @@ type Query {
 
 type Mutation {
   # 占位符
-  _empty:String
+  _empty: String
 }
 
 ## ********* options ********

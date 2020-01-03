@@ -2,7 +2,6 @@ const removeBypayload = require('../../service/photo/removeBypayload');
 
 const { getList, create, remove, update } = require('../../service/common');
 const { ARTICLE_STATUS } = require('../../../config/consts');
-const { creator, updater } = require('./fragment');
 
 module.exports = {
   Query: {
@@ -47,8 +46,6 @@ module.exports = {
   },
 
   Article: {
-    creator,
-    updater,
     tags: async (parents, args, context, info) => {
       if (parents.tags){
         const data = await getList({
