@@ -14,9 +14,6 @@ tinify.key = apiKey;
 module.exports = ({ sourceData, path }) => new Promise((resolve, reject) => {
   const fromBuffer = sourceData || fs.readFileSync(path);
   tinify.fromBuffer(fromBuffer).toBuffer((err, resultData) => {
-    if (err) {
-      return reject(err);
-    }
-    resolve(resultData);
-  })
+    resolve( err ?  fromBuffer : resultData);
+  });
 });
