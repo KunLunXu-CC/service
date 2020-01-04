@@ -18,9 +18,9 @@ input OrderBy {
   viewCount: Int
 }
 
-## ********* 通用请求 ********
+## ********* options ********
 
-type Query {
+extend type Query {
   options(
     pagination: Pagination,
     model: String!,
@@ -28,12 +28,6 @@ type Query {
   ): Options
 }
 
-type Mutation {
-  # 占位符
-  _empty: String
-}
-
-## ********* options ********
 type Option {
   id: ID!
   name: String!

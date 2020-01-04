@@ -1,3 +1,8 @@
+/**
+ * 权限修饰器: 为字段获取对象添加 resolve(解析器)
+ * @example
+ * @auth(requires: ADMIN) 说明: requires 为当前字段必须角色
+ */
 const _ = require('lodash');
 const { defaultFieldResolver } = require('graphql') ;
 const { ROLE_TYPE } = require('../../../config/consts');

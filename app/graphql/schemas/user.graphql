@@ -1,4 +1,4 @@
-extend type Query {
+type Query {
   users(
     orderBy: OrderBy
     search: UserSearch
@@ -6,7 +6,7 @@ extend type Query {
   ): users @auth
 }
 
-extend type Mutation {
+type Mutation {
   createUsers(
     body: [UserFields!]!
     orderBy: OrderBy
