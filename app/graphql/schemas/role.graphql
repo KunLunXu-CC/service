@@ -78,4 +78,5 @@ input RoleFields {
   desc: String
   auth: [Auth]
   status: Int
+  type: Int
 }

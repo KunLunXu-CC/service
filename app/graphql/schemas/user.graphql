@@ -3,7 +3,7 @@ type Query {
     orderBy: OrderBy
     search: UserSearch
     pagination: Pagination
-  ): users @auth
+  ): Users @auth
 }
 
 type Mutation {
@@ -12,14 +12,14 @@ type Mutation {
     orderBy: OrderBy
     search: UserSearch
     pagination: Pagination
-  ): users @auth
+  ): Users @auth
 
   removeUsers (
     conds: UserSearch!
     orderBy: OrderBy
     search: UserSearch
     pagination: Pagination
-  ): users @auth
+  ): Users @auth
 
   updateUsers (
     conds: UserSearch!
@@ -27,7 +27,7 @@ type Mutation {
     orderBy: OrderBy
     search: UserSearch
     pagination: Pagination
-  ): users @auth
+  ): Users @auth
 
   login (
     account: String
@@ -42,7 +42,7 @@ type Login {
   message: String
 }
 
-type users {
+type Users {
   list: [User]
   change: [User]
   rescode: Int

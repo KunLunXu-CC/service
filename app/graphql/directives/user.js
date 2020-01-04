@@ -12,7 +12,7 @@ class UserDirective extends SchemaDirectiveVisitor {
     field.resolve = async (parents, args, context, info) => {
       // 使用修饰器时传入的 key, 表示用户字段所在的 key
       const { key } = this.args;
-      if (_.isString(parents[key])){
+      if (parents[key]){
         const data = await findOne({
           model: 'User',
           ctx: context.ctx,
