@@ -7,7 +7,7 @@ module.exports = {
     }
   },
 
-  // Date 类型数据定义（待测试）
+  // Date 类型数据定义(待测试)
   Date: new GraphQLScalarType({
     name: 'Date',
     description: 'Date类型值',

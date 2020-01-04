@@ -6,6 +6,11 @@ scalar Pagination {
   pageSize: Int
 }
 
+enum RoleType {
+  ADMIN
+  TOURIST
+}
+
 input OrderBy {
   updateTime: Int
   creationTime: Int

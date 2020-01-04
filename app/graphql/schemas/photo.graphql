@@ -12,7 +12,7 @@ extend type Mutation {
     conds: PhotoSearch!
     search: PhotoSearch
     pagination: Pagination
-  ): Photos
+  ): Photos @auth
 }
 
 type Photos {

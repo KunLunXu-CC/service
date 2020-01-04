@@ -12,14 +12,14 @@ extend type Mutation{
     orderBy: OrderBy
     search: TagSearch
     pagination: Pagination
-  ): Tags
+  ): Tags @auth
 
   createTags (
     body: [TagFields!]!
     orderBy: OrderBy
     search: TagSearch
     pagination: Pagination
-  ): Tags
+  ): Tags @auth
 
   updateTags (
     conds: TagSearch!
@@ -27,7 +27,7 @@ extend type Mutation{
     orderBy: OrderBy
     search: TagSearch
     pagination: Pagination
-  ): Tags
+  ): Tags @auth
 }
 
 input TagFields {

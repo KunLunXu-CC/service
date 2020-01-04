@@ -12,14 +12,14 @@ extend type Mutation {
     orderBy: OrderBy
     search: ArticleSearch
     pagination: Pagination
-  ): Articles
+  ): Articles @auth
 
   removeArticles (
     conds: ArticleSearch!
     orderBy: OrderBy
     search: ArticleSearch
     pagination: Pagination
-  ): Articles
+  ): Articles @auth
 
   updateArticles (
     conds: ArticleSearch!
@@ -27,7 +27,7 @@ extend type Mutation {
     orderBy: OrderBy
     search: ArticleSearch
     pagination: Pagination
-  ): Articles
+  ): Articles @auth
 
   # 发布文章
   releaseArticle(
@@ -35,7 +35,7 @@ extend type Mutation {
     orderBy: OrderBy
     search: ArticleSearch
     pagination: Pagination
-  ): Articles
+  ): Articles @auth
 
   # 撤销(取消发布)文章
   revokeArticle(
@@ -43,7 +43,7 @@ extend type Mutation {
     orderBy: OrderBy
     search: ArticleSearch
     pagination: Pagination
-  ): Articles
+  ): Articles @auth
 }
 
 input ArticleSearch {
