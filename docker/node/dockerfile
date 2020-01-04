@@ -19,6 +19,9 @@ WORKDIR /var/service
 # 设置挂载点
 VOLUME [/var/service]
 
+# 设置环境变量
+ENV TZ Asia/Shanghai
+
 # 对外暴露端口
 EXPOSE 4000
 
