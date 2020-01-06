@@ -49,7 +49,7 @@ exports.fields = {
       },
       project: {
         title: '项目',
-        type: String,
+        type: Number,
       },
       duration: {
         title: '时长',

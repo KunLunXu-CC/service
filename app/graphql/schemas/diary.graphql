@@ -1,0 +1,62 @@
+extend type Query {
+  diarys(
+    orderBy: OrderBy
+    # search: RoleSearch
+    pagination: Pagination
+  ): Diarys @auth
+}
+
+type Diarys {
+  list: [Diary]
+  change: [Diary]
+  rescode: Int
+  message: String
+  pagination: Pagination
+}
+
+scalar Diet {
+  type: Int
+  desc: String
+}
+
+scalar Fitness {
+  type: Int
+  place: String
+  project: Int
+  duration: Int
+  groups: Int
+  weight: Int
+  feel: Int
+}
+
+scalar Bill {
+  desc: String
+  income: Int
+  expend: Int
+  balance: Int
+}
+
+scalar BodyIndex {
+  weight: String
+  muscle: String
+  moistureContent: String
+  bodyfatbim: String
+}
+
+type Diary {
+  date: Date
+  getUp: Date
+  toRest: Date
+  informalEssay: String
+  diet: Diet
+  bill: Bill
+  fitness: Fitness
+  bodyIndex: BodyIndex
+
+  id: ID
+  status: Int
+  creator: User @user(key: "creator")
+  updater: User @user(key: "updater")
+  updateTime: Date
+  creationTime: Date
+}
