@@ -33,7 +33,7 @@ exports.fields = {
 	},
 	creator: {
 		title: '创建人',
-		type: String
+		type: ObjectId
 	},
 	creationTime: {
 		title: '创建时间',
@@ -42,7 +42,7 @@ exports.fields = {
 	},
 	updater: {
 		title: '最近更新人',
-		type: String,
+		type: ObjectId,
 	},
 	updateTime: {
 		title: '最近更新时间',

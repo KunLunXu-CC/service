@@ -49,3 +49,23 @@ module.exports.ROLE_TYPE = {
   ADMIN: 1,        // 管理员
   TOURIST: 2,      // 游客
 };
+
+// 饮食类型
+module.exports.DIET_TYPE = {
+  BREAKFAST: 0,            // 早餐
+  AFTER_BREAKFAST: 1,      // 上午加餐
+
+  LUNCH: 2,                // 午餐
+  AFTER_LUNCH: 3,          // 下午加餐
+
+  DINNER: 4,               // 晚餐
+  AFTER_DINNER: 5,         // 晚上加餐(夜宵)
+
+  AFTER_FITNESS: 6,        // 健身加餐(健身之后)
+};
+
+// 健身运动类型
+module.exports.FITNESS_TYPE = {
+  AEROBIC: 0,    // 有氧
+  ANAEROBIC: 1,  // 无氧
+};
