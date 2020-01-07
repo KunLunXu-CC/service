@@ -1,12 +1,36 @@
 extend type Query {
-  diarys(
+  diaries(
     orderBy: OrderBy
-    # search: RoleSearch
+    search: DiarySearch
     pagination: Pagination
-  ): Diarys @auth
+  ): Diaries @auth
 }
 
-type Diarys {
+extend type Mutation {
+  createDiaries(
+    body: [DiaryFields!]!
+    orderBy: OrderBy
+    search: DiarySearch
+    pagination: Pagination
+  ): Diaries @auth
+
+  removeDiaries (
+    conds: DiarySearch!
+    orderBy: OrderBy
+    search: DiarySearch
+    pagination: Pagination
+  ): Diaries @auth
+
+  updateDiaries (
+    conds: DiarySearch!
+    body: DiaryFields!
+    orderBy: OrderBy
+    search: DiarySearch
+    pagination: Pagination
+  ): Diaries @auth
+}
+
+type Diaries {
   list: [Diary]
   change: [Diary]
   rescode: Int
@@ -21,11 +45,9 @@ scalar Diet {
 
 scalar Fitness {
   type: Int
-  place: String
+  place: Int
   project: Int
   duration: Int
-  groups: Int
-  weight: Int
   feel: Int
 }
 
@@ -37,14 +59,15 @@ scalar Bill {
 }
 
 scalar BodyIndex {
-  weight: String
-  muscle: String
-  moistureContent: String
-  bodyfatbim: String
+  weight: Int
+  muscle: Int
+  moistureContent: Int
+  bodyfat: Int
+  bim: Int
 }
 
 type Diary {
-  date: Date
+  name: String
   getUp: Date
   toRest: Date
   informalEssay: String
@@ -59,4 +82,28 @@ type Diary {
   updater: User @user(key: "updater")
   updateTime: Date
   creationTime: Date
+}
+
+input DiarySearch {
+  name: String
+
+  id: ID
+  ids: [ID!]
+  startUpdateTime: Date
+  endUpdateTime: Date
+  startCreationTime: Date
+  endCreationTime: Date
+  status: [Int]
+}
+
+input DiaryFields {
+  diet: Diet
+  bill: Bill
+  status: Int
+  getUp: Date
+  name: String
+  toRest: Date
+  fitness: Fitness
+  bodyIndex: BodyIndex
+  informalEssay: String
 }

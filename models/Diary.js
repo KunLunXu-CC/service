@@ -7,11 +7,11 @@ exports.title = '日记';
 exports.type = 'MongoDB';
 
 exports.fields = {
-  date: {
-    type: Date,
-		title: '日期',
+  name: {
+    type: String,
     unique: true,
     required: true,
+		title: '当前日记式化后日期(YYYY-MM-DD)',
   },
   getUp: {
     type: Date,
@@ -45,24 +45,14 @@ exports.fields = {
       },
       place: {
         title: '部位',
-        type: String,
+        type: Number,
       },
       project: {
         title: '项目',
         type: Number,
       },
       duration: {
-        title: '时长',
-        type: Number,
-        required: true,
-      },
-      groups: {
-        title: '组数',
-        type: Number,
-        required: true,
-      },
-      weight: {
-        title: '重量',
+        title: '时长(分钟)',
         type: Number,
         required: true,
       },
@@ -98,11 +88,11 @@ exports.fields = {
     title: '身体指数',
 		type: {
       weight: {
-        title: '体重',
+        title: '体重(kg)',
         type: Number,
       },
       muscle: {
-        title: '肌肉',
+        title: '肌肉(kg)',
         type: Number,
       },
       moistureContent: {
