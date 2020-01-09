@@ -10,13 +10,15 @@ try {
     path.resolve(
       __dirname,
       `./public.${process.env.NODE_ENV === 'development' ? 'dev' : 'pro'}.key`
-    )
+    ),
+    'utf-8'
   );
   privateKey = fs.readFileSync(
     path.resolve(
       __dirname,
       `./private.${process.env.NODE_ENV === 'development' ? 'dev' : 'pro'}.key`
-    )
+    ),
+    'utf-8'
   );
 } catch (e) {}
 

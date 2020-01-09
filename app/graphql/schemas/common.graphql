@@ -43,3 +43,14 @@ input OptionsSearch {
   name: String
   filter: [ID!]
 }
+
+## ********* publicKey 获取公钥 ********
+extend type Query {
+  publicKey: PublicKey
+}
+
+type PublicKey {
+  data: String
+  rescode: Int
+  message: String
+}
