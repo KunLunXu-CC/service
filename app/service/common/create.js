@@ -27,6 +27,7 @@ module.exports = async ({ model, ctx, body, search, orderBy, pagination }) => {
       updater: _.get(ctx, 'state.user.id', null),
     })));
   } catch(e) {
+    console.log('------------>>>>', e);
     data.message = '创建失败';
     data.rescode = RESCODE.FAIL;
   }

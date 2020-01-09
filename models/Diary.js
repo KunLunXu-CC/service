@@ -54,7 +54,6 @@ exports.fields = {
       duration: {
         title: '时长(分钟)',
         type: Number,
-        required: true,
       },
       feel: {
         title: '感受',
@@ -71,10 +70,12 @@ exports.fields = {
         type: String,
       },
       income: {
+        default: 0,
         title: '收入',
         type: Number,
       },
       expend: {
+        default: 0,
         title: '支出',
         type: Number,
       },

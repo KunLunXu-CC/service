@@ -13,7 +13,7 @@ module.exports = {
     description: 'Date类型值',
     parseValue(value) {
       // 请求入参值
-      return 'Date类型值结构暂时不知道干嘛用';
+      return new Date(value);
     },
     serialize(value) {
       // 发起请求后获取到的值
