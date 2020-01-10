@@ -8,6 +8,7 @@ const cron = require('./cron');
 const path = require('path');
 const Koa = require('koa');
 const db = require('./db');
+const fs = require('fs');
 const app = new Koa();
 
 db(app);
@@ -16,11 +17,12 @@ router(app);
 graphql(app);
 cron(app);
 
-app.listen(config.port, printStartCharPattern);
-
-const options = {
-  key: fs.readFileSync(path.resolve(__dirname, '../docker/nginx/ssl.key')),
-  cert: fs.readFileSync(path.resolve(__dirname, '../docker/nginx/ssl.crt')),
-};
-
-https.createServer(options, app).listen(config.port, printStartCharPattern);
+if (process.env.NODE_ENV === 'development') {
+  app.listen(config.port, printStartCharPattern);
+} else {
+  const options = {
+    key: fs.readFileSync(path.resolve(__dirname, '../docker/nginx/ssl.key')),
+    cert: fs.readFileSync(path.resolve(__dirname, '../docker/nginx/ssl.crt')),
+  };
+  https.createServer(options, app.callback()).listen(config.port, printStartCharPattern);
+}
