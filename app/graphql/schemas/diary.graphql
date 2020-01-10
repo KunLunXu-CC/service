@@ -33,7 +33,6 @@ extend type Mutation {
 type Diaries {
   list: [Diary]
   change: [Diary]
-  rescode: Int
   message: String
   pagination: Pagination
 }

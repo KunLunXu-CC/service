@@ -1,4 +1,4 @@
-const { STATUS, RESCODE, PREFIX_DELETED } = require('../../../config/consts');
+const { STATUS, PREFIX_DELETED } = require('../../../config/consts');
 const getConditions = require('../../../utils/getConditions');
 const getList = require('./getList');
 const _ = require('lodash');
@@ -18,7 +18,6 @@ module.exports = async ({ model, ctx, conds, search, orderBy, pagination }) => {
     change: [],
     pagination: {},
     message: '删除成功',
-    rescode: RESCODE.SUCCESS,
   };
   const server = ctx.db.mongo[model];
   const changeConds = getConditions(conds);
@@ -31,7 +30,6 @@ module.exports = async ({ model, ctx, conds, search, orderBy, pagination }) => {
     });
   } catch (e) {
     data.message = '删除失败';
-    data.rescode = RESCODE.FAIL;
   }
 
   data.change = await server.find({_id: {$in: changeIds}});

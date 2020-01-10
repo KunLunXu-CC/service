@@ -56,7 +56,6 @@ input TagSearch {
 type Tags{
   list: [Tag]
   change: [Tag]
-  rescode: Int
   message: String
   pagination: Pagination
 }

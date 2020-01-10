@@ -33,7 +33,6 @@ extend type Mutation {
 type Roles {
   list: [Role]
   change: [Role]
-  rescode: Int
   message: String
   pagination: Pagination
 }

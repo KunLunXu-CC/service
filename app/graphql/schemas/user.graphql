@@ -38,14 +38,12 @@ type Mutation {
 
 type Login {
   user: User
-  rescode: Int
   message: String
 }
 
 type Users {
   list: [User]
   change: [User]
-  rescode: Int
   message: String
   pagination: Pagination
 }
