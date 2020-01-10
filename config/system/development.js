@@ -1,30 +1,20 @@
 const fs = require('fs');
 const path = require('path');
 
-let publicKey = '';
-let privateKey = '';
-
 // 加载秘钥
-try {
-  publicKey = fs.readFileSync(
-    path.resolve(
-      __dirname,
-      `./public.${process.env.NODE_ENV === 'development' ? 'dev' : 'pro'}.key`
-    ),
-    'utf-8'
-  );
-  privateKey = fs.readFileSync(
-    path.resolve(
-      __dirname,
-      `./private.${process.env.NODE_ENV === 'development' ? 'dev' : 'pro'}.key`
-    ),
-    'utf-8'
-  );
-} catch (e) {}
+const getSecretKey = (type) => {
+  try {
+    return fs.readFileSync(
+      path.resolve(__dirname, `./${type}.key`),
+      'utf-8'
+    );
+  } catch (e) {}
+  return '';
+}
 
 module.exports = {
-  publicKey,                        // 公钥
-  privateKey,                       // 私钥
+  publicKey: getSecretKey('public'),     // 公钥
+  privateKey: getSecretKey('private'),   // 私钥
 
   port: 4000,                       // 系统应用端口
 

@@ -23,7 +23,7 @@ package-lock.json
 
 # 系统配置相关
 /config/system/production.js
-/config/system/*.pro.key
+/config/system/*.key
 
 # 项目部署相关
 html
