@@ -4,6 +4,9 @@ FROM node
 # 维护者信息: 填写维护者的信息
 MAINTAINER qianyin qianyin95@gmai.com
 
+# 配置 DNS
+RUN echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
+
 # 镜像操作指令: https://registry.yarnpkg.com https://registry.npm.taobao.org/
 RUN npm config set registry https://registry.yarnpkg.com && \
     npm install pm2 -g && \
