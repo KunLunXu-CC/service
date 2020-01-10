@@ -75,7 +75,6 @@ input AticleFields {
 type Articles {
   list: [Article]
   change: [Article]
-  rescode: Int
   message: String
   pagination: Pagination
 }

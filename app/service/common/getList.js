@@ -1,4 +1,3 @@
-const { RESCODE } = require('../../../config/consts');
 const getConditions = require('../../../utils/getConditions');
 const _ = require('lodash');
 
@@ -16,7 +15,6 @@ module.exports = async ({ model, ctx, search, pagination, orderBy }) => {
     change: [],
     pagination: {},
     message: '请求成功',
-    rescode: RESCODE.SUCCESS,
   };
   const server = ctx.db.mongo[model];
   const conds = getConditions(search);
@@ -35,7 +33,6 @@ module.exports = async ({ model, ctx, search, pagination, orderBy }) => {
       data.list = await server.find(conds).sort(sort);
     }
   } catch (e) {
-    data.rescode = RESCODE.FAIL;
     data.message = '请求失败';
   }
   return data;

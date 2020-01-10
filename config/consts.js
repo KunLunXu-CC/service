@@ -20,12 +20,6 @@ module.exports.ARTICLE_STATUS = {
   RELEASE: 11,       // 发布(已发布)
 };
 
-// 响应状态 (1: 成功, 0: 失败)
-module.exports.RESCODE = {
-  SUCCESS: 1,
-  FAIL: 0
-};
-
 // 性别
 module.exports.SEX = {
   BOY: 1,             //男

@@ -1,6 +1,5 @@
 const { GraphQLScalarType } = require('graphql');
 const commonServer = require('../../service/common');
-const { RESCODE } = require('../../../config/consts');
 const { publicKey } = require('../../../config/system');
 
 module.exports = {
@@ -9,7 +8,7 @@ module.exports = {
       return await commonServer.options({ ...args, ctx: context.ctx });
     },
     publicKey: async ( parents, args, context, info ) => {
-      return { data: publicKey, rescode: RESCODE.SUCCESS, message: '请求成功!' };
+      return { data: publicKey, message: '请求成功!' };
     }
   },
 

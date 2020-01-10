@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const { RESCODE } = require('../../../config/consts');
 const getList = require('./getList');
 
 /**
@@ -17,7 +16,6 @@ module.exports = async ({ model, ctx, body, search, orderBy, pagination }) => {
     change: [],
     pagination: {},
     message: '创建成功',
-    rescode: RESCODE.SUCCESS,
   };
   const server = ctx.db.mongo[model];
   try {
@@ -29,7 +27,6 @@ module.exports = async ({ model, ctx, body, search, orderBy, pagination }) => {
   } catch(e) {
     console.log('------------>>>>', e);
     data.message = '创建失败';
-    data.rescode = RESCODE.FAIL;
   }
   if (search){
     const listData = await getList({ model, ctx, search, orderBy, pagination });

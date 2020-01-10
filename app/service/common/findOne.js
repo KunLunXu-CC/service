@@ -1,4 +1,3 @@
-const { RESCODE } = require('../../../config/consts');
 const getConditions = require('../../../utils/getConditions');
 
 /**
@@ -10,7 +9,6 @@ const getConditions = require('../../../utils/getConditions');
 module.exports = async ({ model, ctx, search }) => {
   const data = {
     data: {},
-    rescode: RESCODE.SUCCESS,
     message: '创建成功',
   };
   const server = ctx.db.mongo[model];
@@ -19,7 +17,6 @@ module.exports = async ({ model, ctx, search }) => {
     data.data = await server.findOne(conds);
   } catch (e) {
     data.message = '请求失败';
-    data.rescode = RESCODE.FAIL;
   }
   return data;
 }

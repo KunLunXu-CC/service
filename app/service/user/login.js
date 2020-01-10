@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const { RESCODE } = require('../../../config/consts');
 const { hash, decryptRsa, signJwt } = require('../../../utils/encryption');
 
 /**
@@ -30,7 +29,6 @@ module.exports = async ({ account, password, ctx }) => {
   const data = {
     user: null,
     message: '登录成功!',
-    rescode: RESCODE.SUCCESS,
   };
 
   // 1. 账号密码登录

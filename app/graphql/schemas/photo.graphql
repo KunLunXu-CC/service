@@ -18,7 +18,6 @@ extend type Mutation {
 type Photos {
   list: [Photo]
   change: [Photo]
-  rescode: Int
   message: String
   pagination: Pagination
 }

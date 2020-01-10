@@ -4,7 +4,6 @@ const path = require('path');
 const { create } = require('../common');
 const qiniu = require('../../../utils/qiniu');
 const tinify = require('../../../utils/tinify');
-const { RESCODE } = require('../../../config/consts');
 
 /**
  * 获取上传文件列表
@@ -84,7 +83,6 @@ module.exports = async (ctx) => {
   const data = {
     data: [],
     message: '上传成功',
-    rescode: RESCODE.SUCCESS,
   };
   // 1. 获取上传文件列表
   const files = getFiles(ctx);
