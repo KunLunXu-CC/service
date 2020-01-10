@@ -28,3 +28,4 @@ package-lock.json
 # 项目部署相关
 html
 /docker/store
+/docker/nginx/ssl.*
