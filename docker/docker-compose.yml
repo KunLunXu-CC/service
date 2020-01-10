@@ -47,6 +47,7 @@ services:
       - TZ=Asia/Shanghai
     ports:
       - 80:80
+      - 443:443
     links:
       - node
     depends_on:
