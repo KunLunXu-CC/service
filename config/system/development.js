@@ -18,7 +18,7 @@ module.exports = {
 
   port: 4000,                       // 系统应用端口
 
-  corsOrigin: '*',                 // 跨域, 设置 Access-Control-Allow-Origin, http://www.qianyin925.com
+  corsOrigin: '*',                 // 跨域, 设置 Access-Control-Allow-Origin, https://www.qianyin925.com
 
   graphql: {                        // graphql 配置
     path: '/graphql',               // graphql 应用路由
