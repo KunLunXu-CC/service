@@ -40,7 +40,10 @@ module.exports = async ({ body, header }) => {
   console.log('4. [success] 删除依赖成功');
 
   // 6. 安装依赖
-  if (shell.exec('npm i && npm i --only=dev').code !== 0) {
+  if (
+    shell.exec('npm i').code !== 0 ||
+    shell.exec('npm i --only=dev').code !== 0
+  ) {
     console.log('5. [fail] 安装依赖失败');
     return false;
   }
