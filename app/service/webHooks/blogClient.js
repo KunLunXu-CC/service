@@ -14,9 +14,8 @@ module.exports = async ({ body, header }) => {
   console.log(`=======>>>> [webhooks] ${repository.name}: submit new code <<<<=======`);
 
   // 2. 进入项目目录
-  shell.cd('html');
-  console.log('1. [success] 进入项目目录', );
-  console.log(`当前位置: ${shell.pwd()}`);
+  shell.cd(path.resolve(__dirname, '../../../html/'));
+  console.log('1. [success] 进入项目目录', shell.pwd());
 
   // 3. 撤销 git 的所有本地修改
   if (shell.exec(`

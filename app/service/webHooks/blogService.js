@@ -12,48 +12,51 @@ module.exports = async ({ body, header }) => {
 
   // 1. 提示: 脚本开始
   console.log(`=======>>>> [webhooks] ${repository.name}: submit new code <<<<=======`);
-  console.log(`当前位置: ${shell.pwd()}`);
 
-  // 2. 撤销 git 的所有本地修改
+  // 2. 进入项目目录
+  shell.cd(path.resolve(__dirname, '../../../'));
+  console.log('1. [success] 进入项目目录', shell.pwd());
+
+  // 3. 撤销 git 的所有本地修改
   if (shell.exec(`
     git fetch --all  && \
     git reset --hard origin/master  && \
     git clean -df
   `).code !== 0) {
-    console.log('1. [fail] 撤销 git 的所有本地修改失败');
+    console.log('2. [fail] 撤销 git 的所有本地修改失败');
     return false;
   }
-  console.log('1. [success] 撤销 git 的所有本地修改成功');
+  console.log('2. [success] 撤销 git 的所有本地修改成功');
 
-  // 3. 拉取代码
+  // 4. 拉取代码
   if (shell.exec('git pull').code !== 0) {
-    console.log('2. [fail] 拉取代码失败');
+    console.log('3. [fail] 拉取代码失败');
     return false;
   }
-  console.log('2. [success] 拉取代码成功');
+  console.log('3. [success] 拉取代码成功');
 
-  // 4. 安装依赖
+  // 5. 安装依赖
   if (
     shell.exec('npm i').code !== 0 ||
     shell.exec('npm i --only=dev').code !== 0
   ) {
-    console.log('3. [fail] 安装依赖失败');
+    console.log('4. [fail] 安装依赖失败');
     return false;
   }
-  console.log('3. [success] 安装依赖成功');
+  console.log('4. [success] 安装依赖成功');
 
-  // 5. 设置权限
+  // 6. 设置权限
   shell.chmod('-R', 777, '.');
-  console.log('4. [success] 设置权限成功');
+  console.log('5. [success] 设置权限成功');
 
-  // 6. 提示：完成
+  // 7. 提示：完成
   console.log(`=======>>>> [webhooks] ${repository.name}: success <<<<=======`);
 
-  console.log('5. [success] 接下来将重启应用');
+  console.log('6. [success] 接下来将重启应用');
   console.log(`当前位置: ${shell.pwd()}`);
-  // 4. 重启
+  // 8. 重启
   if (shell.exec('npm run restart:pro').code !== 0) {
-    console.log('5. [fail] 重启失败');
+    console.log('6. [fail] 重启失败');
     return false;
   }
 }
