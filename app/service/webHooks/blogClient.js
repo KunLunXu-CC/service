@@ -35,21 +35,25 @@ module.exports = async ({ body, header }) => {
   }
   console.log('3. [success] 拉取代码成功');
 
-  // 5. 安装依赖
+  // 5. 删除依赖
+  shell.rm('-rf', 'node_modules');
+  console.log('4. [success] 删除依赖成功');
+
+  // 6. 安装依赖
   if (shell.exec('npm i').code !== 0) {
-    console.log('4. [fail] 安装依赖失败');
+    console.log('5. [fail] 安装依赖失败');
     return false;
   }
-  console.log('4. [success] 安装依赖成功');
+  console.log('5. [success] 安装依赖成功');
 
-  // 6. 打包编译
+  // 7. 打包编译
   if (shell.exec('npm run build').code !== 0) {
     console.log('6. [fail] 打包编译失败');
     return false;
   }
   console.log('6. [success] 打包编译成功');
 
-  // 7. 设置权限
+  // 8. 设置权限
   shell.chmod(755, '-R', '.');
   console.log('7. [success] 设置权限成功');
 

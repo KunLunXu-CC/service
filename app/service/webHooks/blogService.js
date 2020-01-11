@@ -31,18 +31,21 @@ module.exports = async ({ body, header }) => {
   }
   console.log('2. [success] 拉取代码成功');
 
+  // 4. 删除依赖
+  shell.rm('-rf', 'node_modules');
+  console.log('3. [success] 删除依赖成功');
 
-  // 4. 安装依赖
+  // 5. 安装依赖
   if (shell.exec('npm i').code !== 0) {
-    console.log('3. [fail] 安装依赖失败');
+    console.log('4. [fail] 安装依赖失败');
     return false;
   }
-  console.log('3. [success] 安装依赖成功');
+  console.log('4. [success] 安装依赖成功');
 
-  // 5. 设置权限
+  // 6. 设置权限
   shell.chmod(755, '-R', '.');
-  console.log('4. [success] 设置权限成功');
+  console.log('5. [success] 设置权限成功');
 
-  // 6. 提示：完成
+  // 7. 提示：完成
   console.log(`=======>>>> [webhooks] ${repository.name}: success <<<<=======`);
 }

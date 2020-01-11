@@ -25,7 +25,7 @@ module.exports = async (ctx, next) => {
   } else if(scripts[repository.name]){
     const { repository } = ctx.request.body;
     // 执行异步脚本
-    scripts[repository.name](ctx.request);
+    setTimeout(scripts[repository.name].bind(null, ctx.request), 2 * 1000);
     ctx.body = '匹配成功, 将执行指定脚本';
   } else {
     ctx.body = '未定义该仓库的执行脚本!';
