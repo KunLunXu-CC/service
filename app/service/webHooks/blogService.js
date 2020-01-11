@@ -12,7 +12,7 @@ module.exports = async ({ body, header }) => {
 
   // 1. 提示: 脚本开始
   console.log(`=======>>>> [webhooks] ${repository.name}: submit new code <<<<=======`);
-  shell.echo('当前位置: $pwd');
+  console.log(`当前位置: ${shell.pwd()}`);
 
   // 2. 撤销 git 的所有本地修改
   if (shell.exec(`
@@ -50,6 +50,7 @@ module.exports = async ({ body, header }) => {
   console.log(`=======>>>> [webhooks] ${repository.name}: success <<<<=======`);
 
   console.log('5. [success] 接下来将重启应用');
+  console.log(`当前位置: ${shell.pwd()}`);
   // 4. 重启
   if (shell.exec('npm run restart:pro').code !== 0) {
     console.log('5. [fail] 重启失败！');
