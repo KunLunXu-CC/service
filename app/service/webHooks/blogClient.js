@@ -58,7 +58,7 @@ module.exports = async ({ body, header }) => {
   console.log('6. [success] 文件切换成功');
 
   // 8. 设置权限
-  shell.chmod(755, '-R', '.');
+  shell.chmod('-R', 777, '.');
   console.log('7. [success] 设置权限成功');
 
   // 8. 提示：完成
