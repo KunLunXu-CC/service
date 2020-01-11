@@ -54,7 +54,7 @@ module.exports = async ({ body, header }) => {
 
   // 7. 删 dist 目录并, 并复制 build
   shell.rm('-rf', 'dist/*');
-  shell.cp('-R', 'build/*', 'dist/*');
+  shell.cp('-R', 'build/*', 'dist/');
   console.log('6. [success] 文件切换成功');
 
   // 8. 设置权限
