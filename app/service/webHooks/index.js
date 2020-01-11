@@ -1,6 +1,11 @@
-const script = require('./script');
 const { createHmac } = require('crypto');
 const { webHookSecret } = require('../../../config/system');
+
+// 脚本列表
+const scripts = {
+  'blog-client': require('./blogClient'),
+  'blog-service': require('./blogService'),
+};
 
 // 身份验证
 const verify = ({ header, body }) => {
@@ -17,9 +22,10 @@ module.exports = async (ctx, next) => {
   const result = verify(ctx.request);
   if (!result){
     ctx.body = `身份验证失败!`;
-  } else if(script[repository.name]){
+  } else if(scripts[repository.name]){
     const { repository } = ctx.request.body;
-    setTimeout(script[repository.name].bind(null, ctx.request), 0);
+    // 执行异步脚本
+    scripts[repository.name](ctx.request);
     ctx.body = '匹配成功, 将执行指定脚本';
   } else {
     ctx.body = '未定义该仓库的执行脚本!';
