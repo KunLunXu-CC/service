@@ -42,7 +42,7 @@ module.exports = async ({ body, header }) => {
   console.log('3. [success] 安装依赖成功');
 
   // 5. 设置权限
-  shell.chmod(777, '-R', '.');
+  shell.chmod('-R', 777, '.');
   console.log('4. [success] 设置权限成功');
 
   // 6. 提示：完成
