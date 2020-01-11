@@ -62,5 +62,5 @@ module.exports = async ({ body, header }) => {
   console.log('7. [success] 设置权限成功');
 
   // 8. 提示：完成
-  console.log(`=======>>>> [webhooks1] ${repository.name}: success <<<<=======`);
+  console.log(`=======>>>> [webhooks] ${repository.name}: success <<<<=======`);
 }
