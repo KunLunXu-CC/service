@@ -53,7 +53,7 @@ module.exports = async ({ body, header }) => {
   console.log(`当前位置: ${shell.pwd()}`);
   // 4. 重启
   if (shell.exec('npm run restart:pro').code !== 0) {
-    console.log('5. [fail] 重启失败！');
+    console.log('5. [fail] 重启失败');
     return false;
   }
 }
