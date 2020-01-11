@@ -6,7 +6,6 @@ MAINTAINER qianyin qianyin95@gmai.com
 
 # 镜像操作指令: https://registry.yarnpkg.com https://registry.npm.taobao.org/
 RUN npm config set registry https://registry.yarnpkg.com && \
-    npm install pm2 -g && \
     mkdir /var/service
 
 # 设置 git 基本信息
