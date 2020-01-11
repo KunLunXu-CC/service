@@ -49,7 +49,7 @@ exports.fields = {
       },
       project: {
         title: '项目',
-        type: Number,
+        type: [Number],
       },
       duration: {
         title: '时长(分钟)',
@@ -58,7 +58,6 @@ exports.fields = {
       feel: {
         title: '感受',
         type: Number,
-        required: true,
       },
     }],
   },
