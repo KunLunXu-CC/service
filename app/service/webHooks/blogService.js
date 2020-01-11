@@ -12,6 +12,7 @@ module.exports = async ({ body, header }) => {
 
   // 1. 提示: 脚本开始
   console.log(`=======>>>> [webhooks] ${repository.name}: submit new code <<<<=======`);
+  shell.echo('当前位置: $pwd');
 
   // 2. 撤销 git 的所有本地修改
   if (shell.exec(`

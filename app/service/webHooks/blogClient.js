@@ -15,7 +15,8 @@ module.exports = async ({ body, header }) => {
 
   // 2. 进入项目目录
   shell.cd('html');
-  console.log('1. [success] 进入项目目录');
+  console.log('1. [success] 进入项目目录', );
+  shell.echo('当前位置: $pwd');
 
   // 3. 撤销 git 的所有本地修改
   if (shell.exec(`
