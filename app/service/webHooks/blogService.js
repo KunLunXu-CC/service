@@ -32,11 +32,11 @@ module.exports = async ({ body, header }) => {
   console.log('2. [success] 拉取代码成功');
 
   // 4. 删除依赖
-  shell.rm('-rf', 'node_modules');
+  shell.rm('-rf', 'node_modules', 'package-lock.json');
   console.log('3. [success] 删除依赖成功');
 
   // 5. 安装依赖
-  if (shell.exec('npm i').code !== 0) {
+  if (shell.exec('npm i && npm i --only=dev').code !== 0) {
     console.log('4. [fail] 安装依赖失败');
     return false;
   }
