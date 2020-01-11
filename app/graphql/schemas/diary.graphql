@@ -42,12 +42,14 @@ scalar Diet {
   desc: String
 }
 
+scalar FitnessProject
+
 scalar Fitness {
   type: Int
-  place: Int
-  project: Int
-  duration: Int
   feel: Int
+  place: Int
+  duration: Int
+  project: FitnessProject
 }
 
 scalar Bill {
