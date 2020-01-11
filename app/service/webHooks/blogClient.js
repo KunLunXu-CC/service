@@ -52,9 +52,14 @@ module.exports = async ({ body, header }) => {
   }
   console.log('5. [success] 打包编译成功');
 
-  // 7. 设置权限
+  // 7. 删 dist 目录并, 并复制 build
+  shell.rm('-rf', 'dist');
+  shell.cp('-R', 'build', 'dist');
+  console.log('6. [success] 文件切换成功');
+
+  // 8. 设置权限
   shell.chmod(755, '-R', '.');
-  console.log('6. [success] 设置权限成功');
+  console.log('7. [success] 设置权限成功');
 
   // 8. 提示：完成
   console.log(`=======>>>> [webhooks] ${repository.name}: success <<<<=======`);
