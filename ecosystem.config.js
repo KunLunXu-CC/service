@@ -1,10 +1,10 @@
 module.exports = {
   apps : [{
     name: 'app',
-    watch: true,
+    watch: false,
     script: './app/app.js',
-    watch: ['app', 'config', 'models', 'utils'],
+    // watch: ['app', 'config', 'models', 'utils'],
     // ignore_watch: ['node_modules', 'docker', 'html', '.git'],
-    watch_delay: 1000 * 60 * 5,
+    // watch_delay: 1000 * 60 * 5,
   }]
 }

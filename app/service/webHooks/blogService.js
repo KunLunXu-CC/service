@@ -45,6 +45,13 @@ module.exports = async ({ body, header }) => {
   shell.chmod(777, '-R', '.');
   console.log('4. [success] 设置权限成功');
 
+  // 6. 重启
+  if (shell.exec('pm2 restart ecosystem.config.js').code !== 0) {
+    console.log('5. [fail] 重启失败');
+    return false;
+  }
+  console.log('5. [success] 重启成功');
+
   // 6. 提示：完成
   console.log(`=======>>>> [webhooks] ${repository.name}: success <<<<=======`);
 }
