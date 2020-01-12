@@ -4,7 +4,6 @@ const config = require('../config/system');
 const graphql = require('./graphql');
 const router = require('./route');
 const https = require('https');
-const cron = require('./cron');
 const path = require('path');
 const Koa = require('koa');
 const db = require('./db');
@@ -15,7 +14,6 @@ db(app);
 middleware(app);
 router(app);
 graphql(app);
-cron(app);
 
 if (process.env.NODE_ENV === 'development') {
   app.listen(config.port, printStartCharPattern);

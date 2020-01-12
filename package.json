@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon ./app/app.js",
+    "logs": "pm2 logs",
+    "start": "pm2 start ecosystem.config.js --env development",
     "commit": "git-cz",
     "add": "git add --all && git reset -- */development.js",
     "gulp": "gulp --gulpfile ./scripts/gulpfile.js",
     "release": "standard-version",
-    "start:pro": "pm2 start ecosystem.config.js && pm2 logs",
+    "start:pro": "pm2 start ecosystem.config.js && npm run logs",
     "restart:pro": "pm2 restart ecosystem.config.js"
   },
   "keywords": [],
@@ -43,7 +44,6 @@
     "cross-env": "^6.0.0",
     "cz-conventional-changelog": "^3.0.2",
     "husky": "^3.0.7",
-    "nodemon": "^1.18.9",
     "standard-version": "^7.0.0"
   },
   "config": {

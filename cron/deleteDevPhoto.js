@@ -3,7 +3,7 @@
  */
 const _ = require('lodash');
 const moment = require('moment');
-const qiniu = require('../../utils/qiniu');
+const qiniu = require('../utils/qiniu');
 
 // 查询列表
 const getList = async () => {

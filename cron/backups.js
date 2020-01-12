@@ -3,8 +3,8 @@
  */
 const path = require('path');
 const moment = require('moment');
-const emailer = require('../../utils/emailer');
-const { readFileList } = require('../../utils');
+const emailer = require('../utils/emailer');
+const { readFileList } = require('../utils');
 
 // 获取附件列表
 const getAttachments = () => {
