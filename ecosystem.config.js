@@ -4,7 +4,7 @@ module.exports = {
       name: 'app',
       watch: true,
       script: './app/app.js',
-      ignore_watch: ['node_modules', 'docker', 'html', '.git'],
+      ignore_watch: ['node_modules', 'docker', 'html', '.git', 'cron'],
       // watch_delay: 1000 * 60 * 5,
       env: {
         "NODE_ENV": "production"
