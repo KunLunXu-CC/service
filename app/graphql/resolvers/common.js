@@ -1,3 +1,4 @@
+const moment = require('moment');
 const { GraphQLScalarType } = require('graphql');
 const commonServer = require('../../service/common');
 const { publicKey } = require('../../../config/system');
@@ -22,7 +23,7 @@ module.exports = {
     },
     serialize(value) {
       // 发起请求后获取到的值
-      return new Date(value);
+      return moment(value).format('YYYY-MM-DD HH:mm:ss');
     },
     parseLiteral(ast) {
       // 解析请求参数值
