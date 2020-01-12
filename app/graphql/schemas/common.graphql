@@ -11,6 +11,7 @@ enum RoleType {
   TOURIST
 }
 
+# 1 为升序排列，而 -1 是用于降序排列
 input OrderBy {
   updateTime: Int
   creationTime: Int

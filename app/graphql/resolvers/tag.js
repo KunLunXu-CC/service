@@ -1,3 +1,4 @@
+const tagsWithArticles = require('../../service/tag/tagsWithArticles');
 const { findOne, getList, create, remove, update } = require('../../service/common');
 
 module.exports = {
@@ -19,6 +20,9 @@ module.exports = {
   Query: {
     tags: async (parents, args, context, info) => {
       return await getList({ model: 'Tag', ...args, ctx: context.ctx });
+    },
+    tagsWithArticles: async (parents, args, context, info) => {
+      return await tagsWithArticles({ ...args, ctx: context.ctx });
     },
   },
 

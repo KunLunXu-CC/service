@@ -21,8 +21,9 @@ exports.fields = {
     type: String
   },
   tags: {
+    default: [],
     title: '标签ID',
-		type: [ObjectId],
+    type: [ObjectId],
   },
   content: {
     title: '内容',
