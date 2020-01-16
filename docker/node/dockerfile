@@ -17,7 +17,7 @@ RUN apt-get -q update && apt-get -qy install netcat
 
 # 拷贝脚本文件
 RUN mkdir /shell
-COPY ./shell/* /shell/*
+COPY ./waitfor.sh /shell/waitfor.sh
 RUN chmod +x /shell/*
 
 # 设置工作目录
