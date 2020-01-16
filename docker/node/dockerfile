@@ -13,7 +13,7 @@ RUN git config --global user.email "qianyin95@gmail.com" && \
     git config --global user.name "qianyin925"
 
 # 拷贝脚本文件
-COPY ./shell/* /shell/
+COPY ./wait-for.sh /shell/wait-for.sh
 RUN chmod +x /shell/*
 
 # 设置工作目录
