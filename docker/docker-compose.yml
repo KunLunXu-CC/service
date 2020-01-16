@@ -28,7 +28,7 @@ services:
       - TZ=Asia/Shanghai
     depends_on:
       - mongo
-    command: npm run start:pro
+    command: sh -c '/shell/wait-for db:5432 -- npm run start:pro'
     volumes:
       - ../:/var/service
     logging:
