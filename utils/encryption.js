@@ -57,12 +57,13 @@ module.exports.decryptRsa = (data) => {
 /**
  * 签发 json web token
  * @param {Object} payload   有效载荷
+ * @param {String} expiresIn   token 时长
  * @returns {String}         json web token
  */
-module.exports.signJwt = (payload) => {
+module.exports.signJwt = (payload, expiresIn = '7d') => {
   return jwt.sign(payload, privateKey, {
+    expiresIn,
     algorithm: 'RS256',
-    expiresIn: '7d'
   });
 };
 
