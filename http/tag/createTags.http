@@ -1,0 +1,15 @@
+POST http://localhost:4000/graphql HTTP/1.1
+content-type: application/json
+x-request-type: GraphQL
+authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGM3NGIyYzRiMWI0MDExODMyMWFhYiIsIm5hbWUiOiLnrqHnkIblkZgiLCJyb2xlIjoiNWUwYzc0YjFjNGIxYjQwMTE4MzIxYWE2IiwiYWNjb3VudCI6ImFkbWluIiwiaWF0IjoxNTc4MTA2MjUxLCJleHAiOjE1Nzg3MTEwNTF9.cY955VUQeedqIf_hfsgChYoZ3kybjxWb8auL-7o7wvX0BLNaLbzyaMo6kIRrtH9xsVSMD72LybLTilL-MPwZ8xQ1efWw0NRtma212CUWb5-L-Dn-LIrtQZSA_VJt17reS74627GZgjLjJ_YQf78_XgNlrPli6Bu2caDzNCBLj5WrIw2CEsKJPegf3MJMcb1v8pitdr_c_JcMPVN32IAi_r7AAP7i-IbJHSAiPVOxIxNdmnYKsbgfq8ALjSlFuhaXvdx9-ZZ9xzyC_FfN-2v-u90ZruJx3enRPtRF-2QXWfVn3IhCbpXUUa5Uj8c0dQrikGor-tOi2epxM137BmYM4A
+
+mutation {
+    createTags (
+        body: [{
+            name: "标签二"
+        }]
+    ){
+        list { id name }
+        change { id name }
+    }
+}

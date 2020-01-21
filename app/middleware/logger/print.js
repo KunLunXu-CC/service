@@ -32,12 +32,16 @@ const printDividingLine = () => {
  * @param {Object} ctx 上下文
  */
 const printRequest = ctx => {
-  const { query, ... reset } = _.get(ctx, 'request.body', {});
+  const { query, variables } = _.get(ctx, 'request.body', {});
+  const { authorization,  } = ctx.header;
+
   const params = JSON.stringify({
     method: ctx.request.method,
     url: ctx.request.url,
-    ... reset,
+    variables,
+    authorization,
   }, null, 4);
+
   console.log(start, colors.cyan('请求参数: '), colors.yellow(params), '\n');
   console.log(start, colors.cyan('请求文档: '), colors.yellow(query), '\n');
 }

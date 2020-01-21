@@ -21,6 +21,7 @@ const setUserInfoToState = async ({ ctx }) => {
   let user = payload.id
     ? await userServer.findOne({ _id: payload.id })
     : null;
+
   // 2.1 如果 token 错误或者数据更新可能 id 错误找不到用户时则使用默认用户
   user = user
     ? user
