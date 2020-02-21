@@ -30,7 +30,7 @@ extend type Mutation {
   ): Articles @auth
 
   # 发布文章
-  releaseArticle(
+  releaseArticles (
     conds: ArticleSearch!
     orderBy: OrderBy
     search: ArticleSearch
@@ -38,7 +38,7 @@ extend type Mutation {
   ): Articles @auth
 
   # 撤销(取消发布)文章
-  revokeArticle(
+  revokeArticles (
     conds: ArticleSearch!
     orderBy: OrderBy
     search: ArticleSearch
