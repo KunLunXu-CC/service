@@ -26,7 +26,7 @@ module.exports = {
       return await update({ model: 'Article', ...args, ctx: context.ctx });
     },
     // 发布
-    releaseArticle: async (parents, args, context, info) => {
+    releaseArticles: async (parents, args, context, info) => {
       return await update({
         ...args,
         model: 'Article',
@@ -35,7 +35,7 @@ module.exports = {
       });
     },
     // 撤销
-    revokeArticle: async (parents, args, context, info) => {
+    revokeArticles: async (parents, args, context, info) => {
       return await update({
         ...args,
         model: 'Article',
