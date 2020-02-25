@@ -1,6 +1,6 @@
 const _ = require('lodash');
+const mongoose = require('mongoose');
 const { STATUS } = require('../config/consts');
-
 
 /**
  * 处理日期范围查询条件
@@ -33,7 +33,7 @@ const getHandler = ({ params, conds, key, value }) => ([
   },
   {
     conds: key === 'status',
-    handler: () => (conds.status = _.isArray(value) ? { $in: value} : value)
+    handler: () => (conds.status = _.isArray(value) ? { $in: value } : value)
   },
   {
     conds: ['startUpdateTime', 'endUpdateTime'].includes(key),
@@ -58,19 +58,28 @@ const getHandler = ({ params, conds, key, value }) => ([
   {
     conds: key === 'tags',
     // 传入值为一个 tag 数组， 判断传入数据和数据 tags 数组是否存在交集
-    handler: () => (conds.tags = { $in: value}),
+    handler: () => (conds.tags = { $in: value }),
   },
   // 按值类型进行处理
+  { // 值为 id 字段处理
+    conds: mongoose.Types.ObjectId.isValid(value),
+    handler: () => (conds[key] = value),
+  },
   {
     conds: _.isNumber(value) || _.isBoolean(value),
     handler: () => (conds[key] = value),
   },
   {
     conds: _.isString(value),
-    handler: () => (conds[key] = {$regex: value}),
-  }, {
+    handler: () => (conds[key] = { $regex: value }),
+  },
+  {
     conds: _.isArray(value),
-    handler: () => (conds[key] = {$in: value}),
+    handler: () => (conds[key] = { $in: value }),
+  },
+  {
+    conds: value === null,
+    handler: () => (conds[key] = { $in: [null, void 0] }),
   }
 ]);
 
@@ -79,7 +88,7 @@ const getHandler = ({ params, conds, key, value }) => ([
  * @param {Object} params 查询参数
  */
 module.exports = ( params = {} ) => {
-  const conds = { status: {$ne: STATUS.DELETE} };
+  const conds = { status: { $ne: STATUS.DELETE } };
   _.forIn(params, (value, key) => {
     const handler = (getHandler({ params, conds, key, value }).find( v => v.conds) || {}).handler;
     handler && handler();
