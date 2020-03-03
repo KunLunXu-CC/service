@@ -32,6 +32,10 @@ const getHandler = ({ params, conds, key, value }) => ([
     handler: () => (conds._id = { $in: value})
   },
   {
+    conds: key === 'names',
+    handler: () => (conds.name = { $in: value})
+  },
+  {
     conds: key === 'status',
     handler: () => (conds.status = _.isArray(value) ? { $in: value } : value)
   },

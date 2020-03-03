@@ -87,6 +87,7 @@ type Diary {
 
 input DiarySearch {
   name: String
+  names: [String]
 
   id: ID
   ids: [ID!]
