@@ -10,6 +10,11 @@ extend type Query {
   statsBill(
     search: StatsSearch
   ): StatsBill @auth
+
+  # 统计 bodyIndex
+  statsBodyIndex(
+    search: StatsSearch
+  ): StatsBodyIndex @auth
 }
 
 extend type Mutation {
@@ -116,7 +121,7 @@ input DiaryFields {
   informalEssay: String
 }
 
-# 统计账单列表项
+# 统计账单 - 列表项
 type StatsBillItem {
   name: String
   income: Float
@@ -124,13 +129,27 @@ type StatsBillItem {
   diaries: [Diary]
 }
 
-# 统计账单响应列表
+# 统计账单 - 响应列表
 type StatsBill {
   groupWithName: [StatsBillItem]
+  message: String
 }
 
 # 统计查询条件
 input StatsSearch {
   span: String
   name: [String]   # 时间范围, 在这儿时间 == name
+}
+
+# 统计 bodyIndex - 列表项
+type StatsBodyIndexItem {
+  name: String
+  diaries: [Diary]
+  bodyIndex: BodyIndex
+}
+
+# 统计 bodyIndex
+type StatsBodyIndex {
+  list: [StatsBodyIndexItem],
+  message: String
 }

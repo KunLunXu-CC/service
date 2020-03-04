@@ -16,5 +16,6 @@ query{
       expend
       diaries { bill }
     }
+    message
   }
 }

@@ -63,5 +63,6 @@ module.exports = async ({ ctx, search: { name, span } }) => {
   const data = await getData({ ctx, name });
   return {
     groupWithName: groupWithName({ data, span }),
+    message: '请求数据成功!',
   };
 };
