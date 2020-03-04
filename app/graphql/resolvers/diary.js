@@ -1,9 +1,13 @@
+const statsBill = require('../../service/diary/statsBill');
 const { getList, create, remove, update } = require('../../service/common');
 
 module.exports = {
   Query: {
     diaries: async (parents, args, context, info) => {
       return await getList({ model: 'Diary', ...args, ctx: context.ctx });
+    },
+    statsBill: async (parents, args, context, info) => {
+      return await statsBill({ ... args, ctx: context.ctx });
     },
   },
   Mutation: {
