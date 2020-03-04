@@ -63,3 +63,11 @@ module.exports.FITNESS_TYPE = {
   AEROBIC: 0,    // 有氧
   ANAEROBIC: 1,  // 无氧
 };
+
+// 统计跨度
+module.exports.STATS_SAPN = {
+  DAY: 'day',      // 按天
+  WEEK: 'week',    // 按周
+  MONTH: 'month',  // 按月
+  YEAR: 'year',    // 按年
+};

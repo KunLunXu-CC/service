@@ -1,9 +1,15 @@
 extend type Query {
+  # 查询列表
   diaries(
     orderBy: OrderBy
     search: DiarySearch
     pagination: Pagination
   ): Diaries @auth
+
+  # 统计账单
+  statsBill(
+    search: StatsSearch
+  ): StatsBill @auth
 }
 
 extend type Mutation {
@@ -30,6 +36,24 @@ extend type Mutation {
   ): Diaries @auth
 }
 
+type Diary {
+  name: String
+  getUp: Date
+  toRest: Date
+  informalEssay: String
+  diet: Diet
+  bill: Bill
+  fitness: Fitness
+  bodyIndex: BodyIndex
+
+  id: ID
+  status: Int
+  creator: User @user(key: "creator")
+  updater: User @user(key: "updater")
+  updateTime: Date
+  creationTime: Date
+}
+
 type Diaries {
   list: [Diary]
   change: [Diary]
@@ -54,35 +78,17 @@ scalar Fitness {
 
 scalar Bill {
   desc: String
-  income: Int
-  expend: Int
-  balance: Int
+  income: Float
+  expend: Float
+  balance: Float
 }
 
 scalar BodyIndex {
-  weight: Int
-  muscle: Int
-  moistureContent: Int
-  bodyfat: Int
-  bim: Int
-}
-
-type Diary {
-  name: String
-  getUp: Date
-  toRest: Date
-  informalEssay: String
-  diet: Diet
-  bill: Bill
-  fitness: Fitness
-  bodyIndex: BodyIndex
-
-  id: ID
-  status: Int
-  creator: User @user(key: "creator")
-  updater: User @user(key: "updater")
-  updateTime: Date
-  creationTime: Date
+  weight: Float
+  muscle: Float
+  moistureContent: Float
+  bodyfat: Float
+  bim: Float
 }
 
 input DiarySearch {
@@ -108,4 +114,23 @@ input DiaryFields {
   fitness: Fitness
   bodyIndex: BodyIndex
   informalEssay: String
+}
+
+# 统计账单列表项
+type StatsBillItem {
+  name: String
+  income: Float
+  expend: Float
+  diaries: [Diary]
+}
+
+# 统计账单响应列表
+type StatsBill {
+  groupWithName: [StatsBillItem]
+}
+
+# 统计查询条件
+input StatsSearch {
+  span: String
+  name: [String]   # 时间范围, 在这儿时间 == name
 }

@@ -11,7 +11,7 @@ exports.fields = {
     type: String,
     unique: true,
     required: true,
-		title: '当前日记式化后日期(YYYY-MM-DD)',
+		title: '当前日记式化后日期(YYYY-MM-DD), 其实就是时间',
   },
   getUp: {
     type: Date,
