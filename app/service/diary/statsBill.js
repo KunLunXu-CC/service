@@ -44,7 +44,7 @@ const groupWithName = ({ data, span }) => {
   // 获取分组时间格式: 对象是 span 字段值和 Format 映射关系
   const format = {
     [STATS_SAPN.DAY]: 'YYYY-MM-DD',
-    [STATS_SAPN.WEEK]: 'YYYY@W',
+    [STATS_SAPN.WEEK]: 'YYYY年第W周',
     [STATS_SAPN.MONTH]: 'YYYY-MM',
     [STATS_SAPN.YEAR]: 'YYYY',
   }[span] || 'YYYY-MM-DD';
@@ -59,7 +59,8 @@ const groupWithName = ({ data, span }) => {
   return resData;
 }
 
-module.exports = async ({ ctx, search: { name, span } }) => {
+module.exports = async ({ ctx, search }) => {
+  const { name, span } = search || {};
   const data = await getData({ ctx, name });
   return {
     groupWithName: groupWithName({ data, span }),
