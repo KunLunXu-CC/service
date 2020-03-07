@@ -9,7 +9,10 @@
     "commit": "git-cz",
     "add": "git add --all && git reset -- */development.js",
     "gulp": "gulp --gulpfile ./scripts/gulpfile.js",
-    "release": "standard-version",
+    "release": "standard-version --release-as",
+    "release:major": "npm run release -- major",
+    "release:minor": "npm run release -- minor",
+    "release:patch": "npm run release -- patch",
     "start:pro": "pm2 start ecosystem.config.js && npm run logs",
     "restart:pro": "pm2 restart ecosystem.config.js"
   },
