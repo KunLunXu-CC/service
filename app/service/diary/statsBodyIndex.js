@@ -28,10 +28,13 @@ const getData = async ({ ctx, name }) => {
 const getFieldAvg = ({ diaries, key }) => {
   let count = 0;
   const total = diaries.reduce((total, ele) => {
-    ele.bodyIndex[key] && (count ++)
-    return total + ele.bodyIndex[key];
+    if (ele.bodyIndex && ele.bodyIndex[key]) {
+      count ++;
+      return total + ele.bodyIndex[key];
+    }
+    return total;
   }, 0)
-  return count ? (total / count).toFixed(2) : 0;
+  return count ? Number((total / count).toFixed(1)) : 0;
 };
 
 /**
