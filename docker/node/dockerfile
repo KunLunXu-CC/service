@@ -4,9 +4,8 @@ FROM node
 # 维护者信息: 填写维护者的信息
 MAINTAINER qianyin qianyin95@gmai.com
 
-# 镜像操作指令: https://registry.yarnpkg.com https://registry.npm.taobao.org/
-RUN npm config set registry https://registry.yarnpkg.com && \
-    mkdir /var/service
+# 创建工作目录
+RUN mkdir /var/service
 
 # 设置 git 基本信息
 RUN git config --global user.email "qianyin95@gmail.com" && \
