@@ -19,7 +19,7 @@ middleware(app);
 router(app);
 graphql(app);
 
-if (process.env.NODE_ENV === 'development') {
+if (!config.https) {
   app.listen(config.port, printStartCharPattern);
 } else {
   const options = {
