@@ -13,6 +13,7 @@ const getSecretKey = (type) => {
 }
 
 module.exports = {
+  https: false,                          // 是否开启 https
   publicKey: getSecretKey('public'),     // 公钥
   privateKey: getSecretKey('private'),   // 私钥
 
