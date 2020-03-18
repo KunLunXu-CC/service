@@ -16,7 +16,7 @@ module.exports.readFileList = (dir, filesList = []) =>{
     const fullPath = path.join(dir, item);
     const stat = fs.statSync(fullPath);
     if (stat.isDirectory()) {
-      readFileList(path.join(dir, item), filesList);
+      this.readFileList(path.join(dir, item), filesList);
     } else {
       filesList.push(fullPath);
     }
@@ -28,7 +28,7 @@ module.exports.readFileList = (dir, filesList = []) =>{
  * 加载指定目录路径下的所有指定后缀文件
  * @param {String} dir                  指定目录路径
  * @param {String} suffix               指定文件后缀
- * @param {Array || Function}  filter   要过滤的文件路径列表或过滤方法
+ * @param {Array || Function}  filter   要过滤掉的文件路径列表或过滤方法
  * @param {Array}  handler              返回对象每个值的处理方法
  * @return {Object} { [fileName]: Object }
  */

@@ -1,6 +1,4 @@
-const fs = require('fs');
 const path = require('path');
-const colors = require('colors');
 const shell = require('shelljs');
 
 module.exports = async ({ body, header }) => {
