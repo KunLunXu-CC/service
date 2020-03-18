@@ -1,4 +1,6 @@
 //　备份数据库
-module.exports = async () => {
-  console.log('-----------------');
+module.exports = {
+  name: '备份数据库',
+  exec: async () => {
+  }
 };

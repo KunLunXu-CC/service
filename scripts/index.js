@@ -32,21 +32,21 @@ const main = async () => {
   }]);
 
   if (scriptNames.length === 0) {
-
+    ora().warn(chalk.yellow('未选定任何脚本!\n'));
   } else {
-    ora().warn('warn!');
-    ora().succeed('succeed!');
-    ora().fail('fail!');
-    ora().warn('warn!');
-    ora().info('info!');
-    scriptNames.forEach(async name => {
+    for (let name of scriptNames){
+      const spinner = ora({
+        prefixText: chalk.magenta(`\n【脚本 - ${name}】`)
+      });
+      spinner.info(chalk.yellow('开始执行脚本!\n'));
       try {
         await choices.find(v => v.name  === name).exec();
+        spinner.succeed(chalk.green('脚本执行成功!\n'));
       } catch(err) {
-        console.log(chalk.red('脚本执行错误!\n'));
+        spinner.fail(chalk.red('脚本执行错误!\n'));
         console.log(err);
       }
-    });
+    }
   }
 }
 
