@@ -28,7 +28,7 @@ module.exports = {
       {
         name: 'dest',
         type: 'input',
-        default: '~/backUp/',
+        default: '~/backUp',
         message: '备份文件存储目录',
       },
       {
@@ -48,7 +48,9 @@ module.exports = {
         });
         spinner.info(chalk.yellow('开始备份!\n'));
         try {
-          await choices.find(v => v.name  === name).exec();
+          await choices.find(v => v.name  === name).exec({
+            dest,
+          });
           spinner.succeed(chalk.green('完成备份!\n'));
         } catch(err) {
           spinner.fail(chalk.red('备份错误!\n'));
