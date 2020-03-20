@@ -7,7 +7,7 @@ const { smtp } = require('../config/system');
  * @param {String} message.subject       邮件主题
  * @param {String} message.html          邮件内容(html)
  * @param {String} message.text          邮件内容(文本), 如果设置了  html 则不显示该内容
- * @param {Object[]} message.attachments 附件列表 [{filename: '附件名.md', path: '文件本地路径'}...] 更多配置参考： https://nodemailer.com/message/attachments/
+ * @param {Object[]} message.attachments 附件列表 [{filename: '附件名(可选)', path: '文件本地路径'}...] 更多配置参考： https://nodemailer.com/message/attachments/
  * @example
  * await emailer({
  *   // to: 'xxx.@qq.com',
