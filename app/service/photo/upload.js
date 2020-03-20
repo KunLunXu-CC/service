@@ -1,20 +1,9 @@
 
+const fs = require('fs');
 const _ = require('lodash');
 const path = require('path');
 const { create } = require('../common');
-const qiniu = require('../../../utils/qiniu');
-const tinify = require('../../../utils/tinify');
-
-/**
- * 获取上传文件列表
- * @param {Object} ctx 上下文
- * @return {Object[]}
- */
-const getFiles = (ctx) => {
-  // 需要注意的是如果只上传了一个文件那么 files 实际上就是一个 File 对象
-  const files = _.get(ctx, 'request.files.file', []);
-  return _.isArray(files) ? files : [ files ];
-}
+const { mkdirPath } = require('../../../utils');
 
 /**
  * 处理文件名(要存入数据库的文件名)
@@ -30,33 +19,22 @@ const getFileName = (sourceFileName) => {
 }
 
 /**
- * 上传照片到七牛云(包含校验)
+ * 上传文件至目标目录 app/static/images
  * @param {Object[]} files 前端上传文件列表
  * @return {Object[]} 文件上传结果列表
  */
-const upPhotos = async (files) => {
+const upPhotos = async files => {
+  const list = _.isArray(files) ? files : [ files ];
   const resList = [];
-  for (let file of files){
-    // TODO: 1. 校验(图片)
+  for (let file of list){
     const { name: sourceFileName, path: filePath } = file;
-    const itemData = { sourceFileName };
-
-    // 2. 压缩图片
-    const fileBuffer = await tinify({
-      path: filePath
-    });
-
-    // 3. 上传文件至七牛云
-    const { respBody } = await qiniu.upload({
-      fileBuffer,
-      fileName: getFileName(sourceFileName),
-    });
-
-    // 4. 数据处理
-    const { error, key: fileName } = respBody || {};
-    fileName && (itemData.fileName = fileName);
-    error && (itemData.error = error);
-    resList.push(itemData);
+    const fileName = getFileName(sourceFileName);
+    mkdirPath(path.resolve(__dirname, '../../static/images'));
+    // 使用管道复制文件
+    fs.createReadStream(filePath).pipe(fs.createWriteStream(
+      path.resolve(__dirname, `../../static/images/${fileName}`)
+    ));
+    resList.push({ sourceFileName, fileName });
   }
   return resList;
 }
@@ -78,15 +56,17 @@ const insertData = async (ctx, list) => {
 }
 
 module.exports = async (ctx) => {
-  const data = {
-    data: [],
+  // 1. 获取上传文件参数: 需要注意的是如果只上传了一个文件那么 files 实际上就是一个 File 对象
+  const files = _.get(ctx, 'request.files.file', []);
+
+  // 2. 遍历、上传文件
+  const data = await upPhotos(files);
+
+  // 3. 存入 mongol 数据库
+  await insertData(ctx, data);
+
+  ctx.body = {
+    data,
     message: '上传成功',
   };
-  // 1. 获取上传文件列表
-  const files = getFiles(ctx);
-  // 2. 遍历、上传文件
-  data.data = await upPhotos(files);
-  // 3. 存入 mongol 数据库
-  await insertData(ctx, data.data);
-  ctx.body = data;
 }

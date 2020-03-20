@@ -63,3 +63,23 @@ module.exports.createHash = ({ data, type = 'md5' }) => {
   hash.update(data);
   return hash.digest('hex');
 }
+
+/**
+ * 判读路径是否存在, 如不存在则按照层级创建文件夹
+ * @param pathStr 绝对路径
+ * @return projectPath 返回绝对路径
+ */
+module.exports.mkdirPath = pathStr => {
+  const tempDirArray = pathStr.split('/').filter(v => v);
+  let tempDir = '';
+  for (let item of tempDirArray) {
+    tempDir += `/${item}`;
+    try {
+      !fs.readdirSync(tempDir) &&
+      new Error('目录不存在!');
+    } catch (e) {
+      fs.mkdirSync(tempDir);
+    }
+  }
+  return pathStr;
+}
