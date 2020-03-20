@@ -53,10 +53,9 @@ const upPhotos = async (files) => {
     });
 
     // 4. 数据处理
-    const { error, key: fileName, url } = respBody || {};
+    const { error, key: fileName } = respBody || {};
     fileName && (itemData.fileName = fileName);
     error && (itemData.error = error);
-    url && (itemData.url = url);
     resList.push(itemData);
   }
   return resList;
@@ -69,10 +68,9 @@ const upPhotos = async (files) => {
  */
 const insertData = async (ctx, list) => {
   const { type, payload } = ctx.request.body;
-  const body = list.filter(v => !!v.url).map(v => ({
+  const body = list.map(v => ({
     type,
     payload,
-    url: v.url,
     name: v.fileName,
     sourceFileName: v.sourceFileName,
   }));
