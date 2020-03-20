@@ -15,7 +15,7 @@ module.exports = {
       # 备份文件
       sudo cp ${path.resolve(__dirname, '../../config/system/production.js')} ${dest}/config/production.js
     `).code === 0) {
-      console.log('配置文件备份完成, 备份路径: ', chalk.green(`${dest}/ssl`));
+      console.log('配置文件备份完成, 备份路径: ', chalk.green(`${dest}/config/production.js`));
     }
   }
 };
