@@ -12,10 +12,6 @@ exports.fields = {
 		required: true,
 		type: String,
   },
-  url: {
-    title: 'CDN 图片外链',
-		type: String,
-  },
   sourceFileName: {
     title: '上传前源文件名',
 		type: String,
