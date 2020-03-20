@@ -35,14 +35,6 @@ module.exports = {
   defaultUser: 'tourist',           // 默认用户(游客)账号
   webHookSecret: '******',          // web hooks secret
 
-  // 七牛云对象存储配置
-  qiniu: {
-    bucket: '************',                                   // 存储空间
-    zone: '*******',                                          // 存储区域(华南)
-    accessKey: '****************************************',    // AK
-    secretKey: '****************************************',    // SK
-  },
-
   // tinify 图片压缩配置
   tinify: {
     apiKey: '****************************',
