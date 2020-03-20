@@ -3,6 +3,7 @@
 
 # production
 /build
+/app/static
 
 # misc
 .DS_Store
