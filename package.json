@@ -13,7 +13,8 @@
     "release:minor": "npm run release -- minor",
     "release:patch": "npm run release -- patch",
     "start:pro": "pm2 start ecosystem.config.js && npm run logs",
-    "restart:pro": "pm2 restart ecosystem.config.js"
+    "restart:pro": "pm2 restart ecosystem.config.js",
+    "script": "node ./scripts"
   },
   "keywords": [],
   "author": "",
