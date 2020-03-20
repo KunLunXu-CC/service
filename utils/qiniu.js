@@ -47,7 +47,7 @@ const getBucketManager = () => {
  * @param {String} fileName   文件命名
  */
 module.exports.upload = ({ path, fileName, fileBuffer }) => new Promise((resolve, reject) => {
-  const { qiniu: { zone, cdn } } = systemConfig;
+  const { qiniu: { zone } } = systemConfig;
   const uploadToken = getUptoken();
   const putExtra = new qiniu.form_up.PutExtra();
   const config = new qiniu.conf.Config();
@@ -65,7 +65,6 @@ module.exports.upload = ({ path, fileName, fileBuffer }) => new Promise((resolve
     if (respErr){
       reject(respErr);
     } else {
-      respBody.key && (respBody.url = `${cdn}/${respBody.key}`);
       resolve({ respBody, respInfo });
     }
   });
