@@ -30,4 +30,3 @@ package-lock.json
 html
 /docker/store
 /docker/nginx/ssl.*
-/docker/nginx/nginx.conf
