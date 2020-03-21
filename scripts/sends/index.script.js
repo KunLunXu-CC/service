@@ -90,13 +90,19 @@ module.exports = {
       attachments[0].path = tarPath;
     }
 
-    // 发送邮件
-    await emailer({
-      to,
-      text,
-      subject,
-      attachments: attachments.filter(v => v.path),
-    });
+    try {
+      // 发送邮件
+      await emailer({
+        to,
+        text,
+        subject,
+        attachments: attachments.filter(v => v.path),
+      });
+    } catch(e){
+      // 如果发送的是文件则删除压缩文件
+      tarPath && shell.rm('-rf', tarPath);
+      new Error(e);
+    }
 
     // 如果发送的是文件则删除压缩文件
     tarPath && shell.rm('-rf', tarPath);
