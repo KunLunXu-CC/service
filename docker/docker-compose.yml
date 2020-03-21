@@ -52,7 +52,7 @@ services:
       - ../html/dist:/usr/share/nginx/html
       - ./store/nginx/logs/:/var/log/nginx
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/ssl.crt:/etc/nginx/ssl.crt
+      - ./nginx/ssl.pem:/etc/nginx/ssl.pem
       - ./nginx/ssl.key:/etc/nginx/ssl.key
     logging:
       driver: "json-file"
