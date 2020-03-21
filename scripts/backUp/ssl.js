@@ -13,8 +13,7 @@ module.exports = {
       sudo mkdir -p ${dest}/ssl
 
       # 备份文件
-      sudo cp ${path.resolve(__dirname, '../../docker/nginx/ssl.crt')} ${dest}/ssl/ssl.crt
-      sudo cp ${path.resolve(__dirname, '../../docker/nginx/ssl.key')} ${dest}/ssl/ssl.key
+      sudo cp ${path.resolve(__dirname, '../../docker/nginx/ssl.*')} ${dest}/ssl/
     `).code === 0) {
       console.log('SSL 文件备份完成, 备份路径: ', chalk.green(`${dest}/ssl`));
     }
