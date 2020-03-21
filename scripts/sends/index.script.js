@@ -6,21 +6,6 @@ const boxen = require('boxen');
 const shell = require('shelljs');
 const inquirer = require('inquirer');
 const emailer = require('../../utils/emailer');
-const { requireFiles } = require('../../utils');
-
-// 1. 获取 choices 配置
-const getChoices = (choices = []) => {
-  // 1. 加载所有脚本配置:
-  // [{ name: '显示名称(不能重复)', exec: async () => {待执行脚本}}]
-  requireFiles({
-    dir: path.resolve(__dirname, '.'),
-    filter: [path.resolve(__dirname, './index.script.js')],
-    handler: dest => {
-      choices.push(require(dest));
-    }
-  });
-  return choices;
-}
 
 module.exports = {
   name: '发送邮件',
@@ -90,14 +75,19 @@ module.exports = {
       attachments[0].path = tarPath;
     }
 
-    // 发送邮件
-    await emailer({
-      to,
-      text,
-      subject,
-      attachments: attachments.filter(v => v.path),
-    });
-
+    try {
+      // 发送邮件
+      await emailer({
+        to,
+        text,
+        subject,
+        attachments: attachments.filter(v => v.path),
+      });
+    } catch (e){
+      // 删除压缩文件
+      tarPath && shell.rm('-rf', tarPath);
+      throw new Error(e);
+    }
     // 如果发送的是文件则删除压缩文件
     tarPath && shell.rm('-rf', tarPath);
   },
