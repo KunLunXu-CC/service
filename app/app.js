@@ -24,7 +24,7 @@ if (!config.https) {
 } else {
   const options = {
     key: fs.readFileSync(path.resolve(__dirname, '../docker/nginx/ssl.key')),
-    cert: fs.readFileSync(path.resolve(__dirname, '../docker/nginx/ssl.crt')),
+    cert: fs.readFileSync(path.resolve(__dirname, '../docker/nginx/ssl.pem')),
   };
   https.createServer(options, app.callback()).listen(config.port, printStartCharPattern);
 }
