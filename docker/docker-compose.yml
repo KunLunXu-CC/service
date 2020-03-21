@@ -49,10 +49,12 @@ services:
     depends_on:
       - node
     volumes:
-      - ../html/dist:/usr/share/nginx/html
-      - ../app/static:/usr/share/nginx/static
+      - ./nginx/html/dist:/usr/share/nginx/html
+      - ../app/static:/usr/share/nginx/html/service/static
+
       - ./store/nginx/logs/:/var/log/nginx
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+
       - ./nginx/ssl.pem:/etc/nginx/ssl.pem
       - ./nginx/ssl.key:/etc/nginx/ssl.key
     logging:
