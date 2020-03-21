@@ -5,9 +5,6 @@ const inquirer = require('inquirer');
 
 const { requireFiles } = require('../utils');
 
-// 设置环境变量
-process.env.NODE_ENV = 'production';
-
 // 1. 获取 choices 配置
 const getChoices = (choices = []) => {
   // 1. 加载所有脚本配置:
