@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "logs": "pm2 logs",
-    "env:pro": "cross-env NODE_ENV=production",
     "start": "pm2 start ecosystem.config.js --env development",
     "commit": "git-cz",
     "add": "git add --all && git reset -- */development.js",
@@ -15,7 +14,7 @@
     "release:patch": "npm run release -- patch",
     "start:pro": "pm2 start ecosystem.config.js && npm run logs",
     "restart:pro": "pm2 restart ecosystem.config.js",
-    "script": "node ./scripts"
+    "script": "cross-env NODE_ENV=production && node ./scripts"
   },
   "keywords": [],
   "author": "",
