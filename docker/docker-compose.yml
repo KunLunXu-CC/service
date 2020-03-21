@@ -50,6 +50,7 @@ services:
       - node
     volumes:
       - ../html/dist:/usr/share/nginx/html
+      - ../app/static:/usr/share/nginx/static
       - ./store/nginx/logs/:/var/log/nginx
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/ssl.pem:/etc/nginx/ssl.pem
