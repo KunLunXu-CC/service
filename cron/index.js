@@ -4,14 +4,21 @@ const path = require('path');
 const CronJob = require('cron').CronJob;
 const { requireFiles } = require('../utils');
 
-// 获取当前目录下所有定时任务配置
-const cronSettings= requireFiles({
-  dir: path.resolve(__dirname, '.'),
-  filter: [path.resolve(__dirname, './index.js')],
-});
+// 获取当前目录下所有定时任务
+const getCrons = (crons = []) => {
+  // 1. 加载所有脚本配置: [{ cronTime, onTick, onComplete}]
+  requireFiles({
+    dir: path.resolve(__dirname, '.'),
+    filter: file => (path.basename(file) !== 'index.cron.js'),
+    handler: dest => {
+      crons.push(require(dest));
+    }
+  });
+  return crons;
+}
 
 // 创建定时任务
-const crons = _.values(cronSettings).map( setting => new CronJob(
+_.values(getCrons()).map( setting => new CronJob(
   setting.cronTime,
   setting.onTick,
   setting.onComplete,
