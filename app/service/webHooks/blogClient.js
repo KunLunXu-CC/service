@@ -35,6 +35,7 @@ module.exports = async ({ body, header }) => {
 
   // 5. 安装依赖
   if (
+    shell.rm('-rf node_modules') &&
     shell.exec('npm i').code !== 0 &&
     shell.exec('npm i --only=dev').code !== 0
   ) {
