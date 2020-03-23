@@ -9,9 +9,7 @@ module.exports = async ({ body, header }) => {
   }
 
   // 1. 提示: 脚本开始
-  new Array(10).fill(1).forEach(v => (console.log(`
-    =======>>>> [webhooks] ${repository.name}: submit new code <<<<=======
-  `)));
+  console.log(`=======>>>> [webhooks] ${repository.name}: submit new code <<<<=======`)
 
   // 2. 进入项目目录
   shell.cd(path.resolve(__dirname, '../../../docker/nginx/html'));
@@ -57,7 +55,5 @@ module.exports = async ({ body, header }) => {
   console.log('6. [success] 设置权限成功');
 
   // 8. 提示：完成
-  new Array(10).fill(1).forEach(v => (console.log(`
-  =======>>>> [webhooks] ${repository.name}: success new code <<<<=======
-`)));
+  console.log(`=======>>>> [webhooks] ${repository.name}: success new code <<<<=======`)
 }
