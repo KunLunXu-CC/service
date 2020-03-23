@@ -1,4 +1,6 @@
 const path = require('path');
+const ora = require('ora');
+const chalk = require('chalk');
 const shell = require('shelljs');
 
 module.exports = async ({ body, header }) => {
@@ -7,6 +9,7 @@ module.exports = async ({ body, header }) => {
     console.log('[webhooks] 提交非 master 分支代码');
     return false;
   }
+  ora().start('转啊转');
 
   // 1. 提示: 脚本开始
   console.log(`=======>>>> [webhooks] ${repository.name}: submit new code <<<<=======`);
