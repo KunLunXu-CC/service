@@ -44,17 +44,20 @@ module.exports = async ({ body, header }) => {
   }
   console.log('4. [success] 安装依赖成功');
 
-  // 6. 打包编译
-  if (shell.exec('npm run build:pro').code !== 0) {
-    console.log('5. [fail] 打包编译失败');
-    return false;
-  }
-  console.log('5. [success] 打包编译成功');
+  // 延时 10 分钟打包项目: 等待依赖安装完成
+  setTimeout(() => {
+    // 6. 打包编译
+    if (shell.exec('npm run build:pro').code !== 0) {
+      console.log('5. [fail] 打包编译失败');
+      return false;
+    }
+    console.log('5. [success] 打包编译成功');
 
-  // 7. 设置权限
-  shell.chmod('-R', 777, '.');
-  console.log('6. [success] 设置权限成功');
+    // 7. 设置权限
+    shell.chmod('-R', 777, '.');
+    console.log('6. [success] 设置权限成功');
 
-  // 8. 提示：完成
-  console.log(`=======>>>> [webhooks] ${repository.name}: success new code <<<<=======`)
+    // 8. 提示：完成
+    console.log(`=======>>>> [webhooks] ${repository.name}: success new code <<<<=======`)
+  }, 1000 * 60 * 10);
 }
