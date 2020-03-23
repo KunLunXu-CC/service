@@ -10,7 +10,7 @@ module.exports = async ({ body, header }) => {
     return false;
   }
   ora().start('转啊转');
-  console.log(chalk.red('是否输出正确信息'));
+  console.log(chalk.red('是否输出正确信息！'));
   // 1. 提示: 脚本开始
   console.log(`=======>>>> [webhooks] ${repository.name}: submit new code <<<<=======`);
 
