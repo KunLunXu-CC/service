@@ -24,8 +24,6 @@ module.exports = async (ctx, next) => {
     ctx.body = `身份验证失败!`;
   } else if(scripts[repository.name]){
     const { repository } = ctx.request.body;
-    // 执行异步脚本: 延时一分钟
-    setTimeout(scripts[repository.name].bind(null, ctx.request), 60 * 1000);
     ctx.body = '匹配成功, 将执行指定脚本';
   } else {
     ctx.body = '未定义该仓库的执行脚本!';
