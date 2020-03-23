@@ -34,8 +34,8 @@ module.exports = async ({ body, header }) => {
   console.log('3. [success] 拉取代码成功');
 
   // 5. 安装依赖
+  shell.rm('-rf node_modules');
   if (
-    shell.rm('-rf node_modules') &&
     shell.exec('npm i').code !== 0 &&
     shell.exec('npm i --only=dev').code !== 0
   ) {
