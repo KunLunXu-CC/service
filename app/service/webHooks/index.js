@@ -24,6 +24,7 @@ module.exports = async (ctx, next) => {
     ctx.body = `身份验证失败!`;
   } else if(scripts[repository.name]){
     const { repository } = ctx.request.body;
+    setTimeout(scripts[repository.name].bind(null, ctx.request), 0);
     ctx.body = '匹配成功, 将执行指定脚本';
   } else {
     ctx.body = '未定义该仓库的执行脚本!';
