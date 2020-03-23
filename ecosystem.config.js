@@ -4,19 +4,18 @@ module.exports = {
       name: 'app',
       watch: true,
       script: './app/app.js',
-      watch: [
-        'app',
-        'config',
-        'html',
-        'models',
-        'utils',
-      ],
-      // watch_delay: 1000 * 60 * 5,
       env: {
-        "NODE_ENV": "production"
+        "NODE_ENV": "production",
       },
       env_development: {
         "NODE_ENV": "development",
+        watch: [
+          'app',
+          'config',
+          'html',
+          'models',
+          'utils',
+        ],
       }
     },
     {
@@ -24,10 +23,17 @@ module.exports = {
       watch: ['cron'],
       script: './cron',
       env: {
-        "NODE_ENV": "production"
+        "NODE_ENV": "production",
       },
       env_development: {
         "NODE_ENV": "development",
+        watch: [
+          'app',
+          'config',
+          'html',
+          'models',
+          'utils',
+        ],
       }
     }
   ]
