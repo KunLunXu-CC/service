@@ -6,6 +6,7 @@ module.exports = {
       script: './app/app.js',
       env: {
         "NODE_ENV": "production",
+        watch: false,
       },
       env_development: {
         "NODE_ENV": "development",
@@ -23,6 +24,7 @@ module.exports = {
       script: './cron',
       env: {
         "NODE_ENV": "production",
+        watch: false,
       },
       env_development: {
         "NODE_ENV": "development",
