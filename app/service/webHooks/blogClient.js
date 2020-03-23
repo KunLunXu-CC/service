@@ -45,6 +45,7 @@ module.exports = async ({ body, header }) => {
   console.log('4. [success] 安装依赖成功');
 
   // 延时 10 分钟打包项目: 等待依赖安装完成
+  console.log('5. [success] 1000 * 60 * 10 毫秒后将进行重新编译打包!');
   setTimeout(() => {
     // 6. 打包编译
     if (shell.exec('npm run build:pro').code !== 0) {
