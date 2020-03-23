@@ -39,7 +39,7 @@ module.exports = async ({ body, header }) => {
     shell.exec('npm i').code !== 0 &&
     shell.exec('npm i --only=dev').code !== 0
   ) {
-    console.log('4. [fail] 安装依赖失败');
+    console.log('4. [fail] 安装依赖失败!');
     return false;
   }
   console.log('4. [success] 安装依赖成功');
