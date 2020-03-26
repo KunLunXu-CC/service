@@ -36,8 +36,8 @@ module.exports = async ({ body, header }) => {
   // 5. 安装依赖
   shell.rm('-rf', 'node_modules');
   if (
-    shell.exec('npm i').code !== 0 &&
-    shell.exec('npm i --only=dev').code !== 0
+    shell.exec('npm i --only=dev').code !== 0 &&
+    shell.exec('npm i').code !== 0
   ) {
     console.log('4. [fail] 安装依赖失败');
     return false;
