@@ -7,6 +7,11 @@ MAINTAINER qianyin qianyin95@gmai.com
 # 创建工作目录
 RUN mkdir /var/service
 
+# 更新并安装 git
+RUN add-apt-repository ppa:git-core/ppa && \
+    apt-get update && \
+    apt-get install git
+
 # 设置 git 基本信息
 RUN git config --global user.email "qianyin95@gmail.com" && \
     git config --global user.name "qianyin925"
