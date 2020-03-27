@@ -8,7 +8,7 @@ MAINTAINER qianyin qianyin95@gmai.com
 RUN mkdir /var/service
 
 # 更新 git 至最新: 源码安装
-RUN apt-get update & \
+RUN apt-get update && \
     apt-get install dh-autoreconf \
     libcurl4-gnutls-dev \
     libexpat1-dev \
@@ -40,9 +40,6 @@ WORKDIR /var/service
 
 # 设置挂载点
 VOLUME [/var/service]
-
-# 设置环境变量
-ENV TZ Asia/Shanghai
 
 # 对外暴露端口
 EXPOSE 4000
