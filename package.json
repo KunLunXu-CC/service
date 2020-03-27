@@ -14,7 +14,6 @@
     "release:001": "npm run release -- patch",
     "start:pro": "pm2 start ecosystem.config.js && npm run logs",
     "restart:pro": "pm2 restart ecosystem.config.js",
-    "install:pro": "cross-env NODE_ENV=development npm i",
     "script": "cross-env NODE_ENV=production node ./scripts"
   },
   "keywords": [],
