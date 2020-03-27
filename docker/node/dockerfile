@@ -7,6 +7,26 @@ MAINTAINER qianyin qianyin95@gmai.com
 # 创建工作目录
 RUN mkdir /var/service
 
+# [更新 git 至最新] 安装依赖
+RUN apt-get install dh-autoreconf \
+    libcurl4-gnutls-dev \
+    libexpat1-dev \
+    gettext \
+    libz-dev \
+    libssl-dev \
+    asciidoc \
+    xmlto \
+    docbook2x \
+    install-info -y
+# [更新 git 至最新] 下载源码包
+RUN wget https://github.com/git/git/archive/v2.26.0.tar.gz && tar -zxf v2.26.0.tar.gz
+# [更新 git 至最新] 源码安装
+RUN cd git-2.26.0 && \
+  make configure && \
+  ./configure --prefix=/usr && \
+  make all doc info && \
+  make install install-doc install-html install-info
+
 # 设置 git 基本信息
 RUN git config --global user.email "qianyin95@gmail.com" && \
     git config --global user.name "qianyin925"
