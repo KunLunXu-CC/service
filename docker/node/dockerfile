@@ -25,7 +25,8 @@ RUN apt-get update && \
     make configure && \
     ./configure --prefix=/usr && \
     make all doc info && \
-    make install install-doc install-html install-info
+    make install install-doc install-html install-info && \
+    cd ../ && rm -rf v2.26.0.tar.gz git-2.26.0
 
 # 安装 netcat
 RUN apt-get -q update && apt-get -qy install netcat
