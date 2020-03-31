@@ -78,10 +78,6 @@ exports.fields = {
         title: '支出',
         type: Number,
       },
-      balance: {
-        title: '结余',
-        type: Number,
-      },
     }],
   },
   bodyIndex: {
