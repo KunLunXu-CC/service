@@ -11,8 +11,17 @@ const _ = require('lodash');
  * @param {Object} search       查询参数
  * @param {Object} pagination   分页信息
  * @param {Object} orderBy      排序
+ * @param {Boolean} updateName  是否修改 name 值
  */
-module.exports = async ({ model, ctx, conds, search, orderBy, pagination }) => {
+module.exports = async ({
+  ctx,
+  conds,
+  model,
+  search,
+  orderBy,
+  pagination,
+  updateName = true,
+}) => {
   const data = {
     list: [],
     change: [],
@@ -35,11 +44,13 @@ module.exports = async ({ model, ctx, conds, search, orderBy, pagination }) => {
   data.change = await server.find({_id: {$in: changeIds}});
 
   // 修改 name 值: ${name}-${id}
-  for (let item of data.change){
-    await server.updateMany(
-      {_id: item.id},
-      { name: `${PREFIX_DELETED}${item.id}_${item.name}` },
-    );
+  if (updateName) {
+    for (let item of data.change){
+      await server.updateMany(
+        {_id: item.id},
+        { name: `${PREFIX_DELETED}${item.id}_${item.name}` },
+      );
+    }
   }
 
   if (search){

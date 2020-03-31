@@ -12,6 +12,7 @@ module.exports = async ({ ctx, payload }) => {
   await remove({
     ctx,
     model: 'Photo',
+    updateName: false,
     conds: { ids: data.list.map(v => v.id) },
   });
 }
