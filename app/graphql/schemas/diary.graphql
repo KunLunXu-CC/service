@@ -8,13 +8,8 @@ extend type Query {
 
   # 统计账单
   statsBill(
-    search: StatsSearch
+    search: StatsBillSearch
   ): StatsBill @auth
-
-  # 统计 bodyIndex
-  statsBodyIndex(
-    search: StatsSearch
-  ): StatsBodyIndex @auth
 }
 
 extend type Mutation {
@@ -134,21 +129,8 @@ type StatsBill {
   message: String
 }
 
-# 统计查询条件
-input StatsSearch {
+# 统计账单 - 统计查询条件
+input StatsBillSearch {
   span: String
   name: [String]   # 时间范围, 在这儿时间 == name
-}
-
-# 统计 bodyIndex - 列表项
-type StatsBodyIndexItem {
-  name: String
-  diaries: [Diary]
-  bodyIndex: BodyIndex
-}
-
-# 统计 bodyIndex
-type StatsBodyIndex {
-  list: [StatsBodyIndexItem],
-  message: String
 }

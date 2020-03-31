@@ -1,5 +1,4 @@
 const statsBill = require('../../service/diary/statsBill');
-const statsBodyIndex = require('../../service/diary/statsBodyIndex');
 const { getList, create, remove, update } = require('../../service/common');
 
 module.exports = {
@@ -9,9 +8,6 @@ module.exports = {
     },
     statsBill: async (parents, args, context, info) => {
       return await statsBill({ ... args, ctx: context.ctx });
-    },
-    statsBodyIndex: async (parents, args, context, info) => {
-      return await statsBodyIndex({ ... args, ctx: context.ctx });
     },
   },
   Mutation: {
