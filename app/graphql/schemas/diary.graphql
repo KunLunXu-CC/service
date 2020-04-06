@@ -125,6 +125,7 @@ type StatsBillItem {
 
 # 统计账单 - 响应列表
 type StatsBill {
+  stats: Bill
   groupWithName: [StatsBillItem]
   message: String
 }
