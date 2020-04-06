@@ -59,11 +59,38 @@ const groupWithName = ({ data, span }) => {
   return resData;
 }
 
+// 获取统计数据
+const getStats = async ({ ctx }) => {
+  const data = await getData({ ctx });
+  const { income, expend } = data.reduce((total, ele) => {
+
+    const { currIncome, currExpend } = (ele.bill || []).reduce(
+      (currTotal, currEle) => ({
+        currIncome: currTotal.currIncome + currEle.income,
+        currExpend: currTotal.currExpend + currEle.expend,
+      }),
+      { currIncome: 0, currExpend: 0 }
+    );
+
+    return {
+      income: total.income + currIncome,
+      expend: total.expend + currExpend,
+    };
+
+  }, { income: 0, expend: 0 });
+
+  return {
+    income: income.toFixed(2),
+    expend: expend.toFixed(2),
+  };
+}
+
 module.exports = async ({ ctx, search }) => {
   const { name, span } = search || {};
   const data = await getData({ ctx, name });
   return {
-    groupWithName: groupWithName({ data, span }),
     message: '请求数据成功!',
+    stats: await getStats({ ctx }),
+    groupWithName: groupWithName({ data, span }),
   };
 };

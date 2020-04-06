@@ -1,12 +1,12 @@
 POST http://localhost:4000/graphql HTTP/1.1
 content-type: application/json
 x-request-type: GraphQL
-authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGM3NGIyYzRiMWI0MDExODMyMWFhYiIsIm5hbWUiOiLnrqHnkIblkZgiLCJyb2xlIjoiNWUwYzc0YjFjNGIxYjQwMTE4MzIxYWE2IiwiYWNjb3VudCI6ImFkbWluIiwiaWF0IjoxNTgzMjkwNTYwLCJleHAiOjE1ODMzNzY5NjB9.DQrqXHcyGordJRy3yjd3a0W3qBzxAS8hECAdfDocqkqXC3o-vwLm5BYP4G_iSjHwxwLLxSr-YXjxdsjr-jfJLoNeKsE759AYQ8J54X9NEeNRxWEHd9ta-8mIJr3fRpCJuxfLF0FRjg2A-PQDoMEd2ZLWN6F19frEPR8qzPoHwoLPiiGNabA5bdtdOm9pZR5VobwW-ZQ6GJ1NwgBeBEkyWtYSjfBAfVu3h9Fleanv45BfnUechteK5quS6oo-8SDiTHocUaP8hD-_5m1Mwm08SgcEaibxDZuSzbXbSQNQts7WhIxNjaZ-ofpZ70yav5ER0xm03XCZPvhmGkDoQ-oiMw
+authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGM3NGIyYzRiMWI0MDExODMyMWFhYiIsIm5hbWUiOiLnrqHnkIblkZgiLCJyb2xlIjoiNWUwYzc0YjFjNGIxYjQwMTE4MzIxYWE2IiwiYWNjb3VudCI6ImFkbWluIiwiaWF0IjoxNTg2MTM5ODEwLCJleHAiOjE1ODYyMjYyMTB9.NcJULgmMApD8PGQAYWbHXlztsNhz1WvokAvB7wNaSEZlHP64N-HPsoQaDyr7HRTTKzpLvoJagV6V7lV_jgeUsgl8rvnbXeorQ5p3SWB2qRUtXXv0JtaIQNYWhix4p7exKPPyVh5fS37BT220XpP2fOqjgI5jMolnKgc4VvAMqwo-JmoGIJLuI7hWAAHKGI-liLM2CzqZRZNw2FWeKc6NqcFjTpSJeD7CICzRjxqb_YkEBGdkY6Dxt6pzVpcnRSMeb5YQzBOzlwj-nUyOdkgFb9Lc8hNe_MBFGIuA4Ol5Se0mnIJM_YL74d6lVApIlQgpVb9wJ4ZPpkUFFZS_aZ-o8g
 
 query{
   statsBill(
     search: {
-      name: ["2020-02-01","2020-02-03"],
+      name: ["2019-02-01","2020-04-04-01"],
       span: "week"
     }
   ){
@@ -16,6 +16,7 @@ query{
       expend
       diaries { bill }
     }
+    stats
     message
   }
 }
