@@ -80,8 +80,8 @@ const getStats = async ({ ctx }) => {
   }, { income: 0, expend: 0 });
 
   return {
-    income: income.toFixed(2),
-    expend: expend.toFixed(2),
+    income: parseInt(income, 10),
+    expend: parseInt(expend, 10),
   };
 }
 
