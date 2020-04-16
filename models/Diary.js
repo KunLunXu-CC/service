@@ -68,6 +68,10 @@ exports.fields = {
         title: '描述',
         type: String,
       },
+      type: {
+        title: '类型',
+        type: Number,
+      },
       income: {
         default: 0,
         title: '收入',
