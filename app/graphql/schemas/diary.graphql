@@ -77,7 +77,7 @@ scalar Fitness {
 }
 
 scalar Bill {
-  type: Int
+  tag: Int
   desc: String
   income: Float
   expend: Float
