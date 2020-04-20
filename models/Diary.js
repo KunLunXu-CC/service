@@ -68,8 +68,8 @@ exports.fields = {
         title: '描述',
         type: String,
       },
-      type: {
-        title: '类型',
+      tag: {
+        title: '标签',
         type: Number,
       },
       income: {
