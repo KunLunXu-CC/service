@@ -15,7 +15,12 @@ module.exports = {
       return await create({ model: 'Diary', ...args, ctx: context.ctx });
     },
     removeDiaries: async (parents, args, context, info) => {
-      return await remove({ model: 'Diary', ...args, ctx: context.ctx });
+      return await remove({
+        ...args,
+        model: 'Diary',
+        unique: 'name',
+        ctx: context.ctx,
+      });
     },
     updateDiaries: async (parents, args, context, info) => {
       return await update({ model: 'Diary', ...args, ctx: context.ctx });

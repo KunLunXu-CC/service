@@ -1,4 +1,4 @@
-const { STATUS, PREFIX_DELETED } = require('../../../config/consts');
+const { STATUS } = require('../../../config/consts');
 const getConditions = require('../../../utils/getConditions');
 const getList = require('./getList');
 const _ = require('lodash');
@@ -11,17 +11,16 @@ const _ = require('lodash');
  * @param {Object} search       查询参数
  * @param {Object} pagination   分页信息
  * @param {Object} orderBy      排序
- * @param {String}  unique      唯一值字段名,
- * @param {Boolean} updateName  是否修改 name 值
+ * @param {String}  unique      唯一值字段名, 如果设置了将修改该字段值
  */
 module.exports = async ({
   ctx,
   conds,
   model,
   search,
+  unique,
   orderBy,
   pagination,
-  unique = 'name',
 }) => {
   const data = {
     list: [],
@@ -44,11 +43,13 @@ module.exports = async ({
 
   data.change = await server.find({_id: {$in: changeIds}});
 
-  for (let item of data.change){
-    await server.updateMany(
-      { _id: item.id },
-      { [unique]: `${PREFIX_DELETED}${item.id}_${item[unique]}` },
-    );
+  if (unique) {
+    for (let item of data.change){
+      await server.updateMany(
+        { _id: item.id },
+        { [unique]: `${item[unique]}_${item.id}` },
+      );
+    }
   }
 
   if (search){

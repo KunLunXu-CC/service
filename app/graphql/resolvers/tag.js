@@ -31,7 +31,12 @@ module.exports = {
       return await create({ model: 'Tag', ...args, ctx: context.ctx });
     },
     removeTags: async (parents, args, context, info) => {
-      return await remove({ model: 'Tag', ...args, ctx: context.ctx });
+      return await remove({
+        ...args,
+        model: 'Tag',
+        unique: 'name',
+        ctx: context.ctx,
+      });
     },
     updateTags: async (parents, args, context, info) => {
       return await update({ model: 'Tag', ...args, ctx: context.ctx });

@@ -13,7 +13,12 @@ module.exports = {
       return await create({ model: 'User', ...args, ctx: context.ctx });
     },
     removeUsers: async (parents, args, context, info) => {
-      return await remove({ model: 'User', ...args, ctx: context.ctx });
+      return await remove({
+        ...args,
+        model: 'User',
+        unique: 'name',
+        ctx: context.ctx,
+      });
     },
     updateUsers: async (parents, args, context, info) => {
       return await update({ model: 'User', ...args, ctx: context.ctx });
