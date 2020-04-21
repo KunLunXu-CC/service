@@ -14,7 +14,6 @@ module.exports = {
         ...args,
         model: 'Photo',
         ctx: context.ctx,
-        updateName: false,
       });
     },
   }

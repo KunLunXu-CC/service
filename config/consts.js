@@ -35,9 +35,6 @@ module.exports.PHOTO_TYPE = {
   AVATAR: 4,          // 头像
 };
 
-// 假删名称(name)前缀
-module.exports.PREFIX_DELETED = 'DELETED_';
-
 // 角色类型
 module.exports.ROLE_TYPE = {
   ADMIN: 1,        // 管理员

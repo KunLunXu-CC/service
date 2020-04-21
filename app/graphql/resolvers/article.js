@@ -15,7 +15,12 @@ module.exports = {
       return await create({ model: 'Article', ...args, ctx: context.ctx });
     },
     removeArticles: async (parents, args, context, info) => {
-      const data = await remove({ model: 'Article', ...args, ctx: context.ctx });
+      const data = await remove({
+        ...args,
+        unique: 'name',
+        model: 'Article',
+        ctx: context.ctx,
+      });
       removeBypayload({
         ctx: context.ctx,
         payload: data.change.map(v => v.id),
