@@ -1,0 +1,19 @@
+POST http://localhost:4000/graphql HTTP/1.1
+content-type: application/json
+x-request-type: GraphQL
+authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGM3NGIyYzRiMWI0MDExODMyMWFhYiIsIm5hbWUiOiLnrqHnkIblkZhfNWUwYzc0YjJjNGIxYjQwMTE4MzIxYWFiIiwicm9sZSI6IjVlMGM3NGIxYzRiMWI0MDExODMyMWFhNiIsImFjY291bnQiOiJhZG1pbiIsImlhdCI6MTU4NzUyMTMwMCwiZXhwIjoxNTg3NjA3NzAwfQ.O1kawSeOX_b7YdG-3qq-ce3gLlvzgigFHakLjXRKyQXTHJbEMttjYJqL2ncFcHT5rHXNAstHsdnAO9pyYbh37CYvdg2fGtTubbd77ArzKVIB04YnJ_7t804AffG-pBhcmxmKuvF3xUpq0HId0_YcwKpmdFIJQ_l2YAyaxDMrRc-qdyT16Rbj7I6QptwjT9uqMwozmQqjcTH8Jw4PE-lBsRpPNeIYcy0Ki4EXKuUSHu2wLwv13DWnv4AzgPaRxNNURdf6c5ooTKJNcE-IHHPYBxspcbxUbTrG7uRFy-7tN-S6m2wpESF5og87b5OECtzwPJYQpHH5K5hiwX-MOmQpyQ
+
+mutation{
+  createDictionaries(
+    body: [{
+      code: "status",
+      desc: "描述1",
+      name: "名称1",
+    }]
+  ){
+    change {
+      id
+      name
+    }
+  }
+}

@@ -1,0 +1,76 @@
+extend type Query{
+  dictionaries(
+    orderBy: OrderBy
+    pagination: Pagination
+    search: DictionarySearch
+  ): Dictionaries
+}
+
+extend type Mutation{
+  removeDictionaries (
+    orderBy: OrderBy
+    pagination: Pagination
+    conds: DictionarySearch!
+    search: DictionarySearch
+  ): Dictionaries @auth
+
+  createDictionaries (
+    orderBy: OrderBy
+    pagination: Pagination
+    search: DictionarySearch
+    body: [DictionaryFields!]!
+  ): Dictionaries @auth
+
+  updateDictionaries (
+    orderBy: OrderBy
+    pagination: Pagination
+    body: DictionaryFields!
+    conds: DictionarySearch!
+    search: DictionarySearch
+  ): Dictionaries @auth
+}
+
+input DictionaryFields {
+  parent: ID
+  code: String
+  desc: String
+  name: String
+}
+
+input DictionarySearch {
+  parent: ID
+  code: String
+  desc: String
+  name: String
+
+  id: ID
+  ids: [ID!]
+  creator: ID
+  updater: ID
+  status: [Int]
+  endUpdateTime: Date
+  startUpdateTime: Date
+  endCreationTime: Date
+  startCreationTime: Date
+}
+
+type Dictionaries{
+  list: [Dictionary]
+  change: [Dictionary]
+  message: String
+  pagination: Pagination
+}
+
+type Dictionary {
+  code: String
+  desc: String
+  name: String
+  parent: Dictionary
+
+  id: ID
+  status: Int
+  updateTime: Date
+  creationTime: Date
+  creator: User @user(key: "creator")
+  updater: User @user(key: "updater")
+}
