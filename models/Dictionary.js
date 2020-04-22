@@ -13,10 +13,14 @@ exports.fields = {
 		type: Number,
 		required: true,
   },
-  title: {
+  name: {
     type: String,
     title: '显示名',
 		required: true,
+  },
+  desc: {
+    type: String,
+    title: '描述',
   },
   code: {
     type: String,
