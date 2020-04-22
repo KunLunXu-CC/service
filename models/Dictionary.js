@@ -7,12 +7,6 @@ exports.title = '用户';
 exports.type = 'MongoDB';
 
 exports.fields = {
-	value: {
-		title: '值',
-    unique: true,
-		type: Number,
-		required: true,
-  },
   name: {
     type: String,
     title: '显示名',
