@@ -7,6 +7,11 @@ exports.title = '用户';
 exports.type = 'MongoDB';
 
 exports.fields = {
+  code: {
+    type: String,
+		required: true,
+    title: '数据字典类型_标识',
+  },
   name: {
     type: String,
     title: '显示名',
@@ -15,11 +20,6 @@ exports.fields = {
   desc: {
     type: String,
     title: '描述',
-  },
-  code: {
-    type: String,
-		required: true,
-    title: '数据字典类型_标识',
   },
   parent: {
 		title: '父级',
