@@ -3,7 +3,7 @@ const { STATUS, SEX } = require('../config/consts');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 // const Mixed = mongoose.Schema.Types.Mixed;
 
-exports.title = '用户';
+exports.title = '数据字典';
 exports.type = 'MongoDB';
 
 exports.fields = {
@@ -11,6 +11,11 @@ exports.fields = {
     type: String,
 		required: true,
     title: '数据字典类型_标识',
+  },
+  value: {
+    type: Number,
+    title: '存储值',
+		required: true,
   },
   name: {
     type: String,
