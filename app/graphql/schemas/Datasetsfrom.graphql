@@ -1,5 +1,5 @@
 extend type Query{
-  dictionaries(
+  datasetsfroms (
     orderBy: OrderBy
     pagination: Pagination
     search: DatasetsfromSearch
@@ -7,21 +7,21 @@ extend type Query{
 }
 
 extend type Mutation{
-  removeDictionaries (
+  removeDatasetsfroms (
     orderBy: OrderBy
     pagination: Pagination
     conds: DatasetsfromSearch!
     search: DatasetsfromSearch
   ): Datasetsfroms @auth
 
-  createDictionaries (
+  createDatasetsfroms (
     orderBy: OrderBy
     pagination: Pagination
     search: DatasetsfromSearch
     body: [DatasetsfromFields!]!
   ): Datasetsfroms @auth
 
-  updateDictionaries (
+  updateDatasetsfroms (
     orderBy: OrderBy
     pagination: Pagination
     body: DatasetsfromFields!
