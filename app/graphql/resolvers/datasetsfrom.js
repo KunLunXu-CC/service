@@ -17,7 +17,7 @@ module.exports = {
   },
 
   Query: {
-    dictionaries: async (parents, args, context, info) => {
+    datasetsfroms: async (parents, args, context, info) => {
       return await getList({
         ...args,
         ctx: context.ctx,
@@ -27,21 +27,21 @@ module.exports = {
   },
 
   Mutation: {
-    createDictionaries: async (parents, args, context, info) => {
+    createDatasetsfroms: async (parents, args, context, info) => {
       return await create({
         ...args,
         ctx: context.ctx,
         model: 'Datasetsfrom',
       });
     },
-    removeDictionaries: async (parents, args, context, info) => {
+    removeDatasetsfroms: async (parents, args, context, info) => {
       return await remove({
         ...args,
         ctx: context.ctx,
         model: 'Datasetsfrom',
       });
     },
-    updateDictionaries: async (parents, args, context, info) => {
+    updateDatasetsfroms: async (parents, args, context, info) => {
       return await update({
         ...args,
         ctx: context.ctx,
