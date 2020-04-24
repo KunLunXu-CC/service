@@ -1,11 +1,11 @@
 const { findOne, getList, create, remove, update } = require('../../service/common');
 
 module.exports = {
-  Dictionary: {
+  Datasetsfrom: {
     parent: async (parents, args, context, info) => {
       if (parents.parent){
         const data = await findOne({
-          model: 'Dictionary',
+          model: 'Datasetsfrom',
           search: { id: parents.parent },
           ctx: context.ctx
         });
@@ -21,7 +21,7 @@ module.exports = {
       return await getList({
         ...args,
         ctx: context.ctx,
-        model: 'Dictionary',
+        model: 'Datasetsfrom',
       });
     },
   },
@@ -31,21 +31,21 @@ module.exports = {
       return await create({
         ...args,
         ctx: context.ctx,
-        model: 'Dictionary',
+        model: 'Datasetsfrom',
       });
     },
     removeDictionaries: async (parents, args, context, info) => {
       return await remove({
         ...args,
         ctx: context.ctx,
-        model: 'Dictionary',
+        model: 'Datasetsfrom',
       });
     },
     updateDictionaries: async (parents, args, context, info) => {
       return await update({
         ...args,
         ctx: context.ctx,
-        model: 'Dictionary',
+        model: 'Datasetsfrom',
       });
     },
   }
