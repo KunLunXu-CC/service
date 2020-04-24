@@ -43,7 +43,7 @@ input DatasetsfromSearch {
   value: Int
   code: String
   desc: String
-  name: String]
+  name: String
 
   id: ID
   ids: [ID!]
