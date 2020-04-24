@@ -2,46 +2,48 @@ extend type Query{
   dictionaries(
     orderBy: OrderBy
     pagination: Pagination
-    search: DictionarySearch
-  ): Dictionaries
+    search: DatasetsfromSearch
+  ): Datasetsfroms
 }
 
 extend type Mutation{
   removeDictionaries (
     orderBy: OrderBy
     pagination: Pagination
-    conds: DictionarySearch!
-    search: DictionarySearch
-  ): Dictionaries @auth
+    conds: DatasetsfromSearch!
+    search: DatasetsfromSearch
+  ): Datasetsfroms @auth
 
   createDictionaries (
     orderBy: OrderBy
     pagination: Pagination
-    search: DictionarySearch
-    body: [DictionaryFields!]!
-  ): Dictionaries @auth
+    search: DatasetsfromSearch
+    body: [DatasetsfromFields!]!
+  ): Datasetsfroms @auth
 
   updateDictionaries (
     orderBy: OrderBy
     pagination: Pagination
-    body: DictionaryFields!
-    conds: DictionarySearch!
-    search: DictionarySearch
-  ): Dictionaries @auth
+    body: DatasetsfromFields!
+    conds: DatasetsfromSearch!
+    search: DatasetsfromSearch
+  ): Datasetsfroms @auth
 }
 
-input DictionaryFields {
+input DatasetsfromFields {
   parent: ID
+  value: Int
   code: String
   desc: String
   name: String
 }
 
-input DictionarySearch {
+input DatasetsfromSearch {
   parent: ID
+  value: Int
   code: String
   desc: String
-  name: String
+  name: String]
 
   id: ID
   ids: [ID!]
@@ -54,18 +56,19 @@ input DictionarySearch {
   startCreationTime: Date
 }
 
-type Dictionaries{
-  list: [Dictionary]
-  change: [Dictionary]
+type Datasetsfroms{
+  list: [Datasetsfrom]
+  change: [Datasetsfrom]
   message: String
   pagination: Pagination
 }
 
-type Dictionary {
+type Datasetsfrom {
+  value: Int
   code: String
   desc: String
   name: String
-  parent: Dictionary
+  parent: Datasetsfrom
 
   id: ID
   status: Int
