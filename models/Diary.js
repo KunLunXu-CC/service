@@ -47,18 +47,6 @@ exports.fields = {
         title: '部位',
         type: Number,
       },
-      project: {
-        title: '项目',
-        type: [Number],
-      },
-      duration: {
-        title: '时长(分钟)',
-        type: Number,
-      },
-      feel: {
-        title: '感受',
-        type: Number,
-      },
     }],
   },
   bill: {
