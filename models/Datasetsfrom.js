@@ -8,7 +8,7 @@ exports.type = 'MongoDB';
 
 exports.fields = {
   code: {
-    type: String,
+    type: Number,
 		required: true,
     title: '数据字典类型_标识',
   },

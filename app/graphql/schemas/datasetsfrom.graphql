@@ -33,7 +33,7 @@ extend type Mutation{
 input DatasetsfromFields {
   parent: ID
   value: Int
-  code: String
+  code: Int
   desc: String
   name: String
 }
@@ -41,7 +41,7 @@ input DatasetsfromFields {
 input DatasetsfromSearch {
   parent: ID
   value: Int
-  code: String
+  code: [Int]
   desc: String
   name: String
 
@@ -65,7 +65,7 @@ type Datasetsfroms{
 
 type Datasetsfrom {
   value: Int
-  code: String
+  code: Int
   desc: String
   name: String
   parent: Datasetsfrom
