@@ -1,0 +1,164 @@
+[
+  {
+    "value": 1,
+    "code": 1,
+    "desc": "一日三餐花销",
+    "name": "三餐"
+  },
+  {
+    "value": 2,
+    "code": 1,
+    "desc": "早上、下午加餐",
+    "name": "加餐"
+  },
+  {
+    "value": 3,
+    "code": 1,
+    "desc": "和朋友聚餐",
+    "name": "聚餐"
+  },
+  {
+    "value": 4,
+    "code": 1,
+    "desc": "水果",
+    "name": "水果"
+  },
+  {
+    "value": 5,
+    "code": 1,
+    "desc": "生活必需品(牙膏、洗发水等等系列)",
+    "name": "生活必需品"
+  },
+  {
+    "value": 6,
+    "code": 1,
+    "desc": "话费、房租、服务器、视频会员",
+    "name": "固定支出"
+  },
+  {
+    "value": 7,
+    "code": 1,
+    "desc": "平时穿的衣服鞋子等",
+    "name": "服装穿戴"
+  },
+  {
+    "value": 8,
+    "code": 1,
+    "desc": "运动相关的: 健身卡、补剂、护具",
+    "name": "健身"
+  },
+  {
+    "value": 9,
+    "code": 1,
+    "desc": "大件: 电器、手机、电脑等",
+    "name": "大件"
+  },
+  {
+    "value": 10,
+    "code": 1,
+    "desc": "意外花销(生病)",
+    "name": "意外"
+  },
+  {
+    "value": 0,
+    "code": 2,
+    "desc": "早餐",
+    "name": "早餐"
+  },
+  {
+    "value": 1,
+    "code": 2,
+    "desc": "上午加餐",
+    "name": "上午加餐"
+  },
+  {
+    "value": 2,
+    "code": 2,
+    "desc": "午餐",
+    "name": "午餐"
+  },
+  {
+    "value": 3,
+    "code": 2,
+    "desc": "下午加餐",
+    "name": "下午加餐"
+  },
+  {
+    "value": 4,
+    "code": 2,
+    "desc": "晚餐",
+    "name": "晚餐"
+  },
+  {
+    "value": 5,
+    "code": 2,
+    "desc": "晚上加餐(夜宵)",
+    "name": "晚上加餐(夜宵)"
+  },
+  {
+    "value": 6,
+    "code": 2,
+    "desc": "6",
+    "name": "健身加餐(健身之后)"
+  },
+  {
+    "value": 0,
+    "code": 4,
+    "desc": "有氧",
+    "name": "有氧"
+  },
+  {
+    "value": 1,
+    "code": 4,
+    "desc": "无氧",
+    "name": "无氧"
+  },
+  {
+    "value": 0,
+    "code": 3,
+    "desc": "背",
+    "name": "背"
+  },
+  {
+    "value": 1,
+    "code": 3,
+    "desc": "胸",
+    "name": "胸"
+  },
+  {
+    "value": 2,
+    "code": 3,
+    "desc": "肩",
+    "name": "肩"
+  },
+  {
+    "value": 3,
+    "code": 3,
+    "desc": "肱二头",
+    "name": "肱二头"
+  },
+  {
+    "value": 4,
+    "code": 3,
+    "desc": "肱三头",
+    "name": "肱三头"
+  },
+  {
+    "value": 5,
+    "code": 3,
+    "desc": "腹",
+    "name": "腹"
+  },
+  {
+    "value": 6,
+    "code": 3,
+    "desc": "腿",
+    "name": "腿"
+  },
+  {
+    "value": 7,
+    "code": 3,
+    "desc": "小臂",
+    "name": "小臂"
+  }
+]
