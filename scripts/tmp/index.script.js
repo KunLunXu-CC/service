@@ -4,8 +4,7 @@ const dbData = require('./db.json');
 const { STATUS } = require('../../config/consts');
 
 // 插入字典数据
-const insertDatasetsfrom = async () => {
-  const db = mongo();
+const insertDatasetsfrom = async db => {
   const admin = await db.User.findOne({
     account: 'admin',
     status: { $ne: STATUS.DELETE },
@@ -15,12 +14,11 @@ const insertDatasetsfrom = async () => {
     creator: admin.id,
     updater: admin.id,
   })));
+  console.log('------ 插入字典数据成功 --------');
 };
 
 // 处理日志数据
-const handleDiary = async () => {
-  const db = mongo();
-
+const handleDiary = async db => {
   const data = await db.Diary.find();
   for (let item of data) {
     const { fitness, id } = item;
@@ -33,12 +31,14 @@ const handleDiary = async () => {
       }))}
     );
   }
+  console.log('------ 处理日志数据成功 --------');
 }
 
 module.exports = {
   exec: async () => {
-    await insertDatasetsfrom();
-    await handleDiary();
+    const db = mongo();
+    await insertDatasetsfrom(db);
+    await handleDiary(db);
   },
   name: '临时脚本',
 };
