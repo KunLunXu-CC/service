@@ -83,3 +83,11 @@ module.exports.mkdirPath = pathStr => {
   }
   return pathStr;
 }
+
+/**
+ * 延时函数
+ * @param {Number} time 延时时长(单位毫秒)
+ */
+module.exports.delayed = time => new Promise(
+  resolve => setTimeout(() => resolve(true), time)
+);
