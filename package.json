@@ -26,6 +26,7 @@
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.8.2",
     "koa-body": "^4.1.1",
+    "koa-router": "^9.0.1",
     "koa2-cors": "^2.0.6",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
