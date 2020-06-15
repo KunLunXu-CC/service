@@ -1,5 +1,4 @@
-const { getList, create, remove, update, findOne  } = require('../../service/common');
-const { login } = require('../../service/user');
+const { getList, create, remove, update  } = require('../../service/common');
 
 module.exports = {
   Query: {

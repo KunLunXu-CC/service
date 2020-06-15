@@ -1,0 +1,16 @@
+POST http://localhost:4000/graphql HTTP/1.1
+content-type: application/json
+x-request-type: GraphQL
+authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGM3NGIyYzRiMWI0MDExODMyMWFhYiIsIm5hbWUiOiLnrqHnkIblkZgiLCJyb2xlIjoiNWUwYzc0YjFjNGIxYjQwMTE4MzIxYWE2IiwiYWNjb3VudCI6ImFkbWluIiwiaWF0IjoxNTkyMjAxNzk0LCJleHAiOjE1OTIyODgxOTR9.VZisMIW5r8K9VPXoX8zuPz7M99KCifstIHTnn5IS1EoNdeAXcNhPU2S2utlAnL3mHBy2SGGXTLTbNY9ZOvqDllx8wQOfiq4Kp_CLrLGmBwtxy5UN_KSzl-n2-q_niroPyMRnmFPeqKNfH_iu0vrV2iYZKBHcIpGaQ0NskQFs4xJo3j4HuTDOXdJqsGrTyVS7Z-QU4erZFxUWVPnQHojb7Lx4JQIymx8KfvC3RtKi35RwOuUTh62gJ1UwMcVBxm0ftaGDscG52QrMlY9osoNF5d5cXPEsH3CDHTeyARnfGw6xTN0gu55BfXOqmgN4dOxmf6OLHosJjDQAJjybP5BhyQ
+
+mutation {
+  removeInterviews (
+    conds: {
+      id: "5ee71919685cae6b952bcb58"
+    }
+    search: {}
+  ){
+    list { id content }
+    change { id content }
+  }
+}
