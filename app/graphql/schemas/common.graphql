@@ -17,6 +17,7 @@ input OrderBy {
   creationTime: Int
   # 阅读量
   viewCount: Int
+  value: Int
 }
 
 ## ********* options ********
