@@ -22,6 +22,10 @@ exports.fields = {
     title: '显示名',
 		required: true,
   },
+  icon: {
+    type: String,
+    title: '图标',
+  },
   desc: {
     type: String,
     title: '描述',

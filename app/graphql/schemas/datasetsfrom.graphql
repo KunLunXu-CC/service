@@ -36,6 +36,7 @@ input DatasetsfromFields {
   code: Int
   desc: String
   name: String
+  icon: String
 }
 
 input DatasetsfromSearch {
@@ -44,6 +45,7 @@ input DatasetsfromSearch {
   code: [Int]
   desc: String
   name: String
+  icon: String
 
   id: ID
   ids: [ID!]
@@ -68,6 +70,7 @@ type Datasetsfrom {
   code: Int
   desc: String
   name: String
+  icon: String
   parent: Datasetsfrom
 
   id: ID
