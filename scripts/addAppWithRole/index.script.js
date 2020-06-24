@@ -6,7 +6,7 @@ const { BOOLEAN } = require('../../config/consts');
 
 module.exports = {
   exec: async () => {
-    const { name, code } = await inquirer.prompt([
+    const { name, code, writable } = await inquirer.prompt([
       {
         name: 'name',
         type: 'input',
@@ -18,6 +18,12 @@ module.exports = {
         type: 'input',
         message: '应用编码',
       },
+      {
+        name: 'writable',
+        type: 'confirm',
+        message: '是否可写?',
+        default: false,
+      },
     ]);
     const db = mongo();
     const role = await db.Role.findOne({ name });
@@ -28,7 +34,7 @@ module.exports = {
           {
             code,
             readable: BOOLEAN.TRUE,
-            writable: BOOLEAN.TRUE,
+            writable: writable ? BOOLEAN.TRUE : BOOLEAN.FALSE,
           }
         ], 'code')
       }
