@@ -1,0 +1,7 @@
+extend type Query {
+  appleTouchbar: Touchbar
+}
+
+type Touchbar {
+  latestWeight: Float
+}
