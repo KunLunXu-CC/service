@@ -22,6 +22,7 @@
   "dependencies": {
     "apollo-server-koa": "^2.9.4",
     "cron": "^1.7.2",
+    "echarts": "^4.8.0",
     "graphql": "^14.5.8",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.8.2",
@@ -33,6 +34,7 @@
     "mongoose": "^5.7.1",
     "node-rsa": "^1.0.6",
     "nodemailer": "^6.3.0",
+    "puppeteer": "^5.2.1",
     "qiniu": "^7.2.2",
     "sha1": "^1.1.1",
     "tinify": "^1.6.0-beta.2"
