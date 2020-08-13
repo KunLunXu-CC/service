@@ -8,5 +8,6 @@ authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGM3NGIyYzRiMWI0
 query{
   appleTouchbar {
     latestWeight
+    monthlyBill { income expend }
   }
 }
