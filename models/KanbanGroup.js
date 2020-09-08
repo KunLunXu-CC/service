@@ -10,6 +10,7 @@ exports.fields = {
   name: {
     type: String,
     title: '名称',
+		required: true,
   },
   desc: {
     type: String,
@@ -17,7 +18,7 @@ exports.fields = {
   },
   kanban: {
 		title: '所属看板',
-		type: ObjectId,
+    type: ObjectId,
   },
 
 	status: {
