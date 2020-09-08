@@ -36,7 +36,7 @@ module.exports = {
           ctx: context.ctx,
           search: { id: parents.role }
         });
-        return data.data;
+        return data.data || {};
       } else {
         return {};
       }

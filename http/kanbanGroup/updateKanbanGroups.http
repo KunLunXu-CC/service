@@ -1,0 +1,19 @@
+POST http://localhost:4000/graphql HTTP/1.1
+content-type: application/json
+x-request-type: GraphQL
+authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGM3NGIyYzRiMWI0MDExODMyMWFhYiIsIm5hbWUiOiLnrqHnkIblkZgiLCJyb2xlIjoiNWUwYzc0YjFjNGIxYjQwMTE4MzIxYWE2IiwiYWNjb3VudCI6ImFkbWluIiwiaWF0IjoxNTk5NTMwNTIyLCJleHAiOjE1OTk2MTY5MjJ9.PstRvv7b1SAIYr4yt3CkwbejXdZlmoMACg5f1E4bFa9N8WjwXm58CGkBrg-ZpsPt1kOKvgNLtZXi2X6ntwQeib4ZVSa6H4p9j5AuqUi8WIvHqCiK0x7dp6e7DClodvzd4L_Dx396eVe-bkhOaHYzBghQSV_8zXtbN5Xv5iRe6Q-09kVK5bBQ_hAI7ClpCuaNuXZBjqTBk6djXMcWsStur-57_FOdrCmp_tfVXuXHCJO8UJIhinEQdHUnSNRmZRdQ62LQwk4Fl31FQaGOM3_Kwh3ASF3i4zL52qauY66plZvLixh9fjnU7TEOhlBgsNWtZ1THCin96g7PxrJlTfrIGw
+
+mutation {
+  updateKanbanGroups (
+    body: {
+      name: "这是修改后 kanbanGroup 名称",
+      desc: "这是修改后 kanbanGroup 的描述",
+      kanban: "5f56fa1863c5f795e21bb7e4"
+    }
+    conds: { name: "这是修改后 kanbanGroup 名称" }
+  ){
+    list { id name desc }
+    change { id name desc }
+  }
+}
+
