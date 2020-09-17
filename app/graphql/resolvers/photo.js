@@ -1,5 +1,4 @@
-const fs = require('fs');
-const { getList, create, remove, update } = require('../../service/common');
+const { getList, remove } = require('../../service/common');
 
 module.exports = {
   Query: {

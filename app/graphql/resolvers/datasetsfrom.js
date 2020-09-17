@@ -1,21 +1,6 @@
-const { findOne, getList, create, remove, update } = require('../../service/common');
+const { getList, create, remove, update } = require('../../service/common');
 
 module.exports = {
-  Datasetsfrom: {
-    parent: async (parents, args, context, info) => {
-      if (parents.parent){
-        const data = await findOne({
-          model: 'Datasetsfrom',
-          search: { id: parents.parent },
-          ctx: context.ctx
-        });
-        return data.data;
-      } else {
-        return {};
-      }
-    },
-  },
-
   Query: {
     datasetsfroms: async (parents, args, context, info) => {
       return await getList({

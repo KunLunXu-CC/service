@@ -1,3 +1,4 @@
+# apple 脚本接口
 extend type Query {
   appleTouchbar: Touchbar
 }

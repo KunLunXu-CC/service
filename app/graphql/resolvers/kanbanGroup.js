@@ -22,19 +22,4 @@ module.exports = {
       return await update({ model: 'KanbanGroup', ...args, ctx: context.ctx });
     },
   },
-
-  KanbanGroup: {
-    kanban: async (parents, args, context, info) => {
-      if (parents.kanban){
-        const data = await findOne({
-          model: 'Kanban',
-          ctx: context.ctx,
-          search: { id: parents.kanban }
-        });
-        return data.data || {};
-      } else {
-        return {};
-      }
-    },
-  },
 };

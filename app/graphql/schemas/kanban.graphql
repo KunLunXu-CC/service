@@ -1,3 +1,4 @@
+# 看板
 extend type Query {
   kanbans (
     orderBy: OrderBy
@@ -63,8 +64,8 @@ type Kanban {
   id: ID
   name: String
   status: Int
-  creator: User @user(key: "creator")
-  updater: User @user(key: "updater")
+  creator: User @relation(model: "User")
+  updater: User @relation(model: "User")
   updateTime: Date
   creationTime: Date
 }

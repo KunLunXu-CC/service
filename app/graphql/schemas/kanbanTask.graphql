@@ -1,3 +1,4 @@
+# 看板任务
 extend type Query {
   kanbanTasks (
     orderBy: OrderBy
@@ -63,14 +64,14 @@ type KanbanTasks {
 
 type KanbanTask {
   desc: String
-  kanban: Kanban
-  group: KanbanGroup
+  kanban: Kanban @relation(model: "Kanban")
+  group: KanbanGroup @relation(model: "KanbanGroup")
 
   id: ID
   name: String
   status: Int
-  creator: User @user(key: "creator")
-  updater: User @user(key: "updater")
+  creator: User @relation(model: "User")
+  updater: User @relation(model: "User")
   updateTime: Date
   creationTime: Date
 }

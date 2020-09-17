@@ -1,22 +1,7 @@
 const tagsWithArticles = require('../../service/tag/tagsWithArticles');
-const { findOne, getList, create, remove, update } = require('../../service/common');
+const { getList, create, remove, update } = require('../../service/common');
 
 module.exports = {
-  Tag: {
-    parent: async (parents, args, context, info) => {
-      if (parents.parent){
-        const data = await findOne({
-          model: 'Tag',
-          search: { id: parents.parent },
-          ctx: context.ctx
-        });
-        return data.data;
-      } else {
-        return {};
-      }
-    },
-  },
-
   Query: {
     tags: async (parents, args, context, info) => {
       return await getList({ model: 'Tag', ...args, ctx: context.ctx });
@@ -41,5 +26,5 @@ module.exports = {
     updateTags: async (parents, args, context, info) => {
       return await update({ model: 'Tag', ...args, ctx: context.ctx });
     },
-  }
+  },
 };

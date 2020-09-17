@@ -1,3 +1,4 @@
+# 角色
 extend type Query {
   roles(
     orderBy: OrderBy
@@ -51,8 +52,8 @@ type Role {
   id: ID
   name: String
   status: Int
-  creator: User @user(key: "creator")
-  updater: User @user(key: "updater")
+  creator: User @relation(model: "User")
+  updater: User @relation(model: "User")
   updateTime: Date
   creationTime: Date
 }

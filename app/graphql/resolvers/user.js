@@ -1,4 +1,4 @@
-const { getList, create, remove, update, findOne  } = require('../../service/common');
+const { getList, create, remove, update  } = require('../../service/common');
 const { login } = require('../../service/user');
 
 module.exports = {
@@ -27,19 +27,4 @@ module.exports = {
       return await login({ ...args, ctx: context.ctx });
     }
   },
-
-  User: {
-    role: async (parents, args, context, info) => {
-      if (parents.role){
-        const data = await findOne({
-          model: 'Role',
-          ctx: context.ctx,
-          search: { id: parents.role }
-        });
-        return data.data || {};
-      } else {
-        return {};
-      }
-    }
-  }
 }
