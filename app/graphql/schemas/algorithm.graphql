@@ -1,3 +1,4 @@
+# 算法
 extend type Query {
   algorithms(
     orderBy: OrderBy
@@ -43,8 +44,8 @@ type Algorithm {
 
   id: ID
   status: Int
-  creator: User @user(key: "creator")
-  updater: User @user(key: "updater")
+  creator: User @relation(model: "User")
+  updater: User @relation(model: "User")
   updateTime: Date
   creationTime: Date
 }

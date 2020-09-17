@@ -1,3 +1,4 @@
+# 数据字典
 extend type Query{
   datasetsfroms (
     orderBy: OrderBy
@@ -71,12 +72,12 @@ type Datasetsfrom {
   desc: String
   name: String
   icon: String
-  parent: Datasetsfrom
+  parent: Datasetsfrom @relation(model: "Datasetsfrom")
 
   id: ID
   status: Int
   updateTime: Date
   creationTime: Date
-  creator: User @user(key: "creator")
-  updater: User @user(key: "updater")
+  creator: User @relation(model: "User")
+  updater: User @relation(model: "User")
 }

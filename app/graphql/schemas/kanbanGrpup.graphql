@@ -1,3 +1,4 @@
+# 看板分组
 extend type Query {
   kanbanGroups (
     orderBy: OrderBy
@@ -61,13 +62,13 @@ type KanbanGroups {
 
 type KanbanGroup {
   desc: String
-  kanban: Kanban
+  kanban: Kanban @relation(model: "Kanban")
 
   id: ID
   name: String
   status: Int
-  creator: User @user(key: "creator")
-  updater: User @user(key: "updater")
+  creator: User @relation(model: "User")
+  updater: User @relation(model: "User")
   updateTime: Date
   creationTime: Date
 }

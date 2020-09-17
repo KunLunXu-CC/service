@@ -1,3 +1,4 @@
+# 用户
 type Query {
   users(
     orderBy: OrderBy
@@ -50,14 +51,14 @@ type Users {
 
 type User {
   account: String
-  role: Role
+  role: Role @relation(model: "Role")
   sex: Int
 
   id: ID
   name: String
   status: Int
-  creator: User @user(key: "creator")
-  updater: User @user(key: "updater")
+  creator: User @relation(model: "User")
+  updater: User @relation(model: "User")
   updateTime: Date
   creationTime: Date
 }

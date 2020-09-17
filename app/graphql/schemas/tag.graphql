@@ -1,3 +1,4 @@
+# 标签(知识标签)
 extend type Query{
   tags(
     orderBy: OrderBy
@@ -67,15 +68,15 @@ type Tags{
 }
 
 type Tag {
-  parent: Tag
+  parent: Tag @relation(model: "Tag")
   color: String
   icon: String
 
   id: ID
   name: String
   status: Int
-  creator: User @user(key: "creator")
-  updater: User @user(key: "updater")
+  creator: User @relation(model: "User")
+  updater: User @relation(model: "User")
   updateTime: Date
   creationTime: Date
 }
