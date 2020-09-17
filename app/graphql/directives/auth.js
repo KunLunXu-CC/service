@@ -1,5 +1,6 @@
 /**
  * 权限修饰器: 为字段获取对象添加 resolve(解析器)
+ * @param {} requires 需要的权限
  * @example
  * @auth(requires: ADMIN) 说明: requires 为当前字段必须角色
  */

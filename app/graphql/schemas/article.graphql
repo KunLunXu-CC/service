@@ -82,7 +82,7 @@ type Articles {
 
 type Article {
   desc: String
-  tags: [Tag!]
+  tags: [Tag!]  @relation(model: "Tag", isList: "1")
   thumb: String
   viewCount: Int
   content: String
