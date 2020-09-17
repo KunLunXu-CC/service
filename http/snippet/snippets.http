@@ -5,11 +5,12 @@ authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGM3NGIyYzRiMWI0
 
 query{
   snippets(
-    search: { status: -11 }
+    search: { }
   ){
     list {
       id
       content
+      creator { id name role { id name } }
     }
   }
 }
