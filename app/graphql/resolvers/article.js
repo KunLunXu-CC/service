@@ -49,19 +49,4 @@ module.exports = {
       });
     },
   },
-
-  Article: {
-    tags: async (parents, args, context, info) => {
-      if (parents.tags){
-        const data = await getList({
-          model: 'Tag',
-          ctx: context.ctx,
-          search: {ids: parents.tags}
-        });
-        return data.list;
-      } else {
-        return [];
-      }
-    },
-  }
 }

@@ -6,11 +6,16 @@ authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGM3NGIyYzRiMWI0
 query{
     articles(
         search: {}
+        pagination: {
+          current: 1,
+          pageSize: 1
+        }
     ){
         list {
             id
             name
             creationTime
+            tags { id name }
             creator { name role { name } }
         }
     }
