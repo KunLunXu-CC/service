@@ -10,8 +10,8 @@ query{
     list {
       id
       name
-      creator { id name role { id name auth } }
-      updater { id name role { id name auth } }
+      creator { id name role { id name } }
+      updater { id name role { id name } }
       parent { id name }
     }
   }
