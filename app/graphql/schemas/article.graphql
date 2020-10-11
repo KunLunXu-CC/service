@@ -69,7 +69,7 @@ input AticleFields {
   name: String
   desc: String
   thumb: String
-  tags: [ID!]
+  tags: [Int!]
   content: String
 }
 
