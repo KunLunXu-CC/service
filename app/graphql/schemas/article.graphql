@@ -49,9 +49,9 @@ extend type Mutation {
 
 input ArticleSearch {
   id: ID
-  tag: ID
+  tag: Int
   ids: [ID!]
-  tags: [ID!]
+  tags: [Int!]
   creator: ID
   updater: ID
   name: String
@@ -82,7 +82,7 @@ type Articles {
 
 type Article {
   desc: String
-  tags: [Tag!]  @relation(model: "Tag", isList: "1")
+  tags: [Int!]
   thumb: String
   viewCount: Int
   content: String
