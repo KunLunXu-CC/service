@@ -34,7 +34,7 @@ class RelationDirective extends SchemaDirectiveVisitor {
         const { list } = await getList({
           ctx: context.ctx,
           model: 'Datasetsfrom',
-          search:  { [`${saveField}s`]: parents[name], code: Number(code) },
+          search:  { [saveField]: parents[name], code: Number(code) },
         });
         return list;
       }

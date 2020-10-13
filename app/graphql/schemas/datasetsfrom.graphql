@@ -42,10 +42,8 @@ input DatasetsfromFields {
 
 input DatasetsfromSearch {
   parent: ID
-  value: Int
-  values: [Int]
-  code: Int
-  codes: [Int]
+  value: [Int]
+  code: [Int]
   desc: String
   name: String
   icon: String
