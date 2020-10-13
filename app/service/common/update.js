@@ -18,13 +18,12 @@ module.exports = async ({ model, ctx, conds, body, orderBy, search, pagination }
     pagination: {},
     message: '修改成功',
   };
-
   const server = ctx.db.mongo[model];
   const changeConds = getConditions(conds);
   let changeIds = [];
   try {
     body.updateTime = Date.now();
-    body.updater = _.get(ctx, 'state.user.id', null),
+    body.updater = _.get(ctx, 'state.user.id', null);
     changeIds = (await server.find(changeConds)).map(v => v._id);
     await server.updateMany(changeConds, body, {});
   } catch (e) {

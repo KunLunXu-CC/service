@@ -7,12 +7,14 @@ authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGM3NGIyYzRiMWI0
 
 query{
   articles(
-    search: {}
+    search: { id: "5e0d11d9250091020206195b" }
+    pagination: { current: 1, pageSize: 1 }
   ){
     list {
       id
       name
       creationTime
+      tags { id name code value }
       creator { name role { name } }
       updater { name role { name } }
     }

@@ -49,9 +49,9 @@ extend type Mutation {
 
 input ArticleSearch {
   id: ID
-  tag: Int
+  tag: ID
   ids: [ID!]
-  tags: [Int!]
+  tags: [ID!]
   creator: ID
   updater: ID
   name: String
@@ -69,7 +69,7 @@ input AticleFields {
   name: String
   desc: String
   thumb: String
-  tags: [Int!]
+  tags: [ID!]
   content: String
 }
 
@@ -82,7 +82,7 @@ type Articles {
 
 type Article {
   desc: String
-  tags: [Int!]
+  tags: [Datasetsfrom!] @translate(code: "10", isList: "1", saveField: "id")
   thumb: String
   viewCount: Int
   content: String

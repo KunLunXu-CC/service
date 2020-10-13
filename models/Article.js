@@ -23,7 +23,7 @@ exports.fields = {
   tags: {
     default: [],
     title: '标签',
-    type: [Number],
+    type: [ObjectId],
   },
   type: {
     type: Number,

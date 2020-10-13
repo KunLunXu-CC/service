@@ -3,15 +3,16 @@
 POST http://localhost:4000/graphql HTTP/1.1
 content-type: application/json
 x-request-type: GraphQL
-authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGM3NGIyYzRiMWI0MDExODMyMWFhYiIsIm5hbWUiOiLnrqHnkIblkZgiLCJyb2xlIjoiNWUwYzc0YjFjNGIxYjQwMTE4MzIxYWE2IiwiYWNjb3VudCI6ImFkbWluIiwiaWF0IjoxNTc5NTg5Mjc0LCJleHAiOjE1Nzk2NzU2NzR9.J9eYUHY2uEpMTSqXZzBX_2-i87m4D1TjSmrIaZa4fMuWxnJe5xTf3420t4g5DgSllu4kvr7SjUgk_PzBevqpuTD3qS8k878LohqJr7hzHeRDOk1aY-pW0O9meFLdLgm9z06n1cOzO_5JFYksgbj4L4qzNZVY1TxE9K_E-OEuerEzn7yDMOwy0cQYLLh0sHL5jnv-H4T1CmXtyXacUZnaVHm-auQGf7tlr0Ii9bDbswSEBvdTcSZqHpTRZi5s4eST02GfHv-iWh38Oj8C7b9As-x2ZYYyGa5sN9qvdaL5myfHANG480Q4Tc7_xUHfoUx3wBVWXik_orFl95NJdu0DWQ
+authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGM3NGIyYzRiMWI0MDExODMyMWFhYiIsIm5hbWUiOiLnrqHnkIblkZgiLCJyb2xlIjoiNWUwYzc0YjFjNGIxYjQwMTE4MzIxYWE2IiwiYWNjb3VudCI6ImFkbWluIiwiaWF0IjoxNjAyNDg0NjU0LCJleHAiOjE2MDI1NzEwNTR9.QRz3NgWO-JfFBJhkYwJaiq-czonww4A-Oz_nyeRYRRYHAarIXGZmFHxpPl0TQhwxxz30hF-bcucKnHTej-AMOd9GhPGsXIVj1HwFOU08jJXGrzUzKbgZF95smtOb-gBHB8L06_ZhsvEVHCRXlHnMQvDNCUTICru3hyixAP4c4A1rezpd2obIhrWQHr7JlYHaqfaW6SUV5IA00WkGdPAueCLBHFoDTlu92aSetEFiyr37iIvNe1yiQrkPu0ptXk2XbFA_gpm3uX-5qixdxjG36Y7-Myg0cBRNWAJ5Ft-pWBJA7o6N2fRtMQuf71hcehhEEfocFIqYP-9CScR5JOg7wg
 
 mutation {
   updateArticles (
     conds: {
-      name: "自定义文章"
+      id: "5e0d11d9250091020206195b"
     }
     body: {
-      name: "自定义文章_修改"
+      name: "--------",
+      tags: ["5f83bfd0499ff74793cfb214"],
     }
   ){
     list { id name }
