@@ -84,7 +84,7 @@ type Articles {
 
 type Article {
   desc: String
-  tags: [Datasetsfrom!] @translate(code: "10", isList: "1", saveField: "id")
+  tags: [Datasetsfrom!] @translate(code: "6", isList: "1", saveField: "id")
   thumb: String
   viewCount: Int
   type: Int
