@@ -30,7 +30,6 @@
     "koa-router": "^9.0.1",
     "koa2-cors": "^2.0.6",
     "lodash": "^4.17.15",
-    "log4js": "^6.3.0",
     "moment": "^2.24.0",
     "mongoose": "^5.7.1",
     "node-rsa": "^1.0.6",
@@ -38,7 +37,9 @@
     "puppeteer": "^5.2.1",
     "qiniu": "^7.2.2",
     "sha1": "^1.1.1",
-    "tinify": "^1.6.0-beta.2"
+    "tinify": "^1.6.0-beta.2",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",

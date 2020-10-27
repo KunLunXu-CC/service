@@ -14,7 +14,7 @@ module.exports = async ({ body, header }) => {
 
   // 2. 进入项目目录
   shell.cd(path.resolve(__dirname, '../../../docker/nginx/html'));
-  logger.info('1. [success] 进入项目目录', shell.pwd());
+  logger.info(`1. [success] 进入项目目录 ${shell.pwd()}`);
 
   // 3. 撤销 git 的所有本地修改
   if (shell.exec(`
