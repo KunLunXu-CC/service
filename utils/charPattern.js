@@ -15,5 +15,5 @@ module.exports.printStartCharPattern = () => {
     `当前服务：localhost:${system.port}`,
     `graphql 服务：localhost:${system.port}${system.graphql.path}`,
   ];
-  logger.info(pattern.join('\n').cyan)
+  logger.info(pattern.join('\n'))
 }

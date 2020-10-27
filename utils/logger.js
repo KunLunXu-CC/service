@@ -1,21 +1,36 @@
+const _ = require('lodash');
 const path = require('path');
-const log4js = require('log4js');
+const { resume_up } = require('qiniu');
+const winston = require('winston');
+require('winston-daily-rotate-file');
 
-// 配置log4js
-log4js.configure({
-    appenders: {
-        // 控制台输出
-        console: { type: 'console' },
-        // 日志文件
-        file: { type: 'file', filename: path.join(__dirname, '../../logs/server.log')}
-    },
-    categories: {
-        // 默认日志
-        default: { appenders: [ 'file', 'console' ], level: 'debug' },
+// 文件
+const fileTransports = new winston.transports.DailyRotateFile({
+  // // level: 'info',
+  format: winston.format.printf(info => {
+    try {
+      return JSON.stringify(info);
+    } catch {
     }
+  }),
+  filename: path.resolve(__dirname, '../logs/%DATE%.log'),
+    // datePattern: 'YYYY-MM-DD-HH',
+    // // zippedArchive: true,
+    // maxSize: '20m',
+    // maxFiles: '14d'
+    datePattern: 'YYYY-MM-DD-HH',
+    zippedArchive: false,
+    maxSize: '20m',
+    maxFiles: '14d',
 });
 
-// 获取默认日志
-const logger = log4js.getLogger();
+// 控制台
+const consoleTransports = new winston.transports.Console();
 
-module.exports = logger;
+module.exports = winston.createLogger({
+  transports: [
+    consoleTransports,
+    fileTransports,
+    // new winston.transports.File({filename: 'combined.log'})
+  ]
+});

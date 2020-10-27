@@ -5,7 +5,7 @@ const logger = require('../../utils/logger');
 try {
   systemConf = require(`./${(process.env.NODE_ENV || 'development')}`);
 } catch(e) {
-  logger.info('未找到配置文件, 当前环境 NODE_ENV = ', process.env.NODE_ENV);
+  logger.info(`未找到配置文件, 当前环境 NODE_ENV = ${process.env.NODE_ENV}`);
 }
 
 module.exports = systemConf;

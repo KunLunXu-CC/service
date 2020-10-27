@@ -43,8 +43,8 @@ const printRequest = ctx => {
     authorization,
   }, null, 4);
 
-  logger.info(start, chalk.cyan('请求参数: '), chalk.yellow(params), '\n');
-  logger.info(start, chalk.cyan('请求文档: '), chalk.yellow(query), '\n');
+  logger.info(`${start}请求参数: ${params} \n`);
+  logger.info(`${start}请求文档: ${query} \n`);
 }
 
 /**
@@ -58,7 +58,7 @@ printResponse = ctx => {
       status: ctx.status,
       body,
     }, null, 4);
-    logger.info(start, chalk.cyan('响应数据: '), chalk.yellow(params), '\n');
+    logger.info(`${start}响应数据: ${params} \n`);
   } catch (e){}
 }
 
