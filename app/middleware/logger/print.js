@@ -4,6 +4,7 @@
 const _ = require('lodash');
 const moment = require('moment');
 const chalk = require('chalk');
+const logger = require('../../../utils/logger');
 const start = chalk.red(`[*${moment().format('YYYY-MM-DDD:HH:mm:ss')}*]`);
 
 // 操作名称_黑名单操作: 下列 operationName 的请求将不打印日志
@@ -24,7 +25,7 @@ const printDividingLine = () => {
     "  |_|                               |___/ |___/           ", "",
     "  ----------------------- 日志打印 ------------------------"
   ];
-  console.log(`\n${chalk.cyan(charPattern.join('\n'))}\n`);
+  logger.info(`\n${chalk.cyan(charPattern.join('\n'))}\n`);
 }
 
 /**
@@ -42,8 +43,8 @@ const printRequest = ctx => {
     authorization,
   }, null, 4);
 
-  console.log(start, chalk.cyan('请求参数: '), chalk.yellow(params), '\n');
-  console.log(start, chalk.cyan('请求文档: '), chalk.yellow(query), '\n');
+  logger.info(start, chalk.cyan('请求参数: '), chalk.yellow(params), '\n');
+  logger.info(start, chalk.cyan('请求文档: '), chalk.yellow(query), '\n');
 }
 
 /**
@@ -57,7 +58,7 @@ printResponse = ctx => {
       status: ctx.status,
       body,
     }, null, 4);
-    console.log(start, chalk.cyan('响应数据: '), chalk.yellow(params), '\n');
+    logger.info(start, chalk.cyan('响应数据: '), chalk.yellow(params), '\n');
   } catch (e){}
 }
 

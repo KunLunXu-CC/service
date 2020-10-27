@@ -15,7 +15,7 @@ const { smtp } = require('../config/system');
  *   html: '<div>邮箱 html</div>',
  *   text: '邮箱内容',
  *   attachments: [{ filename: 'emailer.js', path: path.resolve(__dirname, './emailer.js') }]
- * }).catch(console.error);
+ * }).catch();
  */
 module.exports = async (message) => {
   // 1. 获取配置信息
