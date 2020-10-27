@@ -39,7 +39,8 @@
     "sha1": "^1.1.1",
     "tinify": "^1.6.0-beta.2",
     "winston": "^3.3.3",
-    "winston-daily-rotate-file": "^4.5.0"
+    "winston-daily-rotate-file": "^4.5.0",
+    "ws": "^6.2.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",

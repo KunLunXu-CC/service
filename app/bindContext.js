@@ -1,5 +1,5 @@
-const path = require('path');
-const mongo = require('../../utils/mongo');
+// 绑定上下文
+const mongo = require('../utils/mongo');
 
 module.exports = (app) => {
   // 为 koa 上下文挂载变量 db
