@@ -76,7 +76,6 @@ module.exports = async ({
   await page.waitFor(1000); // 停留一秒，否则有可能图表还没渲染完就截图
   const $el = await page.waitForSelector('#container');
   const imgData = await $el.screenshot(screenshot);
-  console.log(chalk.green('成功生成 echart 图表!'));
 
   // 7. 关闭页面、浏览器、返回数据
   await page.close();

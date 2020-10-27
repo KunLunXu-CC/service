@@ -6,6 +6,7 @@ const shell = require('shelljs');
 const moment = require('moment');
 const doBackup = require('./doBackup');
 const emailer = require('../../utils/emailer');
+const logger = require('../../utils/logger');
 
 // 获取 html
 const getHtml = () => {
@@ -46,7 +47,7 @@ const onTick = async () => {
   }).catch(err => {
     res = false;
     ora().fail('个人网站数据备份失败!');
-    console.log(err)
+    logger.info(err)
   });
   res && ora().succeed('个人网站数据备份成功!');
 

@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const getList = require('./getList');
+const logger = require('../../../utils/logger');
 
 /**
  * 通用创建数据方法
@@ -25,7 +26,7 @@ module.exports = async ({ model, ctx, body, search, orderBy, pagination }) => {
       updater: _.get(ctx, 'state.user.id', null),
     })));
   } catch(e) {
-    console.log('------------>>>>', e);
+    logger.error('创建失败: ', e);
     data.message = '创建失败';
   }
   if (search){

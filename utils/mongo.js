@@ -1,9 +1,12 @@
 const _ = require('lodash');
 const path = require('path');
 const mongoose = require('mongoose');
-const { requireFiles } = require('.');
+const logger = require('../utils/logger');
 const config = require('../config/system');
+const { requireFiles } = require('.');
+
 const Schema = mongoose.Schema;
+
 /**
  * 链接数据库
  */
@@ -19,7 +22,7 @@ const connectServer = () => {
     mongoose.connect(`mongodb://${host}:${port}/${database}`, options);
     mongoose.set('debug', mongoSetting.debug);
   }catch(e){
-    console.log('连接出错');
+    logger.info('数据库连接错误！');
   }
 }
 

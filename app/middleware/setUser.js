@@ -2,6 +2,7 @@
  * 用户身份校验、api 校验
  */
 const _ = require('lodash');
+const logger = require('../../utils/logger');
 const { defaultUser } = require('../../config/system');
 const { verifyJwt } = require('../../utils/encryption');
 
@@ -34,9 +35,10 @@ const setUserInfoToState = async ({ ctx }) => {
   }
 
   // 4. 打印输出用户信息
-  console.group('\n\n\n\n\n中间件(jurisdiction)内获取的用户信息:');
-  console.log('ctx.state: ', ctx.state);
-  console.groupEnd();
+  logger.info(`
+    \n\n\n\n\n中间件(jurisdiction)内获取的用户信息:
+    ${ctx.state}
+  `);
 };
 
 // 用户身份校验、api 校验

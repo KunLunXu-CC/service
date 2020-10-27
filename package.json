@@ -30,6 +30,7 @@
     "koa-router": "^9.0.1",
     "koa2-cors": "^2.0.6",
     "lodash": "^4.17.15",
+    "log4js": "^6.3.0",
     "moment": "^2.24.0",
     "mongoose": "^5.7.1",
     "node-rsa": "^1.0.6",
