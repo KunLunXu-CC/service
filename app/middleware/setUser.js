@@ -37,7 +37,7 @@ const setUserInfoToState = async ({ ctx }) => {
   // 4. 打印输出用户信息
   logger.info(`
     \n\n\n\n\n中间件(jurisdiction)内获取的用户信息:
-    ${ctx.state}
+    ${JSON.stringify(ctx.state, null, 4)}
   `);
 };
 
