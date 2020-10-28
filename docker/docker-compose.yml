@@ -21,6 +21,7 @@ services:
     container_name: blog-service
     ports:
       - 4000:4000
+      - 5000:5000
     links:
       - mongo
     environment:

@@ -1,0 +1,14 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/Users/qianyin/coding/blog-service/app/service/logs/.0f49c16cc857c79c9e180dd2ab159e4a271f0fb6-audit.json",
+    "files": [
+        {
+            "date": 1603850626557,
+            "name": "/Users/qianyin/coding/blog-service/app/service/logs/2020-10-28-10.log",
+            "hash": "488cc06c89b6190540b4e50143a98f7d"
+        }
+    ]
+}
