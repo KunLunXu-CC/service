@@ -1,5 +1,6 @@
 const { printStartCharPattern } = require('../utils/charPattern');
 const bindContext = require('./bindContext');
+const { createWebSocket } = require('./ws');
 const middleware = require('./middleware');
 const config = require('../config/system');
 const graphql = require('./graphql');
@@ -19,14 +20,15 @@ router(app);
 graphql(app);
 
 // 创建服务
-if (config.https) {
-  https.createServer(
+const server = config.https
+  ? https.createServer(
     {
       key: fs.readFileSync(path.resolve(__dirname, '../docker/nginx/ssl.key')),
       cert: fs.readFileSync(path.resolve(__dirname, '../docker/nginx/ssl.pem')),
     },
     app.callback()
   ).listen(config.port, printStartCharPattern)
-} else {
-  app.listen(config.port, printStartCharPattern);
-}
+  : app.listen(config.port, printStartCharPattern);
+
+// 创建 WebSocket
+createWebSocket(server);

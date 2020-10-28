@@ -1,6 +1,8 @@
 const _ = require('lodash');
 const path = require('path');
+const WebSocket = require('ws');
 const winston = require('winston');
+const { getWss } = require('../app/ws');
 require('winston-daily-rotate-file');
 
 // 文件
@@ -22,8 +24,16 @@ const customTransport = new class extends winston.Transport {
   }
 
   log(info, callback) {
-    console.log('info\n\n\n\n\n',info);
-    callback()
+    const wss = getWss();
+
+    if (wss.clients){
+      wss.clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(JSON.stringify(info, null, 4));
+        }
+      });
+    }
+    callback();
   }
 }
 
