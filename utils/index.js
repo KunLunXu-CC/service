@@ -27,9 +27,9 @@ module.exports.readFileList = (dir, filesList = []) =>{
 /**
  * 加载指定目录路径下的所有指定后缀文件
  * @param {String} dir                  指定目录路径
- * @param {String} suffix               指定文件后缀
+ * @param {String} extname              指定文件后缀, 默认为 .js
  * @param {Array || Function}  filter   要过滤掉的文件路径列表或过滤方法
- * @param {Array}  handler              返回对象每个值的处理方法
+ * @param {Array}  handler              返回对象每个值的处理方法, 默认是使用 require 直接加载文件
  * @return {Object} { [fileName]: Object }
  */
 module.exports.requireFiles = ({
