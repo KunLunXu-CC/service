@@ -68,3 +68,8 @@ module.exports.STATS_SAPN = {
   MONTH: 'month',  // 按月
   YEAR: 'year',    // 按年
 };
+
+// WebSocket 类型: 消息、连接类型, 根据 type 进行不同业务出现
+module.exports.WS_TYPE = {
+  LOGGER: 0,     // 日志
+};
