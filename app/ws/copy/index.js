@@ -1,7 +1,7 @@
 const path = require('path');
 const WebSocket = require('ws');
 
-const { requireFiles } = require('../../utils');
+const { requireFiles } = require('../../../utils');
 
 // wss: WebSocket 实例
 let wss = null;

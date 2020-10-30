@@ -1,6 +1,5 @@
 const { printStartCharPattern } = require('../utils/charPattern');
 const bindContext = require('./bindContext');
-const { createWebSocket } = require('./ws');
 const middleware = require('./middleware');
 const config = require('../config/system');
 const graphql = require('./graphql');
@@ -11,6 +10,8 @@ const path = require('path');
 const Koa = require('koa');
 const fs = require('fs');
 const app = new Koa();
+
+const test = require('./ws/test');
 
 moment.locale('zh-cn'); // 设置 moment 地区
 
@@ -30,5 +31,4 @@ const server = config.https
   ).listen(config.port, printStartCharPattern)
   : app.listen(config.port, printStartCharPattern);
 
-// 创建 WebSocket
-createWebSocket(server);
+test(server);
