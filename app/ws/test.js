@@ -17,11 +17,11 @@ module.exports  = server => {
     const pathname = url.parse(request.url).pathname;
     console.log('------------------1111111');
 
-    // if (pathname === '/foo') {
+    // if (pathname === '/ws/foo') {
     //   wss1.handleUpgrade(request, socket, head, function done(ws) {
     //     wss1.emit('connection', ws, request);
     //   });
-    // } else if (pathname === '/bar') {
+    // } else if (pathname === '/ws/bar') {
     //   wss2.handleUpgrade(request, socket, head, function done(ws) {
     //     wss2.emit('connection', ws, request);
     //   });
