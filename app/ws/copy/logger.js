@@ -7,10 +7,7 @@
  */
 module.exports = wss => {
   wss.on('connection', ws => {
-    const { protocol } = ws;
-
-    console.log('-----------\n\n\n');
-
+    // const { protocol } = ws;
     // TODO: 需要身份校验
     ws.on('message', message => {
         console.log('received: %s', message);
