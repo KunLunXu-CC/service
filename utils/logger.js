@@ -2,7 +2,7 @@ const _ = require('lodash');
 const path = require('path');
 // const WebSocket = require('ws');
 const winston = require('winston');
-const { getWss } = require('../app/ws/copy');
+// const { getWss } = require('../app/ws/copy');
 require('winston-daily-rotate-file');
 
 // 文件

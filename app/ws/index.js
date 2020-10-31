@@ -1,0 +1,23 @@
+const WebSocket = require('ws');
+const url = require('url');
+
+// WebSocket 实例配置列表: pathname 服务路由、wss WebSocket 实例
+const WS_SETTING_LIST = [
+  {
+    pathname: '/ws/logger',
+    wss: require('./logger'),
+  },
+];
+
+module.exports  = server => {
+  server.on('upgrade', function upgrade(request, socket, head) {
+    const { pathname } = url.parse(request.url);
+    const setting = WS_SETTING_LIST.find(v => v.pathname === pathname);
+
+    setting
+      ? setting.wss.handleUpgrade(request, socket, head, ws => {
+        setting.wss.emit('connection', ws, request);
+      })
+      : socket.destroy();
+  });
+}
