@@ -10,11 +10,11 @@ module.exports = wss;
 
 /*
 // 前端连接
-var ws = new WebSocket('ws://localhost:4000/ws/logger', 'protocol');
+var ws = new WebSocket('ws://localhost:4000/ws/chat', 'protocol');
 
 ws.onopen = function(evt) {
   console.log('Connection open ...');
-  ws.send('Hello WebSockets! logger');
+  ws.send('Hello WebSockets! chat');
 };
 
 ws.onmessage = function(evt) {
