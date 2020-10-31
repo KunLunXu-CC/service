@@ -1,24 +1,23 @@
-const { printStartCharPattern } = require('../utils/charPattern');
-const bindContext = require('./bindContext');
-const middleware = require('./middleware');
-const config = require('../config/system');
-const graphql = require('./graphql');
+const fs = require('fs');
+const Koa = require('koa');
+const path = require('path');
+const https = require('https');
 const moment = require('moment');
 const router = require('./route');
-const https = require('https');
-const path = require('path');
-const Koa = require('koa');
-const fs = require('fs');
-const app = new Koa();
-
-const test = require('./ws/test');
-
+const graphql = require('./graphql');
+const createWebSockets = require('./ws');
+const config = require('../config/system');
+const middleware = require('./middleware');
+const bindContext = require('./bindContext');
+const { printStartCharPattern } = require('../utils/charPattern');
 moment.locale('zh-cn'); // 设置 moment 地区
 
+const app = new Koa();
+
 bindContext(app);  // 绑定 context: db.mongo、ws
-middleware(app);
-router(app);
-graphql(app);
+middleware(app);   // 中间件
+router(app);       // 路由
+graphql(app);      // graphql 服务
 
 // 创建服务
 const server = config.https
@@ -31,4 +30,5 @@ const server = config.https
   ).listen(config.port, printStartCharPattern)
   : app.listen(config.port, printStartCharPattern);
 
-test(server);
+// 创建 WebSocket 服务(多个、根据路由进行分发)
+createWebSockets(server);
