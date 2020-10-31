@@ -1,4 +1,3 @@
-const WebSocket = require('ws');
 const url = require('url');
 
 // WebSocket 实例配置列表: pathname 服务路由、wss WebSocket 实例
@@ -6,6 +5,10 @@ const WS_SETTING_LIST = [
   {
     pathname: '/ws/logger',
     wss: require('./logger'),
+  },
+  {
+    pathname: '/ws/chat',
+    wss: require('./chat'),
   },
 ];
 

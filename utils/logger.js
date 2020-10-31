@@ -1,47 +1,33 @@
 const _ = require('lodash');
 const path = require('path');
-// const WebSocket = require('ws');
 const winston = require('winston');
-// const { getWss } = require('../app/ws/copy');
+const loggerWss = require('../app/ws/logger');
 require('winston-daily-rotate-file');
 
-// 文件
-const fileTransports = new winston.transports.DailyRotateFile({
+// 文件传输: 以文件的形式存储日志
+const fileTransport = new winston.transports.DailyRotateFile({
   filename: path.resolve(__dirname, '../logs/%DATE%.log'),
-    datePattern: 'YYYY-MM-DD-HH',
-    maxFiles: '14d',
-    maxSize: '20m',
+  datePattern: 'YYYY-MM-DD-HH',
+  maxFiles: '14d',
+  maxSize: '20m',
 });
 
-// 控制台
-const consoleTransports = new winston.transports.Console({
-});
-
-// 自定义
-const customTransport = new class extends winston.Transport {
-  constructor(opts) {
-    super(opts);
-  }
-
+// WebSocket 输出: 通过 WebSocket 广播日志, 实现客户端日志实时查看
+const wsTransport = new class extends winston.Transport {
   log(info, callback) {
-    // const wss = getWss();
-
-    // if (wss.clients){
-    //   wss.clients.forEach(client => {
-    //     if (client.readyState === WebSocket.OPEN) {
-    //       client.send(JSON.stringify(info, null, 4));
-    //     }
-    //   });
-    // }
+    loggerWss.clients && loggerWss.clients.forEach(
+      client => client.send(JSON.stringify(info, null, 4))
+    );
     callback();
   }
 }
 
+// TODO: 数据库存储, 自定义 transport 并对日志进行存储
+
 module.exports = winston.createLogger({
   format: winston.format.printf(info =>info.message),
   transports: [
-    fileTransports,
-    customTransport,
-    consoleTransports,
-  ]
+    wsTransport,
+    fileTransport,
+  ],
 });
