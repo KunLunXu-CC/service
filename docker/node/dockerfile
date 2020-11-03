@@ -17,7 +17,7 @@ COPY ./install_nvm.sh /shell/install_nvm.sh
 RUN chmod +x /shell/* && bash /shell/install_nvm.sh
 RUN echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"' >> ~/.bashrc
 RUN echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> ~/.bashrc
-RUN nvm install node && nvm alias default node
+RUN source ~/.bashrc && nvm install node && nvm alias default node
 
 # 安装 netcat: 网络测试工具, 用于检测 mongo 容器运行状态
 RUN apt-get -q update && apt-get -qy install netcat
