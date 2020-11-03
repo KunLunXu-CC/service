@@ -6,29 +6,30 @@ MAINTAINER qianyin qianyin95@gmai.com
 
 # 创建工作目录
 RUN mkdir /var/service
+RUN mkdir /root/.pm2
 
 # 更新 git 至最新: 源码安装
-RUN apt-get update && \
-    apt-get install dh-autoreconf \
-    libcurl4-gnutls-dev \
-    libexpat1-dev \
-    gettext \
-    libz-dev \
-    libssl-dev \
-    asciidoc \
-    xmlto \
-    docbook2x \
-    install-info -y && \
-    wget https://github.com/git/git/archive/v2.26.0.tar.gz && \
-    tar -zxf v2.26.0.tar.gz && \
-    cd git-2.26.0 && \
-    make configure && \
-    ./configure --prefix=/usr && \
-    make all doc info && \
-    make install install-doc install-html install-info && \
-    cd ../ && rm -rf v2.26.0.tar.gz git-2.26.0
+# RUN apt-get update && \
+#     apt-get install dh-autoreconf \
+#     libcurl4-gnutls-dev \
+#     libexpat1-dev \
+#     gettext \
+#     libz-dev \
+#     libssl-dev \
+#     asciidoc \
+#     xmlto \
+#     docbook2x \
+#     install-info -y && \
+#     wget https://github.com/git/git/archive/v2.26.0.tar.gz && \
+#     tar -zxf v2.26.0.tar.gz && \
+#     cd git-2.26.0 && \
+#     make configure && \
+#     ./configure --prefix=/usr && \
+#     make all doc info && \
+#     make install install-doc install-html install-info && \
+#     cd ../ && rm -rf v2.26.0.tar.gz git-2.26.0
 
-# 安装 netcat
+# 安装 netcat: 网络测试工具, 用于检测 mongo 容器运行状态
 RUN apt-get -q update && apt-get -qy install netcat
 
 # 拷贝脚本文件
@@ -40,7 +41,7 @@ RUN chmod +x /shell/*
 WORKDIR /var/service
 
 # 设置挂载点
-VOLUME [/var/service]
+VOLUME [/var/service,  /root/.pm2]
 
 # 对外暴露端口
 EXPOSE 4000
