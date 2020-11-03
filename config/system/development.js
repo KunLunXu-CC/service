@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // 加载秘钥
-const getSecretKey = (type) => {
+const getSecretKey = type => {
   try {
     return fs.readFileSync(
       path.resolve(__dirname, `./${type}.key`),

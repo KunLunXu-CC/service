@@ -1,5 +1,3 @@
-const fs = require('fs');
-const path = require('path');
 const crypto = require('crypto');
 const NodeRSA = require('node-rsa');
 const jwt = require('jsonwebtoken');
@@ -72,7 +70,7 @@ module.exports.signJwt = (payload, expiresIn = '7d') => {
  * @param {String} token    token 字符串
  * @returns {Object}}        有效载荷 || {}
  */
-module.exports.verifyJwt = (token) => new Promise((resolve, reject) => {
+module.exports.verifyJwt = token => new Promise((resolve, reject) => {
   jwt.verify(token, publicKey, (err, payload) => {
     resolve(payload || {});
   });
