@@ -14,13 +14,16 @@ RUN apt-get update && \
   apt-get install --assume-yes apt-utils -y
 
 # 安装 nvm
-RUN wget https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash \
-  && echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"' >> ~/.bashrc \
-  && echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> ~/.bashrc \
-  && source ~/.bashrc \
-  && nvm install node \
-  && nvm alias default node
+RUN wget https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
+
+RUN echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"' >> ~/.bashrc \
+  && echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> ~/.bashrc
+
 RUN echo ~/.bashrc
+
+RUN source ~/.bashrc
+RUN nvm install node
+RUN nvm alias default node
 
 # 安装 netcat: 网络测试工具, 用于检测 mongo 容器运行状态
 RUN apt-get -q update && apt-get -qy install netcat
