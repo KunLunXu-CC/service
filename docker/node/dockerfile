@@ -1,8 +1,7 @@
 # 基础镜像: 表示在 ubuntu 镜像基础上进行扩展
 FROM ubuntu
 
-# 维护者信息: 填写维护者的信息
-MAINTAINER qianyin qianyin95@gmai.com
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # 创建工作目录
 RUN mkdir /var/service
@@ -10,15 +9,15 @@ RUN mkdir /var/service
 # 安装基本工具: wget、git、
 RUN apt-get update && \
   apt-get install wget -y && \
-  apt-get install git -y
+  apt-get install git -y && \
+  apt-get install build-essential libssl-dev -y
 
 # 安装 nvm
-COPY ./install_nvm.sh /shell/install_nvm.sh
-RUN chmod +x /shell/* && bash /shell/install_nvm.sh
-RUN echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"' >> ~/.bashrc
-RUN echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> ~/.bashrc
-RUN bash -i -c "nvm install node && nvm alias default node"
-RUN chmod 777 -R ~/.nvm/versions/node/
+RUN wget https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash \
+  && echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"' >> ~/.bashrc \
+  && echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> ~/.bashrc \
+  && nvm install node \
+  && nvm alias default node
 
 # 安装 netcat: 网络测试工具, 用于检测 mongo 容器运行状态
 RUN apt-get -q update && apt-get -qy install netcat
