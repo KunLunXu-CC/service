@@ -21,7 +21,6 @@ services:
     container_name: blog-service
     ports:
       - 4000:4000
-      - 5000:5000
     links:
       - mongo
     environment:
@@ -31,6 +30,7 @@ services:
     command: sh -c '/shell/waitfor.sh mongo:27017 -- npm run start:pro'
     volumes:
       - ../:/var/service
+      - ./store/node/pm2:/root/.pm2
     logging:
       driver: "json-file"
       options:
