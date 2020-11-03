@@ -55,7 +55,7 @@
     "ora": "^4.0.3",
     "pm2": "^4.5.0",
     "shelljs": "^0.8.3",
-    "standard-version": "^7.0.0"
+    "standard-version": "^8.0.1"
   },
   "config": {
     "commitizen": {
