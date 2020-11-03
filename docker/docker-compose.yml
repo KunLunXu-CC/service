@@ -28,7 +28,7 @@ services:
       - PM2_HOME=/var/log/pm2
     depends_on:
       - mongo
-    command: bash -i -c '/shell/waitfor.sh mongo:27017 -- npm run start:pro'
+    command: bash -c '/shell/waitfor.sh mongo:27017 -- npm run start:pro'
     volumes:
       - ../:/var/service
       - ./store/node/pm2:/var/log/pm2
