@@ -12,7 +12,7 @@
     "release:100": "npm run release -- major",
     "release:010": "npm run release -- minor",
     "release:001": "npm run release -- patch",
-    "start:pro": "pm2 start ecosystem.config.js && npm run logs",
+    "start:pro": "pm2 start ecosystem.config.js && npm run logs --unsafe-perm",
     "restart:pro": "pm2 restart ecosystem.config.js",
     "script": "cross-env NODE_ENV=production node ./scripts"
   },

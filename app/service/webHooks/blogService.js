@@ -34,11 +34,10 @@ module.exports = async ({ body }) => {
   }
   logger.info('3. [success] 拉取代码成功');
 
-  // 5. 安装依赖: npm i 安装生产环境下依赖、--only=dev 则是安装开发环境下依赖
+  // 5. 安装依赖: npm i 安装生产环境下依赖
   const env = process.env.NODE_ENV;
   process.env.NODE_ENV = 'development';
-  console.log('rm package-lock.json && npm i');
-  if (shell.exec('rm package-lock.json && npm i').code !== 0) {
+  if (shell.exec('npm i --unsafe-perm').code !== 0) {
     logger.info('4. [fail] 安装依赖失败');
     process.env.NODE_ENV = env;
     return false;
