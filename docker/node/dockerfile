@@ -44,7 +44,7 @@ RUN chmod +x /shell/*
 WORKDIR /var/service
 
 # 设置挂载点
-VOLUME [/var/service, /var/log/pm2]
+VOLUME ["/var/service", "/var/log/pm2"]
 
 # 对外暴露端口
 EXPOSE 4000
