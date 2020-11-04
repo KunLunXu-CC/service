@@ -29,5 +29,6 @@ module.exports = winston.createLogger({
   transports: [
     wsTransport,
     fileTransport,
+    new winston.transports.Console(),
   ],
 });
