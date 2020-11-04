@@ -16,6 +16,10 @@ module.exports = async ({ body, header }) => {
   shell.cd(path.resolve(__dirname, '../../../'));
   logger.info(`1. [success] 进入项目目录: ${shell.pwd()}`);
 
+  // 6. 设置权限
+  shell.chmod('-R', 777, '.');
+  logger.info('4. [success] 设置权限成功');
+
   // 3. 撤销 git 的所有本地修改
   if (shell.exec(`
     git fetch --all  && \
@@ -33,10 +37,6 @@ module.exports = async ({ body, header }) => {
     return false;
   }
   logger.info('3. [success] 拉取代码成功');
-
-  // 6. 设置权限
-  shell.chmod('-R', 777, '.');
-  logger.info('4. [success] 设置权限成功');
 
   // 5. 安装依赖: npm i 安装生产环境下依赖、--only=dev 则是安装开发环境下依赖
   const env = process.env.NODE_ENV;
