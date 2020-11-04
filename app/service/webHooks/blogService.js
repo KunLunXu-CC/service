@@ -5,7 +5,7 @@ const logger = require('../../../utils/logger');
 module.exports = async ({ body, header }) => {
   const { repository, ref } = body;
   if (ref !== 'refs/heads/master'){
-    logger.info('[webhooks] 提交非 master 分支代码, 结束!');
+    logger.info('[webhooks] 提交非 master 分支代码, 结束!!!');
     return false;
   }
 
