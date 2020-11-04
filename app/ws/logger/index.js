@@ -1,6 +1,6 @@
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ noServer: true });
-const { verifyJwt } = require('../../../utils/encryption');
+// const { verifyJwt } = require('../../../utils/encryption');
 
 wss.on('connection', function connection(ws) {
   const { protocol } = ws;
