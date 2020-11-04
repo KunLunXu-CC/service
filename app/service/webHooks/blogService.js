@@ -38,6 +38,10 @@ module.exports = async ({ body }) => {
   }
   logger.info('3. [success] 拉取代码成功');
 
+  // 6. 设置权限
+  shell.chmod('-R', 777, '.');
+  logger.info('4. [success] 设置权限成功');
+
   // 5. 安装依赖: npm i 安装生产环境下依赖、--only=dev 则是安装开发环境下依赖
   const env = process.env.NODE_ENV;
   process.env.NODE_ENV = 'development';
