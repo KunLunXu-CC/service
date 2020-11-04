@@ -6,7 +6,10 @@ MAINTAINER qianyin qianyin95@gmai.com
 
 # 创建工作目录
 RUN mkdir /var/service
+
+# 设置 npm home 目录
 RUN mkdir /var/log/pm2 && chmod -R 777 /var/log/pm2
+ENV PM2_HOME /var/log/pm2
 
 # 更新 git 至最新: 源码安装
 # RUN apt-get update && \
@@ -41,7 +44,7 @@ RUN chmod +x /shell/*
 WORKDIR /var/service
 
 # 设置挂载点
-VOLUME [/var/service]
+VOLUME [/var/service, /var/log/pm2]
 
 # 对外暴露端口
 EXPOSE 4000
