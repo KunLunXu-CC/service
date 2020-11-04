@@ -25,6 +25,7 @@ services:
       - mongo
     environment:
       - TZ=Asia/Shanghai
+      - PM2_HOME=/var/log/pm2
     depends_on:
       - mongo
     command: sh -c 'npm run start:pro'
