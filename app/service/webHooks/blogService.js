@@ -16,10 +16,6 @@ module.exports = async ({ body }) => {
   shell.cd(path.resolve(__dirname, '../../../'));
   logger.info(`1. [success] 进入项目目录: ${shell.pwd()}`);
 
-  // 6. 设置权限
-  shell.chmod('-R', 777, '.');
-  logger.info('4. [success] 设置权限成功');
-
   // 3. 撤销 git 的所有本地修改
   if (shell.exec(`
     git fetch --all  && \
