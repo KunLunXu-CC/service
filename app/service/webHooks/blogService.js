@@ -39,12 +39,12 @@ module.exports = async ({ body }) => {
   process.env.NODE_ENV = 'development';
   console.log('rm package-lock.json && npm i');
   if (shell.exec('rm package-lock.json && npm i').code !== 0) {
-    logger.info('5. [fail] 安装依赖失败');
+    logger.info('4. [fail] 安装依赖失败');
     process.env.NODE_ENV = env;
     return false;
   }
   process.env.NODE_ENV = env;
-  logger.info('5. [success] 安装依赖成功');
+  logger.info('4. [success] 安装依赖成功');
 
   // 7. 提示：完成
   logger.info(`=======>>>> [webhooks] ${repository.name}: success <<<<=======`)
