@@ -30,7 +30,6 @@ services:
     command: sh -c '/shell/waitfor.sh mongo:27017 -- npm run start:pro'
     volumes:
       - ../:/var/service
-      - ./store/node/pm2:/var/log/pm2
     logging:
       driver: "json-file"
       options:
