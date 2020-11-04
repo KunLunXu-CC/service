@@ -37,7 +37,7 @@ module.exports = async ({ body, header }) => {
   // 5. 安装依赖
   const env = process.env.NODE_ENV;
   process.env.NODE_ENV = 'development';
-  if (shell.exec(`npm i --unsafe-perm`).code !== 0) {
+  if (shell.exec(`npm i`).code !== 0) {
     logger.info('4. [fail] 安装依赖失败');
     process.env.NODE_ENV = env;
     return false;
