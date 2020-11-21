@@ -3,7 +3,6 @@ const mongo = require('../../../utils/mongo');
 const { verifyJwt } = require('../../../utils/encryption');
 
 const wss = new WebSocket.Server({ noServer: true });
-const db = mongo();
 
 /**
  * 校验权限
@@ -12,8 +11,8 @@ const db = mongo();
  */
 const verifyPermissions = async jwt => {
   const data = await verifyJwt('jwt');
-  console.log((await verifyJwt('jwt')).role, 'data');
-  console.log((await verifyJwt(jwt)).role, 'data');
+  console.log((await verifyJwt('jwt')).role, '1data');
+  console.log((await verifyJwt(jwt)).role, '1data');
 
   // db.Role.find({ _id:  });
 

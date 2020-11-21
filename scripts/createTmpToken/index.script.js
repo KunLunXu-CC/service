@@ -1,4 +1,4 @@
-const mongo = require('../../utils/mongo');
+const mongoDB = require('../../utils/mongo');
 const { signJwt } = require('../../utils/encryption');
 
 // 获取临时 token: 1天
@@ -8,7 +8,6 @@ module.exports = {
     const account = 'admin';
     const expiresIn = '1d';
 
-    const mongoDB = mongo();
     const { id, name, role } = await mongoDB.User.findOne({ account });
 
     const token = signJwt({

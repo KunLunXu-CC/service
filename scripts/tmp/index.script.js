@@ -1,9 +1,8 @@
 // 临时脚本
-const mongo = require('../../utils/mongo');
+const db = require('../../utils/mongo');
 
 module.exports = {
   exec: async () => {
-    const db = mongo();
     await db.Article.updateMany({}, {
       type: 0,
       tags: [],
