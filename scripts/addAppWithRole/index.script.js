@@ -1,7 +1,7 @@
 // 临时脚本
 const _ = require('lodash');
 const inquirer = require('inquirer');
-const mongo = require('../../utils/mongo');
+const db = require('../../utils/mongo');
 const { BOOLEAN } = require('../../config/consts');
 
 module.exports = {
@@ -25,7 +25,6 @@ module.exports = {
         default: false,
       },
     ]);
-    const db = mongo();
     const role = await db.Role.findOne({ name });
     role && await db.Role.updateMany(
       { _id: role.id },

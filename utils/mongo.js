@@ -38,14 +38,13 @@ const initModels = () =>{
       models[fileName] = mongoose.model(fileName, new Schema(value.fields))
     }
   });
-  return models;
 }
 
-// 导出方法
-module.exports = () => {
-  if (!_.isEmpty(models)) {
-    return models;
-  }
+// 初始化
+if (_.isEmpty(models)) {
   connectServer();
-  return initModels();
+  initModels();
 }
+
+// 导出模型实例
+module.exports = models;
