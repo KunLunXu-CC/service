@@ -6,6 +6,7 @@ const config = require('../config/system');
 const { requireFiles } = require('.');
 
 const Schema = mongoose.Schema;
+const models = {};              // 实例化模型
 
 /**
  * 链接数据库
@@ -31,7 +32,6 @@ const connectServer = () => {
  * @return {Object} {模型名： 模型对象}
  */
 const initModels = () =>{
-  const models = {};
   const stree = requireFiles({ dir: path.resolve(__dirname, '../models') });
   _.forIn(stree, (value, fileName) => {
     if (value.type === 'MongoDB'){
@@ -43,6 +43,9 @@ const initModels = () =>{
 
 // 导出方法
 module.exports = () => {
+  if (!_.isEmpty(models)) {
+    return models;
+  }
   connectServer();
   return initModels();
 }

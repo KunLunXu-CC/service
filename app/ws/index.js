@@ -13,7 +13,7 @@ const WS_SETTING_LIST = [
 ];
 
 module.exports  = server => {
-  server.on('upgrade', function upgrade(request, socket, head) {
+  server.on('upgrade', upgrade = (request, socket, head) => {
     const { pathname } = url.parse(request.url);
     const setting = WS_SETTING_LIST.find(v => v.pathname === pathname);
 
