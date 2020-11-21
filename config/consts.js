@@ -1,5 +1,17 @@
 /* 常量配置 */
 
+// 应用 CODE
+module.exports.APP_CODE = {
+  DRAW: 'draw',                  // 绘图
+  READ: 'read',                  // 阅读
+  ALBUM: 'album',                // 相册
+  DIARY: 'diary',                // 日记
+  EDITOR: 'editor',              // 编辑器
+  LOGGER: 'logger',              // 日志
+  ARTICLE: 'article',            // 文章
+  DATASETSFROM: 'datasetsfrom',  // 数据字典(数据集)
+};
+
 // 布尔值
 module.exports.BOOLEAN = {
   TRUE: 1,
