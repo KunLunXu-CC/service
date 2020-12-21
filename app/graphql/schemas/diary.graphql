@@ -37,15 +37,41 @@ extend type Mutation {
   ): Diaries @auth
 }
 
+type Diet {
+  desc: String
+  type: Datasetsfrom @translate(code: "2")
+}
+
+type Fitness {
+  type: Datasetsfrom @translate(code: "4")
+  place: Datasetsfrom @translate(code: "3")
+}
+
+type Bill {
+  desc: String
+  income: Float
+  expend: Float
+  tag: Datasetsfrom @translate(code: "1")
+}
+
+type BodyIndex {
+  bim: Float
+  weight: Float
+  muscle: Float
+  bodyfat: Float
+  moistureContent: Float
+}
+
 type Diary {
   name: String
   getUp: Date
   toRest: Date
-  informalEssay: String
-  diet: Diet
-  bill: Bill
-  fitness: Fitness
   bodyIndex: BodyIndex
+  informalEssay: String
+
+  diet: [Diet]
+  bill: [Bill]
+  fitness: [Fitness]
 
   id: ID
   status: Int
@@ -62,31 +88,6 @@ type Diaries {
   pagination: Pagination
 }
 
-scalar Diet {
-  type: Int
-  desc: String
-}
-
-scalar Fitness {
-  type: Int
-  place: Int
-}
-
-scalar Bill {
-  tag: Int
-  desc: String
-  income: Float
-  expend: Float
-}
-
-scalar BodyIndex {
-  weight: Float
-  muscle: Float
-  moistureContent: Float
-  bodyfat: Float
-  bim: Float
-}
-
 input DiarySearch {
   name: String
   names: [String]
@@ -100,16 +101,41 @@ input DiarySearch {
   status: [Int]
 }
 
+scalar DietInput {
+  type: Int
+  desc: String
+}
+
+scalar FitnessInput {
+  type: Int
+  place: Int
+}
+
+scalar BillInput {
+  tag: Int
+  desc: String
+  income: Float
+  expend: Float
+}
+
+scalar BodyIndexInput {
+  weight: Float
+  muscle: Float
+  moistureContent: Float
+  bodyfat: Float
+  bim: Float
+}
+
 input DiaryFields {
-  diet: Diet
-  bill: Bill
+  diet: DietInput
+  bill: BillInput
   status: Int
   getUp: Date
   name: String
   toRest: Date
-  fitness: Fitness
-  bodyIndex: BodyIndex
+  fitness: FitnessInput
   informalEssay: String
+  bodyIndex: BodyIndexInput
 }
 
 # 统计账单 - 列表项

@@ -23,12 +23,11 @@ const wsTransport = new class extends winston.Transport {
 }
 
 // TODO: 数据库存储, 自定义 transport 并对日志进行存储
-
 module.exports = winston.createLogger({
   format: winston.format.printf(info =>info.message),
   transports: [
     wsTransport,
     fileTransport,
-    new winston.transports.Console(),
+    // new winston.transports.Console(),
   ],
 });
