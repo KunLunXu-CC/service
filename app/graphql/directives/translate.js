@@ -8,9 +8,9 @@ const BOOLEAN = {
  * 修饰器: 翻译, 用于数据字典的翻译
  * @param {String Number} code 字典类型(参考 client 端字典常量: DATASETSFROM_CODE)
  * @param {String} saveField 存储的字段(id || value) 默认为 value
- * @param {String} isList 关联的字段是否是列表, 具体取值参考上文中 BOOLEAN 常量
+ * @param {String} isList 关联的字段是否是列表, 具体取值参考上文中 BOOLEAN 常量, 默认 BOOLEAN.FALSE
  * @example 下面是使用例子
- * @translate(code: "0", isList: "1", saveField: "id")
+ * Datasetsfrom @translate(code: "0", isList: "1", saveField: "id")
  */
 const { findOne, getList } = require('../../service/common');
 const { SchemaDirectiveVisitor } = require('graphql-tools') ;

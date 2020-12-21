@@ -25,5 +25,5 @@ module.exports = {
     updateDiaries: async (parents, args, context, info) => {
       return await update({ model: 'Diary', ...args, ctx: context.ctx });
     },
-  }
+  },
 }
