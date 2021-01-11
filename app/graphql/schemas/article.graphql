@@ -54,7 +54,6 @@ input ArticleSearch {
   tags: [ID!]
   creator: ID
   updater: ID
-  type: [Int],
   name: String
   desc: String
   thumb: String
@@ -71,7 +70,6 @@ input AticleFields {
   desc: String
   thumb: String
   tags: [ID!]
-  type: Int
   content: String
 }
 
@@ -87,7 +85,6 @@ type Article {
   tags: [Datasetsfrom!] @translate(code: "6", isList: "1", saveField: "id")
   thumb: String
   viewCount: Int
-  type: Int
   content: String
   viewHistory: [String]
 
