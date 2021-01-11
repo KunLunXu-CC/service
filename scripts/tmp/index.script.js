@@ -3,11 +3,14 @@ const db = require('../../utils/mongo');
 
 module.exports = {
   exec: async () => {
-    const data = await db.Article.find();
+    const data = await db.Datasetsfrom.find({ code: 6 });
+
+    console.log('----->>', data);
+
     for (let item of data) {
-      item.type === -99999 && await db.Article.updateMany(
+      await db.Datasetsfrom.updateMany(
         { _id: item.id },
-        { type: 0 }
+        { parent: null }
       );
     }
     console.log('\n\n\n脚本执行成功!\n\n\n\n');
