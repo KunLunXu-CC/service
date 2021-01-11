@@ -25,11 +25,6 @@ exports.fields = {
     title: '标签',
     type: [ObjectId],
   },
-  type: {
-    type: Number,
-    title: '文章类型',
-    required: true,
-  },
   content: {
     title: '内容',
 		type: String,
