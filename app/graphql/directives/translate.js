@@ -21,7 +21,11 @@ class RelationDirective extends SchemaDirectiveVisitor {
       // code: 字典类型(数字字符串), isList: 是否是列表
       const { code, isList = BOOLEAN.FALSE, saveField = 'value' } = this.args;
       const { name } = field; // name: 使用修饰器的字段
-      if (!parents[name] || !code) {return null};
+
+      // 这里 code 一定是字符串, 但是 parents 则不一定是字符串
+      if ([null, void 0].includes(parents[name]) || !code) {
+        return null
+      };
 
       if (isList === BOOLEAN.FALSE) { // 非列表
         const { data } = await findOne({
