@@ -1,18 +1,19 @@
 const _ = require('lodash');
 const path = require('path');
+const moment = require('moment');
 const winston = require('winston');
 const loggerWss = require('../app/ws/logger');
 require('winston-daily-rotate-file');
 
-// 文件传输: 以文件的形式存储日志
+// [transports] 文件传输: 以文件的形式存储日志
 const fileTransport = new winston.transports.DailyRotateFile({
   filename: path.resolve(__dirname, '../logs/%DATE%.log'),
-  datePattern: 'YYYY-MM-DD-HH',
-  maxFiles: '14d',
-  maxSize: '20m',
+  datePattern: 'YYYY-MM-DD-HH',   // 日志文件划分, 按小时进行划分日志
+  maxFiles: '7d',                 // 日志数量限制, 只保存 7 天内的日志(最多: 7 * 24)
+  maxSize: '20m',                 // 文件大小限制
 });
 
-// WebSocket 输出: 通过 WebSocket 广播日志, 实现客户端日志实时查看
+// [transports] WebSocket 输出: 通过 WebSocket 广播日志, 实现客户端日志实时查看
 const wsTransport = new class extends winston.Transport {
   log(info, callback) {
     loggerWss.clients && loggerWss.clients.forEach(
@@ -22,9 +23,25 @@ const wsTransport = new class extends winston.Transport {
   }
 }
 
+// [format] 格式化打印内容
+const printf = ({ level, message }) => (`
+  \n----- [start] -----\n
+  级别: ${level},
+  时间: ${moment().format('YYYY-MM-DD hh:mm:ss')},
+  内容: \n${_.isString(message) ? message : JSON.stringify(message, null, 2)},
+  \n----- [end] -----\n
+`);
+
 // TODO: 数据库存储, 自定义 transport 并对日志进行存储
 module.exports = winston.createLogger({
-  format: winston.format.printf(info =>info.message),
+  // 格式化
+  format: winston.format.combine(
+    // winston.format.label({ label: 'right meow!' }),         // 往日志信息里添加 label 字段
+    // winston.format.timestamp(),                             // 往日志信息里添加 timestamp(时间戳) 字段
+    // winston.format.prettyPrint(),                           // 日志打印(输出)前
+    winston.format.printf(printf),
+  ),
+  // 输出, 可将日志输出到多个途径
   transports: [
     wsTransport,
     fileTransport,

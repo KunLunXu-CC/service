@@ -44,10 +44,10 @@ const onTick = async () => {
     html: getHtml(),                       // 邮件内容(html)
     subject: `个人网站数据备份`,            // 邮件主题
     attachments: [{ path: backupPath }], // 附件
-  }).catch(err => {
+  }).catch(error => {
     res = false;
     ora().fail('个人网站数据备份失败!');
-    logger.info(err)
+    logger.error({ error, label: '个人网站数据备份失败' });
   });
   res && ora().succeed('个人网站数据备份成功!');
 

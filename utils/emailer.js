@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const logger = require('./logger');
 const { smtp } = require('../config/system');
 
 /**
@@ -17,16 +18,23 @@ const { smtp } = require('../config/system');
  *   attachments: [{ filename: 'emailer.js', path: path.resolve(__dirname, './emailer.js') }]
  * }).catch();
  */
-module.exports = async (message) => {
+module.exports = async message => {
   // 1. 获取配置信息
-  const { notice, ...options } = smtp;
-  // 2. 如果收件人列表未设置则默认发送到指定邮箱(站内消息通知邮箱)
-  !message.to && (message.to = notice);
-  // 3. 创建连接池
-  let transporter = nodemailer.createTransport(options);
-  // 4. 发送邮箱
-  return await transporter.sendMail({
-    ...message,
-    from: options.auth.user,
-  });
+  const { notice, ... rest } = smtp;
+
+  // 2. 创建连接池
+  let transporter = nodemailer.createTransport(rest);
+
+  // 3. 邮箱发送内容配置
+  const options = {
+    ... message,
+    from: rest.auth.user,
+    to: message.to || notice,
+  };
+
+  // 4. 打印日志
+  logger.info({ options, label: '发送邮件' });
+
+  // 5. 发送邮件
+  return await transporter.sendMail(options);
 }
