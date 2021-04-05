@@ -32,7 +32,14 @@ const printf = ({ level, message }) => (`
   \n----- [end] -----\n
 `);
 
-// TODO: 数据库存储, 自定义 transport 并对日志进行存储
+/**
+ * TODO: 数据库存储, 自定义 transport 并对日志进行存储
+ * 调用 winston 实例 logger 方法来输出日志
+ * 不同方法对应不同日志级别, 所有方法有: emerg alert crit error warning notice info debug
+ * 如: logger.info 输出信息
+ * 如: logger.error 输出错误信息
+ * 待输出日志可以是对象(对象中建议使用 label 进行日志标记) 当然也可以是一个字符串
+ */
 module.exports = winston.createLogger({
   // 格式化
   format: winston.format.combine(
