@@ -24,13 +24,13 @@ module.exports = () => {
     '/tmp/backUp/ssl'
   );
 
-  // 3. 备份静态资源
-  mkdirPath('/tmp/backUp/static');
-  shell.cp(
-    '-rf',
-    path.resolve(__dirname, '../../app/static/*'),
-    '/tmp/backUp/static'
-  );
+  // 3. 备份静态资源, 邮件发送对附近大小有限制, 静态资源太大了 先注释掉
+  // mkdirPath('/tmp/backUp/static');
+  // shell.cp(
+  //   '-rf',
+  //   path.resolve(__dirname, '../../app/static/*'),
+  //   '/tmp/backUp/static'
+  // );
 
   // 4. 备份数据库
   mkdirPath('/tmp/backUp/databases');
