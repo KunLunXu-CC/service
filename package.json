@@ -6,15 +6,13 @@
   "scripts": {
     "logs": "pm2 logs",
     "start": "pm2 start ecosystem.config.js --env development",
-    "commit": "git-cz",
     "add": "git add --all && git reset -- */development.js",
-    "release": "standard-version --release-as",
-    "release:100": "npm run release -- major",
-    "release:010": "npm run release -- minor",
-    "release:001": "npm run release -- patch",
     "start:pro": "pm2 start ecosystem.config.js && npm run logs",
     "restart:pro": "pm2 restart ecosystem.config.js",
-    "script": "cross-env NODE_ENV=production node ./scripts"
+    "script": "cross-env NODE_ENV=production node ./scripts",
+    "release": "qy-release",
+    "cz": "git add . && qy-cz",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -43,28 +41,13 @@
     "ws": "^6.2.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-angular": "^8.2.0",
     "boxen": "^4.2.0",
     "chalk": "^3.0.0",
-    "commitizen": "^4.0.3",
     "cross-env": "^6.0.3",
-    "cz-conventional-changelog": "^3.0.2",
-    "husky": "^3.0.7",
     "inquirer": "^7.1.0",
     "ora": "^4.0.3",
     "pm2": "^4.5.0",
-    "shelljs": "^0.8.4",
-    "standard-version": "^7.0.0"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
+    "qy-norm": "^1.0.12",
+    "shelljs": "^0.8.4"
   }
 }
