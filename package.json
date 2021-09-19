@@ -9,9 +9,9 @@
     "add": "git add --all && git reset -- */development.js",
     "start:pro": "pm2 start ecosystem.config.js && npm run logs",
     "restart:pro": "pm2 restart ecosystem.config.js",
-    "script": "cross-env NODE_ENV=production node ./scripts",
+    "script": "cross-env NODE_ENV=production node ./src/scripts",
+    "cz": "qy-cz",
     "release": "qy-release",
-    "cz": "git add . && qy-cz",
     "prepare": "husky install"
   },
   "keywords": [],
@@ -47,7 +47,7 @@
     "inquirer": "^7.1.0",
     "ora": "^4.0.3",
     "pm2": "^4.5.0",
-    "qy-norm": "^1.0.12",
+    "qy-norm": "^1.4.9",
     "shelljs": "^0.8.4"
   }
 }

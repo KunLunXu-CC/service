@@ -1,35 +1,30 @@
+/* eslint-disable camelcase */
 module.exports = {
-  apps : [
+  apps: [
     {
       name: 'app',
       watch: true,
-      script: './app/app.js',
+      script: './src/app',
       env: {
-        "NODE_ENV": "production",
+        NODE_ENV: 'production',
         watch: false,
       },
       env_development: {
-        "NODE_ENV": "development",
-        watch: [
-          'app',
-          'config',
-          'html',
-          'models',
-          'utils',
-        ],
-      }
+        NODE_ENV: 'development',
+        watch: ['src'],
+      },
     },
     {
-      name: 'cron',  //定时任务
-      script: './cron',
+      name: 'cron',  // 定时任务
+      script: './src/cron',
       env: {
-        "NODE_ENV": "production",
+        NODE_ENV: 'production',
         watch: false,
       },
       env_development: {
-        "NODE_ENV": "development",
-        watch: ['cron'],
-      }
-    }
-  ]
-}
+        NODE_ENV: 'development',
+        watch: ['src/cron'],
+      },
+    },
+  ],
+};
