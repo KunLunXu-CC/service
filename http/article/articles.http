@@ -16,7 +16,11 @@ query{
       creationTime
       tags { id name code value }
       creator { name role { name } }
-      updater { name role { name } }
+      updater { name role { name id } }
     }
+    pagination
   }
 }
+
+# tags { id name code value }
+# creator { name role { name } }

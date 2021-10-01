@@ -1,16 +1,15 @@
-const path = require('path');
 const inquirer = require('inquirer');
 
 const mongoose = require('mongoose');
-const { requireFiles } = require('../../utils');
-const { STATUS } = require('../../config/consts');
+const { importFiles } = require('../../utils');
+const { STATUS } = require('../../config/consts.mjs');
 
 module.exports = {
   name: '清理数据(删除假删数据)',
   exec: async () => {
     // 1. 读取表, 并选择要清除的表
-    const files = requireFiles({
-      dir: path.resolve(__dirname, '../../models'),
+    const files = importFiles({
+      dir: new URL('../../models', import.meta.url).pathname,
     });
     const { dbList } = await inquirer.prompt([
       {

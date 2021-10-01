@@ -1,0 +1,83 @@
+# 数据字典
+extend type Query{
+  datasetsfroms (
+    orderBy: OrderBy
+    pagination: Pagination
+    search: DatasetsfromSearch
+  ): Datasetsfroms
+}
+
+extend type Mutation{
+  removeDatasetsfroms (
+    orderBy: OrderBy
+    pagination: Pagination
+    conds: DatasetsfromSearch!
+    search: DatasetsfromSearch
+  ): Datasetsfroms @auth
+
+  createDatasetsfroms (
+    orderBy: OrderBy
+    pagination: Pagination
+    search: DatasetsfromSearch
+    body: [DatasetsfromFields!]!
+  ): Datasetsfroms @auth
+
+  updateDatasetsfroms (
+    orderBy: OrderBy
+    pagination: Pagination
+    body: DatasetsfromFields!
+    conds: DatasetsfromSearch!
+    search: DatasetsfromSearch
+  ): Datasetsfroms @auth
+}
+
+input DatasetsfromFields {
+  parent: ID
+  value: Int
+  code: Int
+  desc: String
+  name: String
+  icon: String
+}
+
+input DatasetsfromSearch {
+  parent: ID
+  value: [Int]
+  code: [Int]
+  desc: String
+  name: String
+  icon: String
+
+  id: ID
+  ids: [ID!]
+  creator: ID
+  updater: ID
+  status: [Int]
+  endUpdateTime: Date
+  startUpdateTime: Date
+  endCreationTime: Date
+  startCreationTime: Date
+}
+
+type Datasetsfroms{
+  list: [Datasetsfrom]
+  change: [Datasetsfrom]
+  message: String
+  pagination: Pagination
+}
+
+type Datasetsfrom {
+  value: Int
+  code: Int
+  desc: String
+  name: String
+  icon: String
+  parent: Datasetsfrom @relation
+
+  id: ID
+  status: Int
+  updateTime: Date
+  creationTime: Date
+  creator: User @relation
+  updater: User @relation
+}

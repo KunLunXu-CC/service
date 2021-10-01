@@ -10,7 +10,7 @@ query{
           name
           role { id name }
           creator { id name }
-          creator { name role { name } }
+          updater { name role { name } }
         }
     }
 }

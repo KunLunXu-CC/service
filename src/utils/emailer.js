@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 const logger = require('./logger');
-const { smtp } = require('../config/consts');
+const { smtp } = require('../config/consts.mjs');
 
 /**
  * 邮箱发送
@@ -15,7 +15,7 @@ const { smtp } = require('../config/consts');
  *   subject: '邮箱主题',
  *   html: '<div>邮箱 html</div>',
  *   text: '邮箱内容',
- *   attachments: [{ filename: 'emailer.js', path: path.resolve(__dirname, './emailer.js') }]
+ *   attachments: [{ filename: 'emailer.js', path: path.resolve(import.meta.url, './emailer.js') }]
  * }).catch();
  */
 module.exports = async (message) => {
