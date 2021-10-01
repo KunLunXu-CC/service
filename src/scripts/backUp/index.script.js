@@ -1,17 +1,16 @@
 const ora = require('ora');
-const path = require('path');
 const chalk = require('chalk');
 const inquirer = require('inquirer');
 
-const { requireFiles } = require('../../utils');
+const { importFiles } = require('../../utils');
 
 // 1. 获取 choices 配置
 const getChoices = (choices = []) => {
   // 1. 加载所有脚本配置:
   // [{ name: '显示名称(不能重复)', exec: async () => {待执行脚本}}]
-  requireFiles({
-    dir: path.resolve(__dirname, '.'),
-    filter: [path.resolve(__dirname, './index.script.js')],
+  importFiles({
+    dir: new URL('.', import.meta.url).pathname,
+    filter: [new URL('./index.script.js', import.meta.url).pathname],
     handler: (dest) => {
       choices.push(require(dest));
     },

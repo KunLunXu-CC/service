@@ -1,4 +1,3 @@
-const path = require('path');
 const chalk = require('chalk');
 const shell = require('shelljs');
 
@@ -14,7 +13,7 @@ module.exports = {
       sudo mkdir -p ${dest}/ssl
 
       # 备份文件
-      sudo cp ${path.resolve(__dirname, '../../docker/nginx/ssl.*')} ${dest}/ssl/
+      sudo cp ${new URL('../../docker/nginx/ssl.*', import.meta.url).pathname} ${dest}/ssl/
     `).code === 0) {
       console.log('SSL 文件备份完成, 备份路径: ', chalk.green(`${dest}/ssl`));
     }

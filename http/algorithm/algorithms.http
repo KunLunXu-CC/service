@@ -1,7 +1,7 @@
 POST http://localhost:4000/graphql HTTP/1.1
 content-type: application/json
 x-request-type: GraphQL
-authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGM3NGIyYzRiMWI0MDExODMyMWFhYiIsIm5hbWUiOiLnrqHnkIblkZgiLCJyb2xlIjoiNWUwYzc0YjFjNGIxYjQwMTE4MzIxYWE2IiwiYWNjb3VudCI6ImFkbWluIiwiaWF0IjoxNTkyMjAxNzk0LCJleHAiOjE1OTIyODgxOTR9.VZisMIW5r8K9VPXoX8zuPz7M99KCifstIHTnn5IS1EoNdeAXcNhPU2S2utlAnL3mHBy2SGGXTLTbNY9ZOvqDllx8wQOfiq4Kp_CLrLGmBwtxy5UN_KSzl-n2-q_niroPyMRnmFPeqKNfH_iu0vrV2iYZKBHcIpGaQ0NskQFs4xJo3j4HuTDOXdJqsGrTyVS7Z-QU4erZFxUWVPnQHojb7Lx4JQIymx8KfvC3RtKi35RwOuUTh62gJ1UwMcVBxm0ftaGDscG52QrMlY9osoNF5d5cXPEsH3CDHTeyARnfGw6xTN0gu55BfXOqmgN4dOxmf6OLHosJjDQAJjybP5BhyQ
+authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGM3NGIyYzRiMWI0MDExODMyMWFhYiIsIm5hbWUiOiLnrqHnkIblkZgiLCJyb2xlIjoiNWUwYzc0YjFjNGIxYjQwMTE4MzIxYWE2IiwiYWNjb3VudCI6ImFkbWluIiwiaWF0IjoxNjMzODUwODAyLCJleHAiOjE2MzQ0NTU2MDJ9.UYi4b-XfIam4uAkGGE4F00rSYnNx1w-cvmEtJzGvf5Ym2WOjPXC3jK0w28AvYgVvlrzXctwK9DjRyq9HipnVB5mP0o-LUM3tXiRqSig8ExvC7KU9m0Me6fsyt3N0HR0PeA1Z4r5ThocHKPkb7ae3sFm-cSbWShBTsUE5RlNgOcf31-e_H0suZm_jZcXClCazlYj_3kFW8xeYsmlggz_D2_wQGz0H86rfs5zKxHqk1Cu4ymcA3U11Q5YACrHI9O-cjnPTwUDk_TBAuoElIFDSPZFYAMF9qleRLqKpzw6Mtqpy2np7pe55D0m8-3ctSauBQUjRpycDFuhnbclPLGmm4A
 
 query{
   algorithms(
@@ -10,8 +10,10 @@ query{
     list {
       id
       content
+      tags
       creator { id name role { id name } }
       updater { id name role { id name } }
     }
+    pagination
   }
 }

@@ -1,0 +1,98 @@
+# 文章
+extend type Query {
+  articles(
+    orderBy: OrderBy
+    search: ArticleSearch
+    pagination: Pagination
+  ): Articles
+}
+
+extend type Mutation {
+  createArticles(
+    body: [ArticleFields!]!
+    orderBy: OrderBy
+    search: ArticleSearch
+    pagination: Pagination
+  ): Articles @auth
+
+  removeArticles (
+    conds: ArticleSearch!
+    orderBy: OrderBy
+    search: ArticleSearch
+    pagination: Pagination
+  ): Articles @auth
+
+  updateArticles (
+    conds: ArticleSearch!
+    body: ArticleFields!
+    orderBy: OrderBy
+    search: ArticleSearch
+    pagination: Pagination
+  ): Articles @auth
+
+  # 发布文章
+  releaseArticles (
+    conds: ArticleSearch!
+    orderBy: OrderBy
+    search: ArticleSearch
+    pagination: Pagination
+  ): Articles @auth
+
+  # 撤销(取消发布)文章
+  revokeArticles (
+    conds: ArticleSearch!
+    orderBy: OrderBy
+    search: ArticleSearch
+    pagination: Pagination
+  ): Articles @auth
+}
+
+input ArticleSearch {
+  id: ID
+  tag: ID
+  ids: [ID!]
+  tags: [ID!]
+  creator: ID
+  updater: ID
+  name: String
+  desc: String
+  thumb: String
+  content: String
+  startUpdateTime: Date
+  endUpdateTime: Date
+  startCreationTime: Date
+  endCreationTime: Date
+  status: [Int]
+}
+
+input ArticleFields {
+  name: String
+  desc: String
+  thumb: String
+  tags: [ID!]
+  content: String
+}
+
+type Articles {
+  list: [Article]
+  change: [Article]
+  message: String
+  pagination: Pagination
+}
+
+type Article {
+  desc: String
+  tags: [Datasetsfrom!] @translate(code: "6", saveField: "id")
+  thumb: String
+  viewCount: Int
+  content: String
+  viewHistory: [String]
+
+  id: ID
+  name: String!
+	status: Int
+  creator: User @relation
+  updater: User @relation
+  updateTime: Date
+  creationTime: Date
+}

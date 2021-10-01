@@ -1,4 +1,3 @@
-const path = require('path');
 const shell = require('shelljs');
 const moment = require('moment');
 
@@ -12,7 +11,7 @@ module.exports = () => {
   mkdirPath('/tmp/backUp/config');
   shell.cp(
     '-rf',
-    path.resolve(__dirname, '../../config/system/production.js'),
+    new URL('../../config/system/production.js', import.meta.url).pathname,
     '/tmp/backUp/config/production.js',
   );
 
@@ -20,7 +19,7 @@ module.exports = () => {
   mkdirPath('/tmp/backUp/ssl');
   shell.cp(
     '-rf',
-    path.resolve(__dirname, '../../docker/nginx/ssl.*'),
+    new URL('../../docker/nginx/ssl.*', import.meta.url).pathname,
     '/tmp/backUp/ssl',
   );
 
@@ -28,7 +27,7 @@ module.exports = () => {
   // mkdirPath('/tmp/backUp/static');
   // shell.cp(
   //   '-rf',
-  //   path.resolve(__dirname, '../../static/*'),
+  //   path.resolve(import.meta.url, '../../static/*'),
   //   '/tmp/backUp/static'
   // );
 
@@ -36,7 +35,7 @@ module.exports = () => {
   mkdirPath('/tmp/backUp/databases');
   // 4.1 读取所有 mongo 备份文件并进行排序
   const mongoBackups = readFileList(
-    path.resolve(__dirname, '../../docker/store/mongo/backups/'),
+    new URL('../../docker/store/mongo/backups/', import.meta.url).pathname,
   ).sort((a, b) => (b.localeCompare(a))[0]);
 
   mongoBackups && shell.exec(`tar zxvf ${mongoBackups} -C /tmp/backUp/databases`);

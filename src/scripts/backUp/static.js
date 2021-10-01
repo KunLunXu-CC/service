@@ -1,4 +1,3 @@
-const path = require('path');
 const chalk = require('chalk');
 const shell = require('shelljs');
 
@@ -14,7 +13,7 @@ module.exports = {
       sudo mkdir -p ${dest}/static
 
       # 备份文件
-      sudo cp -rf ${path.resolve(__dirname, '../../static/*')} ${dest}/static
+      sudo cp -rf ${new URL('../../static/*', import.meta.url).pathname} ${dest}/static
     `).code === 0) {
       console.log('静态目录备份完成, 备份路径: ', chalk.green(`${dest}/static`));
     }

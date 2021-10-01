@@ -2,7 +2,7 @@
 const _ = require('lodash');
 const inquirer = require('inquirer');
 const mongoose = require('mongoose');
-const { BOOLEAN } = require('../../config/consts');
+const { BOOLEAN } = require('../../config/consts.mjs');
 
 module.exports = {
   exec: async () => {

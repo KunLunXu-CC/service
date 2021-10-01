@@ -1,4 +1,3 @@
-const path = require('path');
 const shell = require('shelljs');
 
 // 恢复 SSL 文件
@@ -8,7 +7,7 @@ module.exports = {
     console.log('开始恢复 SSL 文件！');
 
     if (shell.exec(`
-      sudo cp -f ${dest}/ssl/ssl.* ${path.resolve(__dirname, '../../docker/nginx')}
+      sudo cp -f ${dest}/ssl/ssl.* ${new URL('../../docker/nginx', import.meta.url).pathname}
     `).code === 0) {
       console.log('SSL 文件恢复完成');
     }

@@ -1,4 +1,3 @@
-const path = require('path');
 const shell = require('shelljs');
 const { mkdirPath } = require('../../utils');
 
@@ -6,10 +5,10 @@ const { mkdirPath } = require('../../utils');
 module.exports = {
   name: '恢复静态目录 app/static',
   exec: async ({ dest }) => {
-    mkdirPath(path.resolve(__dirname, '../../static'));
+    mkdirPath(new URL('../../static', import.meta.url));
 
     if (shell.exec(`
-      sudo cp -rf ${dest}/static/* ${path.resolve(__dirname, '../../static')}
+      sudo cp -rf ${dest}/static/* ${new URL('../../static', import.meta.url).pathname}
     `).code === 0) {
       console.log('静态目录已恢复');
     }

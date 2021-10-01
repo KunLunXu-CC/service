@@ -2,13 +2,13 @@
 const _ = require('lodash');
 const path = require('path');
 const { CronJob } = require('cron');
-const { requireFiles } = require('../utils');
+const { importFiles } = require('../utils');
 
 // 获取当前目录下所有定时任务(加载所有 index.cron.js 文件)
 const getCrons = (crons = []) => {
   // 1. 加载所有脚本配置: [{ cronTime, onTick, onComplete}]
-  requireFiles({
-    dir: path.resolve(__dirname, '.'),
+  importFiles({
+    dir: new URL('.', import.meta.url).pathname,
     filter: (file) => (path.basename(file) !== 'index.cron.js'),
     handler: (dest) => {
       crons.push(require(dest));

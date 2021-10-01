@@ -1,6 +1,5 @@
 const fs = require('fs');
 const _ = require('lodash');
-const path = require('path');
 const chalk = require('chalk');
 const boxen = require('boxen');
 const shell = require('shelljs');
@@ -72,7 +71,7 @@ module.exports = {
     // 判断指定附件类型是否是目录, 是则进行压缩发送
     if (attachments[0].path && fs.statSync(attachments[0].path).isDirectory()) {
       const fileName = _.last(attachments[0].path.split('/').filter((v) => v));
-      tarPath = `${path.resolve(__dirname, '.')}/${fileName}.tar.gz`;
+      tarPath = `${new URL('.', import.meta.url).pathname}/${fileName}.tar.gz`;
       shell.exec(`cd ${attachments[0].path} && tar -zcvf ${tarPath} ./*`);
       attachments[0].path = tarPath;
     }

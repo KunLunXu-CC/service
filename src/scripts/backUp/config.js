@@ -1,4 +1,3 @@
-const path = require('path');
 const chalk = require('chalk');
 const shell = require('shelljs');
 
@@ -14,7 +13,7 @@ module.exports = {
       sudo mkdir -p ${dest}/config
 
       # 备份文件
-      sudo cp ${path.resolve(__dirname, '../../config/system/production.js')} ${dest}/config/production.js
+      sudo cp ${new URL('../../config/system/production.js', import.meta.url).pathname} ${dest}/config/production.js
     `).code === 0) {
       console.log('配置文件备份完成, 备份路径: ', chalk.green(`${dest}/config/production.js`));
     }
