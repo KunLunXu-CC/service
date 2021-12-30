@@ -1,8 +1,8 @@
 const inquirer = require('inquirer');
 
 const mongoose = require('mongoose');
-const { importFiles } = require('../../utils');
-const { STATUS } = require('../../config/consts.mjs');
+const { importFiles } = require('#utils');
+const { STATUS } = require('#config/consts');
 
 module.exports = {
   name: '清理数据(删除假删数据)',

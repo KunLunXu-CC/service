@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const boxen = require('boxen');
 const shell = require('shelljs');
 const inquirer = require('inquirer');
-const emailer = require('../../utils/emailer');
+const emailer = require('#utils/emailer');
 
 module.exports = {
   name: '发送邮件',

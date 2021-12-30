@@ -1,7 +1,7 @@
 const shell = require('shelljs');
 const moment = require('moment');
 
-const { mkdirPath, readFileList } = require('../../utils');
+const { mkdirPath, readFileList } = require('#utils');
 
 // 备份文件, 返回备份文件路径
 module.exports = () => {
@@ -11,8 +11,8 @@ module.exports = () => {
   mkdirPath('/tmp/backUp/config');
   shell.cp(
     '-rf',
-    new URL('../../config/system/production.js', import.meta.url).pathname,
-    '/tmp/backUp/config/production.js',
+    new URL('../../config/system/index.js/production', import.meta.url).pathname,
+    '/tmp/backUp/config/production',
   );
 
   // 2. 备份 ssl

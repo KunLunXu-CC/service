@@ -1,6 +1,6 @@
 const fs = require('fs');
 const tinify = require('tinify');
-const { tinify: { apiKey } } = require('../config/system');
+const { tinify: { apiKey } } = require('#config/system');
 
 // 1. 设置 api key
 tinify.key = apiKey;
