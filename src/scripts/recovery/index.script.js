@@ -2,7 +2,7 @@ const ora = require('ora');
 const chalk = require('chalk');
 const boxen = require('boxen');
 const inquirer = require('inquirer');
-const { importFiles } = require('../../utils');
+const { importFiles } = require('#utils');
 
 // 1. 获取 choices 配置
 const getChoices = (choices = []) => {
@@ -10,7 +10,7 @@ const getChoices = (choices = []) => {
   // [{ name: '显示名称(不能重复)', exec: async () => {待执行脚本}}]
   importFiles({
     dir: new URL('.', import.meta.url).pathname,
-    filter: [new URL('./index.script.js', import.meta.url).pathname],
+    filter: [new URL('./index.script', import.meta.url).pathname],
     handler: (dest) => {
       choices.push(require(dest));
     },

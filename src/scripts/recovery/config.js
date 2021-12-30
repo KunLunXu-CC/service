@@ -7,7 +7,7 @@ module.exports = {
     console.log('开始恢复配置文件！');
 
     if (shell.exec(`
-      sudo cp -f ${dest}/config/production.js ${new URL('../../config/system/production.js', import.meta.url).pathname}
+      sudo cp -f ${dest}/config/production.js ${new URL('../../config/system/index.js/production', import.meta.url).pathname}
     `).code === 0) {
       console.log('配置文件已恢复');
     }

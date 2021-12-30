@@ -1,5 +1,5 @@
 const shell = require('shelljs');
-const { mkdirPath } = require('../../utils');
+const { mkdirPath } = require('#utils');
 
 // 恢复静态目录 app/static
 module.exports = {

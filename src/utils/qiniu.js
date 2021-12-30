@@ -2,7 +2,7 @@
 const fs = require('fs');
 const qiniu = require('qiniu');
 const stream = require('stream');
-const systemConfig = require('../config/system');
+const systemConfig = require('#config/system');
 
 const { qiniu: { bucket, accessKey, secretKey } } = systemConfig;
 

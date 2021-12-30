@@ -21,8 +21,8 @@ yarn-error.log*
 /node_modules
 
 # 系统配置相关
-/config/system/production.js
-/config/system/*.key
+**/config/system.js
+**/config/*.key
 
 # 项目部署相关
 html

@@ -5,8 +5,8 @@ const ora = require('ora');
 const shell = require('shelljs');
 const moment = require('moment');
 const doBackup = require('./doBackup');
-const emailer = require('../../utils/emailer');
-const logger = require('../../utils/logger');
+const emailer = require('#utils/emailer');
+const logger = require('#logger');
 
 // 获取 html
 const getHtml = () => {

@@ -3,10 +3,9 @@
   "version": "2.2.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "logs": "pm2 logs",
-    "start": "pm2 start ecosystem.config.js --env development",
-    "add": "git add --all && git reset -- */development.js",
+    "start": "pm2 restart ecosystem.config.cjs --env development && pm2 logs",
     "start:pro": "pm2 start ecosystem.config.js && npm run logs",
     "restart:pro": "pm2 restart ecosystem.config.js",
     "script": "cross-env NODE_ENV=production node ./src/scripts/index.mjs",
@@ -17,6 +16,20 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "imports": {
+    "#src/*": "./src/*.js",
+    "#app/*": "./src/app/*.js",
+    "#utils/*": "./src/utils/*.js",
+    "#config/*": "./src/config/*.js",
+    "#service/*": "./src/app/service/*.js",
+
+    "#ws": "./src/app/ws/index.js",
+    "#utils": "./src/utils/index.js",
+    "#mongo": "./src/mongo/index.js",
+    "#logger": "./src/utils/logger.js",
+    "#graphql": "./src/app/graphql/index.js",
+    "#middleware": "./src/app/middleware/index.js"
+  },
   "dependencies": {
     "@graphql-tools/schema": "^8.2.0",
     "@graphql-tools/utils": "^8.2.4",
@@ -49,7 +62,7 @@
     "cross-env": "^6.0.3",
     "inquirer": "^7.1.0",
     "ora": "^4.0.3",
-    "pm2": "^4.5.0",
+    "pm2": "^5.1.2",
     "qy-norm": "^1.4.9",
     "shelljs": "^0.8.4"
   }
