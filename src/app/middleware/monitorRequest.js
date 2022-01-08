@@ -13,7 +13,7 @@ const intercept = (ctx) => {
       resCode: ctx.status,
     };
   } catch (e) {
-    logger.error(`中间件/请求信息拦截: ${JSON.stringify(e, null, 4)}`);
+    logger.error(`中间件/请求信息拦截: ${JSON.stringify(e, null, 2)}`);
   }
 
   ctx.status = 200;
@@ -40,7 +40,7 @@ const printRequestInfo = (ctx) => {
     gq: { query, variables },
   };
 
-  logger.info(`中间件/请求信息拦截: ${JSON.stringify(info, null, 4)}`);
+  logger.info(`中间件/请求信息拦截: ${JSON.stringify(info, null, 2)}`);
 };
 
 export default async (ctx, next) => {

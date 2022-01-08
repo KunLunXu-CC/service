@@ -1,28 +1,11 @@
-import fs from 'fs';
 import _ from 'lodash';
-import path from 'path';
-import mongoose from 'mongoose';
 import logger from '#logger';
+import mongoose from 'mongoose';
 import config from '#config/system';
-
-// 读取所有模型
-const getModels = async () => {
-  const models = {};
-  // 读取所以文件
-  const files = fs.readdirSync(new URL('./models', import.meta.url));
-
-  // 遍历
-  for (const file of files) {
-    const modelPath = new URL(`./models/${file}`, import.meta.url);
-    const { default: model } = await import(modelPath);
-    models[path.basename(file, '.js')] = model;
-  }
-
-  return models;
-};
+import { importFiles } from '#utils/fs';
 
 export default async () => {
-  const models = await getModels();
+  const models = await importFiles({ dir: new URL('./models', import.meta.url) });
   const { mongo: { host, port, database, debug } } = config;
 
   // 1. 连接数据库
@@ -35,7 +18,7 @@ export default async () => {
     await mongoose.connect(`mongodb://${host}:${port}/${database}`, options);
     mongoose.set('debug', debug);
   } catch (e) {
-    logger.info('数据库连接错误！');
+    logger.error('数据库连接错误！');
   }
 
   // 2. 添加模型

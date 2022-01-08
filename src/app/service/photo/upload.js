@@ -2,7 +2,7 @@ import fs from 'fs';
 import _ from 'lodash';
 import path from 'path';
 import create from '#service/common/create';
-import { mkdirPath } from '#utils';
+import { mkdirPath } from '#utils/fs';
 
 /**
  * 处理文件名(要存入数据库的文件名)
