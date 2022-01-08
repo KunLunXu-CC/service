@@ -22,7 +22,6 @@
     "#utils/*": "./src/utils/*.js",
     "#config/*": "./src/config/*.js",
     "#service/*": "./src/app/service/*.js",
-
     "#ws": "./src/app/ws/index.js",
     "#utils": "./src/utils/index.js",
     "#mongo": "./src/mongo/index.js",
@@ -64,6 +63,7 @@
     "ora": "^4.0.3",
     "pm2": "^5.1.2",
     "qy-norm": "^1.4.9",
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.4",
+    "zx": "^4.2.0"
   }
 }
