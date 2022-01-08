@@ -1,6 +1,6 @@
-const nodemailer = require('nodemailer');
-const logger = require('./logger');
-const { smtp } = require('#config/consts');
+import logger from '#logger';
+import nodemailer from 'nodemailer';
+import config from '#config/system';
 
 /**
  * 邮箱发送
@@ -18,9 +18,9 @@ const { smtp } = require('#config/consts');
  *   attachments: [{ filename: 'emailer', path: path.resolve(import.meta.url, './emailer') }]
  * }).catch();
  */
-module.exports = async (message) => {
+export default async (message) => {
   // 1. 获取配置信息
-  const { notice, ...rest } = smtp;
+  const { notice, ...rest } = config.smtp;
 
   // 2. 创建连接池
   const transporter = nodemailer.createTransport(rest);
