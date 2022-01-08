@@ -1,26 +1,6 @@
-import _ from 'lodash';
-import boxen from 'boxen';
 import moment from 'moment';
 import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
-
-// [transports] 文件传输: 以文件的形式存储日志
-const fileTransport = new DailyRotateFile({
-  filename: new URL('../../logs/%DATE%.log', import.meta.url).pathname,
-  datePattern: 'YYYY-MM-DD-HH',   // 日志文件划分, 按小时进行划分日志
-  maxFiles: '7d',                 // 日志数量限制, 只保存 7 天内的日志(最多: 7 * 24)
-  maxSize: '20m',                 // 文件大小限制
-});
-
-// [transports] WebSocket 输出: 通过 WebSocket 广播日志, 实现客户端日志实时查看
-// const wsTransport = new class extends winston.Transport {
-//   log (info, callback) {
-//     loggerWss.clients && loggerWss.clients.forEach(
-//       (client) => client.send(JSON.stringify(info, null, 4)),
-//     );
-//     callback();
-//   }
-// };
 
 // 调用信息: 日志打印位置
 const getCallInfo = function () {
@@ -28,30 +8,42 @@ const getCallInfo = function () {
   Error.prepareStackTrace = (_, stack) => stack; // 篡改
   const { stack } = new Error;
   Error.prepareStackTrace = orig; // 恢复
-  // getPosition
-  // getFunction
-  // getFunctionName
-  // getFileName
-  // getLineNumber
+  // getPosition getFunction  getFunctionName getFileName getLineNumber
   return {
-    fileName: stack[11]?.getFileName(),
-    lineNumber: stack[11]?.getLineNumber(),
+    fileName: stack[10]?.getFileName(),
+    lineNumber: stack[10]?.getLineNumber(),
   };
 };
 
-// [format] 格式化打印内容
-const printf = ({ level, message }) => {
-  const { fileName, lineNumber } = getCallInfo();
+// 文本输出格式化
+const printString = winston.format.printf(({
+  time,
+  level,
+  message,
+  fileName,
+  lineNumber,
+}) => {
+  let formatMessage = message;
 
-  const info = [
-    `级别: ${level}`,
-    `位置: ${fileName} : ${lineNumber}`,
-    `时间: ${moment().format('YYYY-MM-DD hh:mm:ss')}`,
-    `内容: ${_.isString(message) ? message : JSON.stringify(message, null, 2)}`,
-  ];
+  // 根据数据类型, 格式内容
+  switch (Object.prototype.toString.call(message)) {
+  case '[object Array]':
+    formatMessage = message.join('\n');
+    break;
+  case '[object Object]':
+    formatMessage = JSON.stringify(message, null, 2);
+    break;
+  }
 
-  return boxen(info.join('\n'), { padding: 1 });
-};
+  return [
+    '==============================================================================================',
+    `>> 级别: ${level}`,
+    `>> 时间: ${time}`,
+    `>> 位置: ${fileName}: ${lineNumber}`,
+    `>> 内容: \n${formatMessage}`,
+    '==============================================================================================',
+  ].join('\n');
+});
 
 /**
  * TODO: 数据库存储, 自定义 transport 并对日志进行存储
@@ -62,16 +54,38 @@ const printf = ({ level, message }) => {
  * 待输出日志可以是对象(对象中建议使用 label 进行日志标记) 当然也可以是一个字符串
  */
 export default winston.createLogger({
-  // 1. 日志格式化配置
+  // 1. 日志格式化配置: combine 可配置多个参数
   format: winston.format.combine(
-    winston.format.prettyPrint(),                              // 日志打印(输出)前
-    winston.format.printf(printf),                             // 格式化打印内容
+    { // 注入自定义参数
+      transform: (info) => ({
+        ...info,
+        ...getCallInfo(),
+        time: `${moment().format('YYYY-MM-DD hh:mm:ss')}`,
+      }),
+    },
   ),
 
   // 2. 日志输出: 可将日志输出到多个途径
   transports: [
-    // wsTransport,
-    fileTransport,                      // 以日志文件形式存储
-    new winston.transports.Console(),   // 控制台日志输出
+    // 1. WebSocket 输出: 通过 WebSocket 广播日志, 实现客户端日志实时查看
+    new class extends winston.Transport {
+      log (info, callback) {
+        //  console.log('%c [ info, callback ]-11', 'font-size:13px; background:pink; color:#bf2c9f;', info);
+        callback();
+      }
+    },
+
+    // 2. 以日志文件形式存储
+    new DailyRotateFile({
+      maxFiles: '7d',                 // 日志数量限制, 只保存 7 天内的日志(最多: 7 * 24)
+      maxSize: '20m',                 // 文件大小限制
+      format: printString,            // 打印文本内容格式化
+      datePattern: 'YYYY-MM-DD-HH',   // 日志文件划分, 按小时进行划分日志
+      auditFile: new URL('../../logs/auditFile.json', import.meta.url).pathname, // 审计文件目录、文件名
+      filename: new URL('../../logs/%DATE%.log', import.meta.url).pathname, // 输入日志目录、文件名
+    }),
+
+    // 3. 控制台日志输出
+    new winston.transports.Console({ format: printString }),
   ],
 });

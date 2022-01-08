@@ -1,5 +1,5 @@
 // 字符图案
-import logger from './logger.js';
+import logger from '#logger';
 import config from '#config/system';
 
 // 在服务运行完毕打印字符图案
@@ -15,7 +15,7 @@ export const printStartCharPattern = async () => {
     `当前服务：localhost:${config.port}`,
     `graphql 服务：localhost:${config.port}${config.graphql.path}`,
   ];
-  logger.info(pattern.join('\n'));
+  logger.info(pattern);
 };
 
 export const space = {};

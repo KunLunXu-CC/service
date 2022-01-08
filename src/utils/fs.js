@@ -15,46 +15,33 @@ export const readFileList = (dir) => {
     : [dir];
 };
 
-//  ignoredExtensions?: string[];
-//     extensions?: string[];
-//     useRequire?: boolean;
-//     requireMethod?: any;
-//     globOptions?: GlobbyOptions;
-//     exportNames?: string[];
-//     recursive?: boolean;
-//     ignoreIndex?: boolean;
-//     extractExports?: (fileExport: any) => any;
 /**
- * 加载指定目录路径下的所有指定后缀文件
+ * 加载指定目录路径下的所有文件, 并进行处理(导入)
  * @param {String} dir                  指定目录路径
- * @param {String[]} extensions              指定文件后缀, 默认为 .mjs
+ * @param {String[]} extensions         指定文件后缀, 默认为 .js
  * @param {Function} filter             忽略文件, 同 Array.filter 返回 true 则保留: file => boolean
- * @param {Array}  handler              返回对象每个值的处理方法, 默认是使用 import 加载文件
+ * @param {Function} handler            文件的读取处理方法, 默认是使用 import 加载文件
  * @return {Object} { [fileName]: Object }
  */
 export const importFiles = async ({
   dir,
+  handler,
+  extensions = '.js',
   filter = (file) => file,
 }) => {
+  const modules = {};
   const files = readFileList(dir).filter(filter);
 
-  console.log('%c [ files ]', 'font-size:13px; background:pink; color:#bf2c9f;', files);
-  // for (const file of files) {
-  //   const ignore = ignores.includes(file);
+  // 遍历
+  for (const file of files) {
+    const module = handler
+      ? await handler(file)
+      : (await import(file))?.default;
 
-  //   if (!ignore && path.extname(file) === extname) {
-  //     res[path.basename(file).split('.')[0]] = handler
-  //       ? await handler(file)
-  //       : await import(file);
-  //   }
+    modules[path.basename(file, extensions)] = module;
+  }
 
-  //   console.log('%c [ res1 ]', 'font-size:13px; background:pink; color:#bf2c9f;', res, file);
-  // }
-
-  // for (let i = 0; i < files.length; i += 1) {
-  //   console.log('[ i ]', i);
-  //   await import(files[i]);
-  // }
+  return modules;
 };
 
 /**

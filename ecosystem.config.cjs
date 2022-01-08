@@ -15,17 +15,17 @@ module.exports = {
         watch: ['src'],
       },
     },
-    // {
-    //   name: 'cron',  // 定时任务
-    //   script: './src/cron',
-    //   env: {
-    //     NODE_ENV: 'production',
-    //     watch: false,
-    //   },
-    //   env_development: {
-    //     NODE_ENV: 'development',
-    //     watch: ['src/cron'],
-    //   },
-    // },
+    {
+      name: 'cron',  // 定时任务
+      script: 'node -- ./src/cron',
+      env: {
+        NODE_ENV: 'production',
+        watch: false,
+      },
+      env_development: {
+        NODE_ENV: 'development',
+        watch: ['src/cron'],
+      },
+    },
   ],
 };
