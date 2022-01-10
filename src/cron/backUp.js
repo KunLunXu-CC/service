@@ -4,8 +4,6 @@ import emailer from '#utils/emailer';
 import { mkdirPath, readFileList } from '#utils/fs';
 import { $ } from 'zx';
 
-$.quote = (v) => v;
-
 const TMP_DIR = '/tmp/backUp'; // 临时备份目录
 
 // 备份文件, 返回备份文件路径

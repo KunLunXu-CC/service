@@ -26,8 +26,9 @@ export default async (ctx) => {
   if (!result) {
     ctx.body = '身份验证失败!';
   } else if (scripts[repository.name]) {
-    const { repository } = ctx.request.body;
-    setTimeout(scripts[repository.name].bind(null, ctx.request), 0);
+    // TODO: 只有提交 MR 才会触发自动发布
+    // const { repository } = ctx.request.body;
+    // setTimeout(scripts[repository.name].bind(null, ctx.request), 0);
     ctx.body = '匹配成功, 将执行指定脚本';
   } else {
     ctx.body = '未定义该仓库的执行脚本!';

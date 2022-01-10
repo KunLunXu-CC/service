@@ -8,7 +8,7 @@
     "start": "pm2 restart ecosystem.config.cjs --env development && pm2 logs",
     "start:pro": "pm2 start ecosystem.config.js && npm run logs",
     "restart:pro": "pm2 restart ecosystem.config.js",
-    "script": "cross-env NODE_ENV=production node ./src/scripts/index.mjs",
+    "script": "cross-env NODE_ENV=production node ./src/scripts",
     "cz": "qy-cz",
     "release": "qy-release",
     "prepare": "husky install"
