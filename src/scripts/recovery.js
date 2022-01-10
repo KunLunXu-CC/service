@@ -1,28 +1,72 @@
-const ora = require('ora');
-const chalk = require('chalk');
-const boxen = require('boxen');
-const inquirer = require('inquirer');
-const { importFiles } = require('#utils');
+import ora from 'ora';
+import chalk from 'chalk';
+import boxen from 'boxen';
+import shell from 'shelljs';
+import inquirer from 'inquirer';
+import { mkdirPath } from '#utils/fs';
 
-// 1. 获取 choices 配置
-const getChoices = (choices = []) => {
-  // 1. 加载所有脚本配置:
-  // [{ name: '显示名称(不能重复)', exec: async () => {待执行脚本}}]
-  importFiles({
-    dir: new URL('.', import.meta.url).pathname,
-    filter: [new URL('./index.script', import.meta.url).pathname],
-    handler: (dest) => {
-      choices.push(require(dest));
+const choices = [
+  {
+    name: '恢复配置文件(production.js)',
+    exec: async ({ dest }) => {
+      console.log('开始恢复配置文件！');
+
+      if (shell.exec(`
+        sudo cp -f ${dest}/config/production.js ${new URL('../../config/system/index.js/production', import.meta.url).pathname}
+      `).code === 0) {
+        console.log('配置文件已恢复');
+      }
     },
-  });
-  return choices;
-};
+  },
+  {
+    name: '恢复数据库',
+    exec: async ({ dest }) => {
+      // 1. 备份 mongo.blog 数据
+      console.log('开始恢复数据库！');
 
-module.exports = {
+      if (shell.exec(`
+        # 将备份文件拷贝到容器内
+        sudo docker cp ${dest}/databases/blog blog-mongo:/backUp
+
+        # 执行 docker 内部命令进行数据恢复
+        sudo docker exec blog-mongo sh -c 'mongorestore -d blog --drop /backUp'
+
+        # 删除容器内的临时文件
+        sudo docker exec blog-mongo sh -c 'rm -rf /backUp'
+      `).code === 0) {
+        console.log('恢复数据库完成');
+      }
+    },
+  },
+  {
+    name: '恢复 SSL',
+    exec: async ({ dest }) => {
+      console.log('开始恢复 SSL 文件！');
+
+      if (shell.exec(`
+        sudo cp -f ${dest}/ssl/ssl.* ${new URL('../../docker/nginx', import.meta.url).pathname}
+      `).code === 0) {
+        console.log('SSL 文件恢复完成');
+      }
+    },
+  },
+  {
+    name: '恢复静态目录 app/static',
+    exec: async ({ dest }) => {
+      mkdirPath(new URL('../../static', import.meta.url));
+
+      if (shell.exec(`
+        sudo cp -rf ${dest}/static/* ${new URL('../../static', import.meta.url).pathname}
+      `).code === 0) {
+        console.log('静态目录已恢复');
+      }
+    },
+  },
+];
+
+export default {
   name: '数据恢复',
   exec: async () => {
-    const choices = getChoices();
-
     const { dest, execNames, ok } = await inquirer.prompt([
       {
         name: 'dest',

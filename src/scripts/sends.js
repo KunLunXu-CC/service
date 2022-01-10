@@ -1,12 +1,12 @@
-const fs = require('fs');
-const _ = require('lodash');
-const chalk = require('chalk');
-const boxen = require('boxen');
-const shell = require('shelljs');
-const inquirer = require('inquirer');
-const emailer = require('#utils/emailer');
+import fs from 'fs';
+import _ from 'lodash';
+import chalk from 'chalk';
+import boxen from 'boxen';
+import shell from 'shelljs';
+import inquirer from 'inquirer';
+import emailer from '#utils/emailer';
 
-module.exports = {
+export default {
   name: '发送邮件',
   exec: async () => {
     const { subject, text, attachment, to, ok } = await inquirer.prompt([

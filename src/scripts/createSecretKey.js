@@ -1,8 +1,8 @@
-const fs = require('fs');
-const { createRasKey } = require('#utils/encryption');
+import fs from 'fs';
+import { createRasKey } from '#utils/encryption';
 
 // 创建公钥、私钥
-module.exports = {
+export default {
   name: '创建公钥、私钥',
   exec: async () => {
     const { privateKey, publicKey } = createRasKey();
