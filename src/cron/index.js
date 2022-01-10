@@ -2,6 +2,9 @@
 import logger from '#logger';
 import { CronJob } from 'cron';
 import { importFiles } from '#utils/fs';
+import { $ } from 'zx';
+
+$.quote = (v) => v;
 
 // 1. 读取所有定时定时任务配置
 const crons = Object.values(await importFiles({

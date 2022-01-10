@@ -1,16 +1,17 @@
-const inquirer = require('inquirer');
+import inquirer from 'inquirer';
 
-const mongoose = require('mongoose');
-const { importFiles } = require('#utils');
-const { STATUS } = require('#config/consts');
+import mongoose from 'mongoose';
+import { importFiles } from '#utils/fs';
+import { STATUS } from '#config/consts';
 
-module.exports = {
+export default {
   name: '清理数据(删除假删数据)',
   exec: async () => {
     // 1. 读取表, 并选择要清除的表
-    const files = importFiles({
-      dir: new URL('../../models', import.meta.url).pathname,
+    const files = await importFiles({
+      dir: new URL('../mongo/models', import.meta.url).pathname,
     });
+
     const { dbList } = await inquirer.prompt([
       {
         choices: Object.entries(files).map(([value, { title: name }]) => ({

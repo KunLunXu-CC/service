@@ -1,12 +1,12 @@
-const fs = require('fs');
-const _ = require('lodash');
-const chalk = require('chalk');
-const boxen = require('boxen');
-const shell = require('shelljs');
-const inquirer = require('inquirer');
-const emailer = require('#utils/emailer');
+import fs from 'fs';
+import _ from 'lodash';
+import chalk from 'chalk';
+import boxen from 'boxen';
+import inquirer from 'inquirer';
+import emailer from '#utils/emailer';
+import { $ } from 'zx';
 
-module.exports = {
+export default {
   name: '发送邮件',
   exec: async () => {
     const { subject, text, attachment, to, ok } = await inquirer.prompt([
@@ -70,9 +70,14 @@ module.exports = {
 
     // 判断指定附件类型是否是目录, 是则进行压缩发送
     if (attachments[0].path && fs.statSync(attachments[0].path).isDirectory()) {
+      // 1. 获取文件名
       const fileName = _.last(attachments[0].path.split('/').filter((v) => v));
-      tarPath = `${new URL('.', import.meta.url).pathname}/${fileName}.tar.gz`;
-      shell.exec(`cd ${attachments[0].path} && tar -zcvf ${tarPath} ./*`);
+
+      // 2. 压缩包路径
+      tarPath = new URL(`./${fileName}.tar.gz`, import.meta.url).pathname;
+
+      // 3. 压缩文件
+      await $`cd ${attachments[0].path} && tar -zcvf ${tarPath} ./*`;
       attachments[0].path = tarPath;
     }
 
@@ -86,11 +91,11 @@ module.exports = {
       });
     } catch (e) {
       // 删除压缩文件
-      tarPath && shell.rm('-rf', tarPath);
+      tarPath && await $`sudo rm -rf ${tarPath}`;
       throw new Error(e);
     }
 
     // 如果发送的是文件则删除压缩文件
-    tarPath && shell.rm('-rf', tarPath);
+    tarPath && await $`sudo rm -rf ${tarPath}`;
   },
 };
