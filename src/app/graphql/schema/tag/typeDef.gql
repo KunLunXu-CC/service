@@ -1,0 +1,82 @@
+# 标签(知识标签)
+extend type Query{
+  tags(
+    orderBy: OrderBy
+    search: TagSearch
+    pagination: Pagination
+  ): Tags
+
+  # 查询所有标签下具有文章的标签列表
+  tagsWithArticles(
+    orderBy: OrderBy        # 返回标签的排序
+    search: ArticleSearch   # 查询条件(根据条件查询所有文章返回其下所有 tag)
+  ): Tags
+}
+
+extend type Mutation{
+  removeTags (
+    conds: TagSearch!
+    orderBy: OrderBy
+    search: TagSearch
+    pagination: Pagination
+  ): Tags @auth
+
+  createTags (
+    body: [TagFields!]!
+    orderBy: OrderBy
+    search: TagSearch
+    pagination: Pagination
+  ): Tags @auth
+
+  updateTags (
+    conds: TagSearch!
+    body: TagFields!
+    orderBy: OrderBy
+    search: TagSearch
+    pagination: Pagination
+  ): Tags @auth
+}
+
+input TagFields {
+  name: String
+  parent: ID
+  color: String
+  icon: String
+}
+
+input TagSearch {
+  id: ID
+  ids: [ID!]
+  parent: ID
+  creator: ID
+  updater: ID
+  name: String
+  color: String
+  icon: String
+  startUpdateTime: Date
+  endUpdateTime: Date
+  startCreationTime: Date
+  endCreationTime: Date
+  status: [Int]
+}
+
+type Tags{
+  list: [Tag]
+  change: [Tag]
+  message: String
+  pagination: Pagination
+}
+
+type Tag {
+  parent: Tag @relation
+  color: String
+  icon: String
+
+  id: ID
+  name: String
+  status: Int
+  creator: User @relation
+  updater: User @relation
+  updateTime: Date
+  creationTime: Date
+}

@@ -1,0 +1,77 @@
+# 看板任务
+extend type Query {
+  kanbanTasks (
+    orderBy: OrderBy
+    search: KanbanTaskSearch
+    pagination: Pagination
+  ): KanbanTasks
+}
+
+extend type Mutation {
+  removeKanbanTasks (
+    conds: KanbanTaskSearch!
+    orderBy: OrderBy
+    search: KanbanTaskSearch
+    pagination: Pagination
+  ): KanbanTasks @auth
+
+  createKanbanTasks (
+    body: [KanbanTaskFields!]!
+    orderBy: OrderBy
+    search: KanbanTaskSearch
+    pagination: Pagination
+  ): KanbanTasks @auth
+
+  updateKanbanTasks (
+    conds: KanbanTaskSearch!
+    body: KanbanTaskFields!
+    orderBy: OrderBy
+    search: KanbanTaskSearch
+    pagination: Pagination
+  ): KanbanTasks @auth
+}
+
+input KanbanTaskFields {
+  name: String
+  desc: String
+  kanban: ID
+  group: ID
+}
+
+input KanbanTaskSearch {
+  desc: String
+  kanban: ID
+  group: ID
+
+  id: ID
+  ids: [ID!]
+  creator: ID
+  updater: ID
+  name: String
+  startUpdateTime: Date
+  endUpdateTime: Date
+  startCreationTime: Date
+  endCreationTime: Date
+  status: [Int]
+}
+
+type KanbanTasks {
+  list: [KanbanTask]
+  change: [KanbanTask]
+  message: String
+  pagination: Pagination
+}
+
+type KanbanTask {
+  desc: String
+  kanban: Kanban @relation
+  group: KanbanGroup @relation
+
+  id: ID
+  name: String
+  status: Int
+  creator: User @relation
+  updater: User @relation
+  updateTime: Date
+  creationTime: Date
+}

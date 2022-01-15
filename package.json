@@ -3,32 +3,45 @@
   "version": "2.2.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "logs": "pm2 logs",
-    "start": "pm2 start ecosystem.config.js --env development",
-    "commit": "git-cz",
-    "add": "git add --all && git reset -- */development.js",
-    "release": "standard-version --release-as",
-    "release:100": "npm run release -- major",
-    "release:010": "npm run release -- minor",
-    "release:001": "npm run release -- patch",
+    "start": "pm2 restart ecosystem.config.cjs --env development && pm2 logs",
     "start:pro": "pm2 start ecosystem.config.js && npm run logs",
     "restart:pro": "pm2 restart ecosystem.config.js",
-    "script": "cross-env NODE_ENV=production node ./scripts"
+    "script": "cross-env NODE_ENV=production node ./src/scripts",
+    "cz": "qy-cz",
+    "release": "qy-release",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "imports": {
+    "#src/*": "./src/*.js",
+    "#app/*": "./src/app/*.js",
+    "#utils/*": "./src/utils/*.js",
+    "#config/*": "./src/config/*.js",
+    "#service/*": "./src/app/service/*.js",
+    "#ws": "./src/app/ws/index.js",
+    "#utils": "./src/utils/index.js",
+    "#mongo": "./src/mongo/index.js",
+    "#logger": "./src/utils/logger.js",
+    "#graphql": "./src/app/graphql/index.js",
+    "#middleware": "./src/app/middleware/index.js"
+  },
   "dependencies": {
-    "apollo-server-koa": "^2.9.4",
+    "@graphql-tools/schema": "^8.2.0",
+    "@graphql-tools/utils": "^8.2.4",
+    "@koa/cors": "^3.1.0",
+    "@koa/router": "^10.1.1",
+    "apollo-server-koa": "^3.3.0",
     "cron": "^1.7.2",
     "echarts": "^4.8.0",
-    "graphql": "^14.5.8",
+    "graphql": "^15.6.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.8.2",
     "koa-body": "^4.1.1",
     "koa-router": "^9.0.1",
-    "koa2-cors": "^2.0.6",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "mongoose": "^5.7.1",
@@ -43,28 +56,14 @@
     "ws": "^6.2.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-angular": "^8.2.0",
     "boxen": "^4.2.0",
     "chalk": "^3.0.0",
-    "commitizen": "^4.0.3",
     "cross-env": "^6.0.3",
-    "cz-conventional-changelog": "^3.0.2",
-    "husky": "^3.0.7",
     "inquirer": "^7.1.0",
     "ora": "^4.0.3",
-    "pm2": "^4.5.0",
+    "pm2": "^5.1.2",
+    "qy-norm": "^1.4.9",
     "shelljs": "^0.8.4",
-    "standard-version": "^7.0.0"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
+    "zx": "^4.2.0"
   }
 }

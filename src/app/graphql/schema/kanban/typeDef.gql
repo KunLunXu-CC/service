@@ -1,0 +1,71 @@
+# 看板
+extend type Query {
+  kanbans (
+    orderBy: OrderBy
+    search: KanbanSearch
+    pagination: Pagination
+  ): Kanbans
+}
+
+extend type Mutation {
+  removeKanbans (
+    conds: KanbanSearch!
+    orderBy: OrderBy
+    search: KanbanSearch
+    pagination: Pagination
+  ): Kanbans @auth
+
+  createKanbans (
+    body: [KanbanFields!]!
+    orderBy: OrderBy
+    search: KanbanSearch
+    pagination: Pagination
+  ): Kanbans @auth
+
+  updateKanbans (
+    conds: KanbanSearch!
+    body: KanbanFields!
+    orderBy: OrderBy
+    search: KanbanSearch
+    pagination: Pagination
+  ): Kanbans @auth
+}
+
+input KanbanFields {
+  name: String
+  desc: String
+}
+
+input KanbanSearch {
+  desc: String
+
+  id: ID
+  ids: [ID!]
+  creator: ID
+  updater: ID
+  name: String
+  startUpdateTime: Date
+  endUpdateTime: Date
+  startCreationTime: Date
+  endCreationTime: Date
+  status: [Int]
+}
+
+type Kanbans {
+  list: [Kanban]
+  change: [Kanban]
+  message: String
+  pagination: Pagination
+}
+
+type Kanban {
+  desc: String
+
+  id: ID
+  name: String
+  status: Int
+  creator: User @relation
+  updater: User @relation
+  updateTime: Date
+  creationTime: Date
+}
