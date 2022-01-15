@@ -1,0 +1,74 @@
+# 看板分组
+extend type Query {
+  kanbanGroups (
+    orderBy: OrderBy
+    search: KanbanGroupSearch
+    pagination: Pagination
+  ): KanbanGroups
+}
+
+extend type Mutation {
+  removeKanbanGroups (
+    conds: KanbanGroupSearch!
+    orderBy: OrderBy
+    search: KanbanGroupSearch
+    pagination: Pagination
+  ): KanbanGroups @auth
+
+  createKanbanGroups (
+    body: [KanbanGroupFields!]!
+    orderBy: OrderBy
+    search: KanbanGroupSearch
+    pagination: Pagination
+  ): KanbanGroups @auth
+
+  updateKanbanGroups (
+    conds: KanbanGroupSearch!
+    body: KanbanGroupFields!
+    orderBy: OrderBy
+    search: KanbanGroupSearch
+    pagination: Pagination
+  ): KanbanGroups @auth
+}
+
+input KanbanGroupFields {
+  name: String
+  desc: String
+  kanban: ID
+}
+
+input KanbanGroupSearch {
+  desc: String
+  kanban: ID
+
+  id: ID
+  ids: [ID!]
+  creator: ID
+  updater: ID
+  name: String
+  startUpdateTime: Date
+  endUpdateTime: Date
+  startCreationTime: Date
+  endCreationTime: Date
+  status: [Int]
+}
+
+type KanbanGroups {
+  list: [KanbanGroup]
+  change: [KanbanGroup]
+  message: String
+  pagination: Pagination
+}
+
+type KanbanGroup {
+  desc: String
+  kanban: Kanban @relation
+
+  id: ID
+  name: String
+  status: Int
+  creator: User @relation
+  updater: User @relation
+  updateTime: Date
+  creationTime: Date
+}

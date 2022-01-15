@@ -6,8 +6,7 @@ authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGM3NGIyYzRiMWI0
 mutation {
   createAlgorithms (
     body: [{
-      content: "内容1",
-      tags: [1],
+      content: "内-新增",
     }]
   ){
     list { id content }
