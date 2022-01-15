@@ -48,7 +48,7 @@ services:
     depends_on:
       - node
     volumes:
-      - ./nginx/html/dist:/usr/share/nginx/html
+      - ./nginx/html:/usr/share/nginx/html
       - ../app/static:/usr/share/nginx/html/service/static
 
       - ./store/nginx/logs/:/var/log/nginx
