@@ -23,8 +23,8 @@ await graphql(app); // graphql 服务
 const server = config.https
   ? https.createServer(
     {
-      key: fs.readFileSync(new URL('../docker/nginx/ssl.key', import.meta.url)),
-      cert: fs.readFileSync(new URL('../docker/nginx/ssl.pem', import.meta.url)),
+      key: fs.readFileSync(new URL('../../docker/nginx/ssl.key', import.meta.url)),
+      cert: fs.readFileSync(new URL('../../docker/nginx/ssl.pem', import.meta.url)),
     },
     app.callback(),
   ).listen(config.port, printStartCharPattern)
