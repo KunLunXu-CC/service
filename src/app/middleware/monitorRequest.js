@@ -20,22 +20,16 @@ const intercept = (ctx) => {
 };
 
 // 打印请求信息: (请求接口、请求参数、响应状态、响应体)
-const printRequestInfo = (ctx) => {
-  const {
-    body,
-    request: {
-      url,
-      method,
-      body: { query, variables, operationName },
-    },
-  } = ctx;
+const printRequestInfo = ({ body: response, request }) => {
+  const { body: requestBody, url, method } = request;
+  const { query, variables, operationName } = requestBody || {};
 
   if (operationName === 'IntrospectionQuery') {
     return false;
   }
 
   const info = {
-    response: body,
+    response,
     url: `${method} ${url}`,
     gq: { query, variables },
   };
