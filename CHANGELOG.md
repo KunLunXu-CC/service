@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/qianyin925/blog-service/compare/v2.2.0...v3.0.0) (2022-01-16)
+
+
+### Features
+
+* 【client】编辑器调整 ([91df761](https://github.com/qianyin925/blog-service/commit/91df76180422cb09f6fabc9bc5cecdb873555b5a))
+* 【client】日记编辑直接保存失败 ([8ddabb2](https://github.com/qianyin925/blog-service/commit/8ddabb2c29aa5ce62ed2d564f74c69fb8cab882d))
+* 【client】字典允许配置 icon ([fc97f70](https://github.com/qianyin925/blog-service/commit/fc97f70a50cfffa70ec2bdb4c23e6f3b00a57a18))
+* 【serve】看板模块接口实现 ([9dc6457](https://github.com/qianyin925/blog-service/commit/9dc6457bf3e07e8da9fb1d8d0f0d8aad4a1f7451))
+* 【serve】qraphql 新增修饰器: 翻译字典 ([d5e4852](https://github.com/qianyin925/blog-service/commit/d5e48521da50e90a85962bf25081e0fca71e6e91))
+* 【server】添加 appleTouchbar 接口供 touchbar 调用 ([6704e9a](https://github.com/qianyin925/blog-service/commit/6704e9ad7b63ec3d77283c0affbdf2148594fe87))
+* 【server】新增 graphql 修饰器根据指定 id 查询关联数据 ([7068b73](https://github.com/qianyin925/blog-service/commit/7068b73b30ff3146c42db4b351bb18bee29fcd38))
+* 【server】node 日志输出控制 ([18dd2ef](https://github.com/qianyin925/blog-service/commit/18dd2ef23426b337ea34ef6f8409a793743310df))
+* 【service】【脚本】为用户添加应用脚本更新 ([e0a823b](https://github.com/qianyin925/blog-service/commit/e0a823bb7937c1c94660481c813515951e06f778))
+* 🎸 【【server】cron】 https://www.tapd.cn/58837035/prong/stories/view/1158837035001000738 ([c5c7a18](https://github.com/qianyin925/blog-service/commit/c5c7a181a9acd132a776310cd2093e71bd79c37e))
+* 🎸 【【server】logger】 https://www.tapd.cn/58837035/prong/stories/view/1158837035001000741 ([028f2fa](https://github.com/qianyin925/blog-service/commit/028f2fa4faee8d50a2ec26563b788881758be11c))
+* 🎸 【发布新版】 https://www.tapd.cn/58837035/prong/stories/view/1158837035001000736 ([bb95b48](https://github.com/qianyin925/blog-service/commit/bb95b487c566533e148eb2203d404c539c2cfc08))
+* 🎸 【服务端脚本系统, 重构测试】 https://www.tapd.cn/58837035/prong/stories/view/1158837035001000732 ([5872cab](https://github.com/qianyin925/blog-service/commit/5872cab5dd41cbbd9a8aa1b2451a1e6d800002c8))
+* 🎸 add qy-norm ([13ee4a5](https://github.com/qianyin925/blog-service/commit/13ee4a53e3a06a616698a90418c6183ebd11cbeb))
+* 🎸 use es6 module ([0cab035](https://github.com/qianyin925/blog-service/commit/0cab035d8ef1984f61e8995c88ec165f0dc9dcd7))
+* 定时备份 debug ([06320a7](https://github.com/qianyin925/blog-service/commit/06320a78620c791c12534d81cf9ab07b44ea21a7))
+* 定时任务调整 ([36b40ed](https://github.com/qianyin925/blog-service/commit/36b40edc6ff2a3effe15f163cdbae87ce53d070f))
+* 更新容器 ([bf8ffea](https://github.com/qianyin925/blog-service/commit/bf8ffea443f6e1393bd6c40b36a0b26e55a6ed47))
+* 更新依赖 ([ccfe7dc](https://github.com/qianyin925/blog-service/commit/ccfe7dc570a25b0b6b3bafe1b663f30bfaa8ce81))
+* 日志系统调整, 日志输出内容格式化 ([2525a9e](https://github.com/qianyin925/blog-service/commit/2525a9e885761ce6b4b7f584454f750918afb45c))
+* add snippets model ([3a223b6](https://github.com/qianyin925/blog-service/commit/3a223b6bce7595026cdee749bd89c5c4ed389662))
+* docker 调整 ([7aaa674](https://github.com/qianyin925/blog-service/commit/7aaa6746612c9ac7dba2cddcb7dafccea032afe8))
+* docker 调整 ([af97846](https://github.com/qianyin925/blog-service/commit/af978464a956deed947ec5707f4a5decd5a6914d))
+* orderBy 新增字段 ([c3a5429](https://github.com/qianyin925/blog-service/commit/c3a5429bcf7988491b00437a9992766f9bbf29ca))
+* update readme ([becd594](https://github.com/qianyin925/blog-service/commit/becd59480d7bf696488b2c78f97c211a1b1311d5))
+
+
+### Bug Fixes
+
+* 请求文章列表无法正确返回 tags ([9c1d9ef](https://github.com/qianyin925/blog-service/commit/9c1d9ef6a3273088be6a84f5dcd8af974fc42522))
+
 ## [2.2.0](https://github.com/qianyin925/blog_service/compare/v1.1.0...v2.2.0) (2020-06-12)
 
 
