@@ -48,7 +48,7 @@ const choices = [
   {
     name: '恢复静态目录 app/static',
     exec: async ({ dest }) => {
-      mkdirPath(new URL('../../static', import.meta.url));
+      mkdirPath(new URL('../app/static', import.meta.url));
 
       if (shell.exec(`
         sudo cp -rf ${dest}/static/* ${new URL('../app/static', import.meta.url).pathname}
