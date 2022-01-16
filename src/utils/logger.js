@@ -27,12 +27,12 @@ const printString = winston.format.printf(({
 
   // 根据数据类型, 格式内容
   switch (Object.prototype.toString.call(message)) {
-  case '[object Array]':
-    formatMessage = message.join('\n');
-    break;
-  case '[object Object]':
-    formatMessage = JSON.stringify(message, null, 2);
-    break;
+    case '[object Array]':
+      formatMessage = message.join('\n');
+      break;
+    case '[object Object]':
+      formatMessage = JSON.stringify(message, null, 2);
+      break;
   }
 
   return [
