@@ -22,7 +22,7 @@
     "#utils/*": "./src/utils/*.js",
     "#config/*": "./src/config/*.js",
     "#service/*": "./src/app/service/*.js",
-    "#ws": "./src/app/ws/index.js",
+    "#ws": "./src/ws/index.js",
     "#utils": "./src/utils/index.js",
     "#mongo": "./src/mongo/index.js",
     "#logger": "./src/utils/logger.js",

@@ -5,7 +5,6 @@ import mongo from '#mongo';
 import moment from 'moment';
 import graphql from '#graphql';
 import router from '#app/router';
-import createWebSockets from '#ws';
 import config from '#config/system';
 import middleware from '#middleware';
 import { printStartCharPattern } from '#utils/charPattern';
@@ -20,7 +19,7 @@ router(app);        // 路由
 await graphql(app); // graphql 服务
 
 // 创建服务
-const server = config.https
+config.https
   ? https.createServer(
     {
       key: fs.readFileSync(new URL('../../docker/nginx/ssl.key', import.meta.url)),
@@ -29,6 +28,3 @@ const server = config.https
     app.callback(),
   ).listen(config.port, printStartCharPattern)
   : app.listen(config.port, printStartCharPattern);
-
-// 创建 WebSocket 服务(多个、根据路由进行分发)
-createWebSockets(server);

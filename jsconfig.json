@@ -8,7 +8,7 @@
       "#config/*": ["src/config/*"],
       "#service/*": ["src/app/service/*"],
 
-      "#ws": ["src/app/ws/index.js"],
+      "#ws": ["src/ws/index.js"],
       "#mongo": ["src/mongo/index.js"],
       "#logger": ["src/utils/logger.js"],
       "#graphql": ["src/app/graphql/index.js"],
