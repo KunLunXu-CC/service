@@ -14,11 +14,14 @@ const privateKey = fs.readFileSync(
 );
 
 export default {
+  port: 4000,                      // 系统应用端口
   https: false,                    // 是否开启 https
+  serviceKey: 'serviceKey',        // 后台服务 Key
+
   publicKey,                       // 公钥
   privateKey,                      // 私钥
 
-  port: 4000,                      // 系统应用端口
+  wsPort: 4001,                    // ws 端口
 
   corsOrigin: '*',                 // 跨域设置支持正则, 设置 Access-Control-Allow-Origin, https://www.qianyin925.com
 

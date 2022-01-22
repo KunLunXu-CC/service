@@ -1,9 +1,10 @@
-import WebSocket from 'ws';
 import mongoose from 'mongoose';
+import { WebSocketServer } from 'ws';
 import { APP_CODE } from '#config/consts';
 import { verifyJwt } from '#utils/encryption';
 
-const wss = new WebSocket.Server({ noServer: true });
+const wss = new WebSocketServer({ noServer: true });
+
 
 wss.on('connection', async (ws) => {
   // 1. 对 ws.protocol(JWT) 进行校验
@@ -18,22 +19,4 @@ wss.on('connection', async (ws) => {
   !(role.auth || []).find((v) => v.code === APP_CODE.LOGGER) && ws.close();
 });
 
-export default wss;
-
-/*
-// 前端连接: protocol 身份校验(JWT)
-var ws = new WebSocket('ws://localhost:4000/ws/logger', 'protocol');
-
-ws.onopen = function(evt) {
-  console.log('Connection open ...');
-  ws.send('Hello WebSockets! logger');
-};
-
-ws.onmessage = function(evt) {
-  console.log( 'Received Message: ', JSON.parse(evt.data));
-};
-
-ws.onclose = function(evt) {
-  console.log('Connection closed.');
-};
-*/
+export default { wss, path: '/logger' };
