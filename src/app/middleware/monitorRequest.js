@@ -39,8 +39,8 @@ export default async (ctx, next) => {
   try {
     await next();
   } catch (error) {
-    ctx.status = 500
-    ctx.body = { error }
+    ctx.status = 500;
+    ctx.body = { error };
   } finally {
     // 1. 请求拦截
     intercept(ctx);
