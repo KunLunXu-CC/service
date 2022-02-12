@@ -3,86 +3,138 @@ import logger from '#logger';
 import emailer from '#utils/emailer';
 import { mkdirPath, readFileList } from '#utils/fs';
 import { $ } from 'zx';
+$.quote = (v) => v;
 
-const TMP_DIR = '/tmp/backUp'; // 临时备份目录
+// 1. 临时备份目录
+const TMP_DIR = '/tmp/backUp';
 
-// 备份文件, 返回备份文件路径
-const backups = async () => {
-  // 1. 备份配置文件
-  mkdirPath(`${TMP_DIR}/config`);
-  await $`
-    cp -rf \
-    ${new URL('../config/system.js', import.meta.url).pathname} \
-    ${TMP_DIR}/config
-  `;
+// 2. 备份路径
+const backUpPath = `${TMP_DIR}_${moment().format('YYYY_MM_DD__hh_mm_ss')}.tar.gz`;
 
-  // 2. 备份 ssl
-  mkdirPath(`${TMP_DIR}/ssl`);
-  await $`
-    cp -rf \
-    ${new URL('../../docker/nginx/ssl.*', import.meta.url).pathname} \
-    ${TMP_DIR}/ssl
-  `;
+// 3. 任务步骤
+const step = [
+  {
+    title: '备份配置文件',
+    tick: async () => {
+      const path = `${TMP_DIR}/config`;
+      mkdirPath(path);
+      await $`
+        cp -rf \
+        ${new URL('../config/system.js', import.meta.url).pathname} \
+        ${path}
+      `;
+      return `备份配置文件 (${path}/system.js) 成功!`;
+    },
+  },
+  {
+    title: '备份 SSL',
+    tick: async () => {
+      const path = `${TMP_DIR}/ssl`;
+      mkdirPath(path);
+      await $`
+        cp -rf \
+        ${new URL('../../docker/nginx/ssl.*', import.meta.url).pathname} \
+        ${path}
+      `;
+      return `备份 SSL (${path}/ssl.*) 成功!`;
+    },
+  },
+  {
+    title: '备份数据库',
+    tick: async () => {
+      const path = `${TMP_DIR}/databases`;
+      mkdirPath(path);
 
-  // TODO: 备份静态资源(后面将资源放到七牛云、备不备份, 怎么备份再说)
+      // 1 读取所有 mongo 备份文件并进行排序
+      const mongoBackups = readFileList(
+        new URL('../../docker/store/mongo/backups/', import.meta.url).pathname,
+      ).sort((a, b) => (b.localeCompare(a))[0]);
 
-  // 3. 备份数据库
-  mkdirPath(`${TMP_DIR}/databases`);
+      // 2 空值处理
+      if (!mongoBackups) {
+        return '备份数据库不存在!';
+      }
 
-  // 3.1 读取所有 mongo 备份文件并进行排序
-  const mongoBackups = readFileList(
-    new URL('../../docker/store/mongo/backups/', import.meta.url).pathname,
-  ).sort((a, b) => (b.localeCompare(a))[0]);
-    // 3.2 解压
-  mongoBackups && await $`tar zxvf ${mongoBackups} -C ${TMP_DIR}/databases`;
-
-  // 4 压缩备份文件
-  const backUpPath = `${TMP_DIR}_${moment().format('YYYY_MM_DD__hh_mm_ss')}.tar.gz`;
-  await $`cd ${TMP_DIR} && tar -zcvf ${backUpPath} ./*`;
-
-  // 5. 删除临时备份目录
-  await $`rm -rf ${TMP_DIR}`;
-
-  return backUpPath;
-};
+      // 3 解压
+      await $`tar zxvf ${mongoBackups} -C ${path}`;
+      return `备份数据库文件 (${path}) 成功!`;
+    },
+  },
+  {
+    title: '压缩备份文件',
+    tick: async () => {
+      await $`cd ${TMP_DIR} && tar -zcvf ${backUpPath} ./*`;
+      return `压缩备份文件 (${backUpPath}) 成功!`;
+    },
+  },
+  {
+    title: '删除临时备份目录',
+    tick: async () => {
+      await $`rm -rf ${TMP_DIR}`;
+      return `删除临时备份目录(${TMP_DIR})成功!`;
+    },
+  },
+  {
+    title: '发生邮件',
+    tick: async () => {
+      await emailer({
+        // 邮件内容(html)
+        html: `
+          <div>
+            <h2>个人网站数据备份</h2>
+            <h3>备份内容如下:</h3>
+            <p style="text-indent: 2em;">
+            1. 生产环境配置文件: system.js
+            </p>
+            <p style="text-indent: 2em;">
+            2. SSL 证书: ssl.pem ssl.key
+            </p>
+            <p style="text-indent: 2em;">
+            3. 数据库备份: mongo.blog
+            </p>
+            <p style="text-indent: 2em;">
+            4. 服务端静态资源备份: app/static
+            </p>
+            <p style="font-size:12px;text-align: right;">
+              当前时间: ${moment().format('YYYY-MM-DD hh:mm:ss')}
+            </p>
+          </div>
+        `,
+        subject: '个人网站数据备份',            // 邮件主题
+        attachments: [{ path: backUpPath }], // 附件
+      });
+      return '发送邮件成功!';
+    },
+  },
+  {
+    title: '删除备份文件',
+    tick: async () => {
+      await $`rm -rf ${backUpPath}`;
+      return `删除备份文件 (${backUpPath}) 成功`;
+    },
+  },
+];
 
 // 任务函数
 const onTick = async () => {
-  // 1. 备份
-  const backupPath = await backups();
+  // 1. 日志收集
+  const loggers = [];
 
-  // 2. 发送邮件
-  await emailer({
-    // 邮件内容(html)
-    html: `
-      <div>
-        <h2>个人网站数据备份</h2>
-        <h3>备份内容如下:</h3>
-        <p style="text-indent: 2em;">
-        1. 生产环境配置文件: production.js
-        </p>
-        <p style="text-indent: 2em;">
-        2. SSL 证书: ssl.pem ssl.key
-        </p>
-        <p style="text-indent: 2em;">
-        3. 数据库备份: mongo.blog
-        </p>
-        <p style="text-indent: 2em;">
-        4. 服务端静态资源备份: app/static
-        </p>
-        <p style="font-size:12px;text-align: right;">
-          当前时间: ${moment().format('YYYY-MM-DD hh:mm:ss')}
-        </p>
-      </div>
-    `,
-    subject: '个人网站数据备份',            // 邮件主题
-    attachments: [{ path: backupPath }], // 附件
-  }).catch((error) => {
-    logger.error({ error, label: '个人网站数据备份失败' });
-  });
+  // 2. 循环执行任务
+  for (const { title, tick } of step) {
+    const log = { title };
 
-  // 删除备份文件
-  $`rm -rf ${backupPath}`;
+    try {
+      log.res = await tick();
+    } catch (error) {
+      log.error = error;
+    }
+
+    loggers.push(log);
+  }
+
+  // 3. 打印日志
+  logger.info(loggers);
 };
 
 export default {
