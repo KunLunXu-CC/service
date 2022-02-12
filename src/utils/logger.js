@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import moment from 'moment';
 import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
@@ -9,9 +10,10 @@ const getCallInfo = function () {
   const { stack } = new Error;
   Error.prepareStackTrace = orig; // 恢复
   // getPosition getFunction  getFunctionName getFileName getLineNumber
+  const currentStack = _.last(stack.filter((v) => /^file/.test(v?.getFileName())));
   return {
-    fileName: stack[10]?.getFileName(),
-    lineNumber: stack[10]?.getLineNumber(),
+    fileName: currentStack?.getFileName(),
+    lineNumber: currentStack?.getLineNumber(),
   };
 };
 
@@ -28,7 +30,9 @@ const printString = winston.format.printf(({
   // 根据数据类型, 格式内容
   switch (Object.prototype.toString.call(message)) {
     case '[object Array]':
-      formatMessage = message.join('\n');
+      formatMessage = message.reduce((total, ele) => (
+        `${total}\n${_.isString(ele) ? ele : JSON.stringify(ele, null, 2)}`
+      ), '');
       break;
     case '[object Object]':
       formatMessage = JSON.stringify(message, null, 2);

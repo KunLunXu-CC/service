@@ -2,9 +2,6 @@
 import logger from '#logger';
 import { CronJob } from 'cron';
 import { importFiles } from '#utils/fs';
-import { $ } from 'zx';
-
-$.quote = (v) => v;
 
 // 1. 读取所有定时定时任务配置
 const crons = Object.values(await importFiles({
@@ -18,7 +15,7 @@ const crons = Object.values(await importFiles({
  * 2. onComplete 当通过停止作业时将触发的函数(没有则设置为 null)
  * 3. onTick 定时任务
  */
-crons.map((setting) => new CronJob(
+crons.map((setting) => setting?.cronTime && new CronJob(
   setting.cronTime,
   setting.onTick,
   setting.onComplete,

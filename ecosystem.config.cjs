@@ -4,7 +4,6 @@ module.exports = {
   apps: [
     {
       name: 'app',
-      watch: true,
       script: 'node -- ./src/app',
       env: {
         NODE_ENV: 'production',
@@ -17,7 +16,6 @@ module.exports = {
     },
     {
       name: 'ws',
-      watch: true,
       script: 'node -- ./src/ws',
       env: {
         NODE_ENV: 'production',
