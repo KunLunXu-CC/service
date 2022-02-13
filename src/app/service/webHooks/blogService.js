@@ -38,9 +38,9 @@ const step = [
       setTimeout(async () => {
         const { exitCode } = await $`npm run restart:pro`;
         logger.info(`[webhooks] 服务重启 ${exitCode === 0 ? '成功' : '失败'}`);
-      }, 1000);
+      }, 1000 * 10);
 
-      return  '1 秒后将重启项目!';
+      return  '10 秒后将重启项目!';
     },
   },
 ];
