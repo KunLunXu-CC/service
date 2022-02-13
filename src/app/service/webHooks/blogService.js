@@ -1,64 +1,75 @@
-import shell from 'shelljs';
 import logger from '#logger';
+import { $ } from 'zx';
+$.quote = (v) => v;
 
+const step = [
+  {
+    title: '进入项目根目录',
+    tick: async () => {
+      const path = new URL('../../../../', import.meta.url).pathname;
+      await $`cd ${path}`;
+      return `进入项目根目录 (${path}) 成功!`;
+    },
+  },
+  {
+    title: '拉取最新代码',
+    tick: async () => {
+      await $`git pull`;
+      return  '拉取最新代码成功!';
+    },
+  },
+  {
+    title: '安装项目依赖',
+    tick: async () => {
+      await $`npm i`;
+      return  '安装项目依赖成功!';
+    },
+  },
+  {
+    title: '安装项目依赖',
+    tick: async () => {
+      await $`npm i`;
+      return  '安装项目依赖成功!';
+    },
+  },
+  {
+    title: '重启项目',
+    tick: async () => {
+      setTimeout(async () => {
+        const { exitCode } = await $`npm run restart:pro`;
+        logger.info(`[webhooks] 服务重启 ${exitCode === 0 ? '成功' : '失败'}`);
+      }, 1000);
+
+      return  '1 秒后将重启项目!';
+    },
+  },
+];
+
+// tick
 export default async ({ body }) => {
   const { repository, ref } = body;
 
+  // 1. 空值处理
   if (ref !== 'refs/heads/master') {
-    logger.info('[webhooks] 提交非 master 分支代码, 结束!');
+    logger.info('[webhooks] 提交非 master 分支代码, 不进行任何操作!');
     return false;
   }
 
-  // 1. 提示: 脚本开始
-  logger.info(`=======>>>> [webhooks] ${repository.name}: submit new code <<<<=======`);
+  // 2. 日志收集
+  const logs = [
+    `[webhooks] ${repository.name}: 往 master 提交新代码, 服务将进行重启`,
+  ];
 
-  // 2. 进入项目目录
-  shell.cd(new URL('../../../', import.meta.url).pathname);
+  for (const { title, tick } of step) {
+    const log = { title };
 
-  logger.info(`1. [success] 进入项目目录: ${shell.pwd()}`);
+    try {
+      log.res = await tick();
+    } catch (error) {
+      log.error = error;
+    }
 
-  // 3. 撤销 git 的所有本地修改
-  if (shell.exec(`
-    git fetch --all  && \
-    git reset --hard origin/master  && \
-    git clean -df
-  `).code !== 0) {
-    logger.info('2. [fail] 撤销 git 的所有本地修改失败');
-    return false;
-  }
-
-  logger.info('2. [success] 撤销 git 的所有本地修改成功');
-
-  // 4. 拉取代码
-  if (shell.exec('git pull').code !== 0) {
-    logger.info('3. [fail] 拉取代码失败');
-    return false;
-  }
-
-  logger.info('3. [success] 拉取代码成功');
-
-  // 5. 安装依赖: npm i 安装生产环境下依赖
-  const env = process.env.NODE_ENV;
-  process.env.NODE_ENV = 'development';
-
-  if (shell.exec('rm -rf node_modules package-lock.json && npm i').code !== 0) {
-    logger.info('4. [fail] 安装依赖失败');
-    process.env.NODE_ENV = env;
-    return false;
-  }
-
-  process.env.NODE_ENV = env;
-  logger.info('4. [success] 安装依赖成功');
-
-  // 7. 提示：完成
-  logger.info(`=======>>>> [webhooks] ${repository.name}: success <<<<=======`);
-
-  logger.info('6. [success] 接下来将重启应用');
-  logger.info(`当前位置: ${shell.pwd()}`);
-
-  // 8. 重启
-  if (shell.exec('npm run restart:pro').code !== 0) {
-    logger.info('6. [fail] 重启失败');
-    return false;
+    logs.push(logs);
+    logger.info(logs);
   }
 };
