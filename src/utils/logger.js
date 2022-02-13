@@ -25,33 +25,38 @@ const printString = winston.format.printf(({
   fileName,
   lineNumber,
 }) => {
-  try {
-    let formatMessage = message;
+  let formatMessage = message;
 
-    // 根据数据类型, 格式内容
-    switch (Object.prototype.toString.call(message)) {
-      case '[object Array]':
-        formatMessage = message.reduce((total, ele) => (
-          // 深拷贝, 尝试解决循环引用对象, JSON 格式化错误: https://blog.csdn.net/lydxwj/article/details/103489794
-          `${total}\n${_.isString(ele) ? ele : JSON.stringify(ele, null, 2)}`
-        ), '');
-        break;
-      case '[object Object]':
-        formatMessage = JSON.stringify(message, null, 2);
-        break;
-    }
+  // 根据数据类型, 格式内容
+  switch (Object.prototype.toString.call(message)) {
+    case '[object Array]':
+      formatMessage = message.reduce((total, ele) => {
+        let current = ele;
 
-    return [
-      '==============================================================================================',
-      `>> 级别: ${level}`,
-      `>> 时间: ${time}`,
-      `>> 位置: ${fileName}: ${lineNumber}`,
-      `>> 内容: \n${formatMessage}`,
-      '==============================================================================================',
-    ].join('\n');
-  } catch (e) {
-    console.log(`[logger] 日志格式化字符串失败: ${JSON.stringify(e, null, 2)}`);
+        try {
+          current = _.isString(current)
+            ? current
+            : JSON.stringify(ele, null, 2);
+        } catch (e) {
+          console.log(`[logger] 日志格式化字符串失败: ${JSON.stringify(e, null, 2)}`, ele);
+        }
+
+        return `${total}\n${current}`;
+      }, '');
+      break;
+    case '[object Object]':
+      formatMessage = JSON.stringify(message, null, 2);
+      break;
   }
+
+  return [
+    '==============================================================================================',
+    `>> 级别: ${level}`,
+    `>> 时间: ${time}`,
+    `>> 位置: ${fileName}: ${lineNumber}`,
+    `>> 内容: \n${formatMessage}`,
+    '==============================================================================================',
+  ].join('\n');
 });
 
 /**

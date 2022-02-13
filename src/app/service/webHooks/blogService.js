@@ -26,13 +26,6 @@ const step = [
     },
   },
   {
-    title: '安装项目依赖',
-    tick: async () => {
-      await $`npm i`;
-      return  '安装项目依赖成功!';
-    },
-  },
-  {
     title: '重启项目',
     tick: async () => {
       setTimeout(async () => {
