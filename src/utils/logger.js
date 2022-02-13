@@ -33,7 +33,7 @@ const printString = winston.format.printf(({
       case '[object Array]':
         formatMessage = message.reduce((total, ele) => (
           // 深拷贝, 尝试解决循环引用对象, JSON 格式化错误: https://blog.csdn.net/lydxwj/article/details/103489794
-          `${total}\n${_.isString(ele) ? ele : JSON.stringify(_.cloneDeep(ele), null, 2)}`
+          `${total}\n${_.isString(ele) ? ele : JSON.stringify(ele, null, 2)}`
         ), '');
         break;
       case '[object Object]':
