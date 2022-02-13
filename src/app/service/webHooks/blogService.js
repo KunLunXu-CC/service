@@ -70,6 +70,7 @@ export default async ({ body }) => {
     }
 
     logs.push(logs);
-    logger.info(logs);
   }
+
+  logger.info(logs);
 };
