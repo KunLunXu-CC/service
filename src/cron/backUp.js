@@ -45,18 +45,18 @@ const step = [
       const path = `${TMP_DIR}/databases`;
       mkdirPath(path);
 
-      // 1 读取所有 mongo 备份文件并进行排序
-      const mongoBackups = readFileList(
+      // 1 读取 mongo 备份文件路径: 读取所有备份路径、排序、获取第一个路径
+      const mongoBackupPath = readFileList(
         new URL('../../docker/store/mongo/backups/', import.meta.url).pathname,
-      ).sort((a, b) => (b.localeCompare(a))[0]);
+      ).sort((a, b) => (b.localeCompare(a)))?.[0];
 
       // 2 空值处理
-      if (!mongoBackups) {
+      if (!mongoBackupPath) {
         return '备份数据库不存在!';
       }
 
       // 3 解压
-      await $`tar zxvf ${mongoBackups} -C ${path}`;
+      await $`tar zxvf ${mongoBackupPath} -C ${path}`;
       return `备份数据库文件 (${path}) 成功!`;
     },
   },
