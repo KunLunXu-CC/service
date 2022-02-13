@@ -7,22 +7,22 @@ const step = [
     title: '进入项目根目录',
     tick: async () => {
       const path = new URL('../../../../', import.meta.url).pathname;
-      await $`cd ${path}`;
-      return `进入项目根目录 (${path}) 成功!`;
+      const { exitCode } = await $`cd ${path}`;
+      return `进入项目根目录 (${path}) ${exitCode === 0 ? '成功' : '失败'}!`;
     },
   },
   {
     title: '拉取最新代码',
     tick: async () => {
-      await $`git pull`;
-      return  '拉取最新代码成功!';
+      const { exitCode } = await $`git pull`;
+      return  `拉取最新代码${exitCode === 0 ? '成功' : '失败'}!`;
     },
   },
   {
     title: '安装项目依赖',
     tick: async () => {
-      await $`npm i`;
-      return  '安装项目依赖成功!';
+      const { exitCode } = await $`npm i`;
+      return  `安装项目依赖${exitCode === 0 ? '成功' : '失败'}!`;
     },
   },
   {
@@ -31,9 +31,9 @@ const step = [
       setTimeout(async () => {
         const { exitCode } = await $`npm run restart:pro`;
         logger.info(`[webhooks] 服务重启 ${exitCode === 0 ? '成功' : '失败'}`);
-      }, 1000 * 10);
+      }, 1000 * 60);
 
-      return  '10 秒后将重启项目!';
+      return  '60 秒后将重启项目!';
     },
   },
 ];
