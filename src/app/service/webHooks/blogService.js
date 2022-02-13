@@ -62,7 +62,7 @@ export default async ({ body }) => {
       log.error = error;
     }
 
-    logs.push(logs);
+    logs.push(log);
   }
 
   logger.info(logs);
