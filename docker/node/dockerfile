@@ -2,17 +2,17 @@
 FROM node
 
 # 维护者信息: 填写维护者的信息
-MAINTAINER qianyin qianyin95@gmai.com
+LABEL qianyin qianyin95@gmai.com
 
 # 创建工作目录
 RUN mkdir -p /var/service
 
 # 设置 npm home 目录
-# RUN mkdir -p /var/log/pm2 && chmod -R 777 /var/log/pm2
-# ENV PM2_HOME /var/log/pm2
+RUN mkdir -p /var/log/pm2 && chmod -R 777 /var/log/*
+ENV PM2_HOME /var/log/pm2
 
-# RUN mkdir -p /root/.config/git && chmod -R 777 /root/.config/git
-# RUN mkdir -p /root/.npm/_logs && chmod -R 777  /root/.npm
+RUN mkdir -p /root/.config/git && chmod -R 777 /root/.config/*
+RUN mkdir -p /root/.npm/_logs && chmod -R 777  /root/.npm/*
 
 # 更新 git 至最新: 源码安装
 # RUN apt-get update && \
