@@ -4,13 +4,6 @@ $.quote = (v) => v;
 
 const step = [
   {
-    title: '使用 ROOT 身份',
-    tick: async () => {
-      const { exitCode } = await $`su root`;
-      return `使用 ROOT 身份${exitCode === 0 ? '成功' : '失败'}!`;
-    },
-  },
-  {
     title: '进入项目根目录',
     tick: async () => {
       const path = new URL('../../../../', import.meta.url).pathname;
