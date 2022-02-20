@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "pm2 restart ecosystem.config.cjs --env development && pm2 logs",
-    "start:pro": "sudo pm2 start ecosystem.config.cjs && sudo pm2 logs",
-    "restart:pro": "sudo pm2 restart ecosystem.config.cjs",
+    "start:pro": "pm2 start ecosystem.config.cjs && sudo pm2 logs",
+    "restart:pro": "pm2 restart ecosystem.config.cjs",
     "script": "cross-env NODE_ENV=production node ./src/scripts",
     "cz": "qy-cz",
     "release": "qy-release",
