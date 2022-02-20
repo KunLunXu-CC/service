@@ -8,7 +8,7 @@ LABEL qianyin qianyin95@gmai.com
 RUN mkdir -p /var/service
 
 # 设置 npm home 目录
-RUN mkdir -p /var/log/pm2 && chmod -R +wr /var/log/pm2
+RUN mkdir -p /var/log/pm2/logs && chmod -R +wr /var/log/pm2
 ENV PM2_HOME /var/log/pm2
 
 RUN mkdir -p /root/.config/git && chmod -R +wr /root/.config/git
