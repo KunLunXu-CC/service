@@ -3,13 +3,13 @@ import { $ } from 'zx';
 $.quote = (v) => v;
 
 const step = [
-  // {
-  //   title: '设置相关文件权限',
-  //   tick: async () => {
-  //     const { exitCode } = await $`chmod -R +wr /var/log/pm2/*`;
-  //     return `测试${exitCode === 0 ? '成功' : '失败'}!`;
-  //   },
-  // },
+  {
+    title: '设置相关文件权限',
+    tick: async () => {
+      const { exitCode } = await $`chmod -R 777 /var/log/pm2 ~/.config ~/.npm`;
+      return `设置相关文件权限${exitCode === 0 ? '成功' : '失败'}!`;
+    },
+  },
   {
     title: '进入项目根目录',
     tick: async () => {
