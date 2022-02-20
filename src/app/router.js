@@ -18,7 +18,7 @@ router.get('/test', async (ctx) => {
   // ctx.body = true;
   ctx.body = {
     data: [],
-    message: '上传成功 web hook 11111',
+    message: '上传成功 web hook',
   };
 });
 
