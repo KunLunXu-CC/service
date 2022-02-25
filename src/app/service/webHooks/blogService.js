@@ -32,17 +32,13 @@ const step = [
       return  `安装项目依赖${exitCode === 0 ? '成功' : '失败'}!`;
     },
   },
-  {
-    title: '重启项目',
-    tick: async () => {
-      setTimeout(async () => {
-        const { exitCode } = await $`npm run restart:pro`;
-        logger.info(`[webhooks] 服务重启 ${exitCode === 0 ? '成功' : '失败'}`);
-      }, 1000 * 60);
-
-      return  '60 秒后将重启项目!';
-    },
-  },
+  // {
+  //   title: '重启项目',
+  //   tick: async () => {
+  //     await $`npm run restart:pro`;
+  //     return  '60 秒后将重启项目!';
+  //   },
+  // },
 ];
 
 // tick
@@ -71,6 +67,8 @@ export default async ({ body }) => {
 
     logs.push(log);
   }
+
+  await $`npm run restart:pro`;
 
   logger.info(logs);
 };
