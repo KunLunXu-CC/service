@@ -14,6 +14,8 @@ ENV PM2_HOME /var/service/logs/pm2
 RUN mkdir -p /root/.config/git && chmod -R 777 /root/.config
 RUN mkdir -p /root/.npm/_logs && chmod -R 777  /root/.npm
 
+USER root
+
 # 更新 git 至最新: 源码安装
 # RUN apt-get update && \
 #     apt-get install dh-autoreconf \
