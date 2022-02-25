@@ -7,7 +7,7 @@
   "scripts": {
     "start": "pm2 restart ecosystem.config.cjs --env development && pm2 logs",
     "start:pro": "pm2 flush && pm2 start ecosystem.config.cjs && pm2 logs",
-    "restart:pro": "pm2 kill && pm2 flush && pm2 start ecosystem.config.cjs",
+    "restart:pro": "pm2 flush && pm2 restart ecosystem.config.cjs",
     "script": "cross-env NODE_ENV=production node ./src/scripts",
     "cz": "qy-cz",
     "release": "qy-release",
