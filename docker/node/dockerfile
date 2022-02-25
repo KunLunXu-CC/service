@@ -11,7 +11,7 @@ RUN mkdir -p /var/service
 RUN mkdir -p /var/service/logs/pm2 && chmod -R 777 /var/service/logs
 ENV PM2_HOME /var/service/logs/pm2
 
-RUN mkdir -p /root/.config/git && chmod -R 777 /root/.config/git
+RUN mkdir -p /root/.config/git && chmod -R 777 /root/.config
 RUN mkdir -p /root/.npm/_logs && chmod -R 777  /root/.npm
 
 # 更新 git 至最新: 源码安装
