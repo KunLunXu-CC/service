@@ -6,7 +6,7 @@ const step = [
   {
     title: '设置相关文件权限',
     tick: async () => {
-      const { exitCode } = await $`chmod -R 777 /var/service/logs ~/.config ~/.npm`;
+      const { exitCode } = await $`su - root && chmod -R 777 /var/service/logs ~/.config ~/.npm`;
       return `设置相关文件权限${exitCode === 0 ? '成功' : '失败'}!`;
     },
   },
@@ -32,13 +32,13 @@ const step = [
       return  `安装项目依赖${exitCode === 0 ? '成功' : '失败'}!`;
     },
   },
-  // {
-  //   title: '重启项目',
-  //   tick: async () => {
-  //     await $`npm run restart:pro`;
-  //     return  '60 秒后将重启项目!';
-  //   },
-  // },
+  {
+    title: '重启项目',
+    tick: async () => {
+      setTimeout(async () => (await $`npm run restart:pro`), 1000 * 60);
+      return  '60 秒后将重启项目!';
+    },
+  },
 ];
 
 // tick
