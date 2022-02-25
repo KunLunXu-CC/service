@@ -1,15 +1,15 @@
 import logger from '#logger';
-import { $ } from 'zx';
+import { $, sleep } from 'zx';
 $.quote = (v) => v;
 
 const step = [
-  {
-    title: '设置相关文件权限',
-    tick: async () => {
-      const { exitCode } = await $`su - root && chmod -R 777 /var/service/logs ~/.config ~/.npm`;
-      return `设置相关文件权限${exitCode === 0 ? '成功' : '失败'}!`;
-    },
-  },
+  // {
+  //   title: '设置相关文件权限',
+  //   tick: async () => {
+  //     const { exitCode } = await $`su - root && chmod -R 777 /var/service/logs ~/.config ~/.npm`;
+  //     return `设置相关文件权限${exitCode === 0 ? '成功' : '失败'}!`;
+  //   },
+  // },
   {
     title: '进入项目根目录',
     tick: async () => {
@@ -44,6 +44,7 @@ const step = [
 // tick
 export default async ({ body }) => {
   const { repository, ref } = body;
+  await sleep(1000 * 3); // 睡眠 3s
 
   // 1. 空值处理
   if (ref !== 'refs/heads/master') {
@@ -67,8 +68,6 @@ export default async ({ body }) => {
 
     logs.push(log);
   }
-
-  await $`npm run restart:pro`;
 
   logger.info(logs);
 };
