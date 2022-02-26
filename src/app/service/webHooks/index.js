@@ -25,11 +25,14 @@ export default async (ctx) => {
 
   if (!result) {
     ctx.body = '身份验证失败!';
-  } else if (scripts[repository.name]) {
-    const { repository } = ctx.request.body;
-    ctx.body = '匹配成功, 将执行指定脚本';
-    scripts[repository.name](ctx.request);
-  } else {
-    ctx.body = '未定义该仓库的执行脚本!';
+    return false;
   }
+
+  if (!scripts[repository.name]) {
+    ctx.body = '未定义该仓库的执行脚本!';
+    return false;
+  }
+
+  ctx.body = '匹配成功, 将执行指定脚本';
+  scripts[repository.name](ctx.request);
 };
