@@ -7,29 +7,22 @@ const step = [
     title: '进入项目根目录',
     tick: async () => {
       const path = new URL('../../../../', import.meta.url).pathname;
-      const { exitCode } = await $`cd ${path}`;
-      return `进入项目根目录 (${path}) ${exitCode === 0 ? '成功' : '失败'}!`;
+      return await $`cd ${path}`.exitCode;
     },
   },
   {
     title: '拉取最新代码',
-    tick: async () => {
-      const { exitCode } = await $`git pull`;
-      return  `拉取最新代码${exitCode === 0 ? '成功' : '失败'}!`;
-    },
+    tick: async () => await $`git pull`.exitCode,
   },
   {
     title: '安装项目依赖',
-    tick: async () => {
-      const { exitCode } = await $`npm i`;
-      return  `安装项目依赖${exitCode === 0 ? '成功' : '失败'}!`;
-    },
+    tick: async () => await $`npm i`.exitCode,
   },
   {
-    title: '重启项目',
+    title: '60 秒后将重启项目',
     tick: async () => {
-      setTimeout(async () => (await $`npm run restart:pro`), 1000 * 60);
-      return  '60 秒后将重启项目!';
+      setTimeout(async () => (await $`npm run restart:pro`).exitCode, 1000 * 60);
+      return 0;
     },
   },
 ];
@@ -41,25 +34,27 @@ export default async ({ body }) => {
 
   // 1. 空值处理
   if (ref !== 'refs/heads/master') {
-    logger.info('[webhooks] 提交非 master 分支代码, 不进行任何操作!');
+    logger.info(`[webhooks - service] 提交 ${ref} 分支代码, 非 master 分支代码, 不进行任何操作!`);
     return false;
   }
 
   // 2. 日志收集
   const logs = [
-    `[webhooks] ${repository.name}: 往 master 提交新代码, 服务将进行重启`,
+    `[webhooks - service] ${repository.name}: 往 master 提交新代码, 服务将进行重启`,
   ];
 
   for (const { title, tick } of step) {
-    const log = { title };
+    const exitCode = await tick();
 
-    try {
-      log.res = await tick();
-    } catch (error) {
-      log.error = error;
+    logs.push({
+      title,
+      res: exitCode === 0 ? '成功' : '失败',
+    });
+
+    if (exitCode !== 0) {
+      logger.info(logs);
+      return false;
     }
-
-    logs.push(log);
   }
 
   logger.info(logs);
