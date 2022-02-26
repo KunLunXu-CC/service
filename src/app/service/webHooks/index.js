@@ -1,11 +1,11 @@
 import config from '#config/system';
-// import blogClient from './blogClient.js';
+import blogClient from './blogClient.js';
 import blogService from './blogService.js';
 import { createHmac } from 'crypto';
 
 // 脚本列表
 const scripts = {
-  // 'blog-client': blogClient,
+  'blog-client': blogClient,
   'blog-service': blogService,
 };
 
