@@ -18,6 +18,7 @@ export default async () => {
     await mongoose.connect(`mongodb://${host}:${port}/${database}`, options);
     mongoose.set('debug', debug);
   } catch (e) {
+    console.log('%c [ e ]-21', 'font-size:13px; background:pink; color:#bf2c9f;', e);
     logger.error('数据库连接错误！');
   }
 
