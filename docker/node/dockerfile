@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y sudo
 ## 添加用户: 赋予 sudo 权限, 指定密码
 RUN useradd --create-home --no-log-init --shell /bin/bash ${user} \
     && adduser ${user} sudo \
-    && echo "${user}:1" | dockerpassword
+    && echo "${user}:dockerpassword" | chpasswd
 
 ## 改变用户的UID和GID
 RUN usermod -u 1000 ${user} && usermod -G 1000 ${user}
