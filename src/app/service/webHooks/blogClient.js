@@ -1,4 +1,61 @@
+import logger from '#logger';
+import { $, sleep } from 'zx';
+$.quote = (v) => v;
+
+const step = [
+  {
+    title: '下载资源',
+    tick: async (tagName) => await $`wget -P /tmp https://github.com/qianyin925/blog-client/releases/download/${tagName}/release.tar.gz`.exitCode,
+  },
+  {
+    title: '解压资源',
+    tick: async () => await $`tar zxvf /tmp/release.tar.gz  -C /tmp`.exitCode,
+  },
+  {
+    title: '更新资源',
+    tick: async () => {
+      const path = new URL('../../../../docker/nginx/html', import.meta.url).pathname;
+      return await $`
+        rm -rf ${path}/* && \
+        cp -r /tmp/build/. ${path}
+      `.exitCode;
+    },
+  },
+  {
+    title: '删除临时文件',
+    tick: async () => await $`rm -rf /tmp/release.tar.gz /tmp/build`.exitCode,
+  },
+];
+
 // tick
-export default async (request) => {
-  console.log('%c [ request ]-3', 'font-size:13px; background:pink; color:#bf2c9f;', JSON.stringify(request, null, 2));
+export default async ({ body }) => {
+  const { action, tag_name: tagName } = body;
+  await sleep(1000 * 3); // 睡眠 3s
+
+  // 1. 值处理, 只有创建资源才进行处理
+  if (action !== 'created') {
+    logger.info(`[webhooks - client] 当前 action: ${action}, 非 created, 不进行任何处理!`);
+    return false;
+  }
+
+  // 2. 日志收集
+  const logs = [
+    `[webhooks - client] ${tagName}: 前台更新资源`,
+  ];
+
+  for (const { title, tick } of step) {
+    const exitCode = await tick(tagName);
+
+    logs.push({
+      title,
+      res: exitCode === 0 ? '成功' : '失败',
+    });
+
+    if (exitCode !== 0) {
+      logger.info(logs);
+      return false;
+    }
+  }
+
+  logger.info(logs);
 };
