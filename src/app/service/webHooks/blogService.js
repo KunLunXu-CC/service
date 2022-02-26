@@ -19,9 +19,9 @@ const step = [
     tick: async () => await $`npm i`.exitCode,
   },
   {
-    title: '60 秒后将重启项目',
+    title: '3 秒后将重启项目',
     tick: async () => {
-      setTimeout(async () => (await $`npm run restart:pro`).exitCode, 1000 * 60);
+      setTimeout(async () => (await $`npm run restart:pro`).exitCode, 1000 * 3);
       return 0;
     },
   },
