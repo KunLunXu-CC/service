@@ -17,7 +17,7 @@ RUN useradd --create-home --no-log-init --shell /bin/bash ${user} \
     && echo "${user}:dockerpassword" | chpasswd
 
 ## 改变用户的UID和GID
-RUN usermod -u 1000 ${user} && usermod -G 1000 ${user}
+RUN usermod -u 9999 ${user} && usermod -G 9999 ${user}
 
 ## 指定容器起来的登录用户
 USER ${user}
