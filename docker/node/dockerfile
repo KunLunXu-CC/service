@@ -4,24 +4,6 @@ FROM node
 # 维护者信息: 填写维护者的信息
 LABEL qianyin qianyin95@gmai.com
 
-
-# build 参数: 用户名
-ARG user=docker
-
-# 创建用户
-RUN apt-get update && apt-get install -y sudo
-
-## 添加用户: 赋予 sudo 权限, 指定密码
-RUN useradd --create-home --no-log-init --shell /bin/bash ${user} \
-    && adduser ${user} sudo \
-    && echo "${user}:dockerpassword" | chpasswd
-
-## 改变用户的UID和GID
-RUN usermod -u 9999 ${user} && usermod -G 9999 ${user}
-
-## 指定容器起来的登录用户
-USER ${user}
-
 # 创建工作目录
 RUN mkdir -p /var/service
 
