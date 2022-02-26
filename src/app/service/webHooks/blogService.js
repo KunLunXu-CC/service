@@ -3,13 +3,6 @@ import { $, sleep } from 'zx';
 $.quote = (v) => v;
 
 const step = [
-  // {
-  //   title: '设置相关文件权限',
-  //   tick: async () => {
-  //     const { exitCode } = await $`su - root && chmod -R 777 /var/service/logs ~/.config ~/.npm`;
-  //     return `设置相关文件权限${exitCode === 0 ? '成功' : '失败'}!`;
-  //   },
-  // },
   {
     title: '进入项目根目录',
     tick: async () => {
