@@ -75,7 +75,7 @@ const step = [
     },
   },
   {
-    title: '发生邮件',
+    title: '发送邮件',
     tick: async () => {
       await emailer({
         // 邮件内容(html)
