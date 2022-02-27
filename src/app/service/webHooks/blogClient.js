@@ -29,7 +29,7 @@ const step = [
 
 // tick
 export default async ({ body }) => {
-  const { action, tag_name: tagName } = body;
+  const { action, release: { tag_name: tagName }  } = body;
   await sleep(1000 * 3); // 睡眠 3s
 
   // 1. 值处理, 只有创建资源才进行处理
