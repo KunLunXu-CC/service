@@ -15,8 +15,9 @@ const step = [
     title: '更新资源',
     tick: async () => {
       const path = new URL('../../../../docker/nginx/html', import.meta.url).pathname;
+      // 删除 path 目录下非 service 内容
       return await $`
-        rm -rf ${path}/* && \
+        cd ${path} && rm -rf ls | grep -v "service" && \
         cp -r /tmp/build/. ${path}
       `.exitCode;
     },
