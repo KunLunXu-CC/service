@@ -13,14 +13,14 @@ await mongo();
 console.log('\n');
 
 // 2. 读取所有可选配置
-const choices = Object.values(await importFiles({
+const choices = await importFiles({
   dir: new URL('.', import.meta.url),
   filter: (file) => !/index\.js/.test(file),
-}));
+});
 
 // 3. 调用 inquirer, 选择需要执行的脚本
 const { scriptNames } = await inquirer.prompt([{
-  choices,
+  choices: choices.map(({ value }) => value),
   type: 'checkbox',
   message: '选择脚本',
   name: 'scriptNames',
@@ -38,7 +38,8 @@ if (scriptNames.length === 0) {
     spinner.info(chalk.yellow('开始执行脚本!\n'));
 
     try {
-      await choices.find((v) => v.name === name).exec();
+      const { exec } = choices.find(({ value }) => value.name === name).value;
+      await exec();
       spinner.succeed(chalk.green('脚本执行成功!\n'));
     } catch (err) {
       spinner.fail(chalk.red('脚本执行错误!\n'));

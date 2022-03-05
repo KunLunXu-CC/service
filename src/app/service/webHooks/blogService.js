@@ -1,4 +1,6 @@
+import moment from 'moment';
 import logger from '#logger';
+import emailer from '#utils/emailer';
 import { $, sleep } from 'zx';
 $.quote = (v) => v;
 
@@ -21,7 +23,21 @@ const step = [
   {
     title: '3 秒后将重启项目',
     tick: async () => {
-      setTimeout(async () => (await $`npm run restart:pro`).exitCode, 1000 * 3);
+      setTimeout(async () => {
+        await $`npm run restart:pro`.exitCode;
+        await emailer({
+          // 邮件内容(html)
+          html: `
+            <div>
+              <h2>webhooks - service 更新</h2>
+              <p style="font-size:12px;text-align: right;">
+                当前时间: ${moment().format('YYYY-MM-DD hh:mm:ss')}
+              </p>
+            </div>
+          `,
+          subject: '【webhooks - service】服务已重启成功！',            // 邮件主题
+        });
+      }, 1000 * 3);
       return 0;
     },
   },

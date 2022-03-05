@@ -14,9 +14,9 @@ export default {
 
     const { dbList } = await inquirer.prompt([
       {
-        choices: Object.entries(files).map(([value, { title: name }]) => ({
-          name,
-          value,
+        choices: files.map(({ fileName, value: { title } }) => ({
+          fileName,
+          value: title,
         })),
         type: 'checkbox',
         name: 'dbList',

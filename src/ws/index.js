@@ -21,9 +21,9 @@ const server = config.https
 // 3. 监听 upgrade 事件: 分发到不同的 WebSocket 服务
 server.on('upgrade', (request, socket, head) => {
   // 3.1 根据 url 查询 WebSocket
-  const { wss } = Object.values(wssList).find(
-    (v) => v.path === request.url,
-  ) ?? {};
+  const { wss } = wssList.find(
+    ({ value }) => value.path === request.url,
+  )?.value ?? {};
 
   // 3.2 控制处理
   if (!wss) {

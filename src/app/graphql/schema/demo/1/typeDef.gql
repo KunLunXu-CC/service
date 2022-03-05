@@ -1,5 +1,5 @@
 extend type Query {
-  test: [Test] @auth
+  test: [Test]
 }
 
 type Test {
