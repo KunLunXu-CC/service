@@ -24,19 +24,19 @@ const step = [
     title: '3 秒后将重启项目',
     tick: async () => {
       setTimeout(async () => {
-        await $`npm run restart:pro`.exitCode;
         await emailer({
           // 邮件内容(html)
           html: `
             <div>
-              <h2>webhooks - service 更新</h2>
+              <h2>[webhooks - service] 服务将重启</h2>
               <p style="font-size:12px;text-align: right;">
                 当前时间: ${moment().format('YYYY-MM-DD hh:mm:ss')}
               </p>
             </div>
           `,
-          subject: '【webhooks - service】服务已重启成功！',            // 邮件主题
+          subject: '[webhooks - service] 服务将重启',            // 邮件主题
         });
+        await $`npm run restart:pro`.exitCode;
       }, 1000 * 3);
       return 0;
     },
