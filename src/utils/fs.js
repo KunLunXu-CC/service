@@ -4,6 +4,7 @@ import path from 'path';
 /**
  * 读取给定文件夹下所有文件并返回文件路径列表(递归所有目录)
  * @param {String} dir 指定目录路径
+ * @returns {string[]} 目录下所有文件路径
  */
 export const readFileList = (dir) => {
   const isDirectory = fs.statSync(dir)?.isDirectory();
@@ -20,25 +21,31 @@ export const readFileList = (dir) => {
  * @param {String} dir                  指定目录路径
  * @param {String[]} extensions         指定文件后缀, 默认为 .js
  * @param {Function} filter             忽略文件, 同 Array.filter 返回 true 则保留: file => boolean
- * @param {Function} handler            文件的读取处理方法, 默认是使用 import 加载文件
- * @return {Object} { [fileName]: Object }
+ * @param {Function} handler            filePath => value, 文件的读取处理方法, 默认是使用 import 加载文件
+ * @return {Object[]} { fileName, value, filePath }[]
  */
 export const importFiles = async ({
   dir,
   handler,
   extensions = '.js',
-  filter = (file) => file,
+  filter = (fileName) => fileName,
 }) => {
-  const modules = {};
-  const files = readFileList(dir).filter(filter);
+  const modules = []; // { fileName, value, filePath }[]
 
-  // 遍历
-  for (const file of files) {
-    const module = handler
-      ? await handler(file)
-      : (await import(file))?.default;
+  // 1. 读取所有文件路径: 并进行过滤
+  const files = readFileList(dir)
+    .filter((fileName) => path.extname(fileName) === extensions)
+    .filter(filter);
 
-    modules[path.basename(file, extensions)] = module;
+  // 2. 遍历所有文件: 加载(处理文件)、并添加到 modules 变量中
+  for (const filePath of files) {
+    modules.push({
+      filePath,                                      // 文件路径
+      value: handler                                 // 读取解析后的值
+        ? await handler(filePath)
+        : (await import(filePath))?.default,
+      fileName: path.basename(filePath, extensions), // 文件名
+    });
   }
 
   return modules;

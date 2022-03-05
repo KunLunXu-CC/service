@@ -4,10 +4,10 @@ import { CronJob } from 'cron';
 import { importFiles } from '#utils/fs';
 
 // 1. 读取所有定时定时任务配置
-const crons = Object.values(await importFiles({
+const crons = await importFiles({
   dir: new URL('.', import.meta.url),
   filter: (file) => !/index\.js$/.test(file), // 过滤 index.js
-}));
+});
 
 /**
  * 2. 创建定时任务, 定时任务配置:
@@ -15,7 +15,7 @@ const crons = Object.values(await importFiles({
  * 2. onComplete 当通过停止作业时将触发的函数(没有则设置为 null)
  * 3. onTick 定时任务
  */
-crons.map((setting) => setting?.cronTime && new CronJob(
+crons.map(({ value: setting }) => setting?.cronTime && new CronJob(
   setting.cronTime,
   setting.onTick,
   setting.onComplete,

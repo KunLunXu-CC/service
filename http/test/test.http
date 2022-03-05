@@ -10,4 +10,5 @@ query{
     status
     tag { name value code }
   }
+  demo
 }
