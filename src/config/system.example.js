@@ -16,7 +16,6 @@ try {
     new URL('./private.key', import.meta.url),
     'utf-8',
   );
-  logger.info('[读取秘钥] 成功！');
 } catch (e) {
   logger.error('[读取秘钥] 失败！');
 }

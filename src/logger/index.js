@@ -1,7 +1,12 @@
 import _ from 'lodash';
 import moment from 'moment';
 import winston from 'winston';
+import PrettyError from 'pretty-error';
 import DailyRotateFile from 'winston-daily-rotate-file';
+
+
+PrettyError;
+
 
 // 调用信息: 日志打印位置
 const getCallInfo = () => {
@@ -45,7 +50,21 @@ const printString = winston.format.printf(({
       }, '');
       break;
     case '[object Object]':
-      formatMessage = JSON.stringify(message, null, 2);
+
+      console.log('\n\n\n\n\n\n\n');
+      console.log(new PrettyError().render(
+        message.error,
+      ));
+
+      // const res =  message.error.stack.split('\n').join('---');
+
+      // console.log('%c [ res ]-56', 'font-size:13px; background:pink; color:#bf2c9f;', res);
+
+      // console.log('%c [ message.error ]-56', 'font-size:13px; background:pink; color:#bf2c9f;', message.error.stack);
+
+
+      // formatMessage = JSON.stringify(String(message.error), null, 2);
+      formatMessage = message.error.stack;
       break;
   }
 
