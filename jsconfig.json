@@ -10,7 +10,7 @@
 
       "#ws": ["src/ws/index.js"],
       "#mongo": ["src/mongo/index.js"],
-      "#logger": ["src/utils/logger.js"],
+      "#logger": ["src/logger/index.js"],
       "#graphql": ["src/app/graphql/index.js"],
       "#middleware": ["src/app/middleware/index.js"]
     }
