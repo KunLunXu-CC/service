@@ -14,6 +14,20 @@ extend type Mutation {
     search: PhotoSearch
     pagination: Pagination
   ): Photos @auth
+
+  # 单文件上传
+  uploadPhotos(
+    body: PhotoFields!
+    orderBy: OrderBy
+    search: PhotoSearch
+    pagination: Pagination
+  ): Photos
+}
+
+input PhotoFields {
+  type: Int
+  payload: ID
+  files: [Upload!]
 }
 
 type Photos {

@@ -10,9 +10,7 @@ export default async () => {
 
   try {
     // 1. 连接数据库
-    await mongoose.connect(`mongodb://${host}:${port}/${database}`, {
-      useCreateIndex: true,
-    });
+    await mongoose.connect(`mongodb://${host}:${port}/${database}`, {});
     mongoose.set('debug', debug);
 
     // 2. 添加模型
@@ -24,7 +22,7 @@ export default async () => {
 
     // 延时 0.5s: 等待模型加载完成
     await new Promise((resolve) => _.delay(resolve, 1000 * 0.5));
-  } catch (error) {
-    logger.error({ title: '数据库连接错误！', error });
+  } catch (message) {
+    logger({ level: 'error', label: '数据库连接', message });
   }
 };

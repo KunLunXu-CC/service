@@ -16,8 +16,8 @@ try {
     new URL('./private.key', import.meta.url),
     'utf-8',
   );
-} catch (e) {
-  logger.error('[读取秘钥] 失败！');
+} catch (message) {
+  logger({ level: 'error', label: '读取秘钥', message });
 }
 
 export default {

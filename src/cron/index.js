@@ -24,4 +24,4 @@ crons.map(({ value: setting }) => setting?.cronTime && new CronJob(
 ));
 
 // 3. 日志打印
-logger.info(`启动定时任务: ${JSON.stringify(crons, null, 2)}`);
+logger({ label: '启动定时任务', message: crons });

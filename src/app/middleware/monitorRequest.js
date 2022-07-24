@@ -10,8 +10,8 @@ const intercept = (ctx) => {
       ...(_.isObject(body) && !_.isArray(body) ? body : { data: body }),
       resCode: ctx.status,
     };
-  } catch (e) {
-    logger.error(`中间件/请求信息拦截: ${JSON.stringify(e, null, 2)}`);
+  } catch (message) {
+    logger({ level: 'error', label: '中间件/请求信息拦截', message });
   }
 
   ctx.status = 200;
@@ -26,13 +26,14 @@ const printRequestInfo = ({ body: response, request }) => {
     return false;
   }
 
-  const info = {
-    response,
-    url: `${method} ${url}`,
-    gq: { query, variables },
-  };
-
-  logger.info(`中间件/请求信息拦截: ${JSON.stringify(info, null, 2)}`);
+  logger({
+    label: '中间件/请求信息拦截',
+    message: {
+      response,
+      url: `${method} ${url}`,
+      gq: { query, variables },
+    },
+  });
 };
 
 export default async (ctx, next) => {
