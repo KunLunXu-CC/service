@@ -1,6 +1,9 @@
 # 通用
 scalar Date
 
+# 上传(文件)
+scalar Upload
+
 scalar Pagination {
   total: Int
   current: Int
