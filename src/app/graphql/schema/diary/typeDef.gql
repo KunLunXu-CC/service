@@ -38,20 +38,20 @@ extend type Mutation {
 }
 
 type Diet {
+  type: Int
   desc: String
-  type: Datasetsfrom @translate(code: "2")
 }
 
 type Fitness {
-  type: Datasetsfrom @translate(code: "4")
-  place: Datasetsfrom @translate(code: "3")
+  type: Int
+  place: Int
 }
 
 type Bill {
+  tag: Int
   desc: String
   income: Float
   expend: Float
-  tag: Datasetsfrom @translate(code: "1")
 }
 
 type BodyIndex {
