@@ -4,6 +4,18 @@ import winston from 'winston';
 import getCallInfo from './getCallInfo.js';
 import DailyRotateFile from 'winston-daily-rotate-file';
 
+// JSON.stringify 处理
+const replacerJson = (key, value) => {
+  if (!(value instanceof Error)) {
+    return value;
+  }
+
+  return Object.getOwnPropertyNames(value).reduce((total, propName) => ({
+    ...total,
+    [propName]: value[propName],
+  }), {});
+};
+
 // 文本输出格式化
 const printString = winston.format.printf(({ level, message }) => {
   const { time, callInfo, label } = message;
@@ -20,16 +32,16 @@ const printString = winston.format.printf(({ level, message }) => {
         try {
           current = _.isString(current)
             ? current
-            : JSON.stringify(ele, null, 2);
+            : JSON.stringify(ele, replacerJson, 2);
         } catch (e) {
-          console.log(`[logger] 日志格式化字符串失败: ${JSON.stringify(e, null, 2)}`, ele);
+          console.log(`[logger] 日志格式化字符串失败: ${JSON.stringify(e, replacerJson, 2)}`, ele);
         }
 
         return `${total}\n${current}`;
       }, '');
       break;
     case '[object Object]':
-      formatMessage = JSON.stringify(info, null, 2);
+      formatMessage = JSON.stringify(info, replacerJson, 2);
       break;
   }
 
@@ -39,7 +51,7 @@ const printString = winston.format.printf(({ level, message }) => {
     `>> 级别: ${level}`,
     `>> 时间: ${time}`,
     `>> 位置: ${callInfo.fileName}: ${callInfo.lineNumber}`,
-    `>> 内容: \n${formatMessage?.error}`, // TODO: formatMessage.error 应该改为 formatMessage
+    `>> 内容: \n${formatMessage}`,
     '<<<=============================================================',
   ].join('\n');
 });
