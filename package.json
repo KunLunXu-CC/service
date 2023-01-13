@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "stop": "pm2 flush && pm2 kill ",
     "start": "pm2 flush && pm2 kill && pm2 start ecosystem.config.cjs --env development && pm2 logs",
     "start:pro": "pm2 flush && pm2 start ecosystem.config.cjs && pm2 logs",
     "restart:pro": "pm2 flush && pm2 restart ecosystem.config.cjs",
