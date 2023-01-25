@@ -30,10 +30,11 @@ export default {
 
     // type name desc parent
     for (const item of datasetsfroms) {
-      const { id, name, desc, parent } = item;
+      const { id, name, desc, parent, status } = item;
 
       await folder.insertMany(({
         _id: id,
+        status,
         name,
         desc,
         parent,
