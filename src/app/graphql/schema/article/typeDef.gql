@@ -81,12 +81,13 @@ type Articles {
 }
 
 type Article {
+  tags: [ID!]
   desc: String
-  tags: [Datasetsfrom!] @translate(code: "6", saveField: "id")
   thumb: String
   viewCount: Int
   content: String
   viewHistory: [String]
+  folder: Folder @relation
 
   id: ID
   name: String!
