@@ -24,6 +24,10 @@ export default {
     title: '标签',
     type: [ObjectId],
   },
+  folder: {
+    title: '文件夹',
+    type: ObjectId,
+  },
   content: {
     title: '内容',
     type: String,

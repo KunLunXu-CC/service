@@ -1,0 +1,77 @@
+# 目录
+extend type Query{
+  folders (
+    orderBy: OrderBy
+    pagination: Pagination
+    search: FolderSearch
+  ): Folders
+}
+
+extend type Mutation{
+  removeFolders (
+    orderBy: OrderBy
+    pagination: Pagination
+    conds: FolderSearch!
+    search: FolderSearch
+  ): Folders @auth
+
+  createFolders (
+    orderBy: OrderBy
+    pagination: Pagination
+    search: FolderSearch
+    body: [FolderFields!]!
+  ): Folders @auth
+
+  updateFolders (
+    orderBy: OrderBy
+    pagination: Pagination
+    body: FolderFields!
+    conds: FolderSearch!
+    search: FolderSearch
+  ): Folders @auth
+}
+
+input FolderFields {
+  type: Int
+  name: String
+  desc: String
+  parent: ID
+}
+
+input FolderSearch {
+  type: [Int]
+  name: String
+  desc: String
+  parent: ID
+
+  id: ID
+  ids: [ID!]
+  creator: ID
+  updater: ID
+  status: [Int]
+  endUpdateTime: Date
+  startUpdateTime: Date
+  endCreationTime: Date
+  startCreationTime: Date
+}
+
+type Folders{
+  list: [Folder]
+  change: [Folder]
+  message: String
+  pagination: Pagination
+}
+
+type Folder {
+  type: Int
+  name: String
+  desc: String
+  parent: Folder @relation
+
+  id: ID
+  status: Int
+  updateTime: Date
+  creationTime: Date
+  creator: User @relation
+  updater: User @relation
+}
