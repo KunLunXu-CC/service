@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
 import { STATUS } from '#config/consts';
 
-const { ObjectId } = mongoose.Schema.Types;
+const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
 
 // 标签
-export default {
+const schema = new Schema({
   name: {
     unique: true,
     title: '标签名称',
@@ -47,4 +48,6 @@ export default {
     type: Date,
     default: Date.now,
   },
-};
+});
+
+export default schema;
