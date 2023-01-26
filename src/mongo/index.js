@@ -14,10 +14,8 @@ export default async () => {
     mongoose.set('debug', debug);
 
     // 2. 添加模型
-    const { Schema } = mongoose;
-
-    for (const { fileName, value } of models) {
-      const model = await mongoose.model(fileName, new Schema(value));
+    for (const { fileName, value: schema } of models) {
+      const model = await mongoose.model(fileName, schema);
       model.syncIndexes();
     }
 

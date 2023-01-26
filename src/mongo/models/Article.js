@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
 import { ARTICLE_STATUS } from '#config/consts';
 
-const { ObjectId } = mongoose.Schema.Types;
+const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
 
 // 文章
-export default {
+const schema = new Schema({
   name: {
     title: '标题',
     required: true,
@@ -65,4 +66,6 @@ export default {
     type: Date,
     default: Date.now,
   },
-};
+});
+
+export default schema;
