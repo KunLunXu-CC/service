@@ -70,6 +70,7 @@ input ArticleFields {
   desc: String
   thumb: String
   tags: [ID!]
+  folder: ID
   content: String
 }
 
