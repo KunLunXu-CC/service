@@ -17,7 +17,8 @@ export default async () => {
     const { Schema } = mongoose;
 
     for (const { fileName, value } of models) {
-      await mongoose.model(fileName, new Schema(value));
+      const model = await mongoose.model(fileName, new Schema(value));
+      model.syncIndexes();
     }
 
     // 延时 0.5s: 等待模型加载完成
