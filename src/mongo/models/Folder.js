@@ -6,16 +6,16 @@ const { ObjectId } = Schema.Types;
 
 // 目录
 const schema = new Schema({
+  name: {
+    type: String,
+    title: '显示名',
+    required: true,
+  },
   type: {
     title: '类型',
     type: Number,
     required: true,
     default: FOLDER_TYPE.ARTICLE,
-  },
-  name: {
-    type: String,
-    title: '显示名',
-    required: true,
   },
   desc: {
     type: String,
@@ -49,5 +49,8 @@ const schema = new Schema({
     default: Date.now,
   },
 });
+
+// 1. 复合唯一索引 see: https://github.com/Automattic/mongoose/issues/3955、 https://docs.mongodb.org/manual/tutorial/create-a-unique-index/#unique-compound-index
+// schema.index({ name: 1, parent: 1, type: 1 }, { unique: true });
 
 export default schema;
