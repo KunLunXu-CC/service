@@ -6,7 +6,6 @@ const { ObjectId } = mongoose.Schema.Types;
 // 文章
 export default {
   name: {
-    unique: true,
     title: '标题',
     required: true,
     type: String,
@@ -27,6 +26,7 @@ export default {
   folder: {
     title: '文件夹',
     type: ObjectId,
+    required: true,
   },
   content: {
     title: '内容',
