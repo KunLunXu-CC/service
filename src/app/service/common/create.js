@@ -26,8 +26,8 @@ export default async ({ model, ctx, body, search, orderBy, pagination }) => {
       creator: ctx.state.user.id,
       updater: ctx.state.user.id,
     })));
-  } catch (e) {
-    logger.error(`新增数据失败: ${JSON.stringify(e, null, 2)}`);
+  } catch (message) {
+    logger({ level: 'error', label: '新增数据', message });
     data.message = '创建失败';
   }
 

@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
 import { STATUS, BOOLEAN } from '#config/consts';
 
-const { ObjectId } = mongoose.Schema.Types;
+const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
 
 // 角色
-export default {
+const schema = new Schema({
   name: {
     unique: true,
     title: '角色名',
@@ -66,4 +67,6 @@ export default {
     type: Date,
     default: Date.now,
   },
-};
+});
+
+export default schema;
