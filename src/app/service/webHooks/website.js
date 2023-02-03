@@ -7,7 +7,7 @@ $.quote = (v) => v;
 const step = [
   {
     title: '下载资源',
-    tick: async (tagName) => await $`wget -P /tmp https://github.com/qianyin925/blog-client/releases/download/${tagName}/release.tar.gz`.exitCode,
+    tick: async (tagName) => await $`wget -P /tmp https://github.com/KunLunXu0-0/website/releases/download/${tagName}/release.tar.gz`.exitCode,
   },
   {
     title: '解压资源',
@@ -54,7 +54,7 @@ export default async ({ body }) => {
 
   // 1. 值处理, 只有创建资源才进行处理
   if (action !== 'created') {
-    logger.info(`[webhooks - client] 当前 action: ${action}, 非 created, 不进行任何处理!`);
+    logger({ label: 'webhooks - client', message: `当前 action: ${action}, 非 created, 不进行任何处理!` });
     return false;
   }
 
@@ -72,10 +72,10 @@ export default async ({ body }) => {
     });
 
     if (exitCode !== 0) {
-      logger.info(logs);
+      logger({ level: 'error', label: 'webhooks - client', message: logs });
       return false;
     }
   }
 
-  logger.info(logs);
+  logger({ label: 'webhooks - client', message: logs });
 };

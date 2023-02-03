@@ -118,7 +118,7 @@ const step = [
 // 任务函数
 const onTick = async () => {
   // 1. 日志收集
-  const loggers = [];
+  const logs = [];
 
   // 2. 循环执行任务
   for (const { title, tick } of step) {
@@ -130,11 +130,11 @@ const onTick = async () => {
       log.error = error;
     }
 
-    loggers.push(log);
+    logs.push(log);
   }
 
   // 3. 打印日志
-  logger.info(loggers);
+  logger({ label: '数据备份', message: logs });
 };
 
 export default {

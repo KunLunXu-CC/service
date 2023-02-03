@@ -5,28 +5,28 @@ import getList from '#service/common/getList';
 
 export default {
   Query: {
-    datasetsfroms: async (parents, args, context) => await getList({
+    folders: async (parents, args, context) => await getList({
       ...args,
       ctx: context.ctx,
-      model: 'Datasetsfrom',
+      model: 'Folder',
     }),
   },
 
   Mutation: {
-    createDatasetsfroms: async (parents, args, context) => await create({
+    createFolders: async (parents, args, context) => await create({
       ...args,
       ctx: context.ctx,
-      model: 'Datasetsfrom',
+      model: 'Folder',
     }),
-    removeDatasetsfroms: async (parents, args, context) => await remove({
+    removeFolders: async (parents, args, context) => await remove({
       ...args,
       ctx: context.ctx,
-      model: 'Datasetsfrom',
+      model: 'Folder',
     }),
-    updateDatasetsfroms: async (parents, args, context) => await update({
+    updateFolders: async (parents, args, context) => await update({
       ...args,
       ctx: context.ctx,
-      model: 'Datasetsfrom',
+      model: 'Folder',
     }),
   },
 };

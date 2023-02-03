@@ -33,7 +33,7 @@ export default async (message) => {
   };
 
   // 4. 打印日志
-  logger.info({ options, label: '发送邮件' });
+  logger({ label: '发送邮件', message: options });
 
   // 5. 发送邮件
   return await transporter.sendMail(options);

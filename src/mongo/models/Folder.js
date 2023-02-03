@@ -1,29 +1,29 @@
 import mongoose from 'mongoose';
-import { STATUS } from '#config/consts';
+import { STATUS, FOLDER_TYPE } from '#config/consts';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-// 标签
+// 目录
 const schema = new Schema({
   name: {
-    unique: true,
-    title: '标签名称',
-    required: true,
     type: String,
+    title: '显示名',
+    required: true,
+  },
+  type: {
+    title: '类型',
+    type: Number,
+    required: true,
+    default: FOLDER_TYPE.ARTICLE,
+  },
+  desc: {
+    type: String,
+    title: '描述',
   },
   parent: {
-    title: '父级标签ID',
+    title: '父级',
     type: ObjectId,
-  },
-  color: {
-    title: '标签色值',
-    type: String,
-    default: '#5BCCFF',
-  },
-  icon: {
-    title: '标签图标',
-    type: String,
   },
   status: {
     title: '状态',
@@ -49,5 +49,8 @@ const schema = new Schema({
     default: Date.now,
   },
 });
+
+// 1. 复合唯一索引 see: https://github.com/Automattic/mongoose/issues/3955、 https://docs.mongodb.org/manual/tutorial/create-a-unique-index/#unique-compound-index
+// schema.index({ name: 1, parent: 1, type: 1 }, { unique: true });
 
 export default schema;
