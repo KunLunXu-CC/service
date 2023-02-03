@@ -42,7 +42,7 @@ const step = [
         `,
         subject: '[webhooks - client] 代码更新完成！',            // 邮件主题
       });
-      await $`rm -rf /tmp/release.tar.gz /tmp/build`.exitCode;
+      return await $`rm -rf /tmp/release.tar.gz /tmp/build`.exitCode;
     },
   },
 ];
