@@ -1,4 +1,5 @@
 /** 放一些比较杂的中间件 */
+import koaBody from 'koa-body';
 import cross from './cross.js';
 import setUser from './setUser.js';
 import monitorRequest from './monitorRequest.js';
@@ -16,4 +17,7 @@ export default (app) => {
 
   // 设置用户信息(到 state)
   app.use(setUser);
+
+  // koa body 解析, 支持文件上传解析
+  app.use(koaBody({ multipart: true }));
 };
