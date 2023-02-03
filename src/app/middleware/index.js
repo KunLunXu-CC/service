@@ -1,9 +1,10 @@
 /** 放一些比较杂的中间件 */
-import koaBody from 'koa-body';
 import cross from './cross.js';
 import setUser from './setUser.js';
 import monitorRequest from './monitorRequest.js';
 import graphqlUploadKoa from 'graphql-upload/graphqlUploadKoa.mjs';
+
+import { koaBody } from 'koa-body';
 
 export default (app) => {
   // graphql 中解析上传文件
