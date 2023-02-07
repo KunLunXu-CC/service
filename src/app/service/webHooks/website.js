@@ -1,7 +1,6 @@
-import moment from 'moment';
 import logger from '#logger';
-import emailer from '#utils/emailer';
 import { $, sleep } from 'zx';
+
 $.quote = (v) => v;
 
 const step = [
@@ -27,21 +26,7 @@ const step = [
   {
     title: '删除临时文件',
     tick: async (tagName) => {
-      await emailer({
-        // 邮件内容(html)
-        html: `
-          <div>
-            <h2>webhooks - service 更新</h2>
-            <p style="font-size:12px;text-align: right;">
-              当前版本: ${tagName}
-            </p>
-            <p style="font-size:12px;text-align: right;">
-              当前时间: ${moment().format('YYYY-MM-DD hh:mm:ss')}
-            </p>
-          </div>
-        `,
-        subject: '[webhooks - client] 代码更新完成！',            // 邮件主题
-      });
+      logger({ level: 'warn', message: `[webhooks - client] ${tagName} 版代码更新完成！` });
       return await $`rm -rf /tmp/release.tar.gz /tmp/build`.exitCode;
     },
   },
