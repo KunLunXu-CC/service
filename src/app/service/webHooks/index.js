@@ -1,12 +1,12 @@
 import config from '#config/system';
-import blogClient from './blogClient.js';
-import blogService from './blogService.js';
+import website from './website.js';
+import service from './service.js';
 import { createHmac } from 'crypto';
 
 // 脚本列表
 const scripts = {
-  'blog-client': blogClient,
-  'blog-service': blogService,
+  website,
+  service,
 };
 
 // 身份验证

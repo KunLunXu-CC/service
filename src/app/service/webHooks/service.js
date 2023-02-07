@@ -50,7 +50,7 @@ export default async ({ body }) => {
 
   // 1. 空值处理
   if (ref !== 'refs/heads/master') {
-    logger.info(`[webhooks - service] 提交 ${ref} 分支代码, 非 master 分支代码, 不进行任何操作!`);
+    logger({ label: 'webhooks - service', message: `提交 ${ref} 分支代码, 非 master 分支代码, 不进行任何操作!` });
     return false;
   }
 
@@ -68,10 +68,10 @@ export default async ({ body }) => {
     });
 
     if (exitCode !== 0) {
-      logger.info(logs);
+      logger({ level: 'error', label: 'webhooks - service', message: logs });
       return false;
     }
   }
 
-  logger.info(logs);
+  logger({ label: 'webhooks - service', message: logs });
 };

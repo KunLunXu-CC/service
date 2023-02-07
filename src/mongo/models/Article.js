@@ -1,14 +1,23 @@
 import mongoose from 'mongoose';
 import { ARTICLE_STATUS } from '#config/consts';
 
-const { ObjectId } = mongoose.Schema.Types;
+const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
 
 // 文章
-export default {
+const schema = new Schema({
   name: {
-    unique: true,
     title: '标题',
     required: true,
+    type: String,
+  },
+  folder: {
+    title: '文件夹',
+    type: ObjectId,
+    required: true,
+  },
+  content: {
+    title: '内容',
     type: String,
   },
   desc: {
@@ -23,10 +32,6 @@ export default {
     default: [],
     title: '标签',
     type: [ObjectId],
-  },
-  content: {
-    title: '内容',
-    type: String,
   },
   viewCount: {
     default: 0,
@@ -61,4 +66,9 @@ export default {
     type: Date,
     default: Date.now,
   },
-};
+});
+
+// 1. 复合唯一索引 see: https://github.com/Automattic/mongoose/issues/3955、 https://docs.mongodb.org/manual/tutorial/create-a-unique-index/#unique-compound-index
+// schema.index({ name: 1, folder: 1 }, { unique: true });
+
+export default schema;

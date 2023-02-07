@@ -1,6 +1,4 @@
-/**
- * 用户身份校验、api 校验
- */
+// 用户身份校验、api 校验
 import logger from '#logger';
 import mongoose from 'mongoose';
 import config from '#config/system';
@@ -8,7 +6,9 @@ import { verifyJwt } from '#utils/encryption';
 
 /**
  * 设置用户信息(到koa.state)
- * @param {Object} ctx        koa 上下文
+ *
+ * @param {object} params 参数
+ * @param {object} params.ctx  koa 上下文
  */
 const setUserInfoToState = async ({ ctx }) => {
   const token = ctx.request.header.authorization;
@@ -36,7 +36,7 @@ const setUserInfoToState = async ({ ctx }) => {
   ctx.state.user = (user || {});
 
   // 4. 打印输出用户信息
-  logger.info(`中间件/用户信息: ${JSON.stringify(ctx.state, null, 2)}`);
+  logger({ label: '中间件/用户信息', message: ctx.state });
 };
 
 // 用户身份校验、api 校验

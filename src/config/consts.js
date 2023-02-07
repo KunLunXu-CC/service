@@ -85,3 +85,8 @@ export const STATS_SAPN = {
 export const WS_TYPE = {
   LOGGER: 0,     // 日志
 };
+
+// 目录 - type
+export const FOLDER_TYPE = {
+  ARTICLE: 0, // 文章
+};
