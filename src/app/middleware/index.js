@@ -3,7 +3,6 @@ import cross from './cross.js';
 import setUser from './setUser.js';
 import monitorRequest from './monitorRequest.js';
 import graphqlUploadKoa from 'graphql-upload/graphqlUploadKoa.mjs';
-
 import { koaBody } from 'koa-body';
 
 export default (app) => {
@@ -19,6 +18,6 @@ export default (app) => {
   // 设置用户信息(到 state)
   app.use(setUser);
 
-  // koa body 解析, 支持文件上传解析
-  app.use(koaBody({ multipart: true }));
+  // koa body 解析(不进行文件上传解析)
+  app.use(koaBody());
 };
