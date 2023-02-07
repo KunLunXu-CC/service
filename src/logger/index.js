@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import winston from 'winston';
+import emailer from '#utils/emailer';
 import getCallInfo from './getCallInfo.js';
 import DailyRotateFile from 'winston-daily-rotate-file';
 
@@ -16,8 +17,7 @@ const replacerJson = (key, value) => {
   }), {});
 };
 
-// 文本输出格式化
-const printString = winston.format.printf(({ level, message }) => {
+const formatMessageToStr = ({ level, message }) => {
   const { time, callInfo, label } = message;
   const info = message[level];
 
@@ -54,7 +54,10 @@ const printString = winston.format.printf(({ level, message }) => {
     `>> 内容: \n${formatMessage}`,
     '<<<=============================================================',
   ].join('\n');
-});
+};
+
+// 文本输出格式化
+const printString = winston.format.printf(formatMessageToStr);
 
 const logger = winston.createLogger({
   // 1. 日志输出: 可将日志输出到多个途径
@@ -94,14 +97,38 @@ const logger = winston.createLogger({
  * @param {'error' | 'warn' | 'info' | 'http' | 'verbose' | 'debug' | 'silly'}  [params.level=info] 日志级别
  * @example logger({ label: '删除成功!', message: '测试数据'  })
  */
-export default ({ level = 'info', label, message }) => {
-  logger.log({
-    level,
-    message: {
-      label,
-      [level]: message,
-      callInfo: getCallInfo(), // 调用函数, 相关信息
-      time: `${moment().format('YYYY-MM-DD hh:mm:ss')}`,
-    },
-  });
+export default async ({ level = 'info', label, message }) => {
+  try {
+    const payload = {
+      level,
+      message: {
+        label,
+        [level]: message,
+        callInfo: getCallInfo(), // 调用函数, 相关信息
+        time: `${moment().format('YYYY-MM-DD hh:mm:ss')}`,
+      },
+    };
+    logger.log(payload);
+
+    if (['error', 'warn'].includes(level)) {
+      // TODO: 改为企微广播
+      await emailer({
+        // 邮件内容(html)
+        html: `
+          <div>
+            <p style="font-size:12px;text-align: right;">
+              当前时间: ${moment().format('YYYY-MM-DD hh:mm:ss')}
+            </p>
+            <div>日志内容</div>
+            <div style="color: #ff7875;">
+              ${formatMessageToStr(payload)}
+            <div>
+          </div>
+        `,
+        subject: `Logger - ${level}`, // 邮件主题
+      });
+    }
+  } catch (err) {
+    console.log('日志处理错误', err);
+  }
 };

@@ -15,7 +15,7 @@ export const printStartCharPattern = async () => {
     `当前服务: localhost:${config.port}`,
     `graphql 服务: localhost:${config.port}${config.graphql.path}`,
   ].join('\n');
-  logger({ label: pattern });
+  logger({ level: 'warn', label: pattern });
 };
 
 export const space = {};
