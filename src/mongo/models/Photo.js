@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
 import { STATUS, PHOTO_TYPE } from '#config/consts';
 
-const { ObjectId } = mongoose.Schema.Types;
+const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
 
 // 照片
-export default {
+const schema = new Schema({
   name: {
     unique: true,
     title: '上传后文件名',
@@ -47,4 +48,6 @@ export default {
     type: Date,
     default: Date.now,
   },
-};
+});
+
+export default schema;

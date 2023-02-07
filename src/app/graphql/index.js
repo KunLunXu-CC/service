@@ -7,7 +7,8 @@ import { mapSchema, MapperKind } from '@graphql-tools/utils';
 
 /**
  * 解析 directive(指令)目录
- * @returns {typeDefs: string[], directives: {[指令种类]: fun[]} }
+ *
+ * @returns {object} typeDefs: string[], directives: {[指令种类]: fun[]}
  * typeDefs: 指令类型定义, directives: 指令处理程序
  */
 const parseDirective = async () => {
@@ -35,7 +36,8 @@ const parseDirective = async () => {
 
 /**
  * 解析 schema 目录
- * @returns {typeDefs: string[], resolvers: object[]} typeDefs: 类型定义, resolvers: 解析器列表
+ *
+ * @returns {object} typeDefs: string[], resolvers: object[]， typeDefs: 类型定义, resolvers: 解析器列表
  */
 const parseSchema = async () => {
   // 1. 模型位置
@@ -89,6 +91,7 @@ export default async (app) => {
 
   // 5. 创建服务
   const server = new ApolloServer({
+    // csrfPrevention: true,
     context: ({ ctx }) => ({ ctx }),                         // 下上文环境
     schema: mapSchema(schema, mapSchemaParams),              // 使用 mapSchema 处理指令, 返回新的 schema
     // formatError: (error) => ({ message: error.message }), // 格式化错误

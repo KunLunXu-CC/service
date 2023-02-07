@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
 import { STATUS, SEX } from '#config/consts';
 
-const { ObjectId } = mongoose.Schema.Types;
+const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
 
 // 用户
-export default {
+const schema = new Schema({
   name: {
     unique: true,
     title: '用户名',
@@ -63,4 +64,6 @@ export default {
     type: Date,
     default: Date.now,
   },
-};
+});
+
+export default schema;

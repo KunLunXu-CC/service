@@ -2,4 +2,4 @@
 
 - 进入对应项目, 设置 -> webhooks
 
-blog-service: https://github.com/qianyin925/blog-service/settings/hooks
+blog-service: https://github.com/KunLunXu0-0/service/settings/hooks

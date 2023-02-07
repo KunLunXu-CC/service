@@ -1,17 +1,24 @@
 // 配置文件模板
 import fs from 'fs';
+import logger from '#logger';
 
-// 公钥
-const publicKey = fs.readFileSync(
-  new URL('./public.key', import.meta.url),
-  'utf-8',
-);
+let publicKey = ''; // 公钥
+let privateKey = ''; // 私钥
 
-// 私钥
-const privateKey = fs.readFileSync(
-  new URL('./private.key', import.meta.url),
-  'utf-8',
-);
+// 读取秘钥
+try {
+  publicKey = fs.readFileSync(
+    new URL('./public.key', import.meta.url),
+    'utf-8',
+  );
+
+  privateKey = fs.readFileSync(
+    new URL('./private.key', import.meta.url),
+    'utf-8',
+  );
+} catch (message) {
+  logger({ level: 'error', label: '读取秘钥', message });
+}
 
 export default {
   port: 4000,                      // 系统应用端口

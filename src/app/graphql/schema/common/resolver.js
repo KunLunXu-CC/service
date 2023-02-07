@@ -1,20 +1,12 @@
 import moment from 'moment';
 import config from '#config/system';
 import options from '#service/common/options';
-
+import GraphQLUpload from 'graphql-upload/GraphQLUpload.mjs';
 import { GraphQLScalarType } from 'graphql';
 
 export default {
-  Query: {
-    options: async (parents, args, context) => await options({
-      ...args,
-      ctx: context.ctx,
-    }),
-
-    publicKey: async () => ({
-      data: config.publicKey, message: '请求成功!',
-    }),
-  },
+  // 上传(文件)
+  Upload: GraphQLUpload,
 
   // Date 类型数据定义(待测试)
   Date: new GraphQLScalarType({
@@ -33,4 +25,15 @@ export default {
       return new Date(ast.value);
     },
   }),
+
+  Query: {
+    options: async (parents, args, context) => await options({
+      ...args,
+      ctx: context.ctx,
+    }),
+
+    publicKey: async () => ({
+      data: config.publicKey, message: '请求成功!',
+    }),
+  },
 };

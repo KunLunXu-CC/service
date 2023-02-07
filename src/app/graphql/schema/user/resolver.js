@@ -14,6 +14,7 @@ export default {
   },
 
   Mutation: {
+    // TODO: 创建用户需要对用户密码进行 MD5
     createUsers: async (parents, args, context) => await create({
       ...args,
       model: 'User',
