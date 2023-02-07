@@ -116,13 +116,13 @@ export default async ({ level = 'info', label, message }) => {
         // 邮件内容(html)
         html: `
           <div>
-            <p style="font-size:12px;text-align: right;">
+            <p style="font-size:12px;">
               当前时间: ${moment().format('YYYY-MM-DD hh:mm:ss')}
             </p>
             <div>日志内容</div>
-            <div style="color: #ff7875;">
+            <div style="white-space: pre; color: #ff7875;">
               ${formatMessageToStr(payload)}
-            <div>
+            </div>
           </div>
         `,
         subject: `Logger - ${level}`, // 邮件主题
