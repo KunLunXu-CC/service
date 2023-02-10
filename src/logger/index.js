@@ -122,7 +122,7 @@ export default async ({ level = 'info', label, message }) => {
           msgtype: 'markdown',
           markdown: {
             content: `
-              # Logger - ${level}
+              # 「${process.env.NODE_ENV}」Logger - ${level}
               > 时间: ${moment().format('YYYY-MM-DD hh:mm:ss')}
               > 日志内容: ${formatMessageToStr(payload)}
             `,
