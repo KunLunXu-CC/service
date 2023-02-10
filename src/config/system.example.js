@@ -53,11 +53,18 @@ export default {
   // SMTP 邮件服务配置
   smtp: {
     host: null,                      // 邮件服务地址
-    secure: true,                    // 是否使用 TLS / STARTTLS的安全电子邮件传递, 将使用 465 端口
+    secure: true,                    // 是否使用 TLS / STARTTLS 的安全电子邮件传递, 将使用 465 端口
     auth: {
       user: null,                    // 用户
       pass: null,                    // 授权密码
     },
     notice: null,                    // 收件人(站内消息通知)
+  },
+
+  // 企业微信
+  weixin: {
+    robot: {                         // 机器人
+      logger: null,                  // 日志推送
+    },
   },
 };
