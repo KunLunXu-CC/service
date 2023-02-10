@@ -23,7 +23,6 @@ try {
 export default {
   port: 4000,                      // 系统应用端口
   https: false,                    // 是否开启 https
-  serviceKey: 'serviceKey',        // 后台服务 Key
 
   publicKey,                       // 公钥
   privateKey,                      // 私钥
