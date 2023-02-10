@@ -44,21 +44,21 @@ export default {
   },
 
   defaultUser: 'tourist',           // 默认用户(游客)账号
-  webHookSecret: '******',          // web hooks secret
+  webHookSecret: null,              // web hooks secret
 
   // tinify 图片压缩配置
   tinify: {
-    apiKey: '****************************',
+    apiKey: null,
   },
 
   // SMTP 邮件服务配置
   smtp: {
-    host: '************',           // 邮件服务地址
-    secure: true,                   // 是否使用 TLS / STARTTLS的安全电子邮件传递, 将使用 465 端口
+    host: null,                      // 邮件服务地址
+    secure: true,                    // 是否使用 TLS / STARTTLS的安全电子邮件传递, 将使用 465 端口
     auth: {
-      user: '*******************',  // 用户
-      pass: '****************',     // 授权密码
+      user: null,                    // 用户
+      pass: null,                    // 授权密码
     },
-    notice: '*****************',    // 收件人(站内消息通知)
+    notice: null,                    // 收件人(站内消息通知)
   },
 };
