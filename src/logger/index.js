@@ -1,7 +1,8 @@
 import _ from 'lodash';
+import axios from 'axios';
 import moment from 'moment';
 import winston from 'winston';
-import emailer from '#utils/emailer';
+import systemConfig from '#config/system';
 import getCallInfo from './getCallInfo.js';
 import DailyRotateFile from 'winston-daily-rotate-file';
 
@@ -110,22 +111,24 @@ export default async ({ level = 'info', label, message }) => {
     };
     logger.log(payload);
 
-    if (['error', 'warn'].includes(level)) {
-      // TODO: 改为企微广播
-      await emailer({
-        // 邮件内容(html)
-        html: `
-          <div>
-            <p style="font-size:12px;">
-              当前时间: ${moment().format('YYYY-MM-DD hh:mm:ss')}
-            </p>
-            <div>日志内容</div>
-            <div style="white-space: pre; color: #ff7875;">
-              ${formatMessageToStr(payload)}
-            </div>
-          </div>
-        `,
-        subject: `Logger - ${level}`, // 邮件主题
+    // 机器人消息通知, 获取机器人 webhooks
+    const robotWithLogger = systemConfig?.weixin?.robot?.logger;
+
+    if (['error', 'warn'].includes(level) && robotWithLogger) {
+      axios({
+        method: 'POST',
+        url: robotWithLogger,
+        data: {
+          msgtype: 'markdown',
+          markdown: {
+            content: `
+              # Logger - ${level}
+              > 时间: ${moment().format('YYYY-MM-DD hh:mm:ss')}
+              > 日志内容: ${formatMessageToStr(payload)}
+            `,
+          },
+
+        },
       });
     }
   } catch (err) {
