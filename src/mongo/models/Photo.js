@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { STATUS, PHOTO_TYPE } from '#config/consts';
+import { PHOTO_TYPE } from '#config/consts';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -24,11 +24,6 @@ const schema = new Schema({
   payload: {
     title: '载体(图片使用载体, 如果在文章中被使用则表示文章ID)',
     type: ObjectId,
-  },
-  status: {
-    title: '状态',
-    default: STATUS.ENABLE,
-    type: Number,
   },
   creator: {
     title: '创建人',

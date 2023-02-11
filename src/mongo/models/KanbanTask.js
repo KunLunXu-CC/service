@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { STATUS } from '#config/consts';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -22,12 +21,6 @@ const schema = new Schema({
   group: {
     title: '所属看板分组',
     type: ObjectId,
-  },
-
-  status: {
-    title: '状态',
-    default: STATUS.ENABLE,
-    type: Number,
   },
   creator: {
     title: '创建人',

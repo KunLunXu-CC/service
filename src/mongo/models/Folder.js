@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { STATUS, FOLDER_TYPE } from '#config/consts';
+import { FOLDER_TYPE } from '#config/consts';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -24,11 +24,6 @@ const schema = new Schema({
   parent: {
     title: '父级',
     type: ObjectId,
-  },
-  status: {
-    title: '状态',
-    default: STATUS.ENABLE,
-    type: Number,
   },
   creator: {
     title: '创建人',

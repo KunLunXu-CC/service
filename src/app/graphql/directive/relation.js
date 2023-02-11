@@ -7,7 +7,8 @@ const DIRECTIVE_NAME = 'relation';
 
 /**
  * 通过 ID(IDS) 关联到指定模型
- * @param {String} model mongo 模型, 默认值指令绑定的对应类型
+ *
+ * @param {string} model mongo 模型, 默认值指令绑定的对应类型
  */
 export default {
   [MapperKind.OBJECT_FIELD]: (schema, config) => {

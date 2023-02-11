@@ -4,9 +4,10 @@ import { STATUS } from '#config/consts';
 
 /**
  * 处理日期范围查询条件
- * @param {String} startTime  开始时间
- * @param {String} endTime    结束时间
- * @return {Object} {$gte: xx, $lte: xx}
+ *
+ * @param {string} startTime  开始时间
+ * @param {string} endTime    结束时间
+ * @returns {object} {$gte: xx, $lte: xx}
  */
 const getTimeConds = (startTime, endTime) => {
   const conds = {};
@@ -17,10 +18,15 @@ const getTimeConds = (startTime, endTime) => {
 
 /**
  * 获取处理函数
- * @param {Object} params 查询参数
- * @param {Object} conds  查询条件
- * @param {String} key    当前处理值 key
+ *
+ * @param params.params
+ * @param {object} params 查询参数
+ * @param {object} conds  查询条件
+ * @param {string} key    当前处理值 key
  * @param {*}      value  当前处理值
+ * @param params.conds
+ * @param params.key
+ * @param params.value
  */
 const getHandler = ({ params, conds, key, value }) => ([
   {
@@ -101,7 +107,8 @@ const getHandler = ({ params, conds, key, value }) => ([
 
 /**
  * 获取查询条件
- * @param {Object} params 查询参数
+ *
+ * @param {object} params 查询参数
  */
 export default (params = {}) => {
   const conds = { status: { $ne: STATUS.DELETE } };
