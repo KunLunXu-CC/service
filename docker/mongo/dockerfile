@@ -2,7 +2,7 @@
 FROM mongo
 
 # 维护者信息: 填写维护者的信息
-MAINTAINER qianyin qianyin95@gmai.com
+MAINTAINER moyuanjun moyuanjun@gmai.com
 
 # 镜像操作指令: 安装 cron
 RUN apt-get update && apt-get install -y cron
