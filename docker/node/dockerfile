@@ -2,7 +2,7 @@
 FROM node
 
 # 维护者信息: 填写维护者的信息
-LABEL qianyin qianyin95@gmai.com
+LABEL moyuanjun moyuanjun@gmai.com
 
 # 创建工作目录
 RUN mkdir -p /var/service
