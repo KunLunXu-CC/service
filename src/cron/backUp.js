@@ -1,6 +1,5 @@
 import moment from 'moment';
 import logger from '#logger';
-import emailer from '#utils/emailer';
 import { mkdirPath, readFileList } from '#utils/fs';
 import { $ } from 'zx';
 $.quote = (v) => v;
@@ -77,31 +76,16 @@ const step = [
   {
     title: '发送邮件',
     tick: async () => {
-      await emailer({
-        // 邮件内容(html)
-        html: `
-          <div>
-            <h2>个人网站数据备份</h2>
-            <h3>备份内容如下:</h3>
-            <p style="text-indent: 2em;">
-            1. 生产环境配置文件: system.js
-            </p>
-            <p style="text-indent: 2em;">
-            2. SSL 证书: ssl.pem ssl.key
-            </p>
-            <p style="text-indent: 2em;">
-            3. 数据库备份: mongo.blog
-            </p>
-            <p style="text-indent: 2em;">
-            4. 服务端静态资源备份: app/static
-            </p>
-            <p style="font-size:12px;text-align: right;">
-              当前时间: ${moment().format('YYYY-MM-DD hh:mm:ss')}
-            </p>
-          </div>
-        `,
-        subject: '个人网站数据备份',            // 邮件主题
-        attachments: [{ path: backUpPath }], // 附件
+      await logger({
+        level: 'warn',
+        message: [
+          '个人网站数据备份',
+          '备份内容如下',
+          '1. 生产环境配置文件: system.js',
+          '2. SSL 证书: ssl.pem ssl.key',
+          '3. 数据库备份: mongo.blog',
+          '4. 服务端静态资源备份: app/static',
+        ],
       });
       return '发送邮件成功!';
     },
