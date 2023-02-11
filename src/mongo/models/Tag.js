@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { STATUS } from '#config/consts';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -24,11 +23,6 @@ const schema = new Schema({
   icon: {
     title: '标签图标',
     type: String,
-  },
-  status: {
-    title: '状态',
-    default: STATUS.ENABLE,
-    type: Number,
   },
   creator: {
     title: '创建人',
