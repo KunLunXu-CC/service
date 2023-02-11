@@ -106,7 +106,7 @@ export default async ({ level = 'info', label, message }) => {
         label,
         [level]: message,
         callInfo: getCallInfo(), // 调用函数, 相关信息
-        time: `${moment().format('YYYY-MM-DD hh:mm:ss')}`,
+        time: `${moment().format('YYYY-MM-DD HH')}`,
       },
     };
     logger.log(payload);
@@ -123,7 +123,7 @@ export default async ({ level = 'info', label, message }) => {
           markdown: {
             content: `
               # 「${process.env.NODE_ENV}」Logger - ${level}
-              > 时间: ${moment().format('YYYY-MM-DD hh:mm:ss')}
+              > 时间: ${moment().format('YYYY-MM-DD HH:mm:s')}
               > 日志内容: ${formatMessageToStr(payload)}
             `,
           },
