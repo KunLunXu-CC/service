@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { STATUS, SEX } from '#config/consts';
+import { SEX } from '#config/consts';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -40,11 +40,6 @@ const schema = new Schema({
     title: '性别',
     type: Number,
     default: SEX.BOY,
-  },
-  status: {
-    title: '状态',
-    default: STATUS.ENABLE,
-    type: Number,
   },
   creator: {
     title: '创建人',
