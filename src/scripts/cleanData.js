@@ -14,10 +14,7 @@ export default {
 
     const { dbList } = await inquirer.prompt([
       {
-        choices: files.map(({ fileName, value: { title } }) => ({
-          fileName,
-          value: title,
-        })),
+        choices: files.map(({ fileName: value }) => ({ value })),
         type: 'checkbox',
         name: 'dbList',
         message: '选择要清除的数据表',
