@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { STATUS, BOOLEAN } from '#config/consts';
+import { BOOLEAN } from '#config/consts';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -43,11 +43,6 @@ const schema = new Schema({
         default: BOOLEAN.FALSE,
       },
     }],
-  },
-  status: {
-    title: '状态',
-    default: STATUS.ENABLE,
-    type: Number,
   },
   creator: {
     title: '创建人',

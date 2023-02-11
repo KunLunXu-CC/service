@@ -1,17 +1,17 @@
 import mongoose from 'mongoose';
 import getList from '#service/common/getList';
 import getConditions from '#utils/getConditions';
-import { STATUS } from '#config/consts';
 
 /**
  * 通用删除（假删）方法
- * @param {String} model       模型名称
- * @param {Object} ctx          koa 上下文
- * @param {Object} conds        要删除数据的查询条件
- * @param {Object} search       查询参数
- * @param {Object} pagination   分页信息
- * @param {Object} orderBy      排序
- * @param {String}  unique      唯一值字段名, 如果设置了将修改该字段值
+ *
+ * @param {string} model       模型名称
+ * @param {object} ctx          koa 上下文
+ * @param {object} conds        要删除数据的查询条件
+ * @param {object} search       查询参数
+ * @param {object} pagination   分页信息
+ * @param {object} orderBy      排序
+ * @param {string}  unique      唯一值字段名, 如果设置了将修改该字段值
  */
 export default async ({
   ctx,
@@ -36,7 +36,7 @@ export default async ({
     changeIds = (await server.find(changeConds)).map((v) => v._id);
     await server.updateMany(changeConds, {
       updater: ctx.state.user.id,
-      status: STATUS.DELETE,
+      // status: STATUS.DELETE,
     });
   } catch (e) {
     data.message = '删除失败';
