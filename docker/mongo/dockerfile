@@ -25,4 +25,4 @@ ENV TZ Asia/Shanghai
 
 # 容器启动后执行指令: 指定新建容器在每次运行后需要执行的命令
 
-CMD sh -c "chmod 600 -R /var/spool/cron/crontabs && chmod +x -R /var/spool/cron/crontabs/**/*.sh &&/etc/init.d/cron start && mongod --bind_ip_all"
+CMD sh -c "/etc/init.d/cron start && mongod --bind_ip_all"
