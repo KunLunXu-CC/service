@@ -1,5 +1,6 @@
 import moment from 'moment';
 import logger from '#logger';
+import emailer from '#utils/emailer';
 import { mkdirPath, readFileList } from '#utils/fs';
 import { $ } from 'zx';
 $.quote = (v) => v;
@@ -8,7 +9,7 @@ $.quote = (v) => v;
 const TMP_DIR = '/tmp/backUp';
 
 // 2. 备份路径
-const backUpPath = `${TMP_DIR}_${moment().format('YYYY_MM_DD__hh_mm_ss')}.tar.gz`;
+const backUpPath = `${TMP_DIR}_${moment().format('YYYY_MM_DD__HH_mm_ss')}.tar.gz`;
 
 // 3. 任务步骤
 const step = [
@@ -54,8 +55,8 @@ const step = [
         return '备份数据库不存在!';
       }
 
-      // 3 解压
-      await $`tar zxvf ${mongoBackupPath} -C ${path}`;
+      // 3 拷贝
+      await $`cp -rf ${mongoBackupPath} ${path}`;
       return `备份数据库文件 (${path}) 成功!`;
     },
   },
@@ -76,16 +77,31 @@ const step = [
   {
     title: '发送邮件',
     tick: async () => {
-      await logger({
-        level: 'warn',
-        message: [
-          '个人网站数据备份',
-          '备份内容如下',
-          '1. 生产环境配置文件: system.js',
-          '2. SSL 证书: ssl.pem ssl.key',
-          '3. 数据库备份: mongo.blog',
-          '4. 服务端静态资源备份: app/static',
-        ],
+      await emailer({
+        // 邮件内容(html)
+        html: `
+          <div>
+            <h2>个人网站数据备份</h2>
+            <h3>备份内容如下:</h3>
+            <p style="text-indent: 2em;">
+            1. 生产环境配置文件: system.js
+            </p>
+            <p style="text-indent: 2em;">
+            2. SSL 证书: ssl.pem ssl.key
+            </p>
+            <p style="text-indent: 2em;">
+            3. 数据库备份: mongo.blog
+            </p>
+            <p style="text-indent: 2em;">
+            4. 服务端静态资源备份: app/static
+            </p>
+            <p style="font-size:12px;text-align: right;">
+              当前时间: ${moment().format('YYYY-MM-DD hh:mm:ss')}
+            </p>
+          </div>
+        `,
+        subject: '个人网站数据备份',            // 邮件主题
+        attachments: [{ path: backUpPath }], // 附件
       });
       return '发送邮件成功!';
     },
@@ -118,7 +134,7 @@ const onTick = async () => {
   }
 
   // 3. 打印日志
-  logger({ label: '数据备份', message: logs });
+  logger({ level: 'warn', label: '数据备份', message: logs });
 };
 
 export default {
