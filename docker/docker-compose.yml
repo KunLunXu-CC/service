@@ -11,8 +11,6 @@ services:
       - ./store/mongo/db:/data/db
       - ./store/mongo/configdb:/data/configdb
       - ./store/mongo/backups:/data/backups
-      # 定时任务, 相关
-      - ./mongo/cron:/var/spool/cron/crontabs
     logging:
       driver: "json-file"
       options:
