@@ -1,2 +1,5 @@
-# 每天 「凌晨 2 点」「中午 12 点」「晚上 6 点」「晚上 10 点」 定时备份数据
-0 2,12,18,22,16  * * * sh /var/spool/cron/crontabs/shell/backup.sh
+# 定时任务时间格式查询工具: https://tooltt.com/crontab/c/29.html
+# 定时器启动、停止等命令: /etc/init.d/cron {start|stop|status|restart|reload|force-reload}
+# 查看定时任务列表: crontab -l
+# 每 2个小时备份一次数据
+0 */2 * * * sh /var/spool/cron/crontabs/shell/backup.sh

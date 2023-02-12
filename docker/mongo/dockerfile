@@ -17,6 +17,9 @@ ADD ./cron /var/spool/cron/crontabs
 RUN chmod 600 -R /var/spool/cron/crontabs
 RUN chmod +x -R /var/spool/cron/crontabs/**/*.sh
 
+# cron 时区问题出来, 参考: https://cloud.tencent.com/developer/article/1725923
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
 # 设置挂载点
 VOLUME [/data/backups]
 
