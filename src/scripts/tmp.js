@@ -1,7 +1,6 @@
 // 临时脚本
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 import { importFiles } from '#utils/fs';
-import { BOOLEAN } from '#src/config/consts';
 
 export default {
   name: '临时脚本',
@@ -13,9 +12,10 @@ export default {
 
     // 2. 添加 isDelete 字段
     for (const { fileName } of files) {
-      await mongoose.model(fileName).updateMany({}, {
-        isDelete: BOOLEAN.FALSE,
-      }, {});
+      console.log('%c [ fileName ]-15', 'font-size:13px; background:pink; color:#bf2c9f;', fileName);
+      // await mongoose.model(fileName).updateMany({}, {
+      //   isDelete: BOOLEAN.FALSE,
+      // }, {});
     }
   },
 };
