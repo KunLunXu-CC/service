@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { BOOLEAN } from '#config/consts';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -6,7 +7,6 @@ const { ObjectId } = Schema.Types;
 // 标签
 const schema = new Schema({
   name: {
-    unique: true,
     title: '标签名称',
     required: true,
     type: String,
@@ -42,6 +42,14 @@ const schema = new Schema({
     type: Date,
     default: Date.now,
   },
+  isDelete: {
+    title: '是否删除',
+    type: Schema.Types.Mixed,
+    default: BOOLEAN.FALSE,
+  },
 });
+
+// 1. 复合唯一索引 see: https://github.com/Automattic/mongoose/issues/3955、 https://docs.mongodb.org/manual/tutorial/create-a-unique-index/#unique-compound-index
+schema.index({ name: 1, isDelete: 1 }, { unique: true });
 
 export default schema;

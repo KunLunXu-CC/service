@@ -21,7 +21,6 @@ export default {
 
     removeKanbans: async (parents, args, context) => await remove({
       ...args,
-      unique: 'name',
       model: 'Kanban',
       ctx: context.ctx,
     }),

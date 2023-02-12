@@ -28,7 +28,6 @@ export default {
     removeTags: async (parents, args, context) => await remove({
       ...args,
       model: 'Tag',
-      unique: 'name',
       ctx: context.ctx,
     }),
 

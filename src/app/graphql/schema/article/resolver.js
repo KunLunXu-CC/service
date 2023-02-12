@@ -25,7 +25,6 @@ export default {
     removeArticles: async (parents, args, context) => {
       const data = await remove({
         ...args,
-        unique: 'name',
         model: 'Article',
         ctx: context.ctx,
       });

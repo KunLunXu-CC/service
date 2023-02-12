@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import mongoose from 'mongoose';
-import { STATUS } from '#config/consts';
+import { BOOLEAN } from '#config/consts';
 
 /**
  * 处理日期范围查询条件
@@ -111,7 +111,9 @@ const getHandler = ({ params, conds, key, value }) => ([
  * @param {object} params 查询参数
  */
 export default (params = {}) => {
-  const conds = { status: { $ne: STATUS.DELETE } };
+  // 默认: 只查询没有被删除的数据
+  const conds = { isDelete: BOOLEAN.FALSE };
+
   _.forIn(params, (value, key) => {
     const { handler } = getHandler({ params, conds, key, value }).find(
       (v) => v.conds,

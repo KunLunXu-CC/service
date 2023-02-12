@@ -18,16 +18,9 @@ export const BOOLEAN = {
   FALSE: 0,
 };
 
-// 模型基本状态 (0: 禁用， 1： 启用， -11： 删除) 基本状态预留 0 - 10
-export const STATUS = {
-  DISABLE: 0,     // 禁用
-  ENABLE: 1,      // 启用
-  DELETE: -11,    // 删除
-};
-
-// 文章状态： 基础状态 + 保存 + 发布, 补充状态从 10 起
+// 文章状态： 保存 + 发布, 补充状态从 10 起,
+// TODO: 之前设计了其他状态, 现在被删除了, 这边需要修复下
 export const ARTICLE_STATUS = {
-  ...STATUS,   // 基础状态
   SAVE: 10,          // 保存(未发布)
   RELEASE: 11,       // 发布(已发布)
 };

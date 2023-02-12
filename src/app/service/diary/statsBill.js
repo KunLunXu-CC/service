@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import mongoose from 'mongoose';
-import { STATUS, STATS_SAPN } from '#config/consts';
+import { STATS_SAPN, BOOLEAN } from '#config/consts';
 
 /**
  * 获取数据
@@ -11,7 +11,7 @@ import { STATUS, STATS_SAPN } from '#config/consts';
  */
 const getData = async ({ name }) => {
   const serve = mongoose.model('Diary');
-  const search = { status: { $ne: STATUS.DELETE } };
+  const search = { isDelete: BOOLEAN.FALSE };
 
   name && (search.name = {
     $gte: name?.[0],
