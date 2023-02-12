@@ -1,2 +1,2 @@
 # 每天 「凌晨 2 点」「中午 12 点」「晚上 6 点」「晚上 10 点」 定时备份数据
-0 2, 12, 18, 22  * * * sh /var/spool/cron/crontabs/shell/backup.sh
+0 2,12,18,22,16  * * * sh /var/spool/cron/crontabs/shell/backup.sh
