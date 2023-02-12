@@ -22,7 +22,6 @@ export default {
     removeRoles: async (parents, args, context) => await remove({
       ...args,
       model: 'Role',
-      unique: 'name',
       ctx: context.ctx,
     }),
 

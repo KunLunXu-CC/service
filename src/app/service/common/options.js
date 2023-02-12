@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { STATUS } from '#config/consts';
+import { BOOLEAN } from '#config/consts';
 
 /**
  * 通用获取下拉项 options 方法
@@ -23,7 +23,7 @@ export default async ({ model, pagination = {}, search = {} }) => {
 
   const conds = {
     name: { $regex: name },
-    status: { $ne: STATUS.DELETE },
+    isDelete: BOOLEAN.FALSE,
   };
 
   pagination.total = await server.find(conds).estimatedDocumentCount();

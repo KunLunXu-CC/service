@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { BOOLEAN } from '#config/consts';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -35,6 +36,11 @@ const schema = new Schema({
     title: '最近更新时间',
     type: Date,
     default: Date.now,
+  },
+  isDelete: {
+    title: '是否删除',
+    type: Schema.Types.Mixed,
+    default: BOOLEAN.FALSE,
   },
 });
 

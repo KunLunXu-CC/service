@@ -24,7 +24,6 @@ export default {
     removeUsers: async (parents, args, context) => await remove({
       ...args,
       model: 'User',
-      unique: 'name',
       ctx: context.ctx,
     }),
 

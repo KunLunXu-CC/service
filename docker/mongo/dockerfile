@@ -11,9 +11,9 @@ RUN apt-get update && apt-get install -y cron
 RUN mkdir /data/backups
 
 # 添加定时任务相关配置到容器内
-ADD ./cron /var/spool/cron/crontabs
+# ADD ./cron /var/spool/cron/crontabs
 
-# 为文件添加权限： root 用户定时任务配置文件权限必须是 root
+# 为定时任务相关文件添加权限： root 用户定时任务配置文件权限必须是 root
 RUN chmod 600 -R /var/spool/cron/crontabs
 RUN chmod +x -R /var/spool/cron/crontabs/**/*.sh
 

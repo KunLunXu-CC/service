@@ -27,7 +27,6 @@ export default {
     removeDiaries: async (parents, args, context) => await remove({
       ...args,
       model: 'Diary',
-      unique: 'name',
       ctx: context.ctx,
     }),
 

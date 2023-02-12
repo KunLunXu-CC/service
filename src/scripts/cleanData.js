@@ -1,8 +1,7 @@
 import inquirer from 'inquirer';
 
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 import { importFiles } from '#utils/fs';
-import { STATUS } from '#config/consts';
 
 export default {
   name: '清理数据(删除假删数据)',
@@ -23,7 +22,7 @@ export default {
 
     // 2. 删除数据
     for (const key of dbList) {
-      await mongoose.model(key).remove({ status: STATUS.DELETE });
+      console.log('%c [ key ]-26', 'font-size:13px; background:pink; color:#bf2c9f;', key);
     }
   },
 };

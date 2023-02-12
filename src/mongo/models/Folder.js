@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { FOLDER_TYPE } from '#config/consts';
+import { FOLDER_TYPE, BOOLEAN } from '#config/consts';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -43,9 +43,14 @@ const schema = new Schema({
     type: Date,
     default: Date.now,
   },
+  isDelete: {
+    title: '是否删除',
+    type: Schema.Types.Mixed,
+    default: BOOLEAN.FALSE,
+  },
 });
 
 // 1. 复合唯一索引 see: https://github.com/Automattic/mongoose/issues/3955、 https://docs.mongodb.org/manual/tutorial/create-a-unique-index/#unique-compound-index
-// schema.index({ name: 1, parent: 1, type: 1 }, { unique: true });
+schema.index({ name: 1, parent: 1, type: 1, isDelete: 1 }, { unique: true });
 
 export default schema;
