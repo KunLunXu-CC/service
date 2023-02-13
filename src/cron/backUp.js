@@ -9,7 +9,7 @@ $.quote = (v) => v;
 const TMP_DIR = '/tmp/backUp';
 
 // 2. 备份路径
-const backUpPath = `${TMP_DIR}_${moment().format('YYYY_MM_DD__HH_mm_ss')}.tar.gz`;
+let backUpPath = null;
 
 // 3. 任务步骤
 const step = [
@@ -117,10 +117,13 @@ const step = [
 
 // 任务函数
 const onTick = async () => {
-  // 1. 日志收集
+  // 1. 修改备份路径
+  backUpPath = `${TMP_DIR}_${moment().format('YYYY_MM_DD__HH_mm_ss')}.tar.gz`;
+
+  // 2. 日志收集
   const logs = [];
 
-  // 2. 循环执行任务
+  // 3. 循环执行任务
   for (const { title, tick } of step) {
     const log = { title };
 
@@ -133,7 +136,7 @@ const onTick = async () => {
     logs.push(log);
   }
 
-  // 3. 打印日志
+  // 4. 打印日志
   logger({ level: 'warn', label: '数据备份', message: logs });
 };
 
