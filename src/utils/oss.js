@@ -29,12 +29,3 @@ export const upload = async ({ fileName, fileStream, filePath }) => {
 };
 
 export const span = null;
-
-// const result = await client.put('exampleobject.txt', path.normalize(new URL('./qiniu.js', import.meta.url).pathname));
-
-const res = await upload({
-  fileName: 'exampleobject.txt',
-  filePath: new URL('./qiniu.js', import.meta.url).pathname,
-});
-
-console.log('%c [ res ]-41', 'font-size:13px; background:pink; color:#bf2c9f;', res);
