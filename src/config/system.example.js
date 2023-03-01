@@ -67,4 +67,17 @@ export default {
       logger: null,                  // 日志推送
     },
   },
+
+  // 阿里云对象存储: https://oss.console.aliyun.com/overview
+  oss: {
+    // Bucket 所在地域
+    region: null,
+
+    // RAM 用户配置: https://help.aliyun.com/product/28625.html
+    accessKeyId: null,
+    accessKeySecret: null,
+
+    // Bucket 名称
+    bucket: null,
+  },
 };
