@@ -45,11 +45,6 @@ export default {
   defaultUser: 'tourist',           // 默认用户(游客)账号
   webHookSecret: null,              // web hooks secret
 
-  // tinify 图片压缩配置
-  tinify: {
-    apiKey: null,
-  },
-
   // SMTP 邮件服务配置
   smtp: {
     host: null,                      // 邮件服务地址
@@ -80,4 +75,7 @@ export default {
     // Bucket 名称
     bucket: null,
   },
+
+  // tinify 图片压缩配置
+  tinifyApiKey: null,
 };
