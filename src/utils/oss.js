@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import OSS from 'ali-oss';
+import tinify from '#utils/tinify';
 import system from '#config/system';
-
 const client = new OSS(system.oss);
 
 /**
@@ -24,8 +24,11 @@ export const upload = async ({ fileName, fileStream, filePath }) => {
   const stream = fileStream
     ? fileStream
     : fs.createReadStream(filePath);
-  const result = await client.putStream(getFileName(fileName), stream);
-  return result;
+
+  const compress = await tinify(stream); // 压缩
+  const handledFileName = getFileName(fileName); // 处理文件名
+
+  return await client.putStream(handledFileName, compress); // 上传
 };
 
 export const span = null;
