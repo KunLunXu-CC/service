@@ -3,6 +3,10 @@ import getList from '#service/common/getList';
 
 /**
  * 根据 payload 数组删除图片
+ *
+ * @param {object} params 参数
+ * @param {object} params.ctx 上下文
+ * @param {object[]} params.payload 荷载
  */
 export default async ({ ctx, payload }) => {
   const data = await getList({

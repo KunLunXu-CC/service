@@ -24,7 +24,6 @@ export const upload = async ({ fileName, fileStream, filePath }) => {
   const stream = fileStream
     ? fileStream
     : fs.createReadStream(filePath);
-
   const compress = await tinify(stream); // 压缩
   const handledFileName = getFileName(fileName); // 处理文件名
 
