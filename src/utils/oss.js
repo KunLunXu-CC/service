@@ -17,7 +17,7 @@ const getFileName = (sourceFileName, isTinify) => {
   const unique = `${sourceFileName}${new Date().getTime()}`;
   const name = Buffer.from(unique).toString('base64');
   const env = process.env.NODE_ENV === 'development' ? 'dev' : 'pro';
-  return `klx.${env}.${isTinify ? '.tinify' : ''}${name}${extname}`;
+  return `klx.${env}${isTinify ? '.tinify' : ''}.${name}${extname}`;
 };
 
 // 文件上传
@@ -26,7 +26,7 @@ export const upload = async ({ fileName, fileStream, filePath }) => {
     ? fileStream
     : fs.createReadStream(filePath);
   const handledTinify = await tinify(stream); // 压缩
-  const handledFileName = getFileName(fileName, !!handledTinify.error); // 处理文件名
+  const handledFileName = getFileName(fileName, !handledTinify.error); // 处理文件名
 
   return await client.putStream(handledFileName, handledTinify.stream); // 上传
 };
