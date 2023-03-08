@@ -21,11 +21,8 @@ export default async (stream) => {
   try {
     newBuffer = await new Promise((resolve) => {
       tinify.fromBuffer(buffer).toBuffer((err, resultData) => {
-        if (!err) {
-          resolve(resultData);
-        }
-
         error = err;
+        resolve(err ? buffer : resultData);
       });
     });
   } catch (err) {
