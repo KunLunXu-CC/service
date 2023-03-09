@@ -59,24 +59,6 @@ const choices = [
       console.log('SSL 文件备份完成, 备份路径: ', chalk.green(`${dest}/ssl`));
     },
   },
-  {
-    name: '备份静态目录',
-    exec: async ({ dest }) => {
-      console.log('开始备份静态目录！');
-
-      const res = await Promise.all([
-        // 1. 删除旧的备份数据, 并创建备份目录(避免因目录不存在出现错误)
-        await $`sudo rm -rf ${dest}/static`,
-        await $`sudo mkdir -p ${dest}/static`,
-
-        // 2. 备份文件
-        await $`sudo cp -rf ${new URL('../app/static/*', import.meta.url).pathname} ${dest}/static`,
-      ]);
-
-      res.every((v) => v.exitCode === 0) &&
-      console.log('静态目录备份完成, 备份路径: ', chalk.green(`${dest}/static`));
-    },
-  },
 ];
 
 export default {

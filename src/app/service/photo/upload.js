@@ -2,7 +2,7 @@ import * as oss from '#utils/oss';
 import create from '#service/common/create';
 
 /**
- * 上传文件至目标目录 app/static/images
+ * 上传文件至 oss
  *
  * @param {object[]} files 前端上传文件列表
  * @returns {object[]} 文件上传结果列表

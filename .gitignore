@@ -3,7 +3,6 @@
 
 # production
 /build
-static
 logs
 
 # misc
