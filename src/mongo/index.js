@@ -12,6 +12,7 @@ export default async () => {
     // 1. 连接数据库
     await mongoose.connect(`mongodb://${host}:${port}/${database}`, {});
     mongoose.set('debug', debug);
+    mongoose.set('strictQuery', true);
 
     // 2. 添加模型
     for (const { fileName, value: schema } of models) {

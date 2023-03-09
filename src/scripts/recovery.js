@@ -1,9 +1,7 @@
 import ora from 'ora';
 import chalk from 'chalk';
 import boxen from 'boxen';
-import shell from 'shelljs';
 import inquirer from 'inquirer';
-import { mkdirPath } from '#utils/fs';
 import { $ } from 'zx';
 
 const choices = [
@@ -43,18 +41,6 @@ const choices = [
         sudo cp -f ${dest}/ssl/ssl.* ${new URL('../../docker/nginx', import.meta.url).pathname}
       `;
       exitCode.code === 0 && console.log('SSL 文件恢复完成');
-    },
-  },
-  {
-    name: '恢复静态目录 app/static',
-    exec: async ({ dest }) => {
-      mkdirPath(new URL('../app/static', import.meta.url));
-
-      if (shell.exec(`
-        sudo cp -rf ${dest}/static/* ${new URL('../app/static', import.meta.url).pathname}
-      `).code === 0) {
-        console.log('静态目录已恢复');
-      }
     },
   },
 ];

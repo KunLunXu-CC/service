@@ -93,9 +93,6 @@ const onTick = async () => {
             <p style="text-indent: 2em;">
             3. 数据库备份: mongo.blog
             </p>
-            <p style="text-indent: 2em;">
-            4. 服务端静态资源备份: app/static
-            </p>
             <p style="font-size:12px;text-align: right;">
               当前时间: ${moment().format('YYYY-MM-DD hh:mm:ss')}
             </p>

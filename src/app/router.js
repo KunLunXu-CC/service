@@ -1,14 +1,10 @@
 import Router from '@koa/router';
 import webHooks from '#service/webHooks/index';
-import uploadPhoto from '#service/photo/upload';
 
 const router = new Router();
 
 // github webhooks
 router.post('/web-hooks', webHooks);
-
-// 图片上传
-router.post('/photo/upload', uploadPhoto);
 
 // 测试
 router.get('/test', async (ctx) => {
