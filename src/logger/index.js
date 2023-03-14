@@ -1,19 +1,32 @@
 import log4js from 'log4js';
 
+const LAYOUT_CONSOLE = {
+  type: 'pattern',
+  pattern: '%[[%p] %d{yyyy/MM/dd-hh.mm.ss}%] at %x{callStack} %n%n  %m %n%n',
+  tokens: {
+    callStack: (event) => `${event.fileName} ${event.lineNumber}:${event.columnNumber}`,
+  },
+};
+
 log4js.configure({
   // 1. 输出源: 用于定义日志是如何输出的, see: https://log4js-node.github.io/log4js-node/appenders.html
   appenders: {
     console: {
       type: 'stdout',
-      // layout: 输出格式 see: https://log4js-node.github.io/log4js-node/layouts.html
+      layout: LAYOUT_CONSOLE, // 日志内容格式
+    },
+    multiWithLevel: {
+      base: 'logs/',  // 日志文件存储路径 + 文件名前缀
+      type: 'multiFile', // 多文件
+      property: 'level', // 日志按照 logEvent.level 拆分
+      extension: '.log', // 日志文件的后缀名
+      backups: 3, // 备份数量
+      compress: true, // 备份文件是否压缩存储
+      maxLogSize: 20 * 1024 * 1024, // 每个日志文件最大 20 M
       layout: {
-        type: 'pattern',
-        pattern: '%[[%p] %d{yyyy/MM/dd-hh.mm.ss}%] at %x{callStack} %n%n  %m %n%n',
-        tokens: {
-          callStack: (event) => `${event.fileName} ${event.lineNumber}:${event.columnNumber}`,
-        },
+        ...LAYOUT_CONSOLE,
+        pattern: LAYOUT_CONSOLE.pattern.replace(/(%\[|%\])/g, ''), // 去除着色的配置 %[ %]
       },
-
     },
   },
 
@@ -21,7 +34,7 @@ log4js.configure({
   categories: {
     default: {
       level: 'all',
-      appenders: ['console'],
+      appenders: ['console', 'multiWithLevel'],
       enableCallStack: true,
     },
   },
