@@ -1,3 +1,4 @@
+import axios from 'axios';
 import log4js from 'log4js';
 
 const LAYOUT_CONSOLE = {
@@ -8,9 +9,35 @@ const LAYOUT_CONSOLE = {
   },
 };
 
+
+const webhook = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=a4b4e046-aad3-4d5e-9e40-1db9976b045c';
+
+const robot = {
+  configure: (config, layouts) => (event) => {
+    // 1. 如果日志等级小于 warn 则不进行处理
+    if (!event.level.isGreaterThanOrEqualTo('warn')) {
+      return false;
+    }
+
+    // 2. 调用 layouts 里 messagePassThroughLayout 方法获取到格式化后的「日志事件数据」
+    const message = layouts.messagePassThroughLayout(event);
+
+    // 3. 调用企微机器人 api, 推送消息
+    axios({
+      method: 'POST',
+      url: webhook,
+      data: {
+        msgtype: 'text',
+        text: { content: message },
+      },
+    });
+  },
+};
+
 log4js.configure({
   // 1. 输出源: 用于定义日志是如何输出的, see: https://log4js-node.github.io/log4js-node/appenders.html
   appenders: {
+    robot: { type: robot },
     console: {
       type: 'stdout',
       layout: LAYOUT_CONSOLE, // 日志内容格式
@@ -52,7 +79,7 @@ log4js.configure({
   categories: {
     default: {
       level: 'all',
-      appenders: ['console',  'multiWithLevel', 'useMultiWithUser'],
+      appenders: ['robot', 'console',  'multiWithLevel', 'useMultiWithUser'],
       enableCallStack: true,
     },
   },
