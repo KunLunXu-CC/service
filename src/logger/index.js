@@ -1,18 +1,16 @@
 import log4js from 'log4js';
 
-
 log4js.configure({
   // 1. 输出源: 用于定义日志是如何输出的, see: https://log4js-node.github.io/log4js-node/appenders.html
   appenders: {
-    print: {
+    console: {
       type: 'stdout',
       // layout: 输出格式 see: https://log4js-node.github.io/log4js-node/layouts.html
       layout: {
         type: 'pattern',
-        pattern: '%[[%p] %d{yyyy/MM/dd-hh.mm.ss}%] at %x{callStack} %[%] %n %m %n%n',
+        pattern: '%[[%p] %d{yyyy/MM/dd-hh.mm.ss}%] at %x{callStack} %n%n  %m %n%n',
         tokens: {
           callStack: (event) => `${event.fileName} ${event.lineNumber}:${event.columnNumber}`,
-          // location
         },
       },
 
@@ -23,7 +21,7 @@ log4js.configure({
   categories: {
     default: {
       level: 'all',
-      appenders: ['print'],
+      appenders: ['console'],
       enableCallStack: true,
     },
   },
