@@ -3,7 +3,8 @@ import path from 'path';
 import OSS from 'ali-oss';
 import tinify from '#utils/tinify';
 import system from '#config/system';
-const client = new OSS(system.oss);
+
+const client = system.oss?.accessKeySecret ? new OSS(system.oss) : null;
 
 /**
  * 处理文件名(要存入数据库的文件名)
@@ -22,6 +23,10 @@ const getFileName = (sourceFileName, isTinify) => {
 
 // 文件上传
 export const upload = async ({ fileName, fileStream, filePath }) => {
+  if (!client) {
+    return;
+  }
+
   const stream = fileStream
     ? fileStream
     : fs.createReadStream(filePath);
