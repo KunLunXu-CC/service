@@ -106,13 +106,28 @@ log4js.configure({
   },
 });
 
-// 3. 获取 Logger 实例
-const logger = log4js.getLogger();
+/**
+ * 日志输出
+ *
+ * @param {object} params 参数
+ * @param {string} [params.label=''] 日志标记(标题)
+ * @param {string} params.categoryName 日志类别
+ * @param {string | string[] | object} [params.message] 日志信息
+ * @param {'trace'|'debug'|'info'|'warn'|'error'|'fatal'|'mark'}  [params.level='info'] 日志级别
+ * @example logger({ label: '删除数据', message: '删除成功'  })
+ */
+export default ({ categoryName, message, label = '', level = 'info' }) => {
+  // 1. 无效日志处理
+  if (!label && !message) {
+    return;
+  }
 
-// 4. 添加上下文: 用户 ID
-logger.addContext('userId', '21321312421231');
+  // 2. 获取 Logger 实例
+  const logger = log4js.getLogger(categoryName);
 
-// 5. 输出日志
-logger.debug('这是一个 debug:', '会不会被输出');
-logger.warn('这一个 warn:', '会不会被输出');
-logger.error('这一个 error:', '会不会被输出');
+  // 3. 添加上下文: 用户 ID
+  logger.addContext('userId', '21321312421231');
+
+  // 4. 输出日志
+  logger[level](label, message);
+};
