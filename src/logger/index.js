@@ -129,5 +129,5 @@ export default ({ categoryName, message, label = '', level = 'info' }) => {
   logger.addContext('userId', '21321312421231');
 
   // 4. 输出日志
-  logger[level](label, message);
+  logger[level](label ? `${label}:\n` : '', message);
 };
