@@ -3,9 +3,6 @@ import moment from 'moment';
 import log4js from 'log4js';
 import systemConfig from '#config/system';
 
-// 企微机器人 webhooks
-const ROBOT_WEBHOOKS = systemConfig?.weixin?.robot?.logger;
-
 // 控制台输出格式
 const LAYOUT_CONSOLE = {
   type: 'pattern',
@@ -31,18 +28,21 @@ const MULTI_FILE_BASE = {
 // 自定义 appender: 使用「企微机器人」发送通知
 const ROBOT = {
   configure: (config, layouts) => (event) => {
-    // 1. 如果日志等级小于 warn 则不进行处理 || 企微机器人 webhooks 不存在
-    if (!event.level.isGreaterThanOrEqualTo('warn') || !ROBOT_WEBHOOKS) {
+    // 1. 企微机器人 webhooks
+    const robotWebhook = systemConfig?.weixin?.robot?.logger;
+
+    // 2. 如果日志等级小于 warn 则不进行处理 || 企微机器人 webhooks 不存在
+    if (!event.level.isGreaterThanOrEqualTo('warn') || !robotWebhook) {
       return false;
     }
 
-    // 2. 调用 layouts 里 messagePassThroughLayout 方法获取到格式化后的「日志事件数据」
+    // 3. 调用 layouts 里 messagePassThroughLayout 方法获取到格式化后的「日志事件数据」
     const message = layouts.messagePassThroughLayout(event);
 
-    // 3. 调用企微机器人 api, 推送消息
+    // 4. 调用企微机器人 api, 推送消息
     axios({
       method: 'POST',
-      url: ROBOT_WEBHOOKS,
+      url: robotWebhook,
       data: {
         msgtype: 'markdown',
         markdown: {
