@@ -9,14 +9,15 @@ export default (app) => {
   // graphql 中解析上传文件
   app.use(graphqlUploadKoa());
 
-  // 监听请求
-  app.use(monitorRequest);
 
   // 跨域设置
   app.use(cross);
 
   // 设置用户信息(到 state)
   app.use(setUser);
+
+  // 监听请求
+  app.use(monitorRequest);
 
   // koa body 解析(不进行文件上传解析)
   app.use(koaBody());
