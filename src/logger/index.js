@@ -61,6 +61,7 @@ const ROBOT = {
   },
 };
 
+// 设置配置项
 log4js.configure({
   // 1. 输出源: 用于定义日志是如何输出的, see: https://log4js-node.github.io/log4js-node/appenders.html
   appenders: {
