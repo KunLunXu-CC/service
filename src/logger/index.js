@@ -1,6 +1,12 @@
 import axios from 'axios';
+import moment from 'moment';
 import log4js from 'log4js';
+import systemConfig from '#config/system';
 
+// 企微机器人 webhooks
+const ROBOT_WEBHOOKS = systemConfig?.weixin?.robot?.logger;
+
+// 控制台输出格式
 const LAYOUT_CONSOLE = {
   type: 'pattern',
   pattern: '%[[%p] %d{yyyy/MM/dd-hh.mm.ss}%] at %x{callStack} %n%n  %m %n%n',
@@ -9,13 +15,24 @@ const LAYOUT_CONSOLE = {
   },
 };
 
+// 多文件存储基本配置
+const MULTI_FILE_BASE = {
+  type: 'multiFile',               // 多文件
+  extension: '.log',               // 日志文件的后缀名
+  backups: 3,                      // 备份数量
+  compress: true,                  // 备份文件是否压缩存储
+  maxLogSize: 20 * 1024 * 1024,    // 每个日志文件最大 20 M
+  layout: {                        // 输出日志格式
+    ...LAYOUT_CONSOLE,             // 使用 「控制台输出格式」
+    pattern: LAYOUT_CONSOLE.pattern.replace(/(%\[|%\])/g, ''), // 去除着色的配置 %[ %]
+  },
+};
 
-const webhook = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=a4b4e046-aad3-4d5e-9e40-1db9976b045c';
-
-const robot = {
+// 自定义 appender: 使用「企微机器人」发送通知
+const ROBOT = {
   configure: (config, layouts) => (event) => {
-    // 1. 如果日志等级小于 warn 则不进行处理
-    if (!event.level.isGreaterThanOrEqualTo('warn')) {
+    // 1. 如果日志等级小于 warn 则不进行处理 || 企微机器人 webhooks 不存在
+    if (!event.level.isGreaterThanOrEqualTo('warn') || !ROBOT_WEBHOOKS) {
       return false;
     }
 
@@ -25,10 +42,20 @@ const robot = {
     // 3. 调用企微机器人 api, 推送消息
     axios({
       method: 'POST',
-      url: webhook,
+      url: ROBOT_WEBHOOKS,
       data: {
-        msgtype: 'text',
-        text: { content: message },
+        msgtype: 'markdown',
+        markdown: {
+          content: [
+            '## 昆仑虚日志监控',
+            `> 级别: <font color="warning">${event.level}</font>`,
+            `> 时间: <font color="info">${moment(event.startTime).format('YYYY-MM-DD HH:mm:ss')}</font>`,
+            `> 调用栈: <font color="comment">${event.fileName} ${event.lineNumber}:${event.columnNumber}</font>`,
+            '>',
+            '>',
+            `\`${message}\``,
+          ].join('\n'),
+        },
       },
     });
   },
@@ -37,37 +64,26 @@ const robot = {
 log4js.configure({
   // 1. 输出源: 用于定义日志是如何输出的, see: https://log4js-node.github.io/log4js-node/appenders.html
   appenders: {
-    robot: { type: robot },
+    // 企微机器人通知
+    robot: { type: ROBOT },
+    // 控制台日志输出
     console: {
       type: 'stdout',
-      layout: LAYOUT_CONSOLE, // 日志内容格式
+      layout: LAYOUT_CONSOLE,
     },
+    // 日志文件存储(按日志等级)
     multiWithLevel: {
-      base: 'logs/',  // 日志文件存储路径 + 文件名前缀
-      type: 'multiFile', // 多文件
-      property: 'level', // 日志按照 logEvent.level 拆分
-      extension: '.log', // 日志文件的后缀名
-      backups: 3, // 备份数量
-      compress: true, // 备份文件是否压缩存储
-      maxLogSize: 20 * 1024 * 1024, // 每个日志文件最大 20 M
-      layout: {
-        ...LAYOUT_CONSOLE,
-        pattern: LAYOUT_CONSOLE.pattern.replace(/(%\[|%\])/g, ''), // 去除着色的配置 %[ %]
-      },
+      ...MULTI_FILE_BASE,
+      base: 'logs/',
+      property: 'level',
     },
+    // 日志文件存储(按用户)
     multiWithUser: {
-      base: 'logs/user/',  // 日志文件存储路径 + 文件名前缀
-      type: 'multiFile', // 多文件
-      property: 'userId', // 日志按照 logEvent.context.userId 拆分
-      extension: '.log', // 日志文件的后缀名
-      backups: 3, // 备份数量
-      compress: true, // 备份文件是否压缩存储
-      maxLogSize: 20 * 1024 * 1024, // 每个日志文件最大 20 M
-      layout: {
-        ...LAYOUT_CONSOLE,
-        pattern: LAYOUT_CONSOLE.pattern.replace(/(%\[|%\])/g, ''), // 去除着色的配置 %[ %]
-      },
+      ...MULTI_FILE_BASE,
+      base: 'logs/user/',
+      property: 'userId',
     },
+    // 使用「multiWithUser」
     useMultiWithUser: {
       level: 'warn', // 允许通过过滤器的最低事件级别
       type: 'logLevelFilter', // 使用日志级别过滤器
@@ -79,7 +95,12 @@ log4js.configure({
   categories: {
     default: {
       level: 'all',
-      appenders: ['robot', 'console',  'multiWithLevel', 'useMultiWithUser'],
+      appenders: [
+        'robot',
+        'console',
+        'multiWithLevel',
+        'useMultiWithUser',
+      ],
       enableCallStack: true,
     },
   },
