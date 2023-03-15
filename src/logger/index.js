@@ -3,6 +3,9 @@ import moment from 'moment';
 import log4js from 'log4js';
 import systemConfig from '#config/system';
 
+// 当前目录
+const CURRENT_DIRECTORY = new URL('.', import.meta.url).pathname;
+
 // 控制台输出格式
 const LAYOUT_CONSOLE = {
   type: 'pattern',
@@ -75,14 +78,14 @@ log4js.configure({
     // 日志文件存储(按日志等级)
     multiWithLevel: {
       ...MULTI_FILE_BASE,
-      base: 'logs/',
       property: 'level',
+      base: `${CURRENT_DIRECTORY}logs/`,
     },
     // 日志文件存储(按用户)
     multiWithUser: {
       ...MULTI_FILE_BASE,
-      base: 'logs/user/',
       property: 'userId',
+      base: `${CURRENT_DIRECTORY}logs/user`,
     },
     // 使用「multiWithUser」
     useMultiWithUser: {
