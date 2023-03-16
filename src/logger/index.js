@@ -114,13 +114,14 @@ log4js.configure({
  * 日志输出
  *
  * @param {object} params 参数
+ * @param {object} params.ctx koa 上下文
  * @param {string} [params.label=''] 日志标记(标题)
  * @param {string} params.categoryName 日志类别
  * @param {string | string[] | object} [params.message] 日志信息
  * @param {'trace'|'debug'|'info'|'warn'|'error'|'fatal'|'mark'}  [params.level='info'] 日志级别
  * @example logger({ label: '删除数据', message: '删除成功'  })
  */
-export default ({ categoryName, message, label = '', level = 'info' }) => {
+export default ({ ctx, categoryName, message, label = '', level = 'info' }) => {
   // 1. 无效日志处理
   if (!label && !message) {
     return;
@@ -130,7 +131,8 @@ export default ({ categoryName, message, label = '', level = 'info' }) => {
   const logger = log4js.getLogger(categoryName);
 
   // 3. 添加上下文: 用户 ID
-  logger.addContext('userId', '21321312421231');
+  const userId = ctx?.state.user.id ?? '000000';
+  logger.addContext('userId', userId);
 
   // 4. 输出日志
   logger[level](label ? `${label}:\n` : '', message);
