@@ -11,14 +11,15 @@ const intercept = (ctx) => {
       resCode: ctx.status,
     };
   } catch (message) {
-    logger({ level: 'error', label: '中间件/请求信息拦截', message });
+    logger({ ctx, level: 'error', label: '中间件/请求信息拦截', message });
   }
 
   ctx.status = 200;
 };
 
 // 打印请求信息: (请求接口、请求参数、响应状态、响应体)
-const printRequestInfo = ({ body: response, request }) => {
+const printRequestInfo = (ctx) => {
+  const { body: response, request } = ctx;
   const { body: requestBody, url, method } = request;
   const { query, variables, operationName } = requestBody || {};
 
@@ -27,6 +28,7 @@ const printRequestInfo = ({ body: response, request }) => {
   }
 
   logger({
+    ctx,
     label: '中间件/请求信息拦截',
     message: {
       response,
