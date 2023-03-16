@@ -23,7 +23,7 @@ module.exports = {
       },
       env_development: {
         NODE_ENV: 'development',
-        watch: ['src'],
+        watch: ['src/**/*.js', 'src/**/*.gql'],
       },
     },
     {
@@ -35,7 +35,7 @@ module.exports = {
       },
       env_development: {
         NODE_ENV: 'development',
-        watch: ['src/cron'],
+        watch: ['src/cron/**/*.js'],
       },
     },
   ],
