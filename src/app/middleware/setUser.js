@@ -36,7 +36,7 @@ const setUserInfoToState = async ({ ctx }) => {
   ctx.state.user = (user || {});
 
   // 4. 打印输出用户信息
-  logger({ label: '中间件/用户信息', message: ctx.state });
+  logger({ ctx, label: '中间件/用户信息', message: ctx.state });
 };
 
 // 用户身份校验、api 校验
