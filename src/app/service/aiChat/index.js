@@ -2,9 +2,8 @@ import { PassThrough } from 'stream';
 import { Configuration, OpenAIApi  } from 'openai';
 import system from '#config/system';
 
-
 // 封装方法
-const getOpenai =  async ({ stream, messages }) => {
+const writeStream =  async ({ stream, messages }) => {
   const configuration = new Configuration({
     apiKey: system.openaiApiKey,
   });
@@ -33,16 +32,12 @@ const getOpenai =  async ({ stream, messages }) => {
         return;
       }
 
-      console.log(message);
-
       // 解析数据
       const parsed = JSON.parse(message);
-
 
       // 写入流
       stream.write(`data: ${parsed.choices[0].delta.content || ''}\n\n`);
     } catch (e) {
-      console.log(e);
       // 出现错误, 结束流
       stream.write('data: [DONE]\n\n');
     }
@@ -51,6 +46,16 @@ const getOpenai =  async ({ stream, messages }) => {
 
 export default async (ctx) => {
   const stream = new PassThrough();
+
+  // 获取数据
+
+  // 获取上下文
+
+  // 发起请求
+
+  // 推送流
+
+  // 结束流
 
   ctx.set({
     'Connection': 'keep-alive',
@@ -62,5 +67,5 @@ export default async (ctx) => {
   ctx.status = 200;
 
   // 调用 openai 写入流
-  getOpenai({ stream, messages: [{ role: 'user', content: ctx.request.query.message }] });
+  writeStream({ stream, messages: [{ role: 'user', content: ctx.request.query.message }] });
 };

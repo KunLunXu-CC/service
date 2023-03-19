@@ -1,5 +1,5 @@
 extend type Query {
-  getAiChats(
+  aiChats(
     orderBy: OrderBy
     search: AiChatSearch
     pagination: Pagination
