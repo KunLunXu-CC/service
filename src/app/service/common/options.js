@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { BOOLEAN } from '#config/consts';
+import { BOOLEAN } from '#config/constants';
 
 /**
  * 通用获取下拉项 options 方法

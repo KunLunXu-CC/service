@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import mongoose from 'mongoose';
-import { BOOLEAN } from '#config/consts';
+import { BOOLEAN } from '#config/constants';
 
 /**
  * 处理日期范围查询条件

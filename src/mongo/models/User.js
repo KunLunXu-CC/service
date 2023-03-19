@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { SEX, BOOLEAN } from '#config/consts';
+import { SEX, BOOLEAN } from '#config/constants';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;

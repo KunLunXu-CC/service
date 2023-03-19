@@ -4,18 +4,18 @@ import { BOOLEAN } from '#config/constants';
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-// 面试题
+// 看板
 const schema = new Schema({
-  content: {
-    required: true,
-    title: '内容',
+  name: {
     type: String,
+    title: '名称',
   },
-  tags: {
-    default: [],
-    title: '标签',
-    type: [Number],
+
+  message: {
+    type: String,
+    title: '聊天内容',
   },
+
   creator: {
     title: '创建人',
     type: ObjectId,

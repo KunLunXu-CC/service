@@ -3,7 +3,7 @@ import _ from 'lodash';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 import mongoose from 'mongoose';
-import { BOOLEAN } from '#config/consts';
+import { BOOLEAN } from '#config/constants';
 
 export default {
   name: '为角色添加应用(权限)',

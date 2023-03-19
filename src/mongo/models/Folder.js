@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { FOLDER_TYPE, BOOLEAN } from '#config/consts';
+import { FOLDER_TYPE, BOOLEAN } from '#config/constants';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;

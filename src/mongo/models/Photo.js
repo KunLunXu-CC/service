@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { PHOTO_TYPE, BOOLEAN } from '#config/consts';
+import { PHOTO_TYPE, BOOLEAN } from '#config/constants';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;

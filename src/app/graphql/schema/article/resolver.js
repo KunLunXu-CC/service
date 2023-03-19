@@ -4,7 +4,7 @@ import update from '#service/common/update';
 import getList from '#service/common/getList';
 import removeBypayload from '#service/photo/removeBypayload';
 
-import { ARTICLE_STATUS } from '#config/consts';
+import { ARTICLE_STATUS } from '#config/constants';
 
 export default {
   Query: {
