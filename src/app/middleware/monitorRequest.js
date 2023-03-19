@@ -4,6 +4,10 @@ import logger from '#logger';
 
 // 请求拦截: 请求状态保证为: 200、响应体保证为: 对象
 const intercept = (ctx) => {
+  if (ctx.response.header['content-type'] === 'text/event-stream') {
+    return;
+  }
+
   try {
     const body = _.isString(ctx.body) ? JSON.parse(ctx.body) : ctx.body;
     ctx.body = {
