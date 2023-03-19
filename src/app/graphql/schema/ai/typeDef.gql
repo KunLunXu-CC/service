@@ -67,8 +67,12 @@ input AiChatSearch {
   endCreationTime: Date
 }
 
-input AiChatFields {
-  tags: [Int]
-  status: Int
+input AiChatMessageField {
+  role: String
   content: String
+}
+
+input AiChatFields {
+  name: [Int]
+  messages: [AiChatMessageField]
 }
