@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { WebSocketServer } from 'ws';
-import { APP_CODE } from '#config/consts';
+import { APP_CODE } from '#config/constants';
 import { verifyJwt } from '#utils/encryption';
 
 const wss = new WebSocketServer({ noServer: true });

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { ARTICLE_STATUS, BOOLEAN } from '#config/consts';
+import { ARTICLE_STATUS, BOOLEAN } from '#config/constants';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;

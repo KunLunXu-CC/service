@@ -1,4 +1,4 @@
-import { ROLE_TYPE } from '#config/consts';
+import { ROLE_TYPE } from '#config/constants';
 import { MapperKind, getDirective } from '@graphql-tools/utils';
 
 const DIRECTIVE_NAME = 'auth';

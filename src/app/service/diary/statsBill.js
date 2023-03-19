@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import mongoose from 'mongoose';
-import { STATS_SAPN, BOOLEAN } from '#config/consts';
+import { STATS_SAPN, BOOLEAN } from '#config/constants';
 
 /**
  * 获取数据
