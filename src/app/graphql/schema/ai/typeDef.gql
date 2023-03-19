@@ -1,14 +1,34 @@
 extend type Query {
   getAiChats(
     orderBy: OrderBy
-    search: AlgorithmSearch
+    search: AiChatSearch
     pagination: Pagination
   ): AiChats
 }
 
-# extend type Mutation {
+extend type Mutation {
+  createAiChats(
+    body: [AiChatFields!]!
+    orderBy: OrderBy
+    search: AiChatSearch
+    pagination: Pagination
+  ): AiChats @auth
 
-# }
+  removeAiChats (
+    conds: AiChatSearch!
+    orderBy: OrderBy
+    search: AiChatSearch
+    pagination: Pagination
+  ): AiChats @auth
+
+  updateAiChats (
+    conds: AiChatSearch!
+    body: AiChatFields!
+    orderBy: OrderBy
+    search: AiChatSearch
+    pagination: Pagination
+  ): AiChats @auth
+}
 
 type AiChatMessage {
   role: String
@@ -34,3 +54,21 @@ type AiChats {
   pagination: Pagination
 }
 
+input AiChatSearch {
+  id: ID
+  ids: [ID!]
+  name: String
+
+  creator: ID
+  updater: ID
+  startUpdateTime: Date
+  endUpdateTime: Date
+  startCreationTime: Date
+  endCreationTime: Date
+}
+
+input AiChatFields {
+  tags: [Int]
+  status: Int
+  content: String
+}
