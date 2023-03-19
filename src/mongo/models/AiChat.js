@@ -4,15 +4,15 @@ import { BOOLEAN } from '#config/constants';
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-// 看板
+// AI 聊天
 const schema = new Schema({
   name: {
     type: String,
     title: '名称',
   },
 
-  message: {
-    type: String,
+  messages: {
+    type: [Object],
     title: '聊天内容',
   },
 

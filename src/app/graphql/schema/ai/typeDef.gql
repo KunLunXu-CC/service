@@ -1,0 +1,36 @@
+extend type Query {
+  getAiChats(
+    orderBy: OrderBy
+    search: AlgorithmSearch
+    pagination: Pagination
+  ): AiChats
+}
+
+# extend type Mutation {
+
+# }
+
+type AiChatMessage {
+  role: String
+  content: String
+}
+
+type AiChat {
+  name: String
+  messages: [AiChatMessage]
+
+  id: ID
+  creator: User @relation
+  updater: User @relation
+  updateTime: Date
+  creationTime: Date
+}
+
+
+type AiChats {
+  list: [AiChat]
+  change: [AiChat]
+  message: String
+  pagination: Pagination
+}
+
