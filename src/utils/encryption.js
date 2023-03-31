@@ -5,12 +5,15 @@ import config from '#config/system';
 
 /**
  * 创建 hash 通用方法
- * @param {String} data 待加密数据
- * @param {String} type hash 类型，常见类型有 md5 sha1 相对更加安全类型 sha256 sha512
+ *
+ * @param {object} params      参数
+ * @param {string} params.data 待加密数据
+ * @param {string} params.type hash 类型，常见类型有 md5 sha1 相对更加安全类型 sha256 sha512
+ * @returns {string} 字符串
  */
 export const hash = ({ data, type = 'md5' }) => {
   if (!data) {
-    return false;
+    return '';
   }
 
   const hash = crypto.createHash(type);
@@ -20,10 +23,13 @@ export const hash = ({ data, type = 'md5' }) => {
 
 /**
  * 创建 hmac 通用方法
- * @param {String} data     待加密数据
- * @param {String} type     hmac 类型
- * @param {String} secret   证书
- * @param {String} digest   转换数据字符串格式类型
+ *
+ * @param {object} params         参数
+ * @param {string} params.data    待加密数据
+ * @param {string} params.type    hmac 类型
+ * @param {string} params.secret  证书
+ * @param {string} params.digest  转换数据字符串格式类型
+ * @returns {string} 加密字符
  */
 export const hmac = ({ data, secret,  type = 'sha1', digest = 'hex' }) => {
   if (!data || !secret) {
@@ -34,9 +40,7 @@ export const hmac = ({ data, secret,  type = 'sha1', digest = 'hex' }) => {
     .digest(digest);
 };
 
-/**
- * ASR 秘钥生成
- */
+// ASR 秘钥生成
 export const createRasKey = () => {
   const nodeRSA = new NodeRSA({ bits: 1024 });
   nodeRSA.setOptions({ encryptionScheme: 'pkcs1' });
@@ -47,7 +51,8 @@ export const createRasKey = () => {
 
 /**
  * RAS 解密
- * @param {String} data 待解密数据
+ *
+ * @param {string} data 待解密数据
  */
 export const decryptRsa = async (data) => {
   const nodeRSA = new NodeRSA(config.privateKey);
@@ -62,9 +67,10 @@ export const decryptRsa = async (data) => {
 
 /**
  * 签发 json web token
- * @param {Object} payload   有效载荷
- * @param {String} expiresIn   token 时长
- * @returns {String}         json web token
+ *
+ * @param {object} payload   有效载荷
+ * @param {string} expiresIn   token 时长
+ * @returns {string}         json web token
  */
 export const signJwt = async (payload, expiresIn = '7d') => jwt.sign(
   payload,
@@ -77,8 +83,9 @@ export const signJwt = async (payload, expiresIn = '7d') => jwt.sign(
 
 /**
  * （异步）验证 json web token
- * @param {String} token    token 字符串
- * @returns {Object}}        有效载荷 || {}
+ *
+ * @param {string} token    token 字符串
+ * @returns {object}}        有效载荷 || {}
  */
 export const verifyJwt = async (token) => new Promise(
   (resolve) => {
