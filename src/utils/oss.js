@@ -1,8 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import OSS from 'ali-oss';
+import logger from '#logger';
 import tinify from '#utils/tinify';
 import system from '#config/system';
+import { hash } from '#utils/encryption';
 
 const client = system.oss?.accessKeySecret ? new OSS(system.oss) : null;
 
@@ -15,8 +17,7 @@ const client = system.oss?.accessKeySecret ? new OSS(system.oss) : null;
  */
 const getFileName = (sourceFileName, isTinify) => {
   const extname = path.extname(sourceFileName);
-  const unique = `${sourceFileName}${new Date().getTime()}`;
-  const name = Buffer.from(unique).toString('base64');
+  const name = hash({ data: `${sourceFileName}${new Date().getTime()}` });
   const env = process.env.NODE_ENV === 'development' ? 'dev' : 'pro';
   return `klx.${env}${isTinify ? '.tinify' : ''}.${name}${extname}`;
 };
@@ -24,6 +25,11 @@ const getFileName = (sourceFileName, isTinify) => {
 // 文件上传
 export const upload = async ({ fileName, fileStream, filePath }) => {
   if (!client) {
+    logger({
+      level: 'error',
+      label: '文件上传失败',
+      message: '未设置阿里云 OSS 配置',
+    });
     return;
   }
 
