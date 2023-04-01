@@ -23,11 +23,11 @@ const choices = [
 
       const res = await Promise.all([
         // 1. 将备份文件拷贝到容器内
-        await $`sudo docker cp ${dest}/databases/blog blog-mongo:/backUp`,
+        await $`sudo docker cp ${dest}/databases/blog klx-mongo:/backUp`,
         // 2. 执行 docker 内部命令进行数据恢复
-        await $`sudo docker exec blog-mongo sh -c 'mongorestore -d blog --drop /backUp'`,
+        await $`sudo docker exec klx-mongo sh -c 'mongorestore -d blog --drop /backUp'`,
         // 3. 删除容器内的临时文件
-        await $`sudo docker exec blog-mongo sh -c 'rm -rf /backUp'`,
+        await $`sudo docker exec klx-mongo sh -c 'rm -rf /backUp'`,
       ]);
 
       res.every((v) => v.exitCode === 0) && console.log('恢复数据库完成');
