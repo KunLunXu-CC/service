@@ -28,14 +28,14 @@ const choices = [
 
       const res = await Promise.all([
         // 1. 执行 docker 内部命令进行备份数据
-        await $`sudo docker exec blog-mongo sh -c 'mongodump -d blog -o /backUp'`,
+        await $`sudo docker exec klx-mongo sh -c 'mongodump -d blog -o /backUp'`,
         // 2. 删除旧的备份数据, 并创建备份目录(避免因目录不存在出现错误)
         await $`sudo rm -rf ${dest}/databases/blog`,
         await $`sudo mkdir -p ${dest}/databases`,
         // 3. 从容器内将备份数据复制到宿主机器
-        await $`sudo docker cp blog-mongo:/backUp/blog ${dest}/databases`,
+        await $`sudo docker cp klx-mongo:/backUp/blog ${dest}/databases`,
         // 4. 执行 docker 命令, 删除容器内的备份数据
-        await $`sudo docker exec blog-mongo sh -c 'rm -rf /backUp'`,
+        await $`sudo docker exec klx-mongo sh -c 'rm -rf /backUp'`,
       ]);
 
       res.every((v) => v.exitCode === 0) &&
