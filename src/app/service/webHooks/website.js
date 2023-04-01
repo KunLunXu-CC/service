@@ -6,7 +6,7 @@ $.quote = (v) => v;
 const step = [
   {
     title: '下载资源',
-    tick: async (tagName) => await $`wget -P /tmp https://github.com/KunLunXu0-0/website/releases/download/${tagName}/release.tar.gz`.exitCode,
+    tick: async (tagName) => await $`wget -P /tmp https://github.com/KunLunXu-CC/website/releases/download/${tagName}/release.tar.gz`.exitCode,
   },
   {
     title: '解压资源',
