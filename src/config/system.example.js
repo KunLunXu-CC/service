@@ -29,7 +29,7 @@ export default {
 
   wsPort: 4001,                    // ws 端口
 
-  corsOrigin: '*',                 // 跨域设置支持正则, 设置 Access-Control-Allow-Origin, https://www.qianyin925.com
+  corsOrigin: '*',                 // 跨域设置支持正则, 设置 Access-Control-Allow-Origin, https://www.kunlunxu.cc
 
   graphql: {                        // graphql 配置
     path: '/graphql',               // graphql 应用路由
