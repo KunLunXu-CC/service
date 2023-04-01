@@ -11,7 +11,7 @@
 
 1. 前端开源代码: https://github.com/KunLunXu0-0/website  
 2. 后端开源代码: https://github.com/KunLunXu0-0/service  
-3. 组件库(项目开发过程中抽离出独立的组件库): https://github.com/qianyin925/qyrc  
+3. 组件库(项目开发过程中抽离出独立的组件库): https://github.com/KunLunXu0-0/qyrc  
 4. 在线预览(游客权限有限无法查看所有应用): https://www.kunlunxu.cc/   
 
 ## 二、为什么要写这个项目
