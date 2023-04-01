@@ -62,5 +62,5 @@ export default async ({ body }) => {
     }
   }
 
-  logger({ label: 'webhooks - client', message: logs });
+  logger({ label: 'webhooks - client', level: 'warn', message: logs });
 };
