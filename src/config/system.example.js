@@ -1,6 +1,5 @@
 // 配置文件模板
 import fs from 'fs';
-import logger from '#logger';
 
 let publicKey = ''; // 公钥
 let privateKey = ''; // 私钥
@@ -17,7 +16,7 @@ try {
     'utf-8',
   );
 } catch (message) {
-  logger({ level: 'error', label: '读取秘钥', message });
+  console.error('获取秘钥失败!');
 }
 
 export default {
