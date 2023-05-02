@@ -1,7 +1,7 @@
 import Router from '@koa/router';
 import aiChat from '#service/aiChat/index';
 import webHooks from '#service/webHooks/index';
-import oauthWithGitHub from '#src/app/service/oauth/oauthWithGitHub';
+import oauthWithGitHub from '#src/app/service/user/oauthWithGitHub';
 const router = new Router();
 
 // github webhooks
