@@ -12,6 +12,13 @@ router.get('/ai-chat', aiChat);
 // github oauth 授权
 router.get('/oauth/github/callback', oauthWithGitHub);
 
+router.get('/test', (ctx) => {
+  // ctx.cookies.set('loginName', 'tobi', { domain: '.localhost' });
+
+  ctx.set('Set-Cookie', 'loginName=tobi; path=/; SameSite=None; Secure; domain=localhost;');
+  ctx.body = '11';
+});
+
 export default (app) => {
   app.use(router.routes()).use(router.allowedMethods());
 };
