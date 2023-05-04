@@ -4,6 +4,8 @@ import logger from '#logger';
 
 // 请求拦截: 请求状态保证为: 200、响应体保证为: 对象
 const intercept = (ctx) => {
+  ctx.cookies.set('login_jwt', '11');
+
   // 不处理 302 重定向
   if (
     ctx.response.header['content-type'] === 'text/event-stream' ||
