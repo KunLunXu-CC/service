@@ -2,7 +2,8 @@
 
 export default async (ctx) => {
   const { code } = ctx.request.query;
-  console.log('%c [ code ]-3', 'font-size:13px; background:pink; color:#bf2c9f;', code);
+  console.log('%c [ code ]-5', 'font-size:13px; background:pink; color:#bf2c9f;', code);
+
 
   // 1. 授权
   // await axios({

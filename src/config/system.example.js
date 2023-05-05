@@ -78,4 +78,12 @@ export default {
 
   // openai
   openaiApiKey: null, // openai Api key
+
+  // 第三方登录
+  oauth: {
+    github: {
+      clientID: null,     // 登记应用 ID
+      clientSecret: null, // 登记应用 秘钥
+    },
+  },
 };
