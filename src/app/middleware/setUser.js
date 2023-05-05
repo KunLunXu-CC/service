@@ -11,7 +11,8 @@ import { verifyJwt } from '#utils/encryption';
  * @param {object} params.ctx  koa 上下文
  */
 const setUserInfoToState = async ({ ctx }) => {
-  const token = ctx.request.header.authorization;
+  const token = ctx.cookies.get('jwt_token');
+
   const roleServer = mongoose.model('Role');
   const userServer = mongoose.model('User');
 
