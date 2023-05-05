@@ -16,7 +16,8 @@ const sendCertificate = async ({ user, ctx }) => {
     account: user.account,
   });
 
-  ctx.cookies.set('jwt_token', token);
+  // 设置 token 时长 7 天
+  ctx.cookies.set('jwt_token', token, { maxAge: 1000 * 60 * 60 * 24 * 7 });
 };
 
 /**
