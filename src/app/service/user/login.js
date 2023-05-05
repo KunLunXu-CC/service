@@ -15,7 +15,8 @@ const sendCertificate = async ({ user, ctx }) => {
     role: user.role,
     account: user.account,
   });
-  ctx.set('Authorization', token);
+
+  ctx.cookies.set('jwt_token', token);
 };
 
 /**

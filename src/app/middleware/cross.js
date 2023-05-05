@@ -11,6 +11,6 @@ export default cors({
   maxAge: 5,
   credentials: true,
   allowMethods: ['GET', 'POST'],
-  allowHeaders: ['Content-Type', 'Authorization'],
-  exposeHeaders: ['Content-Type', 'Authorization'],
+  allowHeaders: ['Content-Type'],
+  exposeHeaders: ['Content-Type'],
 });
