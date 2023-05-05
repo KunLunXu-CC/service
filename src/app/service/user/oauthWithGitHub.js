@@ -34,6 +34,5 @@ export default async (ctx) => {
 
 
   ctx.status = 302;
-  ctx.set('Authorization', 'token');
   ctx.redirect('http://localhost:8080');
 };
