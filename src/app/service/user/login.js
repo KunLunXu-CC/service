@@ -8,11 +8,10 @@ import { hash, decryptRsa, signJwt } from '#utils/encryption';
  * @param {object} params.user  当前用户
  * @param {object} params.ctx   koa 上下文
  */
-const sendCertificate = async ({ user, ctx }) => {
+export const sendCertificate = async ({ user, ctx }) => {
   const token = await signJwt({
     id: user.id,
     name: user.name,
-    role: user.role,
     account: user.account,
   });
 
