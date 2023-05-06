@@ -12,6 +12,12 @@ export const APP_CODE = {
   DATASETSFROM: 'datasetsfrom',  // 数据字典(数据集)
 };
 
+// 默认用户(游客)账号
+export const DEFAULT_USER_NAME = 'tourist';
+
+// 注册用户默认角色
+export const DEFAULT_ROLE_NAME = 'normal';
+
 // 布尔值
 export const BOOLEAN = {
   TRUE: 1,
