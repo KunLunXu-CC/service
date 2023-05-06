@@ -39,7 +39,6 @@ export default {
     database: 'blog',               // 数据库名
   },
 
-  defaultUser: 'tourist',           // 默认用户(游客)账号
   webHookSecret: null,              // web hooks secret
 
   // SMTP 邮件服务配置

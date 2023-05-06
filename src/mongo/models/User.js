@@ -12,20 +12,23 @@ const schema = new Schema({
     type: String,
   },
   account: {
-    title: '账号',
+    title: '登录账号',
     required: true,
+    type: String,
+  },
+  githubId: {
+    title: 'GitHub ID',
     type: String,
   },
   password: {
     title: '密码',
-    required: true,
     type: String,
   },
   avatar: {
     title: '头像',
     type: String,
   },
-  motto: {
+  bio: {
     title: '座右铭(个签)',
     type: String,
   },
@@ -68,5 +71,10 @@ const schema = new Schema({
 // 1. 复合唯一索引 see: https://github.com/Automattic/mongoose/issues/3955、 https://docs.mongodb.org/manual/tutorial/create-a-unique-index/#unique-compound-index
 schema.index({ name: 1, isDelete: 1 }, { unique: true });
 schema.index({ account: 1, isDelete: 1 }, { unique: true });
+schema.index({ githubId: 1, isDelete: 1 }, {
+  unique: true,
+  // see: https://juejin.cn/s/mongodb%20unique%20index%20ignore%20null
+  partialFilterExpression: { githubId: { $exists: true } },
+});
 
 export default schema;
