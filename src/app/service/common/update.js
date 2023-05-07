@@ -4,13 +4,15 @@ import getConditions from '#utils/getConditions';
 
 /**
  * 通用修改方法
- * @param {String}  model         模型名称
- * @param {Object}  ctx           koa上下文
- * @param {Object}  conds         要更新数据的查询条件
- * @param {Object}  body          创建信息
- * @param {Object}  search        查询参数
- * @param {Object}  pagination    分页信息
- * @param {Object}  orderBy       排序
+ *
+ * @param {object}  params               参数
+ * @param {string}  params.model         模型名称
+ * @param {object}  params.ctx           koa上下文
+ * @param {object}  params.conds         要更新数据的查询条件
+ * @param {object}  params.body          创建信息
+ * @param {object}  params.search        查询参数
+ * @param {object}  params.pagination    分页信息
+ * @param {object}  params.orderBy       排序
  */
 export default async ({
   model,
@@ -33,7 +35,7 @@ export default async ({
 
   try {
     body.updateTime = Date.now();
-    body.updater = ctx.state.user.id,
+    body.updater = ctx?.state.user.id,
     changeIds = (await server.find(changeConds)).map((v) => v._id);
     await server.updateMany(changeConds, body, {});
   } catch (e) {
