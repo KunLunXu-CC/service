@@ -56,7 +56,6 @@ type User {
 
   id: ID
   name: String
-  status: Int
   creator: User @relation
   updater: User @relation
   updateTime: Date
@@ -71,7 +70,6 @@ input UserSearch {
   role: ID
   sex: Int
 
-  status: [Int]
   creator: ID
   updater: ID
   startUpdateTime: Date
@@ -86,5 +84,4 @@ input UserFields {
   password: String
   role: ID
   sex: Int
-  status: Int
 }
