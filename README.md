@@ -1,5 +1,5 @@
 
-![预览.gif](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7f3e7b5a538f471c94ac86253e1f19a1~tplv-k3u1fbpfcp-watermark.image)
+![预览.gif](https://github.com/KunLunXu-CC/website/blob/dev/tmp/Kapture%202023-05-15%20at%2010.48.45.gif)
 
 ## 一、前言
 
@@ -9,9 +9,9 @@
 
 ### 1.2 相关链接
 
-1. 前端开源代码: https://github.com/KunLunXu-CC/website  
-2. 后端开源代码: https://github.com/KunLunXu-CC/service  
-3. 组件库(项目开发过程中抽离出独立的组件库): https://github.com/KunLunXu-CC/qyrc  
+1. 前端开源代码: https://github.com/KunLunXu-CC/website
+2. 后端开源代码: https://github.com/KunLunXu-CC/service
+3. 组件库(项目开发过程中抽离出独立的组件库): hhttps://github.com/KunLunXu-CC/brick
 4. 在线预览(游客权限有限无法查看所有应用): https://www.kunlunxu.cc/   
 
 ## 二、为什么要写这个项目
@@ -27,7 +27,7 @@
 ### 3.1 前端
 
 1. 使用 `React Hooks` 以函数式组件来进行编码, 并使用新版 `Antd` 来进行开发
-2. 使用个人组件库 `qyrc` 进行项目开发, 并将项目中部分组件封装到 `qyrc` 并进行发布
+2. 使用个人组件库 `@kunlunxu/brick` 进行项目开发, 并将项目中部分组件封装到 `@kunlunxu/brick` 并进行发布
 2. 使用 `Redux` 来管理状态, 并使用 `redux-saga` 解决异步问题
 3. 使用 `Sass` 预处理器来编写样式
 4. 使用 `Webpack` 从零搭建项目, 完成基本的项目配置
@@ -44,7 +44,7 @@
 6. 使用 `cron` 来管理系统定时任务(目前已实现系统数据的每日定时备份)
 7. 使用 `nodemailer` 实现邮件发送功能(主要用于数据备份, 将备份数据发送指定邮箱)
 8. 使用 `pm2` 来部署后端主项目以及定时任务
-9. 使用 `boxen` + `inquirer` + `ora` + `zx` + `chalk` 来实现交互式 `npm` 脚本, 可选脚本有: 数据备份、数据恢复、角色授权、创建秘钥、创建临时 `Token` ……
+9. 使用 `boxen` + `inquirer` + `ora` + `shelljs` + `chalk` 来实现交互式 `npm` 脚本, 可选脚本有: 数据备份、数据恢复、角色授权、创建秘钥、创建临时 `Token` ……
 10. 使用 `winston` 记录日志, 包括日志文件的生成、终端日志的打印输出、 配合 `websocket` 将日志在前端进行可视化展示
 11. 使用 `docker` + `docker-compose` 以容器的方式来部署项目
 
@@ -52,59 +52,62 @@
 
 ### 4.1 编辑器
 
-
-![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a973c2225a0f4b28bf1899e8a0af6b04~tplv-k3u1fbpfcp-watermark.image)
+![image.png](https://github.com/KunLunXu-CC/website/blob/dev/tmp/Snipaste_2023-05-15_11-42-38.png)
 
 > 用于管理个人文章, 左侧目录就相当于文件 `tag`  
 > 已完成功能: 文章以及目录(`tag`) 增删改查、文章发布、缩略图设置、预览……
 
-### 4.2 日记(下图数据为模拟数据)
+### 4.2 日记
 
-![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0974429b796d4cd3a85c575a7b5ac496~tplv-k3u1fbpfcp-watermark.image)
+![image.png](https://github.com/KunLunXu-CC/website/blob/dev/tmp/Snipaste_2023-05-15_14-17-18.png)
 
 > 用于记录每天起居、体重、体脂、饮食、运动、账单    
 > 已完成功能: 数据的增删改查、历史收支统计、每日账单统计图、身体体征(体征、体脂)统计图……
 
-### 4.3  Mac Touchbar 扩展功能(下图数据为模拟数据)
+### 4.3 图片管理
 
-![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0093b7ec32cd4a3faea8b70238a3b839~tplv-k3u1fbpfcp-watermark.image)
-
-> 在 Mac Touchbar 上展示每日体重以及本月开销
-
-### 4.4 图片管理
-
-![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5366b5aea66441258a8ce1beefaf718c~tplv-k3u1fbpfcp-watermark.image)
+![image.png](https://github.com/KunLunXu-CC/website/blob/dev/tmp/Snipaste_2023-05-15_11-43-08.png)
 
 > 用于管理系统图片资源, 包括文章插图、缩略图、默认头像、桌面壁纸……    
 > 已完成功能: 图片的批量上传、删除、图片压缩(后端实现)
 
-### 4.5 系统偏好设置
+### 4.4 系统偏好设置
 
-![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e66eee998663425d997e3eca594a1fac~tplv-k3u1fbpfcp-watermark.image)
+![image.png](https://github.com/KunLunXu-CC/website/blob/dev/tmp/Snipaste_2023-05-15_11-44-11.png)
 
 > 用于对系统的偏好进行设置    
 > 以实现功能: 程序坞自动隐藏设置、菜单栏全屏图标显示、菜单栏是否显示星期、自定义菜单栏日期格式
 
-### 4.6 数据字典管理
+### 4.5 用户管理
 
-![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/808b37b260ad48a4b36eafadba110b24~tplv-k3u1fbpfcp-watermark.image)
+![image.png](https://github.com/KunLunXu-CC/website/blob/dev/tmp/Snipaste_2023-05-15_11-44-29.png)
 
-> 用于管理系统数据字段数据
-> 已实现功能: 数据的增、删、改、查……
+### 4.6 系统通知栏
 
-### 4.7 系统通知栏
-
-![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b8a4894a13b4432387d910bafe7cc85a~tplv-k3u1fbpfcp-watermark.image)
+![image.png](https://github.com/KunLunXu-CC/website/blob/dev/tmp/Snipaste_2023-05-15_11-44-47.png)
 
 > 仿 Mac 通知栏, 展示用户信息(包含登出功能)、天气预报……
 > 已实现功能: 用户信息展示(包含登出功能)
 
-### 4.8 日志监控
+### 4.7 日志监控
 
 ![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2e066721f03d40a4a9b7454c77c31028~tplv-k3u1fbpfcp-watermark.image)
 
 > 用于实时查看后台服务输出的日志信息(websocket 实现)
 > 已实现功能: 日志的获取、展示
+
+### 4.8  Mac Touchbar 扩展功能(下图数据为模拟数据)
+
+![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0093b7ec32cd4a3faea8b70238a3b839~tplv-k3u1fbpfcp-watermark.image)
+
+> 在 Mac Touchbar 上展示每日体重以及本月开销
+
+### 4.9 数据字典管理
+
+![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/808b37b260ad48a4b36eafadba110b24~tplv-k3u1fbpfcp-watermark.image)
+
+> 用于管理系统数据字段数据
+> 已实现功能: 数据的增、删、改、查……
 
 ## 五、ToDo List
 
@@ -117,7 +120,4 @@
 - [ ] 系统配置: 桌面壁纸设置、动态壁纸实现(`canvas`、`webGL`)……
 - [ ] 系统监控: 日志监控、系统资源监控、前后端埋点……
 
-## TMP
-
-- 定时任务
-- 所有脚本回归测试
+……
