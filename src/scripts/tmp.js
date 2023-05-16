@@ -1,6 +1,6 @@
 import create from '#service/common/create';
 import update from '#service/common/update';
-import { ROLE_TYPE } from '#config/constants';
+import { ROLE_TYPE, DEFAULT_ROLE_NAME } from '#config/constants';
 
 // 临时脚本
 export default {
@@ -11,8 +11,8 @@ export default {
       model: 'Role',
       body: [{
         auth: [],
-        desc: '标准',
-        name: 'normal',
+        desc: '标准角色',
+        name: DEFAULT_ROLE_NAME,
         type: ROLE_TYPE.NORMAL,
       }],
     });
