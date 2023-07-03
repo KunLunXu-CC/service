@@ -25,8 +25,8 @@ export default async ({ model, ctx, body, search, orderBy, pagination }) => {
   try {
     data.change = await server.insertMany(body.map((v) => ({
       ...v,
-      creator: ctx.state.user.id,
-      updater: ctx.state.user.id,
+      creator: ctx?.state.user.id,
+      updater: ctx?.state.user.id,
     })));
   } catch (message) {
     logger({ ctx, level: 'error', label: '新增数据', message });
