@@ -12,6 +12,12 @@ export const APP_CODE = {
   DATASETSFROM: 'datasetsfrom',  // 数据字典(数据集)
 };
 
+// 默认用户(游客)账号
+export const DEFAULT_USER_NAME = 'tourist';
+
+// 注册用户默认角色
+export const DEFAULT_ROLE_NAME = 'normal';
+
 // 布尔值
 export const BOOLEAN = {
   TRUE: 1,
@@ -44,6 +50,7 @@ export const PHOTO_TYPE = {
 export const ROLE_TYPE = {
   ADMIN: 1,        // 管理员
   TOURIST: 2,      // 游客
+  NORMAL: 3,       // 标准角色
 };
 
 // 饮食类型

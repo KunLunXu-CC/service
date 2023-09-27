@@ -3,24 +3,29 @@ import { hash, decryptRsa, signJwt } from '#utils/encryption';
 
 /**
  * 发送证书: 添加 token 至响应头
- * @param {Object} user             当前用户
- * @param {Object} ctx              koa 上下文
+ *
+ * @param {object} params 参数
+ * @param {object} params.user  当前用户
+ * @param {object} params.ctx   koa 上下文
  */
-const sendCertificate = async ({ user, ctx }) => {
+export const sendCertificate = async ({ user, ctx }) => {
   const token = await signJwt({
     id: user.id,
     name: user.name,
-    role: user.role,
     account: user.account,
   });
-  ctx.set('Authorization', token);
+
+  // 设置 token 时长 7 天
+  ctx.cookies.set('jwt_token', token, { maxAge: 1000 * 60 * 60 * 24 * 7 });
 };
 
 /**
  * 用户登录入口
- * @param {String} account    账号
- * @param {String} password   密码
- * @param {Object} ctx        koa 上下文
+ *
+ *@param {object} params 参数
+ * @param {string} params.account    账号
+ * @param {string} params.password   密码
+ * @param {object} params.ctx        koa 上下文
  */
 export default async ({ account, password, ctx }) => {
   const userServer = mongoose.model('User');

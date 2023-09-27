@@ -1,6 +1,5 @@
 // 配置文件模板
 import fs from 'fs';
-import logger from '#logger';
 
 let publicKey = ''; // 公钥
 let privateKey = ''; // 私钥
@@ -17,7 +16,7 @@ try {
     'utf-8',
   );
 } catch (message) {
-  logger({ level: 'error', label: '读取秘钥', message });
+  console.error('获取秘钥失败!');
 }
 
 export default {
@@ -28,8 +27,6 @@ export default {
   privateKey,                      // 私钥
 
   wsPort: 4001,                    // ws 端口
-
-  corsOrigin: '*',                 // 跨域设置支持正则, 设置 Access-Control-Allow-Origin, https://www.kunlunxu.cc
 
   graphql: {                        // graphql 配置
     path: '/graphql',               // graphql 应用路由
@@ -42,7 +39,6 @@ export default {
     database: 'blog',               // 数据库名
   },
 
-  defaultUser: 'tourist',           // 默认用户(游客)账号
   webHookSecret: null,              // web hooks secret
 
   // SMTP 邮件服务配置
@@ -81,4 +77,12 @@ export default {
 
   // openai
   openaiApiKey: null, // openai Api key
+
+  // 第三方登录
+  oauth: {
+    github: {
+      clientID: null,     // 登记应用 ID
+      clientSecret: null, // 登记应用 秘钥
+    },
+  },
 };

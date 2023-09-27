@@ -1,8 +1,8 @@
 // 用户身份校验、api 校验
 import logger from '#logger';
 import mongoose from 'mongoose';
-import config from '#config/system';
 import { verifyJwt } from '#utils/encryption';
+import { DEFAULT_USER_NAME } from '#config/constants';
 
 /**
  * 设置用户信息(到koa.state)
@@ -11,7 +11,8 @@ import { verifyJwt } from '#utils/encryption';
  * @param {object} params.ctx  koa 上下文
  */
 const setUserInfoToState = async ({ ctx }) => {
-  const token = ctx.request.header.authorization;
+  const token = ctx.cookies.get('jwt_token');
+
   const roleServer = mongoose.model('Role');
   const userServer = mongoose.model('User');
 
@@ -26,7 +27,7 @@ const setUserInfoToState = async ({ ctx }) => {
   // 2.1 如果 token 错误或者数据更新可能 id 错误找不到用户时则使用默认用户
   user = user
     ? user
-    : await userServer.findOne({ account: config.defaultUser });
+    : await userServer.findOne({ account: DEFAULT_USER_NAME });
 
   // 3. 获取用户角色
   const role = user?.role ? await roleServer.findOne({ _id: user.role }) : {};
