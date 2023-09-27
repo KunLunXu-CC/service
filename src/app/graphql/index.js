@@ -99,5 +99,10 @@ export default async (app) => {
 
   // 6. 启动服务
   await server.start();
-  server.applyMiddleware({ app, path: config.graphql.path });
+
+  server.applyMiddleware({
+    app,
+    cors: false, // 不开启 cors 由 src/app/middleware/cross.js 统一控制
+    path: config.graphql.path,
+  });
 };
