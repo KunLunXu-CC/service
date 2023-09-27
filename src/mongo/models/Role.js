@@ -20,6 +20,15 @@ const schema = new Schema({
     title: '角色描述',
     type: String,
   },
+  apiAuth: {
+    title: '接口权限',
+    type: [{
+      path: {
+        title: '接口路径(name)',
+        type: String,
+      },
+    }],
+  },
   auth: {
     title: '角色权限',
     type: [{
