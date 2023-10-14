@@ -21,12 +21,12 @@ try {
 
 export default {
   port: 4000,                      // 系统应用端口
+  wsPort: 4001,                    // ws 端口
   https: false,                    // 是否开启 https
 
   publicKey,                       // 公钥
   privateKey,                      // 私钥
 
-  wsPort: 4001,                    // ws 端口
 
   graphql: {                        // graphql 配置
     path: '/graphql',               // graphql 应用路由
