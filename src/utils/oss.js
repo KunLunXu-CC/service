@@ -20,7 +20,7 @@ const getFileName = (sourceFileName) => {
   const env = process.env.NODE_ENV === 'development' ? 'dev' : 'pro';
   return {
     handledFileName: `klx.${env}.${name}${extname}`,
-    origin: `klx.${env}.origin.${name}${extname}`,
+    originFileName: `klx.${env}.origin.${name}${extname}`,
   };
 };
 
@@ -39,11 +39,15 @@ export const upload = async ({ fileName, fileStream, filePath }) => {
     ? fileStream
     : fs.createReadStream(filePath);
 
-  const { handledFileName }  = getFileName(fileName); // 处理文件名
+  const { handledFileName, originFileName }  = getFileName(fileName); // 处理文件名
+
+  // 源文件只是为了备份, 所以就不用 await 了
+  client.putStream(originFileName, stream); // 源文件上传
 
   const sharpStream = await sharp(stream); // 压缩
+  const res = await client.putStream(handledFileName, sharpStream); // 压缩文件上传
 
-  return await client.putStream(handledFileName, sharpStream); // 上传
+  return { ...res, originFileName };
 };
 
 export const span = null;

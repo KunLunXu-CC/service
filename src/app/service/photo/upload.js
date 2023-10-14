@@ -16,12 +16,17 @@ const upPhotos = async (files) => {
       fileName,
       fileStream: createReadStream(),
     });
-    resList.push({ sourceFileName: fileName, fileName: res.name });
+    resList.push({
+      fileName: res.name, // 处理后, 上传到 oss 的名字
+      sourceFileName: fileName, // 上传时的文件名
+      originFileName: res.originFileName, // 源文件上传到 oss 的名字
+    });
   }
 
   return resList;
 };
 
+// TODO: 目前没考虑传非图片的情况, 也没文件类型做校验
 export default async ({ body, ctx }) => {
   const { files, type, payload } = body;
 
@@ -37,6 +42,7 @@ export default async ({ body, ctx }) => {
       payload,
       name: v.fileName,
       sourceFileName: v.sourceFileName,
+      originFileName: v.originFileName,
     })),
   });
 };
