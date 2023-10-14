@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import OSS from 'ali-oss';
 import logger from '#logger';
-import tinify from '#utils/tinify';
+import sharp from '#utils/sharp';
 import system from '#config/system';
 import { hash } from '#utils/encryption';
 
@@ -12,14 +12,16 @@ const client = system.oss?.accessKeySecret ? new OSS(system.oss) : null;
  * 处理文件名(要存入数据库的文件名)
  *
  * @param {string} sourceFileName 上传文件的源文件名
- * @param {boolean} isTinify 是否压缩
  * @returns {string} 返回文件名: klx. {当前环境}.{原文件名+时间戳的 base64 }.{文件后缀}
  */
-const getFileName = (sourceFileName, isTinify) => {
+const getFileName = (sourceFileName) => {
   const extname = path.extname(sourceFileName);
   const name = hash({ data: `${sourceFileName}${new Date().getTime()}` });
   const env = process.env.NODE_ENV === 'development' ? 'dev' : 'pro';
-  return `klx.${env}${isTinify ? '.tinify' : ''}.${name}${extname}`;
+  return {
+    handledFileName: `klx.${env}.${name}${extname}`,
+    origin: `klx.${env}.origin.${name}${extname}`,
+  };
 };
 
 // 文件上传
@@ -36,10 +38,12 @@ export const upload = async ({ fileName, fileStream, filePath }) => {
   const stream = fileStream
     ? fileStream
     : fs.createReadStream(filePath);
-  const handledTinify = await tinify(stream); // 压缩
-  const handledFileName = getFileName(fileName, !handledTinify.error); // 处理文件名
 
-  return await client.putStream(handledFileName, handledTinify.stream); // 上传
+  const { handledFileName }  = getFileName(fileName); // 处理文件名
+
+  const sharpStream = await sharp(stream); // 压缩
+
+  return await client.putStream(handledFileName, sharpStream); // 上传
 };
 
 export const span = null;
