@@ -31,8 +31,8 @@ export default async (stream) => {
   }
 
   // 压缩: 调用 sharp
-  const newBuffer = await sharp(imagesBuffer, { options })
-    .gif(formatOptions)
+  const newBuffer = await sharp(imagesBuffer, options)
+    ?.[metadata.format](formatOptions)
     .toBuffer();
 
   // 返回文件流
