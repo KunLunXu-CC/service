@@ -72,9 +72,6 @@ export default {
     bucket: null,
   },
 
-  // tinify 图片压缩配置
-  tinifyApiKey: null,
-
   // openai
   openaiApiKey: null, // openai Api key
 
