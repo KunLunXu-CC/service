@@ -1,7 +1,7 @@
 // import create from '#service/common/create';
-import update from '#service/common/update';
-import getList from '#service/common/getList';
-import mongoose from 'mongoose';
+// import update from '#service/common/update';
+// import getList from '#service/common/getList';
+// import mongoose from 'mongoose';
 
 // import { ROLE_TYPE, DEFAULT_ROLE_NAME } from '#config/constants';
 
@@ -35,34 +35,23 @@ export default {
     //   },
     // });
 
-    // 修正 originFileName
-    const { list } = await getList({ model: 'Photo' });
+    // TODO 后面改成一个专门的脚本, 用于删除特定模块的无效数据(假删的数据)
+    // 删除, 假删数据, isDelete === 0 表示删除没有被删除, 如果等于 id 则说明数据被删除了
+    // const server = mongoose.model('Photo');
+    // const preDelTotal = await server.find({
+    //   isDelete: { $ne: 0 },
+    // }).countDocuments();
 
-    for (const item of list) {
-      const res = await update({
-        model: 'Photo',
-        conds: { id: item.id },
-        body: { originFileName: item.name },
-      });
-      console.log('%c [ res ]-44', 'font-size:13px; background:pink; color:#bf2c9f;', res);
-    }
+    // const preTotal = await server.find().countDocuments();
 
-    // 2. 删除, 假删数据, isDelete === 0 表示删除没有被删除, 如果等于 id 则说明数据被删除了
-    const server = mongoose.model('Photo');
-    const preDelTotal = await server.find({
-      isDelete: { $ne: 0 },
-    }).countDocuments();
+    // const delRes = await server.deleteMany({ isDelete: { $ne: 0 } });
+    // console.log('%c [ delRes ]-60', 'font-size:13px; background:pink; color:#bf2c9f;', delRes);
 
-    const preTotal = await server.find().countDocuments();
-
-    const delRes = await server.deleteMany({ isDelete: { $ne: 0 } });
-    console.log('%c [ delRes ]-60', 'font-size:13px; background:pink; color:#bf2c9f;', delRes);
-
-    const postDelTotal = await server.find({
-      isDelete: { $ne: 0 },
-    }).countDocuments();
-    const postTotal = await server.find().countDocuments();
-    console.log(`文件数: ${preTotal} => ${postTotal}`);
-    console.log(`要删除的文件数: ${preDelTotal} => ${postDelTotal}`);
+    // const postDelTotal = await server.find({
+    //   isDelete: { $ne: 0 },
+    // }).countDocuments();
+    // const postTotal = await server.find().countDocuments();
+    // console.log(`文件数: ${preTotal} => ${postTotal}`);
+    // console.log(`要删除的文件数: ${preDelTotal} => ${postDelTotal}`);
   },
 };
