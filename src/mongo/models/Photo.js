@@ -16,6 +16,10 @@ const schema = new Schema({
     title: '上传前源文件名',
     type: String,
   },
+  originFileName: {
+    title: '上传后, 未压缩的文件名',
+    type: String,
+  },
   type: {
     title: '图片类型(使用场景)',
     default: PHOTO_TYPE.UNKNOWN,
