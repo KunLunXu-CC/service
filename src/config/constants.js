@@ -74,7 +74,7 @@ export const FITNESS_TYPE = {
 };
 
 // 统计跨度
-export const STATS_SAPN = {
+export const STATS_SPAN = {
   DAY: 'day',      // 按天
   WEEK: 'week',    // 按周
   MONTH: 'month',  // 按月
