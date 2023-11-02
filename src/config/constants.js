@@ -15,7 +15,7 @@ export const APP_CODE = {
 // 默认用户(游客)账号
 export const DEFAULT_USER_NAME = 'tourist';
 
-// 注册用户默认角色
+// 注册用户时默认的角色
 export const DEFAULT_ROLE_NAME = 'normal';
 
 // 布尔值
