@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import mongoose from 'mongoose';
-import { STATS_SAPN, BOOLEAN } from '#config/constants';
+import { STATS_SPAN, BOOLEAN } from '#config/constants';
 
 /**
  * 获取数据
@@ -47,10 +47,10 @@ const statsField = ({ diaries, key }) => (
 const groupWithName = ({ data, span }) => {
   // 获取分组时间格式: 对象是 span 字段值和 Format 映射关系
   const format = {
-    [STATS_SAPN.DAY]: 'YYYY-MM-DD',
-    [STATS_SAPN.WEEK]: 'YYYY年第W周',
-    [STATS_SAPN.MONTH]: 'YYYY-MM',
-    [STATS_SAPN.YEAR]: 'YYYY',
+    [STATS_SPAN.DAY]: 'YYYY-MM-DD',
+    [STATS_SPAN.WEEK]: 'YYYY年第W周',
+    [STATS_SPAN.MONTH]: 'YYYY-MM',
+    [STATS_SPAN.YEAR]: 'YYYY',
   }[span] || 'YYYY-MM-DD';
 
   const groupData = _.groupBy(data, (v) => moment(v.name).format(format));
