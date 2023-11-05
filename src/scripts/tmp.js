@@ -7,17 +7,42 @@ import { ROLE_TYPE, DEFAULT_ROLE_NAME } from '#config/constants';
 export default {
   name: '临时脚本',
   exec: async () => {
-    // 1. 创建 normal 角色
-    const { change: [normalRole] } = await create({
+    // 1. 创建 common 角色
+    const { change: [commonRole] } = await create({
       model: 'Role',
       body: [{
-        auth: [],
-        desc: '标准角色',
+        auth: [
+          {
+            readable: 1,
+            writable: 1,
+            name: '编辑器',
+            code: 'editor',
+          },
+          {
+            readable: 1,
+            writable: 1,
+            name: '阅读',
+            code: 'reader',
+          },
+          {
+            readable: 1,
+            writable: 1,
+            name: '日记',
+            code: 'diary',
+          },
+          {
+            readable: 1,
+            writable: 1,
+            code: 'setting',
+            name: '偏好设置',
+          },
+        ],
+        desc: '普通角色',
         name: DEFAULT_ROLE_NAME,
-        type: ROLE_TYPE.NORMAL,
+        type: ROLE_TYPE.COMMON,
       }],
     });
-    console.log('创建 normal 角色:', normalRole); //
+    console.log('创建 common 角色:', commonRole);
 
     // 2. 获取 admin 用户数据(后面基于它, 创建新的 admin)
     const { data: currentAdminUser } = await findOne({
@@ -34,7 +59,7 @@ export default {
       },
       body: {
         name: '墨渊君',
-        role: normalRole.id,
+        role: commonRole.id,
         githubId: '23526706',
         account: 'MoYuanJun',
         bio: '善战者无赫赫之功',

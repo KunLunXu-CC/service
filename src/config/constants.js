@@ -16,7 +16,7 @@ export const APP_CODE = {
 export const DEFAULT_USER_NAME = 'tourist';
 
 // 注册用户时默认的角色
-export const DEFAULT_ROLE_NAME = 'normal';
+export const DEFAULT_ROLE_NAME = 'common';
 
 // 布尔值
 export const BOOLEAN = {
@@ -50,7 +50,7 @@ export const PHOTO_TYPE = {
 export const ROLE_TYPE = {
   ADMIN: 1,        // 管理员
   TOURIST: 2,      // 游客
-  NORMAL: 3,       // 标准角色
+  COMMON: 3,       // 普通角色
 };
 
 // 饮食类型
