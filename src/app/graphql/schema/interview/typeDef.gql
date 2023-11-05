@@ -13,14 +13,14 @@ extend type Mutation {
     orderBy: OrderBy
     search: InterviewSearch
     pagination: Pagination
-  ): Interviews @auth
+  ): Interviews
 
   removeInterviews (
     conds: InterviewSearch!
     orderBy: OrderBy
     search: InterviewSearch
     pagination: Pagination
-  ): Interviews @auth
+  ): Interviews
 
   updateInterviews (
     conds: InterviewSearch!
@@ -28,7 +28,7 @@ extend type Mutation {
     orderBy: OrderBy
     search: InterviewSearch
     pagination: Pagination
-  ): Interviews @auth
+  ): Interviews
 }
 
 type Interviews {

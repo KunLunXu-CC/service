@@ -13,14 +13,14 @@ extend type Mutation {
     orderBy: OrderBy
     search: AlgorithmSearch
     pagination: Pagination
-  ): Algorithms @auth
+  ): Algorithms
 
   removeAlgorithms (
     conds: AlgorithmSearch!
     orderBy: OrderBy
     search: AlgorithmSearch
     pagination: Pagination
-  ): Algorithms @auth
+  ): Algorithms
 
   updateAlgorithms (
     conds: AlgorithmSearch!
@@ -28,7 +28,7 @@ extend type Mutation {
     orderBy: OrderBy
     search: AlgorithmSearch
     pagination: Pagination
-  ): Algorithms @auth
+  ): Algorithms
 }
 
 type Algorithms {

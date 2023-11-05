@@ -12,14 +12,14 @@ extend type Mutation {
     orderBy: OrderBy
     search: AiChatSearch
     pagination: Pagination
-  ): AiChats @auth
+  ): AiChats
 
   removeAiChats (
     conds: AiChatSearch!
     orderBy: OrderBy
     search: AiChatSearch
     pagination: Pagination
-  ): AiChats @auth
+  ): AiChats
 
   updateAiChats (
     conds: AiChatSearch!
@@ -27,7 +27,7 @@ extend type Mutation {
     orderBy: OrderBy
     search: AiChatSearch
     pagination: Pagination
-  ): AiChats @auth
+  ): AiChats
 }
 
 type AiChatMessage {
