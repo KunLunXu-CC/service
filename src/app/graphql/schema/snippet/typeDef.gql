@@ -13,14 +13,14 @@ extend type Mutation {
     orderBy: OrderBy
     search: SnippetSearch
     pagination: Pagination
-  ): Snippets @auth
+  ): Snippets
 
   removeSnippets (
     conds: SnippetSearch!
     orderBy: OrderBy
     search: SnippetSearch
     pagination: Pagination
-  ): Snippets @auth
+  ): Snippets
 
   updateSnippets (
     conds: SnippetSearch!
@@ -28,7 +28,7 @@ extend type Mutation {
     orderBy: OrderBy
     search: SnippetSearch
     pagination: Pagination
-  ): Snippets @auth
+  ): Snippets
 }
 
 type Snippets {

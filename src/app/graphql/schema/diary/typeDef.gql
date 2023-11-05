@@ -5,12 +5,12 @@ extend type Query {
     orderBy: OrderBy
     search: DiarySearch
     pagination: Pagination
-  ): Diaries @auth
+  ): Diaries
 
   # 统计账单
   statsBill(
     search: StatsBillSearch
-  ): StatsBill @auth
+  ): StatsBill
 }
 
 extend type Mutation {
@@ -19,14 +19,14 @@ extend type Mutation {
     orderBy: OrderBy
     search: DiarySearch
     pagination: Pagination
-  ): Diaries @auth
+  ): Diaries
 
   removeDiaries (
     conds: DiarySearch!
     orderBy: OrderBy
     search: DiarySearch
     pagination: Pagination
-  ): Diaries @auth
+  ): Diaries
 
   updateDiaries (
     conds: DiarySearch!
@@ -34,7 +34,7 @@ extend type Mutation {
     orderBy: OrderBy
     search: DiarySearch
     pagination: Pagination
-  ): Diaries @auth
+  ): Diaries
 }
 
 type Diet {

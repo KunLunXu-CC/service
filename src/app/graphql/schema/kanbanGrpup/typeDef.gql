@@ -13,14 +13,14 @@ extend type Mutation {
     orderBy: OrderBy
     search: KanbanGroupSearch
     pagination: Pagination
-  ): KanbanGroups @auth
+  ): KanbanGroups
 
   createKanbanGroups (
     body: [KanbanGroupFields!]!
     orderBy: OrderBy
     search: KanbanGroupSearch
     pagination: Pagination
-  ): KanbanGroups @auth
+  ): KanbanGroups
 
   updateKanbanGroups (
     conds: KanbanGroupSearch!
@@ -28,7 +28,7 @@ extend type Mutation {
     orderBy: OrderBy
     search: KanbanGroupSearch
     pagination: Pagination
-  ): KanbanGroups @auth
+  ): KanbanGroups
 }
 
 input KanbanGroupFields {

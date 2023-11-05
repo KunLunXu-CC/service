@@ -13,14 +13,14 @@ extend type Mutation{
     pagination: Pagination
     conds: FolderSearch!
     search: FolderSearch
-  ): Folders @auth
+  ): Folders
 
   createFolders (
     orderBy: OrderBy
     pagination: Pagination
     search: FolderSearch
     body: [FolderFields!]!
-  ): Folders @auth
+  ): Folders
 
   updateFolders (
     orderBy: OrderBy
@@ -28,7 +28,7 @@ extend type Mutation{
     body: FolderFields!
     conds: FolderSearch!
     search: FolderSearch
-  ): Folders @auth
+  ): Folders
 }
 
 input FolderFields {
