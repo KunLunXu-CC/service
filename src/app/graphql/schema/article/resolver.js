@@ -2,7 +2,7 @@ import create from '#service/common/create';
 import remove from '#service/common/remove';
 import update from '#service/common/update';
 import getList from '#service/common/getList';
-import removeBypayload from '#service/photo/removeBypayload';
+import removeByPayload from '#src/app/service/photo/removeByPayload';
 
 import { ARTICLE_STATUS } from '#config/constants';
 
@@ -12,6 +12,7 @@ export default {
       ...args,
       model: 'Article',
       ctx: context.ctx,
+      astrictUser: true,
     }),
   },
 
@@ -28,7 +29,7 @@ export default {
         model: 'Article',
         ctx: context.ctx,
       });
-      removeBypayload({
+      removeByPayload({
         ctx: context.ctx,
         payload: data.change.map((v) => v.id),
       });
