@@ -12,7 +12,7 @@ export default {
       ...args,
       model: 'Article',
       ctx: context.ctx,
-      astrictUser: true,
+      // astrictUser: true,
     }),
   },
 

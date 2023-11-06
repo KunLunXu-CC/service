@@ -13,6 +13,7 @@ import getConditions from '#utils/getConditions';
  * @param {object}  params.search        查询参数
  * @param {object}  params.pagination    分页信息
  * @param {object}  params.orderBy       排序
+ * @param {boolean} params.astrictUser   限制用户(只允许创建者, 修改自己的数据)
  */
 export default async ({
   model,
@@ -22,6 +23,7 @@ export default async ({
   search,
   orderBy,
   pagination,
+  astrictUser,
 }) => {
   const data = {
     list: [],
@@ -29,8 +31,15 @@ export default async ({
     pagination: {},
     message: '修改成功',
   };
+
+  const handledConds = { ...conds };
+
+  if (astrictUser) {
+    handledConds.creator = ctx.state.user.id;
+  }
+
   const server = mongoose.model(model);
-  const changeConds = getConditions(conds);
+  const changeConds = getConditions(handledConds);
   let changeIds = [];
 
   try {
@@ -43,7 +52,14 @@ export default async ({
   }
 
   if (search) {
-    const listData = await getList({ model, ctx, search, pagination, orderBy });
+    const listData = await getList({
+      ctx,
+      model,
+      search,
+      orderBy,
+      pagination,
+      astrictUser,
+    });
     data.pagination = listData.pagination || {};
     data.list = listData.list || [];
   }

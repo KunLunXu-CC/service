@@ -9,7 +9,7 @@ export default {
       ...args,
       ctx: context.ctx,
       model: 'Folder',
-      astrictUser: true,
+      // astrictUser: true,
     }),
   },
 
