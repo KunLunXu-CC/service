@@ -7,16 +7,18 @@ import { STATS_SPAN, BOOLEAN } from '#config/constants';
  * 获取数据
  *
  * @param {string[]} name name(时间)查询范围
- * @returns {object[]}
+ * @returns {object[]} 返回日记列表
  */
-const getData = async ({ name }) => {
+const getData = async ({ name, ctx }) => {
   const serve = mongoose.model('Diary');
-  const search = { isDelete: BOOLEAN.FALSE };
+  const search = { isDelete: BOOLEAN.FALSE, creator: ctx.state.user.id };
 
-  name && (search.name = {
-    $gte: name?.[0],
-    $lte: name?.[1],
-  });
+  if (name) {
+    search.name = {
+      $gte: name?.[0],
+      $lte: name?.[1],
+    };
+  }
 
   return await serve.find(search);
 };
@@ -24,8 +26,9 @@ const getData = async ({ name }) => {
 /**
  * 统计字段
  *
- * @param {object[]} diaries 列表数据
- * @param {string} key 要统计的字段
+ * @param {object}     params            参数
+ * @param {object[]}   params.diaries    列表数据
+ * @param {string}     params.key        要统计的字段
  * @returns {number} 统计值
  */
 const statsField = ({ diaries, key }) => (
@@ -40,9 +43,10 @@ const statsField = ({ diaries, key }) => (
 /**
  * 按时间分组统计
  *
- * @param {object[]} data 待分组的列表数据
- * @param {string} span 规定的时间跨度(day、week、month、year)
- * @returns {object[]}
+ * @param {object}      params        参数
+ * @param {object[]}    params.data   待分组的列表数据
+ * @param {string}      params.span   规定的时间跨度(day、week、month、year)
+ * @returns {object[]}  数组
  */
 const groupWithName = ({ data, span }) => {
   // 获取分组时间格式: 对象是 span 字段值和 Format 映射关系
