@@ -68,9 +68,9 @@ export const decryptRsa = async (data) => {
 /**
  * 签发 json web token
  *
- * @param {object} payload   有效载荷
+ * @param {object} payload     有效载荷
  * @param {string} expiresIn   token 时长
- * @returns {string}         json web token
+ * @returns {string}           json web token
  */
 export const signJwt = async (payload, expiresIn = '7d') => jwt.sign(
   payload,
@@ -84,8 +84,8 @@ export const signJwt = async (payload, expiresIn = '7d') => jwt.sign(
 /**
  * （异步）验证 json web token
  *
- * @param {string} token    token 字符串
- * @returns {object}}        有效载荷 || {}
+ * @param {string} token  token 字符串
+ * @returns {object}}     有效载荷 || {}
  */
 export const verifyJwt = async (token) => new Promise(
   (resolve) => {
