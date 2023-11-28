@@ -42,14 +42,14 @@ export default {
         type: ROLE_TYPE.COMMON,
       }],
     });
-    console.log('创建 common 角色:', commonRole);
+    console.log('1. 创建 common 角色:', commonRole);
 
     // 2. 获取 admin 用户数据(后面基于它, 创建新的 admin)
     const { data: currentAdminUser } = await findOne({
       model: 'User',
       search: { account: 'admin' },
     });
-    console.log('当前 admin 数据:', currentAdminUser);
+    console.log('2. 当前 admin 数据:', currentAdminUser);
 
     // 3. 用户 admin => 墨渊君
     const { change: [moYuanJunUser] } = await update({
@@ -66,7 +66,7 @@ export default {
         avatar: 'https://avatars.githubusercontent.com/u/23526706?v=4',
       },
     });
-    console.log('用户墨渊君:', moYuanJunUser);
+    console.log('3. 用户墨渊君:', moYuanJunUser);
 
     // 4. 创建 admin 用户(除了名字 ID 都用上面 👆🏻 的数据)
     const { change: [adminUser] } = await create({
@@ -79,6 +79,36 @@ export default {
         password: currentAdminUser.password,
       }],
     });
-    console.log('创建 admin 用户:', adminUser);
+    console.log('4. 创建 admin 用户:', adminUser);
+
+    // 5. 文件夹, 设置创建者、修改者
+    const { change: [folders] } = await update({
+      model: 'Folder',
+      body: {
+        updater: moYuanJunUser.id,
+        creator: moYuanJunUser.id,
+      },
+    });
+    console.log('5. 文件夹, 设置创建者、修改者:', folders);
+
+    // 6. 文章, 设置创建者、修改者
+    const { change: [articles] } = await update({
+      model: 'Article',
+      body: {
+        updater: moYuanJunUser.id,
+        creator: moYuanJunUser.id,
+      },
+    });
+    console.log('6. 文章, 设置创建者、修改者:', articles);
+
+    // 7. 日记, 设置创建者、修改者
+    const { change: [diary] } = await update({
+      model: 'Diary',
+      body: {
+        updater: moYuanJunUser.id,
+        creator: moYuanJunUser.id,
+      },
+    });
+    console.log('6. 日记, 设置创建者、修改者:', diary);
   },
 };
