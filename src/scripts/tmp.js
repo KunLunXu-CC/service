@@ -3,6 +3,84 @@ import update from '#service/common/update';
 import findOne from '#service/common/findOne';
 import { ROLE_TYPE, DEFAULT_ROLE_NAME } from '#config/constants';
 
+const COMMON_AUTH = [
+  {
+    readable: 1,
+    writable: 1,
+    name: '编辑器',
+    code: 'editor',
+  },
+  {
+    readable: 1,
+    writable: 1,
+    name: '阅读',
+    code: 'reader',
+  },
+  {
+    readable: 1,
+    writable: 1,
+    name: '日记',
+    code: 'diary',
+  },
+  {
+    readable: 1,
+    writable: 1,
+    code: 'setting',
+    name: '偏好设置',
+  },
+];
+
+const ADMIN_AUTH = [
+  {
+    readable: 1,
+    writable: 1,
+    name: 'AI',
+    code: 'ai',
+  },
+  {
+    readable: 1,
+    writable: 1,
+    name: '相册',
+    code: 'album',
+  },
+  {
+    readable: 1,
+    writable: 1,
+    name: '编辑器',
+    code: 'editor',
+  },
+  {
+    readable: 1,
+    writable: 1,
+    name: '阅读',
+    code: 'reader',
+  },
+  {
+    readable: 1,
+    writable: 1,
+    name: '日记',
+    code: 'diary',
+  },
+  {
+    readable: 1,
+    writable: 1,
+    name: '鉴查院',
+    code: 'monitoring',
+  },
+  {
+    readable: 1,
+    writable: 1,
+    code: 'setting',
+    name: '偏好设置',
+  },
+  {
+    readable: 1,
+    writable: 1,
+    code: 'user',
+    name: '用户管理',
+  },
+];
+
 // 临时脚本
 export default {
   name: '临时脚本',
@@ -11,32 +89,7 @@ export default {
     const { change: [commonRole] } = await create({
       model: 'Role',
       body: [{
-        auth: [
-          {
-            readable: 1,
-            writable: 1,
-            name: '编辑器',
-            code: 'editor',
-          },
-          {
-            readable: 1,
-            writable: 1,
-            name: '阅读',
-            code: 'reader',
-          },
-          {
-            readable: 1,
-            writable: 1,
-            name: '日记',
-            code: 'diary',
-          },
-          {
-            readable: 1,
-            writable: 1,
-            code: 'setting',
-            name: '偏好设置',
-          },
-        ],
+        auth: COMMON_AUTH,
         desc: '普通角色',
         name: DEFAULT_ROLE_NAME,
         type: ROLE_TYPE.COMMON,
@@ -44,14 +97,24 @@ export default {
     });
     console.log('1. 创建 common 角色:', commonRole);
 
-    // 2. 获取 admin 用户数据(后面基于它, 创建新的 admin)
+    // 2. 修正 admin 角色的权限
+    const { change: [changeAdmin] } = await update({
+      model: 'Role',
+      conds: {
+        name: 'admin',
+      },
+      body: { auth: ADMIN_AUTH  },
+    });
+    console.log('2. 修正 admin 角色的权限:', changeAdmin);
+
+    // 3. 获取 admin 用户数据(后面基于它, 创建新的 admin)
     const { data: currentAdminUser } = await findOne({
       model: 'User',
       search: { account: 'admin' },
     });
-    console.log('2. 当前 admin 数据:', currentAdminUser);
+    console.log('3. 当前 admin 数据:', currentAdminUser);
 
-    // 3. 用户 admin => 墨渊君
+    // 4. 用户 admin => 墨渊君
     const { change: [moYuanJunUser] } = await update({
       model: 'User',
       conds: {
@@ -66,9 +129,9 @@ export default {
         avatar: 'https://avatars.githubusercontent.com/u/23526706?v=4',
       },
     });
-    console.log('3. 用户墨渊君:', moYuanJunUser);
+    console.log('4. 用户墨渊君:', moYuanJunUser);
 
-    // 4. 创建 admin 用户(除了名字 ID 都用上面 👆🏻 的数据)
+    // 5. 创建 admin 用户(除了名字 ID 都用上面 👆🏻 的数据)
     const { change: [adminUser] } = await create({
       model: 'User',
       body: [{
@@ -79,9 +142,9 @@ export default {
         password: currentAdminUser.password,
       }],
     });
-    console.log('4. 创建 admin 用户:', adminUser);
+    console.log('5. 创建 admin 用户:', adminUser);
 
-    // 5. 文件夹, 设置创建者、修改者
+    // 6. 文件夹, 设置创建者、修改者
     const { change: [folders] } = await update({
       model: 'Folder',
       body: {
@@ -89,9 +152,9 @@ export default {
         creator: moYuanJunUser.id,
       },
     });
-    console.log('5. 文件夹, 设置创建者、修改者:', folders);
+    console.log('6. 文件夹, 设置创建者、修改者:', folders);
 
-    // 6. 文章, 设置创建者、修改者
+    // 7. 文章, 设置创建者、修改者
     const { change: [articles] } = await update({
       model: 'Article',
       body: {
@@ -99,9 +162,9 @@ export default {
         creator: moYuanJunUser.id,
       },
     });
-    console.log('6. 文章, 设置创建者、修改者:', articles);
+    console.log('7. 文章, 设置创建者、修改者:', articles);
 
-    // 7. 日记, 设置创建者、修改者
+    // 8. 日记, 设置创建者、修改者
     const { change: [diary] } = await update({
       model: 'Diary',
       body: {
@@ -109,6 +172,6 @@ export default {
         creator: moYuanJunUser.id,
       },
     });
-    console.log('6. 日记, 设置创建者、修改者:', diary);
+    console.log('8. 日记, 设置创建者、修改者:', diary);
   },
 };
