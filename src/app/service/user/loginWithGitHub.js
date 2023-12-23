@@ -90,7 +90,7 @@ export default async (ctx) => {
   // 4. 重定向回首页
   ctx.status = 302;
   ctx.redirect(process.env.NODE_ENV === 'production'
-    ?  'https://www.kunlunxu.cc/'
+    ?  'https://www.kunlunxu.cc'
     : 'http://www.dev.kunlunxu.cc',
   );
 };
