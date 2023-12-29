@@ -15,8 +15,8 @@ export const APP_CODE = {
 // 默认用户(游客)账号
 export const DEFAULT_USER_NAME = 'tourist';
 
-// 注册用户默认角色
-export const DEFAULT_ROLE_NAME = 'normal';
+// 注册用户时默认的角色
+export const DEFAULT_ROLE_NAME = 'common';
 
 // 布尔值
 export const BOOLEAN = {
@@ -50,7 +50,7 @@ export const PHOTO_TYPE = {
 export const ROLE_TYPE = {
   ADMIN: 1,        // 管理员
   TOURIST: 2,      // 游客
-  NORMAL: 3,       // 标准角色
+  COMMON: 3,       // 普通角色
 };
 
 // 饮食类型
@@ -74,7 +74,7 @@ export const FITNESS_TYPE = {
 };
 
 // 统计跨度
-export const STATS_SAPN = {
+export const STATS_SPAN = {
   DAY: 'day',      // 按天
   WEEK: 'week',    // 按周
   MONTH: 'month',  // 按月

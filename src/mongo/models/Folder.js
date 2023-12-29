@@ -51,6 +51,12 @@ const schema = new Schema({
 });
 
 // 1. 复合唯一索引 see: https://github.com/Automattic/mongoose/issues/3955、 https://docs.mongodb.org/manual/tutorial/create-a-unique-index/#unique-compound-index
-schema.index({ name: 1, parent: 1, type: 1, isDelete: 1 }, { unique: true });
+schema.index({
+  type: 1,
+  name: 1,
+  parent: 1,
+  creator: 1,
+  isDelete: 1,
+}, { unique: true });
 
 export default schema;
