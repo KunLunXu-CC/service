@@ -3,20 +3,38 @@ import getConditions from '#utils/getConditions';
 
 /**
  * 通用获取数据列表方法
- * @param {String}  model         模型名称
- * @param {Object}  search        查询参数
- * @param {Object}  pagination    分页参数
- * @param {Object}  orderBy       排序
+ *
+ * @param {object} params                参数
+ * @param {string}  params.model         模型名称
+ * @param {object}  params.search        查询参数
+ * @param {object}  params.pagination    分页参数
+ * @param {object}  params.orderBy       排序
+ * @param {object}  params.ctx           koa 上下文
+ * @param {boolean} params.astrictUser   限制用户(只返回当前用户的数据)
  */
-export default async ({ model, search, pagination, orderBy }) => {
+export default async ({
+  ctx,
+  model,
+  search,
+  orderBy,
+  pagination,
+  astrictUser,
+}) => {
   const data = {
     list: [],
     change: [],
     pagination: {},
     message: '请求成功',
   };
+
+  const handledSearch = { ...search };
+
+  if (astrictUser) {
+    handledSearch.creator = ctx.state.user.id;
+  }
+
   const server = mongoose.model(model);
-  const conds = getConditions(search);
+  const conds = getConditions(handledSearch);
   data.pagination = {
     ...pagination,
     total: await server.find(conds).countDocuments(),

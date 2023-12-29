@@ -13,14 +13,14 @@ extend type Mutation {
     orderBy: OrderBy
     search: KanbanTaskSearch
     pagination: Pagination
-  ): KanbanTasks @auth
+  ): KanbanTasks
 
   createKanbanTasks (
     body: [KanbanTaskFields!]!
     orderBy: OrderBy
     search: KanbanTaskSearch
     pagination: Pagination
-  ): KanbanTasks @auth
+  ): KanbanTasks
 
   updateKanbanTasks (
     conds: KanbanTaskSearch!
@@ -28,7 +28,7 @@ extend type Mutation {
     orderBy: OrderBy
     search: KanbanTaskSearch
     pagination: Pagination
-  ): KanbanTasks @auth
+  ): KanbanTasks
 }
 
 input KanbanTaskFields {

@@ -4,7 +4,7 @@ type Query {
     orderBy: OrderBy
     search: UserSearch
     pagination: Pagination
-  ): Users @auth
+  ): Users
 }
 
 type Mutation {
@@ -13,14 +13,14 @@ type Mutation {
     orderBy: OrderBy
     search: UserSearch
     pagination: Pagination
-  ): Users @auth
+  ): Users
 
   removeUsers (
     conds: UserSearch!
     orderBy: OrderBy
     search: UserSearch
     pagination: Pagination
-  ): Users @auth
+  ): Users
 
   updateUsers (
     conds: UserSearch!
@@ -28,7 +28,7 @@ type Mutation {
     orderBy: OrderBy
     search: UserSearch
     pagination: Pagination
-  ): Users @auth
+  ): Users
 
   login (
     account: String
