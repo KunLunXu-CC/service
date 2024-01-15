@@ -21,7 +21,7 @@ export default async (stream) => {
         animated: true,
         limitInputPixels: false,
       };
-      formatOptions = { colours: 128  };
+      formatOptions = { colours: 256  };
       break;
     case 'raw':
     case 'tile':
