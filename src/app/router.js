@@ -7,12 +7,12 @@ const router = new Router();
 // github webhooks
 router.post('/web-hooks', webHooks);
 
-router.get('/ai-chat', aiChat);
+router.get('/api/ai-chat', aiChat);
 
 // github oauth 授权
-router.get('/oauth/github/callback', loginWithGitHub);
+router.get('/api/oauth/github/callback', loginWithGitHub);
 
-router.get('/test', (ctx) => {
+router.get('/api/test', (ctx) => {
   ctx.body = '11';
 });
 

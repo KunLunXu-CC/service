@@ -29,7 +29,7 @@ export default {
 
 
   graphql: {                        // graphql 配置
-    path: '/graphql',               // graphql 应用路由
+    path: '/api/graphql',           // graphql 应用路由
   },
 
   mongo: {                          // mongo 配置
