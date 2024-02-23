@@ -43,7 +43,7 @@
     "chalk": "^5.0.1",
     "cron": "^2.1.0",
     "cross-env": "^7.0.3",
-    "graphql": "^16.6.0",
+    "graphql": "^16.8.1",
     "graphql-upload": "^16.0.1",
     "inquirer": "^9.1.0",
     "jsonwebtoken": "^8.5.1",
