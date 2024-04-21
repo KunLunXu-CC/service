@@ -91,6 +91,6 @@ export default async (ctx) => {
   ctx.status = 302;
   ctx.redirect(process.env.NODE_ENV === 'production'
     ?  'https://www.kunlunxu.cc'
-    : 'http://www.dev.kunlunxu.cc',
+    : 'http://localhost:3000',
   );
 };
