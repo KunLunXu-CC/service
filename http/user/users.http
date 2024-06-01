@@ -1,15 +1,15 @@
-POST http://localhost:4000/graphql HTTP/1.1
+POST http://localhost:4000/api/graphql HTTP/1.1
 content-type: application/json
 x-request-type: GraphQL
 
 query{
-    users{
-        list {
+    userInfo{
+      user {
+        name
+        role {
           id
           name
-          role { id name }
-          creator { id name }
-          updater { name role { name } }
         }
+      }
     }
 }

@@ -5,6 +5,8 @@ type Query {
     search: UserSearch
     pagination: Pagination
   ): Users
+
+  userInfo: UserInfo
 }
 
 type Mutation {
@@ -35,6 +37,11 @@ type Mutation {
     password: String
   ): Login
 
+}
+
+type UserInfo {
+  user: User
+  message: String
 }
 
 type Login {
