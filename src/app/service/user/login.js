@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { DEFAULT_USER_NAME } from '#config/constants';
 import { hash, decryptRsa, signJwt } from '#utils/encryption';
 
 /**
@@ -43,22 +44,21 @@ export default async ({ account, password, ctx }) => {
       account,
       password: decryptPassword,
     });
-    !data.user && (data.message = '账号或者密码错误');
   }
 
-  // 2. 更新 data
+  // 2. 登录失败
   if (!data.user) {
-    // 2.1. 账号密码登录失败: 从 koa.state 中获取数据(在中间件 jurisdiction 中设置的)
-    data.user = ctx.state.user;
-  } else {
-    // 2.2 账号密码登录成功: 更新 koa state
-    data.user.role && (ctx.state.role = await roleServer.findOne({
-      _id: data.user.role,
-    }));
-    ctx.state.user = data.user;
+    data.message = '账号或者密码错误';
+    data.user = await userServer.findOne({ account: DEFAULT_USER_NAME }); // 取默认用户
   }
 
-  // 3. 发送证书
+  // 3. 更新 koa state
+  ctx.state.user = data.user;
+  ctx.state.role = await roleServer.findOne({ _id: data.user.role });
+
+  // 4. 发送证书 JWT
   await sendCertificate({ user: data.user, ctx });
+
+  console.log('%c [ ctx.state.role ]-64', 'font-size:13px; background:pink; color:#bf2c9f;', ctx.state.role);
   return data;
 };
