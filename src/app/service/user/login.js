@@ -59,6 +59,6 @@ export default async ({ account, password, ctx }) => {
   // 4. 发送证书 JWT
   await sendCertificate({ user: data.user, ctx });
 
-  console.log('%c [ ctx.state.role ]-64', 'font-size:13px; background:pink; color:#bf2c9f;', ctx.state.role);
+  console.log('%c [ ctx.state.role ]-64', 'font-size:13px; background:pink; color:#bf2c9f;', ctx.state);
   return data;
 };

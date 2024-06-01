@@ -1,4 +1,5 @@
 import login from '#service/user/login';
+// import getUserInfo from '#service/user/getUserInfo';
 import create from '#service/common/create';
 import remove from '#service/common/remove';
 import update from '#service/common/update';
@@ -10,6 +11,10 @@ export default {
       ...args,
       model: 'User',
       ctx: context.ctx,
+    }),
+    userInfo: async (parents, args, context) => ({
+      message: '请求成功!',
+      user: context.ctx.state.user,
     }),
   },
 
