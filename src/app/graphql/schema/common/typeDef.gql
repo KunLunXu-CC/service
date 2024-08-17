@@ -52,10 +52,10 @@ input OptionsSearch {
 
 ## ********* publicKey 获取公钥 ********
 extend type Query {
-  publicKey: PublicKey
+  publicKey: PublicKey!
 }
 
 type PublicKey {
-  data: String
+  data: String!
   message: String
 }
