@@ -4,7 +4,7 @@ type Query {
     orderBy: OrderBy
     search: UserSearch
     pagination: Pagination
-  ): Users
+  ): Users!
 
   userInfo: UserInfo
 }
@@ -50,25 +50,27 @@ type Login {
 }
 
 type Users {
-  list: [User]
-  change: [User]
+  list: [User!]!
+  change: [User!]!
   message: String
   pagination: Pagination
 }
 
 type User {
-  account: String
-  avatar: String
   bio: String
-  role: Role @relation
-  sex: Int
+  avatar: String
 
-  id: ID
-  name: String
-  creator: User @relation
-  updater: User @relation
-  updateTime: Date
-  creationTime: Date
+  id: ID!
+  name: String!
+  account: String!
+
+  sex: Int!
+  role: Role! @relation
+
+  creator: User! @relation
+  updater: User! @relation
+  updateTime: Date!
+  creationTime: Date!
 }
 
 input UserSearch {

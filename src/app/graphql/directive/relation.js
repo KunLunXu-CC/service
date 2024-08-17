@@ -20,8 +20,9 @@ export default {
     )?.[0];
 
     if (deprecatedDirective) {
-      const { model = config.type } = deprecatedDirective;
+      const { type = config.type } = deprecatedDirective;
       const name = config.astNode.name.value; // 指令绑定的字段名
+      const model = String(type).replace(/(\[|\]|!)/g, '');
 
       config.resolve = async (parents) => {
         const value = parents[name];
@@ -34,12 +35,12 @@ export default {
         // 2. 根据父级对应数据类型来进行来处理
         const res = _.isArray(value)
           ? await getList({
+            model,
             search: { ids: value },
-            model: String(model).replace(/(\[|\])/g, ''),
           })
           : await findOne({
+            model,
             search: { id: value },
-            model: String(model).replace(/(\[|\])/g, ''),
           });
 
         return res?.data ?? res?.list;
