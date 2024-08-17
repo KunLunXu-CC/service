@@ -4,7 +4,7 @@ extend type Query {
     orderBy: OrderBy
     search: RoleSearch
     pagination: Pagination
-  ): Roles
+  ): Roles!
 }
 
 extend type Mutation {
@@ -32,8 +32,8 @@ extend type Mutation {
 }
 
 type Roles {
-  list: [Role]
-  change: [Role]
+  list: [Role!]!
+  change: [Role!]!
   message: String
   pagination: Pagination
 }
@@ -47,15 +47,15 @@ scalar Auth {
 
 type Role {
   desc: String
-  auth: [Auth]
+  auth: [Auth]!
 
-  id: ID
-  name: String
-  status: Int
-  creator: User @relation
-  updater: User @relation
-  updateTime: Date
-  creationTime: Date
+  id: ID!
+  name: String!
+  status: Int!
+  creator: User! @relation
+  updater: User! @relation
+  updateTime: Date!
+  creationTime: Date!
 }
 
 input RoleSearch {
