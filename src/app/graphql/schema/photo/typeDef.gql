@@ -21,7 +21,7 @@ extend type Mutation {
     orderBy: OrderBy
     search: PhotoSearch
     pagination: Pagination
-  ): Photos
+  ): Photos!
 }
 
 input PhotoFields {
@@ -32,24 +32,24 @@ input PhotoFields {
 
 type Photos {
   list: [Photo!]!
-  change: [Photo]
+  change: [Photo!]!
   message: String
   pagination: Pagination
 }
 
 type Photo {
-  id: ID
-  type: Int
-  url: String
-  name: String
-  sourceFileName: String
+  id: ID!
+  type: Int!
+  url: String!
+  name: String!
+  sourceFileName: String!
   # payload
 
-	status: Int
-  creator: User @relation
-  updater: User @relation
-  updateTime: Date
-  creationTime: Date
+	status: Int!
+  creator: User! @relation
+  updater: User! @relation
+  updateTime: Date!
+  creationTime: Date!
 }
 
 input PhotoSearch {
