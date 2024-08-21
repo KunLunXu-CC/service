@@ -13,7 +13,7 @@ extend type Mutation {
     conds: PhotoSearch!
     search: PhotoSearch
     pagination: Pagination
-  ): Photos
+  ): Photos!
 
   # 单文件上传
   uploadPhotos(
