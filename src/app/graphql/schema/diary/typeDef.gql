@@ -10,7 +10,7 @@ extend type Query {
   # 统计账单
   statsBill(
     search: StatsBillSearch
-  ): StatsBill
+  ): StatsBill!
 }
 
 extend type Mutation {
@@ -48,10 +48,10 @@ type Fitness {
 }
 
 type Bill {
-  tag: Int
-  desc: String
-  income: Float
-  expend: Float
+  tag: Int!
+  desc: String!
+  income: Float!
+  expend: Float!
 }
 
 type BodyIndex {
@@ -63,7 +63,7 @@ type BodyIndex {
 }
 
 type Diary {
-  name: String
+  name: String!
   getUp: Date
   toRest: Date
   bodyIndex: BodyIndex
@@ -73,12 +73,12 @@ type Diary {
   bill: [Bill]
   fitness: [Fitness]
 
-  id: ID
-  status: Int
-  creator: User @relation
-  updater: User @relation
-  updateTime: Date
-  creationTime: Date
+  id: ID!
+  status: Int!
+  creator: User! @relation
+  updater: User! @relation
+  updateTime: Date!
+  creationTime: Date!
 }
 
 type Diaries {
@@ -140,16 +140,16 @@ input DiaryFields {
 
 # 统计账单 - 列表项
 type StatsBillItem {
-  name: String
-  income: Float
-  expend: Float
-  diaries: [Diary]
+  name: String!
+  income: Float!
+  expend: Float!
+  diaries: [Diary!]!
 }
 
 # 统计账单 - 响应列表
 type StatsBill {
-  stats: Bill
-  groupWithName: [StatsBillItem]
+  stats: Bill!
+  groupWithName: [StatsBillItem!]!
   message: String
 }
 
