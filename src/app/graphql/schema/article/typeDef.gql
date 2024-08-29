@@ -4,7 +4,7 @@ extend type Query {
     orderBy: OrderBy
     search: ArticleSearch
     pagination: Pagination
-  ): Articles
+  ): Articles!
 }
 
 extend type Mutation {
@@ -13,14 +13,14 @@ extend type Mutation {
     orderBy: OrderBy
     search: ArticleSearch
     pagination: Pagination
-  ): Articles
+  ): Articles!
 
   removeArticles (
     conds: ArticleSearch!
     orderBy: OrderBy
     search: ArticleSearch
     pagination: Pagination
-  ): Articles
+  ): Articles!
 
   updateArticles (
     conds: ArticleSearch!
@@ -28,7 +28,7 @@ extend type Mutation {
     orderBy: OrderBy
     search: ArticleSearch
     pagination: Pagination
-  ): Articles
+  ): Articles!
 
   # 发布文章
   releaseArticles (
@@ -36,7 +36,7 @@ extend type Mutation {
     orderBy: OrderBy
     search: ArticleSearch
     pagination: Pagination
-  ): Articles
+  ): Articles!
 
   # 撤销(取消发布)文章
   revokeArticles (
@@ -44,7 +44,7 @@ extend type Mutation {
     orderBy: OrderBy
     search: ArticleSearch
     pagination: Pagination
-  ): Articles
+  ): Articles!
 }
 
 input ArticleSearch {
@@ -75,26 +75,26 @@ input ArticleFields {
 }
 
 type Articles {
-  list: [Article]
-  change: [Article]
+  list: [Article!]!
+  change: [Article!]!
   message: String
   pagination: Pagination
 }
 
 type Article {
-  tags: [ID!]
+  tags: [ID!]!
   desc: String
   thumb: String
   viewCount: Int
   content: String
   viewHistory: [String]
-  folder: Folder @relation
+  folder: Folder! @relation
 
-  id: ID
+  id: ID!
   name: String!
-	status: Int
-  creator: User @relation
-  updater: User @relation
-  updateTime: Date
-  creationTime: Date
+	status: Int!
+  creator: User! @relation
+  updater: User! @relation
+  updateTime: Date!
+  creationTime: Date!
 }
