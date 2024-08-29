@@ -69,9 +69,9 @@ type Diary {
   bodyIndex: BodyIndex
   informalEssay: String
 
-  diet: [Diet]
-  bill: [Bill]
-  fitness: [Fitness]
+  diet: [Diet!]!
+  bill: [Bill!]!
+  fitness: [Fitness!]!
 
   id: ID!
   status: Int!

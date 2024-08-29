@@ -4,7 +4,7 @@ extend type Query{
     orderBy: OrderBy
     pagination: Pagination
     search: FolderSearch
-  ): Folders
+  ): Folders!
 }
 
 extend type Mutation{
@@ -13,14 +13,14 @@ extend type Mutation{
     pagination: Pagination
     conds: FolderSearch!
     search: FolderSearch
-  ): Folders
+  ): Folders!
 
   createFolders (
     orderBy: OrderBy
     pagination: Pagination
     search: FolderSearch
     body: [FolderFields!]!
-  ): Folders
+  ): Folders!
 
   updateFolders (
     orderBy: OrderBy
@@ -28,7 +28,7 @@ extend type Mutation{
     body: FolderFields!
     conds: FolderSearch!
     search: FolderSearch
-  ): Folders
+  ): Folders!
 }
 
 input FolderFields {
@@ -56,22 +56,22 @@ input FolderSearch {
 }
 
 type Folders{
-  list: [Folder]
-  change: [Folder]
+  list: [Folder!]!
+  change: [Folder!]!
   message: String
   pagination: Pagination
 }
 
 type Folder {
-  type: Int
+  type: Int!
   name: String
   desc: String
   parent: Folder @relation
 
   id: ID
-  status: Int
-  updateTime: Date
-  creationTime: Date
-  creator: User @relation
-  updater: User @relation
+  status: Int!
+  updateTime: Date!
+  creationTime: Date!
+  creator: User! @relation
+  updater: User! @relation
 }
