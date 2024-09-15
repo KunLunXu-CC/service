@@ -25,5 +25,6 @@ yarn-error.log*
 
 # 项目部署相关
 html
+website
 /docker/store
 /docker/nginx/ssl.*
