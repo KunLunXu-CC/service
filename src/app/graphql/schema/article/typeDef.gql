@@ -88,7 +88,7 @@ type Article {
   viewCount: Int
   content: String
   viewHistory: [String]
-  folder: Folder! @relation
+  folder: Folder @relation
 
   id: ID!
   name: String!
