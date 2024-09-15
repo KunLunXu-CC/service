@@ -16,8 +16,8 @@ services:
       options:
         max-size: "100k"
         max-file: "20"
-  node:
-    build: ./node/
+  service:
+    build: ./service/
     container_name: klx-service
     ports:
       - 4000:4000
@@ -35,20 +35,20 @@ services:
       options:
         max-size: "100k"
         max-file: "20"
-  web:
+  nginx:
     image: nginx
-    container_name: klx-web
+    container_name: klx-nginx
     environment:
       - TZ=Asia/Shanghai
     ports:
       - 80:80
       - 443:443
-    links:
-      - node
-    depends_on:
-      - node
+    # links:
+    #   - node
+    # depends_on:
+    #   - node
     volumes:
-      - ./nginx/html:/usr/share/nginx/html
+      # - ./nginx/html:/usr/share/nginx/html
 
       - ./store/nginx/logs/:/var/log/nginx
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf

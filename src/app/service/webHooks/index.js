@@ -34,5 +34,5 @@ export default async (ctx) => {
   }
 
   ctx.body = '匹配成功, 将执行指定脚本';
-  scripts[repository.name](ctx.request);
+  // scripts[repository.name](ctx.request);
 };
