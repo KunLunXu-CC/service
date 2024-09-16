@@ -35,7 +35,7 @@ RUN mkdir -p /root/.config/git /root/.npm/_logs && chmod -R 777 /root
 #     cd ../ && rm -rf v2.26.0.tar.gz git-2.26.0
 
 # 安装 netcat: 网络测试工具, 用于检测 mongo 容器运行状态
-RUN apt-get -q update && apt-get -qy install netcat
+RUN apt-get -q update && apt-get -qy install netcat-traditional
 
 # 拷贝脚本文件
 RUN mkdir /shell
