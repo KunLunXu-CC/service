@@ -41,8 +41,6 @@ export default async ({ account, password, ctx }) => {
   if (!!account && !!password) {
     const decryptPassword = hash({ data: await decryptRsa(password) });
 
-    console.log('%c [ account ]-43', 'font-size:13px; background:pink; color:#bf2c9f;', account);
-    console.log('%c [ decryptPassword ]-43', 'font-size:13px; background:pink; color:#bf2c9f;', decryptPassword);
     data.user = await userServer.findOne({
       account,
       password: decryptPassword,
