@@ -55,12 +55,15 @@ export const createRasKey = () => {
  * @param {string} data 待解密数据
  */
 export const decryptRsa = async (data) => {
+  console.log('%c [ data ]-58', 'font-size:13px; background:pink; color:#bf2c9f;', data);
   const nodeRSA = new NodeRSA(config.privateKey);
+  console.log('%c [ config.privateKey ]-59', 'font-size:13px; background:pink; color:#bf2c9f;', config.privateKey);
   nodeRSA.setOptions({ encryptionScheme: 'pkcs1' });
 
   try {
     return nodeRSA.decrypt(data, 'utf8');
   } catch (e) {
+    console.log('%c [ e ]-64', 'font-size:13px; background:pink; color:#bf2c9f;', e);
     return false;
   }
 };
