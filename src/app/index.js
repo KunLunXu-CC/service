@@ -1,6 +1,4 @@
-import fs from 'fs';
 import Koa from 'koa';
-import https from 'https';
 import mongo from '#mongo';
 import moment from 'moment';
 import graphql from '#graphql';
@@ -19,12 +17,14 @@ router(app);        // 路由
 await graphql(app); // graphql 服务
 
 // 创建服务
-config.https
-  ? https.createServer(
-    {
-      key: fs.readFileSync(new URL('../../docker/nginx/ssl.key', import.meta.url)),
-      cert: fs.readFileSync(new URL('../../docker/nginx/ssl.pem', import.meta.url)),
-    },
-    app.callback(),
-  ).listen(config.port, printStartCharPattern)
-  : app.listen(config.port, printStartCharPattern);
+// config.https
+//   ? https.createServer(
+//     {
+//       key: fs.readFileSync(new URL('../../docker/nginx/ssl.key', import.meta.url)),
+//       cert: fs.readFileSync(new URL('../../docker/nginx/ssl.pem', import.meta.url)),
+//     },
+//     app.callback(),
+//   ).listen(config.port, printStartCharPattern)
+//   : app.listen(config.port, printStartCharPattern);
+
+app.listen(config.port, printStartCharPattern);
