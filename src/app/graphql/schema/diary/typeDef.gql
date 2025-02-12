@@ -48,7 +48,7 @@ type Fitness {
 }
 
 type Bill {
-  tag: Int!
+  tag: Int
   desc: String!
   income: Float!
   expend: Float!
