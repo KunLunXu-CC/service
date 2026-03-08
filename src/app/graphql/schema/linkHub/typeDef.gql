@@ -1,0 +1,52 @@
+# 标签(知识标签)
+extend type Query{
+  linkHubs(
+    orderBy: OrderBy
+    search: LinkHubSearch
+    pagination: Pagination
+  ): LinkHubs
+}
+
+extend type Mutation{
+  createLinkHub (
+    body: [LinkHubFields!]!
+    orderBy: OrderBy
+    search: LinkHubSearch
+    pagination: Pagination
+  ): LinkHubs
+}
+
+
+type LinkHub {
+  id: ID
+  name: String
+  link: String
+  desc: String
+  icon: String
+  parent: LinkHub @relation
+
+  creator: User @relation
+  updater: User @relation
+  updateTime: Date
+  creationTime: Date
+}
+
+type LinkHubs{
+  list: [LinkHub]
+  change: [LinkHub]
+  message: String
+  pagination: Pagination
+}
+
+input LinkHubSearch {
+  name: String
+}
+
+input LinkHubFields {
+  name: String!
+  link: String
+  desc: String
+  icon: String
+  parent: ID
+}
+
