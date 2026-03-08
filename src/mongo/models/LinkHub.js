@@ -11,6 +11,10 @@ const schema = new Schema({
     required: true,
     type: String,
   },
+  link: {
+    title: '链接',
+    type: String,
+  },
   parent: {
     title: '父级链接集ID',
     type: ObjectId,
