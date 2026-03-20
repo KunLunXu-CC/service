@@ -1,4 +1,10 @@
 version: '2'
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "100k"
+    max-file: "20"
+
 services:
   mongo:
     build: ./mongo/
@@ -11,11 +17,7 @@ services:
       - ./store/mongo/db:/data/db
       - ./store/mongo/configdb:/data/configdb
       - ./store/mongo/backups:/data/backups
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100k"
-        max-file: "20"
+    logging: *default-logging
   service:
     build: ./service/
     container_name: klx-service
@@ -30,11 +32,25 @@ services:
     command: sh -c '/shell/waitfor.sh mongo:27017 -- npm run start:pro'
     volumes:
       - ../:/var/service
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100k"
-        max-file: "20"
+    networks:
+      - default
+      - service_openclaw
+    logging: *default-logging
+  openclaw:
+    build:
+      context: ./openClaw/
+      dockerfile: dockerfile
+    container_name: klx-openclaw
+    expose:
+      - 18789
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./store/openclaw/config:/root/.openclaw
+      - ./store/openclaw/work:/var/openClaw
+    networks:
+      - service_openclaw
+    logging: *default-logging
   nginx:
     image: nginx
     container_name: klx-nginx
@@ -49,14 +65,12 @@ services:
     #   - node
     volumes:
       # - ./nginx/html:/usr/share/nginx/html
-
       - ./store/nginx/logs/:/var/log/nginx
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
 
       - ./nginx/ssl.pem:/etc/nginx/ssl.pem
       - ./nginx/ssl.key:/etc/nginx/ssl.key
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100k"
-        max-file: "20"
+    logging: *default-logging
+
+networks:
+  service_openclaw:
