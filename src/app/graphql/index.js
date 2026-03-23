@@ -2,8 +2,10 @@ import fs from 'fs';
 import config from '#config/system';
 import { importFiles } from '#utils/fs';
 import { ApolloServer } from 'apollo-server-koa';
+import { useServer } from 'graphql-ws/lib/use/ws';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { mapSchema, MapperKind } from '@graphql-tools/utils';
+import { WebSocketServer } from 'ws';
 
 /**
  * 解析 directive(指令)目录
@@ -60,7 +62,7 @@ const parseSchema = async () => {
   };
 };
 
-export default async (app) => {
+export default async ({ app, httpServer }) => {
   // 1. 解析模型
   const {
     resolvers,
@@ -88,13 +90,39 @@ export default async (app) => {
         return conf;
       },
     }), {});
+  const lastSchema = mapSchema(schema, mapSchemaParams); // 使用 mapSchema 处理指令, 返回新的 schema
 
-  // 5. 创建服务
+  // 5. 创建 wsServer, 处理 graphql ws 连接, 返回清理函数
+  const wsServerCleanup = useServer(
+    {
+      context: async () => ({
+        ctx: {
+          state: {},
+        },
+      }),
+      schema: lastSchema,
+    },
+    new WebSocketServer({
+      path: config.graphql.path,
+      server: httpServer,
+    }),
+  );
+
+  // 6. 创建服务
   const server = new ApolloServer({
     // csrfPrevention: true,
     context: ({ ctx }) => ({ ctx }),                         // 下上文环境
-    schema: mapSchema(schema, mapSchemaParams),              // 使用 mapSchema 处理指令, 返回新的 schema
+    schema: lastSchema,                                      // 最终 schema
     // formatError: (error) => ({ message: error.message }), // 格式化错误
+    plugins: [
+      {
+        async serverWillStart () {
+          return {
+            drainServer: wsServerCleanup.dispose,
+          };
+        },
+      },
+    ],
   });
 
   // 6. 启动服务
