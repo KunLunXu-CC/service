@@ -1,3 +1,4 @@
+import http from 'http';
 import Koa from 'koa';
 import mongo from '#mongo';
 import moment from 'moment';
@@ -14,7 +15,9 @@ const app = new Koa();
 await mongo();      // 连接 mongo
 middleware(app);    // 中间件
 router(app);        // 路由
-await graphql(app); // graphql 服务
+
+const server = http.createServer(app.callback());
+await graphql({ app, httpServer: server }); // graphql 服务
 
 // 创建服务
 // config.https
@@ -27,4 +30,4 @@ await graphql(app); // graphql 服务
 //   ).listen(config.port, printStartCharPattern)
 //   : app.listen(config.port, printStartCharPattern);
 
-app.listen(config.port, printStartCharPattern);
+server.listen(config.port, printStartCharPattern);

@@ -45,6 +45,7 @@
     "cross-env": "^7.0.3",
     "graphql": "^16.6.0",
     "graphql-upload": "^16.0.1",
+    "graphql-ws": "^5.16.2",
     "inquirer": "^9.1.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.8.2",
