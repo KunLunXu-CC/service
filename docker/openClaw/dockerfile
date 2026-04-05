@@ -1,0 +1,25 @@
+FROM node:24-bookworm-slim
+
+ENV NODE_ENV=production \
+    HOME=/home/node \
+    OPENCLAW_CONFIG_DIR=/home/node/.openclaw \
+    SHARP_IGNORE_GLOBAL_LIBVIPS=1
+
+# 安装必要工具: vim
+RUN apt-get update \
+    && apt-get install -y vim
+
+# 安装 OpenClaw CLI 工具，并创建必要的目录
+RUN npm install -g openclaw@latest \
+ && mkdir -p /home/node/.openclaw /home/node/.openclaw/workspace \
+ && chown -R node:node /home/node
+
+USER node
+WORKDIR /home/node
+
+# 将当前目录下的 .openclaw 目录复制到镜像中，并设置正确的权限
+COPY --chown=node:node .openclaw /home/node/.openclaw
+
+EXPOSE 18789 18790
+
+CMD ["sh", "-lc", "openclaw gateway run --bind lan --port 18789 --allow-unconfigured"]
