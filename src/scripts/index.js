@@ -1,6 +1,5 @@
 import ora from 'ora';
 import chalk from 'chalk';
-import mongo from '#mongo';
 import inquirer from 'inquirer';
 
 import { importFiles } from '#utils/fs';
@@ -8,23 +7,35 @@ import { $ } from 'zx';
 
 $.quote = (v) => v;
 
-// 1. 连接 mongo 数据库(部分脚本需要连接 mongo)
-await mongo();
-console.log('\n');
+const connectMongo = async () => {
+  const { default: mongo } = await import('#mongo');
+  await mongo();
+};
 
-// 2. 读取所有可选配置
+// 1. 读取所有可选配置
 const choices = await importFiles({
   dir: new URL('.', import.meta.url),
   filter: (file) => !/index\.js/.test(file),
 });
 
-// 3. 调用 inquirer, 选择需要执行的脚本
+// 2. 调用 inquirer, 选择需要执行的脚本
 const { scriptNames } = await inquirer.prompt([{
   choices: choices.map(({ value }) => value),
   type: 'checkbox',
   message: '选择脚本',
   name: 'scriptNames',
 }]);
+
+// 3. 如果有脚本需要连接 MongoDB, 则先连接 MongoDB
+if (choices.some(({ value }) => value.needMongo)) {
+  try {
+    ora().info('正在连接 MongoDB...\n');
+    await connectMongo();
+  } catch (err) {
+    ora().fail('MongoDB 连接失败!\n');
+    console.error(err);
+  }
+}
 
 // 4. 循环执行脚本
 if (scriptNames.length === 0) {

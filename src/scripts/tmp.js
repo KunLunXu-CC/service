@@ -84,6 +84,7 @@ const ADMIN_AUTH = [
 // 临时脚本
 export default {
   name: '临时脚本',
+  needMongo: true,
   exec: async () => {
     // 1. 创建 common 角色
     const { change: [commonRole] } = await create({
