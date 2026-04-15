@@ -4,7 +4,7 @@ import { BOOLEAN } from '#config/constants';
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-// 用户设置
+// 用户配置
 const schema = new Schema({
   appKey: {
     title: '应用标识',
