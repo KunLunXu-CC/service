@@ -1,0 +1,88 @@
+# 用户设置
+extend type Query {
+  userSettings(
+    orderBy: OrderBy
+    pagination: Pagination
+    search: UserSettingSearch
+  ): UserSettings!
+  userSetting(
+    appKey: String!
+    configKey: String!
+  ): UserSettingResult!
+}
+
+extend type Mutation {
+  createUserSettings(
+    body: [UserSettingFields!]!
+    orderBy: OrderBy
+    search: UserSettingSearch
+    pagination: Pagination
+  ): UserSettings!
+
+  removeUserSettings(
+    conds: UserSettingSearch!
+    orderBy: OrderBy
+    pagination: Pagination
+    search: UserSettingSearch
+  ): UserSettings!
+
+  updateUserSettings(
+    conds: UserSettingSearch!
+    body: UserSettingUpdateFields!
+    orderBy: OrderBy
+    search: UserSettingSearch
+    pagination: Pagination
+  ): UserSettings!
+}
+
+input UserSettingFields {
+  appKey: String!
+  configKey: String!
+  config: Unknown!
+  remark: String
+}
+
+input UserSettingUpdateFields {
+  appKey: String
+  configKey: String
+  config: Unknown
+  remark: String
+}
+
+input UserSettingSearch {
+  appKey: String
+  configKey: String
+
+  id: ID
+  ids: [ID!]
+  startUpdateTime: Date
+  endUpdateTime: Date
+  startCreationTime: Date
+  endCreationTime: Date
+}
+
+type UserSettings {
+  list: [UserSetting!]!
+  change: [UserSetting!]!
+  message: String
+  pagination: Pagination
+}
+
+type UserSettingResult {
+  data: UserSetting
+  message: String
+}
+
+type UserSetting {
+  appKey: String!
+  userId: ID!
+  configKey: String!
+  config: Unknown
+  remark: String
+
+  id: ID
+  creator: User @relation
+  updater: User @relation
+  updateTime: Date
+  creationTime: Date
+}
