@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import config from '#config/system';
+import getSystemConfig from '#src/utils/getSystemConfig';
 
 /**
  * 邮箱发送
@@ -21,6 +21,7 @@ import config from '#config/system';
  */
 export default async (message) => {
   // 1. 获取配置信息
+  const config = await getSystemConfig();
   const { notice, ...rest } = config.smtp;
 
   // 2. 创建连接池

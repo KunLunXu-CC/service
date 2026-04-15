@@ -65,6 +65,7 @@
     "zx": "^7.0.8"
   },
   "devDependencies": {
-    "husky": "^9.1.7"
+    "husky": "^9.1.7",
+    "lint-staged": "13.3.0"
   }
 }

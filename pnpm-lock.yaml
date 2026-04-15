@@ -108,6 +108,9 @@ importers:
       husky:
         specifier: ^9.1.7
         version: 9.1.7
+      lint-staged:
+        specifier: 13.3.0
+        version: 13.3.0(enquirer@2.3.6)
 
 packages:
 
