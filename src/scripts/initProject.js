@@ -1,10 +1,10 @@
 import fs from 'fs';
-import chalk from 'chalk';
 import mongoose from 'mongoose';
 import { createSecretKey } from './createSecretKey.js';
 import { BOOLEAN, DEFAULT_ROLE_NAME, PHOTO_TYPE, ROLE_TYPE } from '#config/constants';
 import { hash } from '#utils/encryption';
 import { fileExists } from '#utils/fs';
+import { runStep } from '#utils/log';
 
 const DEFAULT_PASSWORD = '123456';
 const CONFIG_PATH = new URL('../config/system.js', import.meta.url);
@@ -13,12 +13,11 @@ const CONFIG_EXAMPLE_PATH = new URL('../config/system.example.js', import.meta.u
 /** 确保配置文件 */
 const ensureConfig = () => {
   if (fileExists(CONFIG_PATH)) {
-    console.log(chalk.gray('配置文件已存在，跳过: src/config/system.js'));
-    return;
+    return '配置文件已存在，跳过: src/config/system.js';
   }
 
   fs.copyFileSync(CONFIG_EXAMPLE_PATH, CONFIG_PATH);
-  console.log(chalk.green('已创建配置文件: src/config/system.js'));
+  return '已创建配置文件: src/config/system.js';
 };
 
 /** 连接 MongoDB */
@@ -56,12 +55,12 @@ const ensureRoles = async () => {
     },
   ]);
 
-  console.log(chalk.green(`已创建角色(仅为管理员设置「鉴查院」权限, 请及时修改权限): ${roles.map(({ name }) => name).join('、')}`));
   return roles;
 };
 
 /** 确保用户数据 */
-const ensureUsers = async (roles) => {
+const ensureUsers = async ({ results }) => {
+  const { roles } = results;
   const User = mongoose.model('User');
   const password = hash({ data: DEFAULT_PASSWORD });
 
@@ -84,15 +83,9 @@ const ensureUsers = async (roles) => {
       role: roles.find(({ type }) => type === ROLE_TYPE.COMMON)?.id,
       password,
     },
-  ].filter(v.role));
+  ].filter(({ role }) => role));
 
-  console.log(chalk.green(
-    [
-      '已初始化用户, 请及时修改初始密码:',
-      `创建用户: ${users.map(({ account }) => account).join('|')}`,
-      `初始密码: ${DEFAULT_PASSWORD}`,
-    ].join('\n')
-  ));
+  return users;
 };
 
 /** 确保默认图片(背景、头像)数据 */
@@ -111,19 +104,48 @@ const ensurePhotos = async () => {
     },
   ]);
 
-  console.log(chalk.green('已创建默认图片: 背景、头像'));
+  return '背景、头像';
 };
 
 export default {
   name: '初始化项目',
   needMongo: false,
   exec: async () => {
-    ensureConfig();
-    createSecretKey();
-
-    await connectMongo();
-    const roles = await ensureRoles();
-    await ensureUsers(roles);
-    await ensurePhotos();
+    await runStep({
+      title: '初始化项目',
+      steps: [
+        {
+          text: '检查配置文件',
+          exec: ensureConfig,
+          successText: (message) => message,
+        },
+        {
+          text: '生成 RSA 密钥',
+          exec: () => createSecretKey({ silent: true }),
+          successText: 'RSA 公私钥已就绪',
+        },
+        {
+          text: '连接 MongoDB',
+          exec: connectMongo,
+          successText: 'MongoDB 已连接',
+        },
+        {
+          resultKey: 'roles',
+          text: '初始化角色',
+          exec: ensureRoles,
+          successText: (roleList) => `已创建角色: ${roleList.map(({ name }) => name).join('、')}`,
+        },
+        {
+          text: '初始化用户',
+          exec: ensureUsers,
+          successText: (users) => `已创建用户: ${users.map(({ account }) => account).join('|')}，初始密码: ${DEFAULT_PASSWORD}`,
+        },
+        {
+          text: '初始化默认图片',
+          exec: ensurePhotos,
+          successText: (photos) => `已创建默认图片: ${photos}`,
+        },
+      ],
+    });
   },
 };

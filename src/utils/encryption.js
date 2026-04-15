@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import NodeRSA from 'node-rsa';
 import jwt from 'jsonwebtoken';
-import getConfig from '#utils/getConfig';
+import getSystemConfig from '#src/utils/getSystemConfig';
 
 /**
  * 创建 hash 通用方法
@@ -55,7 +55,7 @@ export const createRasKey = async () => {
  * @param {string} data 待解密数据
  */
 export const decryptRsa = async (data) => {
-  const config = await getConfig();
+  const config = await getSystemConfig();
   const nodeRSA = new NodeRSA(config.privateKey);
   nodeRSA.setOptions({
     environment: 'browser',
@@ -78,7 +78,7 @@ export const decryptRsa = async (data) => {
  * @returns {string}           json web token
  */
 export const signJwt = async (payload, expiresIn = '7d') => {
-  const config = await getConfig();
+  const config = await getSystemConfig();
 
   return jwt.sign(payload, config.privateKey, {
     expiresIn,
@@ -93,7 +93,7 @@ export const signJwt = async (payload, expiresIn = '7d') => {
  * @returns {object}}     有效载荷 || {}
  */
 export const verifyJwt = async (token) => {
-  const config = await getConfig();
+  const config = await getSystemConfig();
 
   return new Promise((resolve) => {
     jwt.verify(token, config.publicKey, (err, payload) => {

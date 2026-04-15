@@ -27,7 +27,7 @@ const { scriptNames } = await inquirer.prompt([{
 }]);
 
 // 3. 如果有脚本需要连接 MongoDB, 则先连接 MongoDB
-if (choices.some(({ value }) => value.needMongo)) {
+if (choices.some(({ value }) => scriptNames.includes(value.name) && value.needMongo)) {
   try {
     ora().info('正在连接 MongoDB...\n');
     await connectMongo();
