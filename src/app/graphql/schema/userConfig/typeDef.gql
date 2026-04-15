@@ -1,55 +1,55 @@
-# 用户设置
+# 用户配置
 extend type Query {
-  userSettings(
+  userConfigs(
     orderBy: OrderBy
     pagination: Pagination
-    search: UserSettingSearch
-  ): UserSettings!
-  userSetting(
+    search: UserConfigSearch
+  ): UserConfigs!
+  userConfig(
     appKey: String!
     configKey: String!
-  ): UserSettingResult!
+  ): UserConfigResult!
 }
 
 extend type Mutation {
-  createUserSettings(
-    body: [UserSettingFields!]!
+  createUserConfigs(
+    body: [UserConfigFields!]!
     orderBy: OrderBy
-    search: UserSettingSearch
+    search: UserConfigSearch
     pagination: Pagination
-  ): UserSettings!
+  ): UserConfigs!
 
-  removeUserSettings(
-    conds: UserSettingSearch!
+  removeUserConfigs(
+    conds: UserConfigSearch!
     orderBy: OrderBy
     pagination: Pagination
-    search: UserSettingSearch
-  ): UserSettings!
+    search: UserConfigSearch
+  ): UserConfigs!
 
-  updateUserSettings(
-    conds: UserSettingSearch!
-    body: UserSettingUpdateFields!
+  updateUserConfigs(
+    conds: UserConfigSearch!
+    body: UserConfigUpdateFields!
     orderBy: OrderBy
-    search: UserSettingSearch
+    search: UserConfigSearch
     pagination: Pagination
-  ): UserSettings!
+  ): UserConfigs!
 }
 
-input UserSettingFields {
+input UserConfigFields {
   appKey: String!
   configKey: String!
   config: Unknown!
   remark: String
 }
 
-input UserSettingUpdateFields {
+input UserConfigUpdateFields {
   appKey: String
   configKey: String
   config: Unknown
   remark: String
 }
 
-input UserSettingSearch {
+input UserConfigSearch {
   appKey: String
   configKey: String
 
@@ -61,19 +61,19 @@ input UserSettingSearch {
   endCreationTime: Date
 }
 
-type UserSettings {
-  list: [UserSetting!]!
-  change: [UserSetting!]!
+type UserConfigs {
+  list: [UserConfig!]!
+  change: [UserConfig!]!
   message: String
   pagination: Pagination
 }
 
-type UserSettingResult {
-  data: UserSetting
+type UserConfigResult {
+  data: UserConfig
   message: String
 }
 
-type UserSetting {
+type UserConfig {
   appKey: String!
   userId: ID!
   configKey: String!

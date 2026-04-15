@@ -4,18 +4,18 @@ import update from '#service/common/update';
 import findOne from '#service/common/findOne';
 import getList from '#service/common/getList';
 
-const MODEL = 'UserSetting';
+const MODEL = 'UserConfig';
 
 export default {
   Query: {
-    userSettings: async (parents, args, context) => await getList({
+    userConfigs: async (parents, args, context) => await getList({
       ...args,
       ctx: context.ctx,
       model: MODEL,
       astrictUser: true,
     }),
 
-    userSetting: async (parents, args, context) => await findOne({
+    userConfig: async (parents, args, context) => await findOne({
       ctx: context.ctx,
       model: MODEL,
       search: args,
@@ -24,20 +24,20 @@ export default {
   },
 
   Mutation: {
-    createUserSettings: async (parents, args, context) => await create({
+    createUserConfigs: async (parents, args, context) => await create({
       ...args,
       model: MODEL,
       ctx: context.ctx,
     }),
 
-    removeUserSettings: async (parents, args, context) => await remove({
+    removeUserConfigs: async (parents, args, context) => await remove({
       ...args,
       model: MODEL,
       ctx: context.ctx,
       astrictUser: true,
     }),
 
-    updateUserSettings: async (parents, args, context) => await update({
+    updateUserConfigs: async (parents, args, context) => await update({
       ...args,
       model: MODEL,
       ctx: context.ctx,
