@@ -2,11 +2,23 @@ import moment from 'moment';
 import config from '#config/system';
 import options from '#service/common/options';
 import GraphQLUpload from 'graphql-upload/GraphQLUpload.mjs';
-import { GraphQLScalarType } from 'graphql';
+import { GraphQLScalarType, valueFromASTUntyped } from 'graphql';
 
 export default {
   // 上传(文件)
   Upload: GraphQLUpload,
+
+  Unknown: new GraphQLScalarType({
+    name: 'Unknown',
+    description: '未知类型值',
+    parseValue (value) {
+      return value;
+    },
+    serialize (value) {
+      return value;
+    },
+    parseLiteral: valueFromASTUntyped,
+  }),
 
   // Date 类型数据定义(待测试)
   Date: new GraphQLScalarType({

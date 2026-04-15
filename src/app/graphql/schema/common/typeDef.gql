@@ -1,6 +1,8 @@
 # 通用
 scalar Date
 
+scalar Unknown
+
 # 上传(文件)
 scalar Upload
 
