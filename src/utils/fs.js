@@ -3,6 +3,14 @@ import path from 'path';
 import { Duplex } from 'stream';
 
 /**
+ * 判断给定路径的文件是否存在
+ *
+ * @param {string} filePath 文件路径
+ * @returns {boolean} 是否存在
+ */
+export const fileExists = (filePath) => fs.existsSync(filePath);
+
+/**
  * 读取给定文件夹下所有文件并返回文件路径列表(递归所有目录)
  *
  * @param {string} dir 指定目录路径
