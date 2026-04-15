@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import { BOOLEAN } from '#config/constants';
 
 export default {
+  needMongo: true,
   name: '为角色添加应用(权限)',
   exec: async () => {
     // 1. 交互式命令获取参数

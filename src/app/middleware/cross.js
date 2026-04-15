@@ -4,7 +4,7 @@ import cors from '@koa/cors';
 export default cors({
   origin: async (ctx) => {
     const requestOrigin = ctx.get('Origin');
-    return /kunlunxu.cc$/.test(requestOrigin)
+    return /kunlunxu\.cc(:\d+)?$/.test(requestOrigin)
       ? requestOrigin
       : 'https://www.kunlunxu.cc';
   },

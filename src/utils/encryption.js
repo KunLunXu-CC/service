@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import NodeRSA from 'node-rsa';
 import jwt from 'jsonwebtoken';
-import config from '#config/system';
+import getConfig from '#utils/getConfig';
 
 /**
  * 创建 hash 通用方法
@@ -41,7 +41,7 @@ export const hmac = ({ data, secret,  type = 'sha1', digest = 'hex' }) => {
 };
 
 // ASR 秘钥生成
-export const createRasKey = () => {
+export const createRasKey = async () => {
   const nodeRSA = new NodeRSA({ bits: 1024 });
   nodeRSA.setOptions({ encryptionScheme: 'pkcs1' });
   const privateKey = nodeRSA.exportKey('private');
@@ -55,6 +55,7 @@ export const createRasKey = () => {
  * @param {string} data 待解密数据
  */
 export const decryptRsa = async (data) => {
+  const config = await getConfig();
   const nodeRSA = new NodeRSA(config.privateKey);
   nodeRSA.setOptions({
     environment: 'browser',
@@ -76,14 +77,14 @@ export const decryptRsa = async (data) => {
  * @param {string} expiresIn   token 时长
  * @returns {string}           json web token
  */
-export const signJwt = async (payload, expiresIn = '7d') => jwt.sign(
-  payload,
-  config.privateKey,
-  {
+export const signJwt = async (payload, expiresIn = '7d') => {
+  const config = await getConfig();
+
+  return jwt.sign(payload, config.privateKey, {
     expiresIn,
     algorithm: 'RS256',
-  },
-);
+  });
+};
 
 /**
  * （异步）验证 json web token
@@ -91,12 +92,12 @@ export const signJwt = async (payload, expiresIn = '7d') => jwt.sign(
  * @param {string} token  token 字符串
  * @returns {object}}     有效载荷 || {}
  */
-export const verifyJwt = async (token) => new Promise(
-  (resolve) => {
+export const verifyJwt = async (token) => {
+  const config = await getConfig();
+
+  return new Promise((resolve) => {
     jwt.verify(token, config.publicKey, (err, payload) => {
       resolve(payload || {});
     });
-  },
-);
-
-
+  });
+};
