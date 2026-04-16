@@ -14,6 +14,7 @@ import getConditions from '#utils/getConditions';
  * @param {object}  params.pagination    分页信息
  * @param {object}  params.orderBy       排序
  * @param {boolean} params.astrictUser   限制用户(只允许创建者, 修改自己的数据)
+ * @param {boolean} params.upsert        未匹配到数据时是否创建
  */
 export default async ({
   model,
@@ -24,6 +25,7 @@ export default async ({
   orderBy,
   pagination,
   astrictUser,
+  upsert = false,
 }) => {
   const data = {
     list: [],
@@ -44,9 +46,15 @@ export default async ({
 
   try {
     body.updateTime = Date.now();
-    body.updater = ctx?.state.user.id,
+    body.updater = ctx?.state.user.id;
     changeIds = (await server.find(changeConds)).map((v) => v._id);
-    await server.updateMany(changeConds, body, {});
+    await server.updateMany(changeConds, {
+      $set: body, // 修改的字段
+      // 没有数据插入时需要设置的字段
+      $setOnInsert: {
+        creator: ctx?.state.user.id,
+      },
+    }, { upsert });
   } catch (e) {
     data.message = '修改失败';
   }

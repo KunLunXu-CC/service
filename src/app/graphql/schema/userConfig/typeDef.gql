@@ -43,8 +43,8 @@ input UserConfigFields {
 }
 
 input UserConfigUpdateFields {
-  appKey: String
-  configKey: String
+  appKey: String!
+  configKey: String!
   config: Unknown
   remark: String
 }
