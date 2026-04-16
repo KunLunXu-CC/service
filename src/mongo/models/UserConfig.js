@@ -12,11 +12,6 @@ const schema = new Schema({
     required: true,
     trim: true,
   },
-  userId: {
-    title: '用户',
-    type: ObjectId,
-    required: true,
-  },
   configKey: {
     title: '配置标识',
     type: String,
@@ -60,7 +55,7 @@ const schema = new Schema({
 // 1. 复合唯一索引 see: https://github.com/Automattic/mongoose/issues/3955、 https://docs.mongodb.org/manual/tutorial/create-a-unique-index/#unique-compound-index
 schema.index({
   appKey: 1,
-  userId: 1,
+  creator: 1,
   configKey: 1,
   isDelete: 1,
 }, { unique: true });

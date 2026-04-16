@@ -75,7 +75,6 @@ type UserConfigResult {
 
 type UserConfig {
   appKey: String!
-  userId: ID!
   configKey: String!
   config: Unknown
   remark: String

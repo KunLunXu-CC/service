@@ -28,6 +28,7 @@ export default {
       ...args,
       model: MODEL,
       ctx: context.ctx,
+      astrictUser: true,
     }),
 
     removeUserConfigs: async (parents, args, context) => await remove({
