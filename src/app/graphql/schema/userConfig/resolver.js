@@ -43,6 +43,7 @@ export default {
       model: MODEL,
       ctx: context.ctx,
       astrictUser: true,
+      upsert: true,  // 如果没有找到就创建
     }),
   },
 };
