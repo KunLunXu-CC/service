@@ -4,7 +4,7 @@ type Query {
     orderBy: OrderBy
     search: UserSearch
     pagination: Pagination
-  ): Users!
+  ): Users! @auth(requires: ADMIN)
 
   userInfo: UserInfo
 }
@@ -15,14 +15,14 @@ type Mutation {
     orderBy: OrderBy
     search: UserSearch
     pagination: Pagination
-  ): Users
+  ): Users @auth(requires: ADMIN)
 
   removeUsers (
     conds: UserSearch!
     orderBy: OrderBy
     search: UserSearch
     pagination: Pagination
-  ): Users
+  ): Users @auth(requires: ADMIN)
 
   updateUsers (
     conds: UserSearch!
@@ -30,7 +30,7 @@ type Mutation {
     orderBy: OrderBy
     search: UserSearch
     pagination: Pagination
-  ): Users
+  ): Users @auth(requires: ADMIN)
 
   login (
     account: String

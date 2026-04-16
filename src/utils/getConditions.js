@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import mongoose from 'mongoose';
-import { BOOLEAN } from '#config/constants';
+import { BOOLEAN, DATA_SCOPE, ROLE_TYPE } from '#config/constants';
 
 /**
  * 处理日期范围查询条件
@@ -19,14 +19,12 @@ const getTimeConds = (startTime, endTime) => {
 /**
  * 获取处理函数
  *
- * @param params.params
- * @param {object} params 查询参数
- * @param {object} conds  查询条件
- * @param {string} key    当前处理值 key
- * @param {*}      value  当前处理值
- * @param params.conds
- * @param params.key
- * @param params.value
+ * @param {object} params        参数
+ * @param {object} params.params 查询参数
+ * @param {object} params.conds  查询条件
+ * @param {string} params.key    当前处理值 key
+ * @param {*}      params.value  当前处理值
+ * @returns {Array} 处理函数配置
  */
 const getHandler = ({ params, conds, key, value }) => ([
   {
@@ -113,6 +111,7 @@ const getHandler = ({ params, conds, key, value }) => ([
  * 获取查询条件
  *
  * @param {object} params 查询参数
+ * @returns {object} 查询条件
  */
 export default (params = {}) => {
   // 默认: 只查询没有被删除的数据
@@ -124,5 +123,30 @@ export default (params = {}) => {
     ) || {};
     handler && handler();
   });
+  return conds;
+};
+
+/**
+ * 获取数据权限查询条件
+ *
+ * @param {object} params 参数
+ * @param {object} params.ctx koa 上下文
+ * @returns {Array} 数据权限查询条件数组
+ */
+export const getScopeConds = ({ ctx }) => {
+  const isAdmin = ctx.state.role.type === ROLE_TYPE.ADMIN;
+
+  const conds = [
+    { scope: DATA_SCOPE.COMMON },
+    {
+      scope: DATA_SCOPE.USER,
+      creator: ctx.state.user.id,
+    },
+  ];
+
+  if (isAdmin) {
+    conds.push({ scope: DATA_SCOPE.ADMIN });
+  }
+
   return conds;
 };

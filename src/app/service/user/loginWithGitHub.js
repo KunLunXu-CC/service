@@ -39,10 +39,11 @@ const getGitHubUserInfo = async ({ code }) => {
   return userInfo;
 };
 
-const login = async ({ githubUserInfo }) => {
+const login = async ({ githubUserInfo, ctx }) => {
   // 1. 根据 GitHub 信息, 查找用户
 
   let { data: user } = await findOne({
+    ctx,
     model: 'User',
     search: { githubId: githubUserInfo.id },
   });
@@ -51,12 +52,14 @@ const login = async ({ githubUserInfo }) => {
   // TODO: 暂停开放
   if (IS_OPEN && !user) {
     const { data: role } = await findOne({
+      ctx,
       model: 'Role',
       search: { name: DEFAULT_ROLE_NAME },
     });
 
     // TODO: 如果 name 和 account 已存在, 则需要进行处理(加后缀)
     const { change: [newUser] } = await create({
+      ctx,
       model: 'User',
       body: [{
         role: role.id,
@@ -82,7 +85,7 @@ export default async (ctx) => {
   const githubUserInfo = await getGitHubUserInfo({ code });
 
   // 2. 登录: 判断是否注册过, 没有则注册新用户, 有则反悔用户信息
-  const user = await login({ githubUserInfo });
+  const user = await login({ githubUserInfo, ctx });
 
   // 3. 设置 cookie(登录)
   await sendCertificate({ user, ctx });

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { PHOTO_TYPE, BOOLEAN } from '#config/constants';
+import { PHOTO_TYPE, BOOLEAN, DATA_SCOPE } from '#config/constants';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -28,6 +28,11 @@ const schema = new Schema({
   payload: {
     title: '载体(图片使用载体, 如果在文章中被使用则表示文章ID)',
     type: ObjectId,
+  },
+  scope: {
+    type: String,
+    enum: Object.values(DATA_SCOPE),
+    default: DATA_SCOPE.USER,
   },
   creator: {
     title: '创建人',

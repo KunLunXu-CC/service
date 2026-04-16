@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { ARTICLE_STATUS, BOOLEAN } from '#config/constants';
+import { ARTICLE_STATUS, BOOLEAN, DATA_SCOPE } from '#config/constants';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -47,6 +47,11 @@ const schema = new Schema({
     title: '状态',
     type: Number,
     default: ARTICLE_STATUS.SAVE, // 默认状态为 保存(未发布)
+  },
+  scope: {
+    type: String,
+    enum: Object.values(DATA_SCOPE),
+    default: DATA_SCOPE.USER,
   },
   creator: {
     title: '创建人',

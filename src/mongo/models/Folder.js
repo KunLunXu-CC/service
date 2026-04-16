@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { FOLDER_TYPE, BOOLEAN } from '#config/constants';
+import { FOLDER_TYPE, BOOLEAN, DATA_SCOPE } from '#config/constants';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -24,6 +24,11 @@ const schema = new Schema({
   parent: {
     title: '父级',
     type: ObjectId,
+  },
+  scope: {
+    type: String,
+    enum: Object.values(DATA_SCOPE),
+    default: DATA_SCOPE.USER,
   },
   creator: {
     title: '创建人',

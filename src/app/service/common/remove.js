@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import getList from '#service/common/getList';
 import getConditions from '#utils/getConditions';
+import { ROLE_TYPE } from '#config/constants';
 
 /**
  * 通用删除（假删）方法
@@ -29,6 +30,11 @@ export default async ({
   };
 
   const handledConds = { ...conds };
+
+  // 只有管理员可以删除公共数据，其他用户只能删除自己的数据
+  if (ctx.state.role.type !== ROLE_TYPE.ADMIN) {
+    handledConds.creator = ctx.state.user.id;
+  }
 
   const server = mongoose.model(model);
   const changeConds = getConditions(handledConds);

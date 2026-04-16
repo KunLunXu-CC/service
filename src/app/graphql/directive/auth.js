@@ -1,9 +1,15 @@
 import { ROLE_TYPE } from '#config/constants';
+import { GraphQLError } from 'graphql';
 import { MapperKind, getDirective } from '@graphql-tools/utils';
 
 const DIRECTIVE_NAME = 'auth';
 
-// 指令处理程序
+/**
+ * 权限校验指令, 通过用户角色类型来进行权限校验
+ * 如果用户角色类型不满足要求, 则抛出 GraphQLError 错误, 错误码为 FORBIDDEN
+ *
+ * @param {string} requires 需要的角色类型, 默认值为 ADMIN, 可选值为 ROLE_TYPE 中定义的角色类型
+ */
 const directive = (schema, config) => {
   // deprecatedDirective 指令参数
   const deprecatedDirective = getDirective(
@@ -22,7 +28,9 @@ const directive = (schema, config) => {
 
       // 用户角色校验: 用户数据从 koa ctx.state 中获取
       if (currentRoleType !== ROLE_TYPE[requires]) {
-        return null;
+        throw new GraphQLError('无权限访问', {
+          extensions: { code: 'FORBIDDEN' },
+        });
       }
 
       // 有默认指令则使用默认指令, 没有则从 params 中取值

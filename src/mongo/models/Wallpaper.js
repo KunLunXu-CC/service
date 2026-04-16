@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { BOOLEAN, WALLPAPER_CATEGORY } from '#config/constants';
+import { BOOLEAN, WALLPAPER_CATEGORY, DATA_SCOPE } from '#config/constants';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -32,6 +32,11 @@ const schema = new Schema({
     title: '排序',
     type: Number,
     default: 0,
+  },
+  scope: {
+    type: String,
+    enum: Object.values(DATA_SCOPE),
+    default: DATA_SCOPE.USER,
   },
   creator: {
     title: '创建人',
