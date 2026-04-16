@@ -46,6 +46,16 @@ export const PHOTO_TYPE = {
   AVATAR: 4,          // 头像
 };
 
+// 壁纸分类
+export const WALLPAPER_CATEGORY = {
+  MACOS: 0,            // macos
+  NATURE: 1,           // 自然景观
+  CITY: 2,             // 城市景观
+  UNDERWATER: 3,       // 水下景观
+  EARTH: 4,            // 地球景观
+  OTHER: 5,            // 其他
+};
+
 // 角色类型
 export const ROLE_TYPE = {
   ADMIN: 1,        // 管理员
