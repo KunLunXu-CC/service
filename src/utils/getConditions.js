@@ -82,6 +82,10 @@ const getHandler = ({ params, conds, key, value }) => ([
     // 传入值为一个 tag 数组， 判断传入数据和数据 tags 数组是否存在交集
     handler: () => (conds.tags = { $in: value }),
   },
+  {
+    conds: key === '$or' && _.isArray(value),
+    handler: () => (conds.$or = value),
+  },
   // 按值类型进行处理
   { // 值为 id 字段处理
     conds: mongoose.Types.ObjectId.isValid(value),

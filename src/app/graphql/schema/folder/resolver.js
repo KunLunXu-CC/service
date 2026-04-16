@@ -9,7 +9,6 @@ export default {
       ...args,
       ctx: context.ctx,
       model: 'Folder',
-      astrictUser: true,
     }),
   },
 
@@ -23,13 +22,11 @@ export default {
       ...args,
       ctx: context.ctx,
       model: 'Folder',
-      astrictUser: true,
     }),
     updateFolders: async (parents, args, context) => await update({
       ...args,
       ctx: context.ctx,
       model: 'Folder',
-      astrictUser: true,
     }),
   },
 };

@@ -24,6 +24,12 @@ export const BOOLEAN = {
   FALSE: 0,
 };
 
+// 数据范围
+export const DATA_SCOPE = {
+  COMMON: 'common',
+  USER: 'user',
+};
+
 // 文章状态： 保存 + 发布, 补充状态从 10 起,
 // TODO: 之前设计了其他状态, 现在被删除了, 这边需要修复下
 export const ARTICLE_STATUS = {

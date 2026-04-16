@@ -12,7 +12,6 @@ export default {
       ...args,
       model: 'Article',
       ctx: context.ctx,
-      astrictUser: true,
     }),
   },
 
@@ -28,7 +27,6 @@ export default {
         ...args,
         model: 'Article',
         ctx: context.ctx,
-        astrictUser: true,
       });
       removeByPayload({
         ctx: context.ctx,
@@ -41,7 +39,6 @@ export default {
       ...args,
       model: 'Article',
       ctx: context.ctx,
-      astrictUser: true,
     }),
 
     // 发布
@@ -49,7 +46,6 @@ export default {
       ...args,
       model: 'Article',
       ctx: context.ctx,
-      astrictUser: true,
       body: { status: ARTICLE_STATUS.RELEASE },
     }),
 
@@ -58,7 +54,6 @@ export default {
       ...args,
       model: 'Article',
       ctx: context.ctx,
-      astrictUser: true,
       body: { status: ARTICLE_STATUS.SAVE },
     }),
   },
