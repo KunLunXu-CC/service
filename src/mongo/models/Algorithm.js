@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { BOOLEAN } from '#config/constants';
+import { BOOLEAN, DATA_SCOPE } from '#config/constants';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -15,6 +15,11 @@ const schema = new Schema({
     default: [],
     title: '标签',
     type: [Number],
+  },
+  scope: {
+    type: String,
+    enum: Object.values(DATA_SCOPE),
+    default: DATA_SCOPE.USER,
   },
   creator: {
     title: '创建人',

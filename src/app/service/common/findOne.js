@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
-import getConditions from '#utils/getConditions';
-import { DATA_SCOPE } from '#config/constants';
+import getConditions, { getScopeConds } from '#utils/getConditions';
 
 /**
  * 通用获取单条数据方法
@@ -18,10 +17,7 @@ export default async ({ model, search, ctx }) => {
 
   const handledSearch = {
     ...search,
-    $or: [
-      { creator: ctx.state.user.id },
-      { scope: DATA_SCOPE.COMMON },
-    ],
+    $or: [...getScopeConds({ ctx })],
   };
 
   const server = mongoose.model(model);

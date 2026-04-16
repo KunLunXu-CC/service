@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import getList from '#service/common/getList';
 import getConditions from '#utils/getConditions';
+import { ROLE_TYPE } from '#src/config/constants';
 
 /**
  * 通用修改方法
@@ -32,7 +33,14 @@ export default async ({
     message: '修改成功',
   };
 
-  const handledConds = { ...conds };
+  const handledConds = {
+    ...conds,
+  };
+
+  // 只有管理员可以修改公共数据，其他用户只能修改自己的数据
+  if (ctx.state.role.type !== ROLE_TYPE.ADMIN) {
+    handledConds.creator = ctx.state.user.id;
+  }
 
   const server = mongoose.model(model);
   const changeConds = getConditions(handledConds);

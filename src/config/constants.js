@@ -26,6 +26,7 @@ export const BOOLEAN = {
 
 // 数据范围
 export const DATA_SCOPE = {
+  ADMIN: 'admin',
   COMMON: 'common',
   USER: 'user',
 };
