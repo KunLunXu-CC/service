@@ -12,14 +12,12 @@ export default {
       ...args,
       ctx: context.ctx,
       model: MODEL,
-      astrictUser: true,
     }),
 
     userConfig: async (parents, args, context) => await findOne({
       ctx: context.ctx,
       model: MODEL,
       search: args,
-      astrictUser: true,
     }),
   },
 
@@ -28,21 +26,18 @@ export default {
       ...args,
       model: MODEL,
       ctx: context.ctx,
-      astrictUser: true,
     }),
 
     removeUserConfigs: async (parents, args, context) => await remove({
       ...args,
       model: MODEL,
       ctx: context.ctx,
-      astrictUser: true,
     }),
 
     updateUserConfigs: async (parents, args, context) => await update({
       ...args,
       model: MODEL,
       ctx: context.ctx,
-      astrictUser: true,
       upsert: true,  // 如果没有找到就创建
     }),
   },

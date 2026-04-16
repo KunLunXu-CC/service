@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import getConditions from '#utils/getConditions';
+import { DATA_SCOPE } from '#config/constants';
 
 /**
  * 通用获取单条数据方法
@@ -8,18 +9,20 @@ import getConditions from '#utils/getConditions';
  * @param {string}  params.model         模型名称
  * @param {object}  params.search        查询参数
  * @param {object}  params.ctx           koa 上下文
- * @param {boolean} params.astrictUser   限制用户(只返回当前用户的数据)
  */
-export default async ({ model, search, ctx, astrictUser }) => {
+export default async ({ model, search, ctx }) => {
   const data = {
     data: {},
     message: '请求成功',
   };
-  const handledSearch = { ...search };
 
-  if (astrictUser) {
-    handledSearch.creator = ctx.state.user.id;
-  }
+  const handledSearch = {
+    ...search,
+    $or: [
+      { creator: ctx.state.user.id },
+      { scope: DATA_SCOPE.COMMON },
+    ],
+  };
 
   const server = mongoose.model(model);
   const conds = getConditions(handledSearch);

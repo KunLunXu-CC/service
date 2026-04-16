@@ -12,7 +12,6 @@ import getList from '#service/common/getList';
  * @param {object}  params.search        查询参数
  * @param {object}  params.pagination    分页参数
  * @param {object}  params.orderBy       排序
- * @param {boolean} params.astrictUser   限制用户(只返回当前用户的数据)
  */
 export default async ({
   model,
@@ -21,7 +20,6 @@ export default async ({
   search,
   orderBy,
   pagination,
-  astrictUser,
 }) => {
   const data = {
     list: [],
@@ -49,7 +47,6 @@ export default async ({
       search,
       orderBy,
       pagination,
-      astrictUser,
     });
     data.pagination = listData.pagination || {};
     data.list = listData.list || [];

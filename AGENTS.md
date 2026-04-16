@@ -17,7 +17,7 @@
 
 - 新增或修改 `GraphQL` 模块前，先参考 `src/app/graphql/schema` 下现有模块结构，沿用 `typeDef.gql` + `resolver.js` 的组织方式。
 - 通用列表、创建、更新、删除优先参考并复用 `src/app/service/common/*`；业务逻辑较多时，再参考 `src/app/service` 下现有业务
-- `resolver` 写法参考现有模块，保持薄层：接收 `args`，注入 `context.ctx`，把业务交给 `service`；用户隔离场景参考现有 `astrictUser: true` 用法。
+- `resolver` 写法参考现有模块，保持薄层：接收 `args`，注入 `context.ctx`，把业务交给 `service`；
 - 查询条件和软删除语义参考 `src/utils/getConditions.js` 与 `src/app/service/common/*`，避免绕过分页、排序、软删除和用户隔离约定。
 - 关系字段和权限字段分别参考 `src/app/graphql/directive/relation.js`、`src/app/graphql/directive/auth.js`，优先使用现有 `@relation`、`@auth` 机制。
 

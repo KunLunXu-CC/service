@@ -10,7 +10,6 @@ export default {
       ...args,
       model: 'Diary',
       ctx: context.ctx,
-      astrictUser: true,
     }),
 
     statsBill: async (parents, args, context) => await statsBill({
@@ -29,14 +28,12 @@ export default {
       ...args,
       model: 'Diary',
       ctx: context.ctx,
-      astrictUser: true,
     }),
 
     updateDiaries: async (parents, args, context) => await update({
       ...args,
       model: 'Diary',
       ctx: context.ctx,
-      astrictUser: true,
     }),
   },
 };
