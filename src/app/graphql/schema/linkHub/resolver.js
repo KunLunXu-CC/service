@@ -10,7 +10,6 @@ export default {
         ...args,
         model: 'LinkHub',
         ctx: context.ctx,
-        astrictUser: true,
       });
       console.log('%c [ list ]-15', 'font-size:13px; background:pink; color:#bf2c9f;', list);
       return {

@@ -3,30 +3,34 @@ import remove from '#service/common/remove';
 import update from '#service/common/update';
 import getList from '#service/common/getList';
 
+const MODEL = 'Wallpaper';
+
 export default {
   Query: {
-    folders: async (parents, args, context) => await getList({
+    wallpapers: async (parents, args, context) => await getList({
       ...args,
+      model: MODEL,
       ctx: context.ctx,
-      model: 'Folder',
     }),
   },
 
   Mutation: {
-    createFolders: async (parents, args, context) => await create({
+    createWallpapers: async (parents, args, context) => await create({
       ...args,
+      model: MODEL,
       ctx: context.ctx,
-      model: 'Folder',
     }),
-    removeFolders: async (parents, args, context) => await remove({
+
+    removeWallpapers: async (parents, args, context) => await remove({
       ...args,
+      model: MODEL,
       ctx: context.ctx,
-      model: 'Folder',
     }),
-    updateFolders: async (parents, args, context) => await update({
+
+    updateWallpapers: async (parents, args, context) => await update({
       ...args,
+      model: MODEL,
       ctx: context.ctx,
-      model: 'Folder',
     }),
   },
 };

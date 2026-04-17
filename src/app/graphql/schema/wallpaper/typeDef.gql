@@ -1,0 +1,80 @@
+# 壁纸
+extend type Query {
+  wallpapers(
+    orderBy: OrderBy
+    search: WallpaperSearch
+    pagination: Pagination
+  ): Wallpapers!
+}
+
+extend type Mutation {
+  createWallpapers(
+    body: [WallpaperFields!]!
+    orderBy: OrderBy
+    search: WallpaperSearch
+    pagination: Pagination
+  ): Wallpapers!
+
+  removeWallpapers (
+    conds: WallpaperSearch!
+    orderBy: OrderBy
+    search: WallpaperSearch
+    pagination: Pagination
+  ): Wallpapers!
+
+  updateWallpapers (
+    conds: WallpaperSearch!
+    body: WallpaperFields!
+    orderBy: OrderBy
+    search: WallpaperSearch
+    pagination: Pagination
+  ): Wallpapers!
+}
+
+input WallpaperSearch {
+  id: ID
+  ids: [ID!]
+  creator: ID
+  updater: ID
+  name: String
+  description: String
+  url: String
+  thumbnailUrl: String
+  category: [Int]
+  sort: Int
+  startUpdateTime: Date
+  endUpdateTime: Date
+  startCreationTime: Date
+  endCreationTime: Date
+}
+
+input WallpaperFields {
+  name: String
+  description: String
+  url: String
+  thumbnailUrl: String
+  category: Int
+  sort: Int
+}
+
+type Wallpapers {
+  list: [Wallpaper!]!
+  change: [Wallpaper!]!
+  message: String
+  pagination: Pagination
+}
+
+type Wallpaper {
+  description: String
+  url: String!
+  thumbnailUrl: String
+  category: Int!
+  sort: Int
+
+  id: ID!
+  name: String!
+  creator: User! @relation
+  updater: User! @relation
+  updateTime: Date!
+  creationTime: Date!
+}

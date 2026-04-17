@@ -64,5 +64,9 @@
     "sharp": "^0.32.6",
     "ws": "^8.8.1",
     "zx": "^7.0.8"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "13.3.0"
   }
 }

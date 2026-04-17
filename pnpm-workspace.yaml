@@ -1,0 +1,5 @@
+ignoredBuiltDependencies:
+  - '@apollo/protobufjs'
+
+onlyBuiltDependencies:
+  - sharp

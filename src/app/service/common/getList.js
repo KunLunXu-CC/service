@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import getConditions from '#utils/getConditions';
+import getConditions, { getScopeConds } from '#utils/getConditions';
 
 /**
  * 通用获取数据列表方法
@@ -10,7 +10,6 @@ import getConditions from '#utils/getConditions';
  * @param {object}  params.pagination    分页参数
  * @param {object}  params.orderBy       排序
  * @param {object}  params.ctx           koa 上下文
- * @param {boolean} params.astrictUser   限制用户(只返回当前用户的数据)
  */
 export default async ({
   ctx,
@@ -18,7 +17,6 @@ export default async ({
   search,
   orderBy,
   pagination,
-  astrictUser,
 }) => {
   const data = {
     list: [],
@@ -27,11 +25,10 @@ export default async ({
     message: '请求成功',
   };
 
-  const handledSearch = { ...search };
-
-  if (astrictUser) {
-    handledSearch.creator = ctx.state.user.id;
-  }
+  const handledSearch = {
+    ...search,
+    $or: [...getScopeConds({ ctx })],
+  };
 
   const server = mongoose.model(model);
   const conds = getConditions(handledSearch);

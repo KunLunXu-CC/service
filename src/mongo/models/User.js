@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { SEX, BOOLEAN } from '#config/constants';
+import { SEX, BOOLEAN, DATA_SCOPE } from '#config/constants';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -41,6 +41,11 @@ const schema = new Schema({
     title: '性别',
     type: Number,
     default: SEX.BOY,
+  },
+  scope: {
+    type: String,
+    enum: Object.values(DATA_SCOPE),
+    default: DATA_SCOPE.ADMIN,
   },
   creator: {
     title: '创建人',

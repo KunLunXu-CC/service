@@ -4,17 +4,28 @@ import { BOOLEAN, DATA_SCOPE } from '#config/constants';
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-// 片段(短文)
+// 用户配置
 const schema = new Schema({
-  content: {
-    required: true,
-    title: '内容',
+  appKey: {
+    title: '应用标识',
     type: String,
+    required: true,
+    trim: true,
   },
-  tags: {
-    default: [],
-    title: '标签',
-    type: [Number],
+  configKey: {
+    title: '配置标识',
+    type: String,
+    required: true,
+    trim: true,
+  },
+  config: {
+    title: '配置内容',
+    type: Schema.Types.Mixed,
+    default: () => ({}),
+  },
+  remark: {
+    title: '备注',
+    type: String,
   },
   scope: {
     type: String,
@@ -45,5 +56,13 @@ const schema = new Schema({
     default: BOOLEAN.FALSE,
   },
 });
+
+// 1. 复合唯一索引 see: https://github.com/Automattic/mongoose/issues/3955、 https://docs.mongodb.org/manual/tutorial/create-a-unique-index/#unique-compound-index
+schema.index({
+  appKey: 1,
+  creator: 1,
+  configKey: 1,
+  isDelete: 1,
+}, { unique: true });
 
 export default schema;
