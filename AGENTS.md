@@ -1,56 +1,27 @@
 # AGENTS.md
 
-## 目的
-本仓库承载一个 Node.js 后端（`Koa + GraphQL + MongoDB + WS + Cron`）。
+## 技术栈
+
+本仓库承载一个 `Node.js` 后端，使用 `ESM` 模块与 `package.json#imports` 路径别名。
+主要运行单元由 `PM2` 管理，包括 `HTTP` 应用（`src/app`）、`WebSocket` 服务（`src/ws`）和定时任务（`src/cron`）。
+核心技术栈包括:
+- `HTTP`：`Koa`、`@koa/router`、`@koa/cors`、`koa-body`。
+- `GraphQL`：`apollo-server-koa`、`graphql`、`@graphql-tools/*`、`.gql` `schema`。
+- 数据层：`MongoDB`、`mongoose`，并复用现有 `CRUD/helper` 约定。
+- 实时与任务：`ws`、`cron`。
+- 认证与安全相关：`jsonwebtoken`、`node-rsa`。
+- 基础设施与工具：`pm2`、`log4js`、`axios`、`ali-oss`、`sharp`、`nodemailer`、`zx`。
 代理行为必须将安全性、正确性和可维护性置于速度之上。
 
-## 核心规则
-1. 不得在未明确说明的情况下改变行为。
-2. 保持变更最小化，并聚焦于被请求的任务。
-3. 除非被明确要求重构，否则应保持现有架构与命名不变。
-4. 除非确有必要且有充分理由，不得新增依赖。
-5. 必须将认证、数据完整性和生产稳定性作为高优先级事项。
+## GraphQL 编写指南
 
-## 工作流程
-1. 先检查上下文：阅读相关文件、配置和调用链路。
-2. 在进行重大修改前，简要说明假设。
-3. 以小步、可审查的方式实施变更。
-4. 在可行时进行本地验证（build/test/lint/运行针对性命令）。
-5. 报告变更内容、变更原因以及剩余风险。
+- 新增或修改 `GraphQL` 模块前，先参考 `src/app/graphql/schema` 下现有模块结构，沿用 `typeDef.gql` + `resolver.js` 的组织方式。
+- 通用列表、创建、更新、删除优先参考并复用 `src/app/service/common/*`；业务逻辑较多时，再参考 `src/app/service` 下现有业务
+- `resolver` 写法参考现有模块，保持薄层：接收 `args`，注入 `context.ctx`，把业务交给 `service`；
+- 查询条件和软删除语义参考 `src/utils/getConditions.js` 与 `src/app/service/common/*`，避免绕过分页、排序、软删除和用户隔离约定。
+- 关系字段和权限字段分别参考 `src/app/graphql/directive/relation.js`、`src/app/graphql/directive/auth.js`，优先使用现有 `@relation`、`@auth` 机制。
 
-## 编辑指南
-1. 优先选择简单、明确的代码，而非炫技式抽象。
-2. 在创建新工具前，优先复用现有工具（`service/common`、`utils/*`）。
-3. 注释应简洁，仅用于解释不直观的逻辑。
-4. 不得引入死代码、占位 TODO 或无关清理。
-5. 遵循现有模块风格（ESM imports、文件结构、命名约定）。
+## Mongo 模型定义指南
 
-## 安全规则
-1. 绝不能弱化认证校验、权限校验或签名验证。
-2. 绝不能记录密钥、令牌、私钥、密码或完整敏感载荷。
-3. 对于认证/会话变更，必须明确并记录向后兼容性。
-4. 在边界处校验不可信输入（HTTP、GraphQL args、WS messages、webhooks）。
-5. 若变更影响安全态势，必须在总结中明确说明。
-
-## 数据与 Schema 规则
-1. 除非被要求，否则应避免破坏 Schema 的变更。
-2. 对于 DB 写路径变更，应考虑迁移与向后兼容性。
-3. 除非需求另有说明，应保持 GraphQL resolver 行为稳定。
-4. 对共享 CRUD helper 的修改前，应评估其对所有模型的影响。
-
-## 测试与验证
-1. 对变更执行最小但有意义的验证。
-2. 若缺少测试，应执行有针对性的运行时检查并说明其局限。
-3. 若无法执行验证，必须明确说明原因。
-
-## Git 与范围纪律
-1. 不得回退或修改无关的本地变更。
-2. 除非被明确要求，不得执行破坏性的 git/文件操作。
-3. 保持变更范围仅覆盖被请求的目标结果。
-
-## 面向用户的响应格式
-1. 先说明结果。
-2. 列出变更文件。
-3. 总结关键实现决策。
-4. 提供验证结果。
-5. 仅在有帮助时给出明确的后续选项。
+- 新增或修改模型前，先参考 `src/mongo/models` 下的现有模型写法，注意默认不要显式指定 `collection`。
+- 索引只保留必要的业务唯一索引，写法参考现有 `schema.index({ ... }, { unique: true })`；普通查询索引、自定义索引名或复杂索引只有在需求明确或性能验证后再加。

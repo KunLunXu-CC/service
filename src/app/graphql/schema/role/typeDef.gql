@@ -4,7 +4,7 @@ extend type Query {
     orderBy: OrderBy
     search: RoleSearch
     pagination: Pagination
-  ): Roles!
+  ): Roles! @auth(requires: ADMIN)
 }
 
 extend type Mutation {
@@ -13,14 +13,14 @@ extend type Mutation {
     orderBy: OrderBy
     search: RoleSearch
     pagination: Pagination
-  ): Roles
+  ): Roles @auth(requires: ADMIN)
 
   createRoles (
     body: [RoleFields!]!
     orderBy: OrderBy
     search: RoleSearch
     pagination: Pagination
-  ): Roles
+  ): Roles @auth(requires: ADMIN)
 
   updateRoles (
     conds: RoleSearch!
@@ -28,7 +28,7 @@ extend type Mutation {
     orderBy: OrderBy
     search: RoleSearch
     pagination: Pagination
-  ): Roles
+  ): Roles @auth(requires: ADMIN)
 }
 
 type Roles {

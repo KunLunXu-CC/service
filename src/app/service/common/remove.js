@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import getList from '#service/common/getList';
 import getConditions from '#utils/getConditions';
+import { ROLE_TYPE } from '#config/constants';
 
 /**
  * 通用删除（假删）方法
@@ -12,7 +13,6 @@ import getConditions from '#utils/getConditions';
  * @param {object}  params.search       查询参数
  * @param {object}  params.pagination   分页信息
  * @param {object}  params.orderBy      排序
- * @param {boolean} params.astrictUser  限制用户(只允许创建者, 删除自己的数据)
  */
 export default async ({
   ctx,
@@ -21,7 +21,6 @@ export default async ({
   search,
   orderBy,
   pagination,
-  astrictUser,
 }) => {
   const data = {
     list: [],
@@ -32,7 +31,8 @@ export default async ({
 
   const handledConds = { ...conds };
 
-  if (astrictUser) {
+  // 只有管理员可以删除公共数据，其他用户只能删除自己的数据
+  if (ctx.state.role.type !== ROLE_TYPE.ADMIN) {
     handledConds.creator = ctx.state.user.id;
   }
 
@@ -63,7 +63,6 @@ export default async ({
       search,
       orderBy,
       pagination,
-      astrictUser,
     });
     data.pagination = listData.pagination || {};
     data.list = listData.list || [];

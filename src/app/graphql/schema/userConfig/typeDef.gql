@@ -1,0 +1,87 @@
+# 用户配置
+extend type Query {
+  userConfigs(
+    orderBy: OrderBy
+    pagination: Pagination
+    search: UserConfigSearch
+  ): UserConfigs!
+  userConfig(
+    appKey: String!
+    configKey: String!
+  ): UserConfigResult!
+}
+
+extend type Mutation {
+  createUserConfigs(
+    body: [UserConfigFields!]!
+    orderBy: OrderBy
+    search: UserConfigSearch
+    pagination: Pagination
+  ): UserConfigs!
+
+  removeUserConfigs(
+    conds: UserConfigSearch!
+    orderBy: OrderBy
+    pagination: Pagination
+    search: UserConfigSearch
+  ): UserConfigs!
+
+  updateUserConfigs(
+    conds: UserConfigSearch!
+    body: UserConfigUpdateFields!
+    orderBy: OrderBy
+    search: UserConfigSearch
+    pagination: Pagination
+  ): UserConfigs!
+}
+
+input UserConfigFields {
+  appKey: String!
+  configKey: String!
+  config: Unknown!
+  remark: String
+}
+
+input UserConfigUpdateFields {
+  appKey: String!
+  configKey: String!
+  config: Unknown
+  remark: String
+}
+
+input UserConfigSearch {
+  appKey: String
+  configKey: String
+
+  id: ID
+  ids: [ID!]
+  startUpdateTime: Date
+  endUpdateTime: Date
+  startCreationTime: Date
+  endCreationTime: Date
+}
+
+type UserConfigs {
+  list: [UserConfig!]!
+  change: [UserConfig!]!
+  message: String
+  pagination: Pagination
+}
+
+type UserConfigResult {
+  data: UserConfig
+  message: String
+}
+
+type UserConfig {
+  appKey: String!
+  configKey: String!
+  config: Unknown
+  remark: String
+
+  id: ID
+  creator: User @relation
+  updater: User @relation
+  updateTime: Date
+  creationTime: Date
+}

@@ -3,6 +3,7 @@ import { signJwt } from '#utils/encryption';
 
 // 获取临时 token: 1天
 export default {
+  needMongo: true,
   name: '创建临时 Token',
   exec: async () => {
     const account = 'admin';

@@ -1,20 +1,37 @@
 import mongoose from 'mongoose';
-import { BOOLEAN, DATA_SCOPE } from '#config/constants';
+import { BOOLEAN, WALLPAPER_CATEGORY, DATA_SCOPE } from '#config/constants';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-// 片段(短文)
 const schema = new Schema({
-  content: {
+  name: {
+    title: '壁纸名称',
     required: true,
-    title: '内容',
     type: String,
   },
-  tags: {
-    default: [],
-    title: '标签',
-    type: [Number],
+  description: {
+    title: '壁纸描述',
+    type: String,
+  },
+  url: {
+    title: '原图地址',
+    required: true,
+    type: String,
+  },
+  thumbnailUrl: {
+    title: '缩略图地址',
+    type: String,
+  },
+  category: {
+    title: '分类',
+    type: Number,
+    default: WALLPAPER_CATEGORY.OTHER,
+  },
+  sort: {
+    title: '排序',
+    type: Number,
+    default: 0,
   },
   scope: {
     type: String,

@@ -13,7 +13,14 @@ import getList from '#service/common/getList';
  * @param {object}  params.pagination    分页参数
  * @param {object}  params.orderBy       排序
  */
-export default async ({ model, ctx, body, search, orderBy, pagination }) => {
+export default async ({
+  model,
+  ctx,
+  body,
+  search,
+  orderBy,
+  pagination,
+}) => {
   const data = {
     list: [],
     change: [],
@@ -34,7 +41,13 @@ export default async ({ model, ctx, body, search, orderBy, pagination }) => {
   }
 
   if (search) {
-    const listData = await getList({ model, ctx, search, orderBy, pagination });
+    const listData = await getList({
+      model,
+      ctx,
+      search,
+      orderBy,
+      pagination,
+    });
     data.pagination = listData.pagination || {};
     data.list = listData.list || [];
   }
