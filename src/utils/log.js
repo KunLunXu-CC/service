@@ -1,7 +1,7 @@
 import ora from 'ora';
 import chalk from 'chalk';
 
-export const runStep = async ({ title, steps }) => {
+const runStep = async ({ title, steps }) => {
   const total = steps.length;
   const results = {};
 
@@ -30,3 +30,5 @@ export const runStep = async ({ title, steps }) => {
 
   return results;
 };
+
+export default runStep;

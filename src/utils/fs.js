@@ -29,10 +29,11 @@ export const readFileList = (dir) => {
 /**
  * 加载指定目录路径下的所有文件, 并进行处理(导入)
  *
- * @param {string} dir                  指定目录路径
- * @param {string[]} extensions         指定文件后缀, 默认为 .js
- * @param {Function} filter             忽略文件, 同 Array.filter 返回 true 则保留: file => boolean
- * @param {Function} handler            filePath => value, 文件的读取处理方法, 默认是使用 import 加载文件
+ * @param {object} root0                参数
+ * @param {string} root0.dir            指定目录路径
+ * @param {string} root0.extensions     指定文件后缀, 默认为 .js
+ * @param {Function} root0.filter       忽略文件, 同 Array.filter 返回 true 则保留: file => boolean
+ * @param {Function} root0.handler      filePath => value, 文件的读取处理方法, 默认是使用 import 加载文件
  * @returns {object[]} { fileName, value, filePath }[]
  */
 export const importFiles = async ({
@@ -66,7 +67,7 @@ export const importFiles = async ({
  * 判读路径是否存在, 如不存在则按照层级创建文件夹
  *
  * @param {URL | string} pathStr 绝对路径
- * @returns projectPath 返回绝对路径
+ * @returns {URL | string} projectPath 返回绝对路径
  */
 export const mkdirPath = (pathStr) => {
   const tempDirArray = (pathStr?.pathname ?? pathStr).split('/').filter((v) => v);

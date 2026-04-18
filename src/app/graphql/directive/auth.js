@@ -8,7 +8,8 @@ const DIRECTIVE_NAME = 'auth';
  * 权限校验指令, 通过用户角色类型来进行权限校验
  * 如果用户角色类型不满足要求, 则抛出 GraphQLError 错误, 错误码为 FORBIDDEN
  *
- * @param {string} requires 需要的角色类型, 默认值为 ADMIN, 可选值为 ROLE_TYPE 中定义的角色类型
+ * @param {object} schema GraphQL schema
+ * @param {object} config 字段配置
  */
 const directive = (schema, config) => {
   // deprecatedDirective 指令参数
