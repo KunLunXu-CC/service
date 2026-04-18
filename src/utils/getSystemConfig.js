@@ -1,7 +1,11 @@
-
 let currentSystemConfig = null;
 
-export default async function getSystemConfig() {
+/**
+ * 获取系统配置
+ *
+ * @returns {Promise<object>} 系统配置
+ */
+export default async function getSystemConfig () {
   if (currentSystemConfig) {
     return currentSystemConfig;
   }

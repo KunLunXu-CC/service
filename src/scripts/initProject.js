@@ -4,13 +4,17 @@ import { createSecretKey } from './createSecretKey.js';
 import { BOOLEAN, DEFAULT_ROLE_NAME, PHOTO_TYPE, ROLE_TYPE } from '#config/constants';
 import { hash } from '#utils/encryption';
 import { fileExists } from '#utils/fs';
-import { runStep } from '#utils/log';
+import runStep from '#utils/log';
 
 const DEFAULT_PASSWORD = '123456';
 const CONFIG_PATH = new URL('../config/system.js', import.meta.url);
 const CONFIG_EXAMPLE_PATH = new URL('../config/system.example.js', import.meta.url);
 
-/** 确保配置文件 */
+/**
+ * 确保配置文件
+ *
+ * @returns {string} 配置文件处理结果
+ */
 const ensureConfig = () => {
   if (fileExists(CONFIG_PATH)) {
     return '配置文件已存在，跳过: src/config/system.js';
@@ -58,7 +62,13 @@ const ensureRoles = async () => {
   return roles;
 };
 
-/** 确保用户数据 */
+/**
+ * 确保用户数据
+ *
+ * @param {object} root0 参数
+ * @param {object} root0.results 上一步执行结果
+ * @returns {Promise<object[]>} 用户列表
+ */
 const ensureUsers = async ({ results }) => {
   const { roles } = results;
   const User = mongoose.model('User');
