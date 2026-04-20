@@ -14,13 +14,9 @@ const schema = new Schema({
     title: '壁纸描述',
     type: String,
   },
-  url: {
-    title: '原图地址',
+  sourceFileName: {
+    title: '原图文件名',
     required: true,
-    type: String,
-  },
-  thumbnailUrl: {
-    title: '缩略图地址',
     type: String,
   },
   category: {

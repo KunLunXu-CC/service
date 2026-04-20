@@ -24,7 +24,7 @@ export default {
       const name = config.astNode.name.value; // 指令绑定的字段名
       const model = String(type).replace(/(\[|\]|!)/g, '');
 
-      config.resolve = async (parents) => {
+      config.resolve = async (parents, args, context) => {
         const value = parents[name];
 
         // 1. 空值处理
@@ -37,10 +37,12 @@ export default {
           ? await getList({
             model,
             search: { ids: value },
+            ctx: context.ctx,
           })
           : await findOne({
             model,
             search: { id: value },
+            ctx: context.ctx,
           });
 
         return res?.data ?? res?.list;

@@ -38,8 +38,7 @@ input WallpaperSearch {
   updater: ID
   name: String
   description: String
-  url: String
-  thumbnailUrl: String
+  sourceFileName: String
   category: [Int]
   sort: Int
   startUpdateTime: Date
@@ -51,8 +50,7 @@ input WallpaperSearch {
 input WallpaperFields {
   name: String
   description: String
-  url: String
-  thumbnailUrl: String
+  sourceFileName: String
   category: Int
   sort: Int
 }
@@ -66,8 +64,7 @@ type Wallpapers {
 
 type Wallpaper {
   description: String
-  url: String!
-  thumbnailUrl: String
+  sourceFileName: String!
   category: Int!
   sort: Int
 

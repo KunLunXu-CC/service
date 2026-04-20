@@ -1,7 +1,13 @@
 import fs from 'fs';
 import mongoose from 'mongoose';
 import { createSecretKey } from './createSecretKey.js';
-import { BOOLEAN, DEFAULT_ROLE_NAME, PHOTO_TYPE, ROLE_TYPE } from '#config/constants';
+import {
+  BOOLEAN,
+  DATA_SCOPE,
+  DEFAULT_ROLE_NAME,
+  ROLE_TYPE,
+  WALLPAPER_CATEGORY,
+} from '#config/constants';
 import { hash } from '#utils/encryption';
 import { fileExists } from '#utils/fs';
 import runStep from '#utils/log';
@@ -98,23 +104,42 @@ const ensureUsers = async ({ results }) => {
   return users;
 };
 
-/** 确保默认图片(背景、头像)数据 */
-const ensurePhotos = async () => {
-  const Photo = mongoose.model('Photo');
-  await Photo.create([
-    {
-      type: PHOTO_TYPE.DESKTOP,
-      name: 'pro.d2FsbGhhdmVuLWV5cmc1ay5qcGcxNTc3ODc0NzIxMjUz.jpg',
-      sourceFileName: 'pro.d2FsbGhhdmVuLWV5cmc1ay5qcGcxNTc3ODc0NzIxMjUz.jpg',
-    },
-    {
-      type: PHOTO_TYPE.AVATAR,
-      name: 'pro.MjAyMC0wMS0wMV8xNC0zNy5wbmcxNTc3ODc0ODgwNjk4.png',
-      sourceFileName: 'pro.MjAyMC0wMS0wMV8xNC0zNy5wbmcxNTc3ODc0ODgwNjk4.png',
-    },
-  ]);
+/**
+ * 确保有默认壁纸
+ *
+ * @param {object} root0 参数
+ * @param {object} root0.results 上一步执行结果
+ * @returns {Promise<object>} 默认壁纸创建结果
+ */
+const ensureDefaultWallpaper = async ({ results }) => {
+  const Wallpaper = mongoose.model('Wallpaper');
+  const admin = results.users.find(({ account }) => account === 'admin');
 
-  return '背景、头像';
+  await Wallpaper.create([
+    {
+      name: '岛屿',
+      description: 'macos 壁纸',
+      sourceFileName: 'klx.pro.2ff30568a25a63ad17c157d26a24b670.jpg',
+      category: WALLPAPER_CATEGORY.MACOS,
+    },
+    {
+      name: '默认',
+      description: 'macos 壁纸',
+      sourceFileName: 'klx.pro.94ec66efd3afe1fcc005fa8d88451ec5.jpg',
+      category: WALLPAPER_CATEGORY.MACOS,
+    },
+    {
+      name: '日落金山',
+      description: 'macos 壁纸',
+      sourceFileName: 'klx.pro.94c4354f153b2eb3914d07a6a2b39da4.jpg',
+      category: WALLPAPER_CATEGORY.MACOS,
+    },
+  ].map((item) => ({
+    ...item,
+    creator: admin.id,
+    updater: admin.id,
+    scope: DATA_SCOPE.COMMON,
+  })));
 };
 
 export default {
@@ -146,14 +171,15 @@ export default {
           successText: (roleList) => `已创建角色: ${roleList.map(({ name }) => name).join('、')}`,
         },
         {
+          resultKey: 'users',
           text: '初始化用户',
           exec: ensureUsers,
           successText: (users) => `已创建用户: ${users.map(({ account }) => account).join('|')}，初始密码: ${DEFAULT_PASSWORD}`,
         },
         {
-          text: '初始化默认图片',
-          exec: ensurePhotos,
-          successText: (photos) => `已创建默认图片: ${photos}`,
+          text: '初始化默认壁纸',
+          exec: ensureDefaultWallpaper,
+          successText: '初始化默认壁纸完成',
         },
       ],
     });
