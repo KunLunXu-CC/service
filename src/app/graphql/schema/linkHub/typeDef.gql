@@ -1,4 +1,4 @@
-# 标签(知识标签)
+# 链接收藏
 extend type Query{
   linkHubs(
     orderBy: OrderBy
@@ -8,8 +8,23 @@ extend type Query{
 }
 
 extend type Mutation{
+  removeLinkHub (
+    conds: LinkHubSearch!
+    orderBy: OrderBy
+    search: LinkHubSearch
+    pagination: Pagination
+  ): LinkHubs
+
   createLinkHub (
     body: [LinkHubFields!]!
+    orderBy: OrderBy
+    search: LinkHubSearch
+    pagination: Pagination
+  ): LinkHubs
+
+  updateLinkHub (
+    conds: LinkHubSearch!
+    body: LinkHubUpdateFields!
     orderBy: OrderBy
     search: LinkHubSearch
     pagination: Pagination
@@ -39,7 +54,19 @@ type LinkHubs{
 }
 
 input LinkHubSearch {
+  id: ID
+  ids: [ID!]
   name: String
+  link: String
+  desc: String
+  icon: String
+  parent: ID
+  creator: ID
+  updater: ID
+  startUpdateTime: Date
+  endUpdateTime: Date
+  startCreationTime: Date
+  endCreationTime: Date
 }
 
 input LinkHubFields {
@@ -50,3 +77,10 @@ input LinkHubFields {
   parent: ID
 }
 
+input LinkHubUpdateFields {
+  name: String
+  link: String
+  desc: String
+  icon: String
+  parent: ID
+}
