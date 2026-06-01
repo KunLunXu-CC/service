@@ -38,6 +38,7 @@ type LinkHub {
   link: String
   desc: String
   icon: String
+  sort: Int
   parent: LinkHub @relation
 
   creator: User @relation
@@ -60,6 +61,7 @@ input LinkHubSearch {
   link: String
   desc: String
   icon: String
+  sort: Int
   parent: ID
   creator: ID
   updater: ID
@@ -74,6 +76,7 @@ input LinkHubFields {
   link: String
   desc: String
   icon: String
+  sort: Int
   parent: ID
 }
 
@@ -82,5 +85,6 @@ input LinkHubUpdateFields {
   link: String
   desc: String
   icon: String
+  sort: Int
   parent: ID
 }

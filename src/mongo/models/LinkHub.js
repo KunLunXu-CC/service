@@ -27,6 +27,11 @@ const schema = new Schema({
     title: '链接集描述',
     type: String,
   },
+  sort: {
+    title: '排序',
+    type: Number,
+    default: 0,
+  },
   scope: {
     type: String,
     enum: Object.values(DATA_SCOPE),
