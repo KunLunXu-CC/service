@@ -1,14 +1,6 @@
 import mongoose from 'mongoose';
 import { DATA_SCOPE } from '#config/constants';
 
-const EMPTY_SCOPE_CONDS = {
-  $or: [
-    { scope: { $exists: false } },
-    { scope: null },
-    { scope: '' },
-  ],
-};
-
 const SCOPES = [
   { model: 'AiChat', scope: DATA_SCOPE.USER },
   { model: 'Algorithm', scope: DATA_SCOPE.USER },
@@ -25,21 +17,22 @@ const SCOPES = [
   { model: 'Tag', scope: DATA_SCOPE.USER },
   { model: 'UserConfig', scope: DATA_SCOPE.USER },
   { model: 'Wallpaper', scope: DATA_SCOPE.USER },
-  { model: 'Role', scope: DATA_SCOPE.ADMIN },
+  { model: 'Role', scope: DATA_SCOPE.COMMON },
   { model: 'User', scope: DATA_SCOPE.ADMIN },
 ];
 
 export default {
   needMongo: true,
-  name: '补齐历史数据 scope',
+  name: '强制更新数据 scope',
   exec: async () => {
     const results = [];
 
     for (const { model, scope } of SCOPES) {
       const Model = mongoose.model(model);
-      const total = await Model.countDocuments(EMPTY_SCOPE_CONDS);
+      const conds = {};
+      const total = await Model.countDocuments(conds);
       const { modifiedCount } = await Model.updateMany(
-        EMPTY_SCOPE_CONDS,
+        conds,
         { $set: { scope } },
       );
 

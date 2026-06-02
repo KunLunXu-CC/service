@@ -55,7 +55,7 @@ const schema = new Schema({
   scope: {
     type: String,
     enum: Object.values(DATA_SCOPE),
-    default: DATA_SCOPE.ADMIN,
+    default: DATA_SCOPE.COMMON,
   },
   creator: {
     title: '创建人',
