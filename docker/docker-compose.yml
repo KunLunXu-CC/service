@@ -34,23 +34,23 @@ services:
       - ../:/var/service
     networks:
       - default
-      - service_openclaw
+      # - service_openclaw
     logging: *default-logging
-  openclaw:
-    build:
-      context: ./openClaw/
-      dockerfile: dockerfile
-    container_name: klx-openclaw
-    expose:
-      - 18789
-    environment:
-      - TZ=Asia/Shanghai
-    volumes:
-      - ./store/openclaw/config:/root/.openclaw
-      - ./store/openclaw/work:/var/openClaw
-    networks:
-      - service_openclaw
-    logging: *default-logging
+  # openclaw:
+  #   build:
+  #     context: ./openClaw/
+  #     dockerfile: dockerfile
+  #   container_name: klx-openclaw
+  #   expose:
+  #     - 18789
+  #   environment:
+  #     - TZ=Asia/Shanghai
+  #   volumes:
+  #     - ./store/openclaw/config:/root/.openclaw
+  #     - ./store/openclaw/work:/var/openClaw
+  #   networks:
+  #     - service_openclaw
+  #   logging: *default-logging
   nginx:
     image: nginx
     container_name: klx-nginx
@@ -72,5 +72,5 @@ services:
       - ./nginx/ssl.key:/etc/nginx/ssl.key
     logging: *default-logging
 
-networks:
-  service_openclaw:
+# networks:
+#   service_openclaw:
