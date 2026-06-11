@@ -7,7 +7,16 @@ extend type Query {
   ): BotMateMessages
 }
 
+extend type Subscription {
+  botMateMessageEvents(conversationId: ID!): BotMateMessageEventPayload
+}
+
 extend type Mutation {
+  sendBotMateMessage(
+    conversationId: ID!
+    content: String!
+  ): SendBotMateMessagePayload
+
   createBotMateMessages(
     body: [BotMateMessageFields!]!
     orderBy: OrderBy
@@ -36,6 +45,24 @@ type BotMateMessages {
   change: [BotMateMessage]
   message: String
   pagination: Pagination
+}
+
+type BotMateMessageEventPayload {
+  type: String
+  runId: ID
+  conversationId: ID
+  messageId: ID
+  mateId: ID
+  delta: String
+  content: String
+  error: String
+}
+
+type SendBotMateMessagePayload {
+  runId: ID
+  userMessage: BotMateMessage
+  assistantMessage: BotMateMessage
+  message: String
 }
 
 type BotMateMessage {

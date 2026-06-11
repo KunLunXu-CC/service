@@ -10,7 +10,7 @@ import { DEFAULT_USER_NAME } from '#config/constants';
  * @param {object} params 参数
  * @param {object} params.ctx  koa 上下文
  */
-const setUserInfoToState = async ({ ctx }) => {
+export const setUserInfoToState = async ({ ctx }) => {
   const token = ctx.cookies.get('jwt_token');
 
   const roleServer = mongoose.model('Role');

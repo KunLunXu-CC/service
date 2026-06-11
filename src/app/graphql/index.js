@@ -3,9 +3,40 @@ import config from '#config/system';
 import { importFiles } from '#utils/fs';
 import { ApolloServer } from 'apollo-server-koa';
 import { useServer } from 'graphql-ws/lib/use/ws';
+import { setUserInfoToState } from '../middleware/setUser.js';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { mapSchema, MapperKind } from '@graphql-tools/utils';
 import { WebSocketServer } from 'ws';
+
+const parseCookies = (cookie = '') => cookie.split(';').reduce((total, item) => {
+  const [key, ...values] = item.trim().split('=');
+
+  if (key) {
+    total[key] = values.join('=');
+  }
+
+  return total;
+}, {});
+
+const getWsContext = async ({ connectionParams, extra }) => {
+  const cookies = parseCookies(
+    connectionParams?.cookie ??
+    connectionParams?.Cookie ??
+    connectionParams?.headers?.cookie ??
+    connectionParams?.headers?.Cookie ??
+    extra?.request?.headers?.cookie,
+  );
+  const ctx = {
+    state: {},
+    cookies: {
+      get: (key) => cookies[key],
+    },
+  };
+
+  await setUserInfoToState({ ctx });
+
+  return { ctx };
+};
 
 /**
  * 解析 directive(指令)目录
@@ -95,11 +126,7 @@ export default async ({ app, httpServer }) => {
   // 5. 创建 wsServer, 处理 graphql ws 连接, 返回清理函数
   const wsServerCleanup = useServer(
     {
-      context: async () => ({
-        ctx: {
-          state: {},
-        },
-      }),
+      context: getWsContext,
       schema: lastSchema,
     },
     new WebSocketServer({

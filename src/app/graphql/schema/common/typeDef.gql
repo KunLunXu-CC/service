@@ -12,6 +12,10 @@ scalar Pagination {
   pageSize: Int
 }
 
+type Subscription {
+  _empty: String
+}
+
 enum RoleType {
   ADMIN
   TOURIST
