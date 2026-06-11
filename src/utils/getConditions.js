@@ -69,6 +69,19 @@ const getHandler = ({ params, conds, key, value }) => ([
       );
     },
   },
+  {
+    conds: ['startLastMessageAt', 'endLastMessageAt'].includes(key),
+    handler: () => {
+      if (conds.lastMessageAt) {
+        return false;
+      }
+
+      conds.lastMessageAt = getTimeConds(
+        params.startLastMessageAt,
+        params.endLastMessageAt,
+      );
+    },
+  },
   // 特殊字段处理
   {
     conds: key === 'tag',

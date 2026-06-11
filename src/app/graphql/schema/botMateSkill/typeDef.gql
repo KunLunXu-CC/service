@@ -1,0 +1,72 @@
+# BotMate 技能
+extend type Query {
+  botMateSkills(
+    orderBy: OrderBy
+    search: BotMateSkillSearch
+    pagination: Pagination
+  ): BotMateSkills
+}
+
+extend type Mutation {
+  createBotMateSkills(
+    body: [BotMateSkillFields!]!
+    orderBy: OrderBy
+    search: BotMateSkillSearch
+    pagination: Pagination
+  ): BotMateSkills
+
+  removeBotMateSkills(
+    conds: BotMateSkillSearch!
+    orderBy: OrderBy
+    search: BotMateSkillSearch
+    pagination: Pagination
+  ): BotMateSkills
+
+  updateBotMateSkills(
+    conds: BotMateSkillSearch!
+    body: BotMateSkillFields!
+    orderBy: OrderBy
+    search: BotMateSkillSearch
+    pagination: Pagination
+  ): BotMateSkills
+}
+
+type BotMateSkills {
+  list: [BotMateSkill]
+  change: [BotMateSkill]
+  message: String
+  pagination: Pagination
+}
+
+type BotMateSkill {
+  name: String
+  description: String
+
+  id: ID
+  status: Int
+  creator: User @relation
+  updater: User @relation
+  updateTime: Date
+  creationTime: Date
+}
+
+input BotMateSkillSearch {
+  id: ID
+  ids: [ID!]
+  name: String
+  description: String
+
+  status: [Int]
+  creator: ID
+  updater: ID
+  startUpdateTime: Date
+  endUpdateTime: Date
+  startCreationTime: Date
+  endCreationTime: Date
+}
+
+input BotMateSkillFields {
+  name: String
+  description: String
+  status: Int
+}

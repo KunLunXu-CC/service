@@ -1,0 +1,82 @@
+# BotMate
+extend type Query {
+  botMates(
+    orderBy: OrderBy
+    search: BotMateSearch
+    pagination: Pagination
+  ): BotMates
+}
+
+extend type Mutation {
+  createBotMates(
+    body: [BotMateFields!]!
+    orderBy: OrderBy
+    search: BotMateSearch
+    pagination: Pagination
+  ): BotMates
+
+  removeBotMates(
+    conds: BotMateSearch!
+    orderBy: OrderBy
+    search: BotMateSearch
+    pagination: Pagination
+  ): BotMates
+
+  updateBotMates(
+    conds: BotMateSearch!
+    body: BotMateFields!
+    orderBy: OrderBy
+    search: BotMateSearch
+    pagination: Pagination
+  ): BotMates
+}
+
+type BotMates {
+  list: [BotMate]
+  change: [BotMate]
+  message: String
+  pagination: Pagination
+}
+
+type BotMate {
+  name: String
+  avatar: String
+  description: String
+  systemPrompt: String
+  skillIds: [BotMateSkill] @relation
+  memoryFileIds: [ID]
+
+  id: ID
+  status: Int
+  creator: User @relation
+  updater: User @relation
+  updateTime: Date
+  creationTime: Date
+}
+
+input BotMateSearch {
+  id: ID
+  ids: [ID!]
+  name: String
+  description: String
+  skillIds: [ID]
+  memoryFileIds: [ID]
+
+  status: [Int]
+  creator: ID
+  updater: ID
+  startUpdateTime: Date
+  endUpdateTime: Date
+  startCreationTime: Date
+  endCreationTime: Date
+}
+
+input BotMateFields {
+  name: String
+  avatar: String
+  description: String
+  systemPrompt: String
+  skillIds: [ID]
+  memoryFileIds: [ID]
+  status: Int
+}

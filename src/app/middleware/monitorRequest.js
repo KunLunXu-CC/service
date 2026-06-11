@@ -4,16 +4,21 @@ import logger from '#logger';
 
 // 请求拦截: 请求状态保证为: 200、响应体保证为: 对象
 const intercept = (ctx) => {
+  const contentType = ctx.response.header['content-type'] || '';
+
   // 不处理 302 重定向
   if (
-    ctx.response.header['content-type'] === 'text/event-stream' ||
+    contentType.includes('text/event-stream') ||
+    contentType.includes('text/html') ||
     [302].includes(ctx.status)
   ) {
     return;
   }
 
   try {
-    const body = _.isString(ctx.body) ? JSON.parse(ctx.body) : ctx.body;
+    const body = _.isString(ctx.body) && contentType.includes('application/json')
+      ? JSON.parse(ctx.body)
+      : ctx.body;
     ctx.body = {
       ...(_.isObject(body) && !_.isArray(body) ? body : { data: body }),
       resCode: ctx.status,

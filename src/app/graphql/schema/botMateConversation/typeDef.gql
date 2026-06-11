@@ -1,0 +1,82 @@
+# BotMate 会话
+extend type Query {
+  botMateConversations(
+    orderBy: OrderBy
+    search: BotMateConversationSearch
+    pagination: Pagination
+  ): BotMateConversations
+}
+
+extend type Mutation {
+  createBotMateConversations(
+    body: [BotMateConversationFields!]!
+    orderBy: OrderBy
+    search: BotMateConversationSearch
+    pagination: Pagination
+  ): BotMateConversations
+
+  removeBotMateConversations(
+    conds: BotMateConversationSearch!
+    orderBy: OrderBy
+    search: BotMateConversationSearch
+    pagination: Pagination
+  ): BotMateConversations
+
+  updateBotMateConversations(
+    conds: BotMateConversationSearch!
+    body: BotMateConversationFields!
+    orderBy: OrderBy
+    search: BotMateConversationSearch
+    pagination: Pagination
+  ): BotMateConversations
+}
+
+type BotMateConversations {
+  list: [BotMateConversation]
+  change: [BotMateConversation]
+  message: String
+  pagination: Pagination
+}
+
+type BotMateConversation {
+  title: String
+  type: String
+  mateIds: [BotMate] @relation
+  lastMessage: String
+  lastMessageAt: Date
+
+  id: ID
+  status: Int
+  creator: User @relation
+  updater: User @relation
+  updateTime: Date
+  creationTime: Date
+}
+
+input BotMateConversationSearch {
+  id: ID
+  ids: [ID!]
+  title: String
+  type: String
+  mateIds: [ID]
+  lastMessage: String
+  startLastMessageAt: Date
+  endLastMessageAt: Date
+
+  status: [Int]
+  creator: ID
+  updater: ID
+  startUpdateTime: Date
+  endUpdateTime: Date
+  startCreationTime: Date
+  endCreationTime: Date
+}
+
+input BotMateConversationFields {
+  title: String
+  type: String
+  mateIds: [ID]
+  lastMessage: String
+  lastMessageAt: Date
+  status: Int
+}

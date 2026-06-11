@@ -1,19 +1,37 @@
 import mongoose from 'mongoose';
-import { BOOLEAN, DATA_SCOPE } from '#config/constants';
+import {
+  BOOLEAN,
+  DATA_SCOPE,
+  BOT_MATE_CONVERSATION_TYPE,
+} from '#config/constants';
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-// AI 聊天
+// BotMate 会话
 const schema = new Schema({
-  name: {
+  title: {
     type: String,
-    title: '名称',
+    title: '标题',
   },
-
-  messages: {
-    type: [Object],
-    title: '聊天内容',
+  type: {
+    type: String,
+    title: '类型',
+    enum: Object.values(BOT_MATE_CONVERSATION_TYPE),
+    default: BOT_MATE_CONVERSATION_TYPE.SINGLE,
+  },
+  mateIds: {
+    type: [ObjectId],
+    title: 'Mate',
+    default: [],
+  },
+  lastMessage: {
+    type: String,
+    title: '最后消息',
+  },
+  lastMessageAt: {
+    type: Date,
+    title: '最后消息时间',
   },
 
   scope: {

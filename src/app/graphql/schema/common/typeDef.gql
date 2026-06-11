@@ -21,6 +21,7 @@ enum RoleType {
 input OrderBy {
   updateTime: Int
   creationTime: Int
+  lastMessageAt: Int
   # 阅读量
   viewCount: Int
   value: Int

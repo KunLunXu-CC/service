@@ -1,0 +1,78 @@
+# BotMate 消息
+extend type Query {
+  botMateMessages(
+    orderBy: OrderBy
+    search: BotMateMessageSearch
+    pagination: Pagination
+  ): BotMateMessages
+}
+
+extend type Mutation {
+  createBotMateMessages(
+    body: [BotMateMessageFields!]!
+    orderBy: OrderBy
+    search: BotMateMessageSearch
+    pagination: Pagination
+  ): BotMateMessages
+
+  removeBotMateMessages(
+    conds: BotMateMessageSearch!
+    orderBy: OrderBy
+    search: BotMateMessageSearch
+    pagination: Pagination
+  ): BotMateMessages
+
+  updateBotMateMessages(
+    conds: BotMateMessageSearch!
+    body: BotMateMessageFields!
+    orderBy: OrderBy
+    search: BotMateMessageSearch
+    pagination: Pagination
+  ): BotMateMessages
+}
+
+type BotMateMessages {
+  list: [BotMateMessage]
+  change: [BotMateMessage]
+  message: String
+  pagination: Pagination
+}
+
+type BotMateMessage {
+  conversationId: BotMateConversation @relation
+  mateId: BotMate @relation
+  role: String
+  content: String
+
+  id: ID
+  status: Int
+  creator: User @relation
+  updater: User @relation
+  updateTime: Date
+  creationTime: Date
+}
+
+input BotMateMessageSearch {
+  id: ID
+  ids: [ID!]
+  conversationId: ID
+  mateId: ID
+  role: String
+  content: String
+
+  status: [Int]
+  creator: ID
+  updater: ID
+  startUpdateTime: Date
+  endUpdateTime: Date
+  startCreationTime: Date
+  endCreationTime: Date
+}
+
+input BotMateMessageFields {
+  conversationId: ID
+  mateId: ID
+  role: String
+  content: String
+  status: Int
+}
